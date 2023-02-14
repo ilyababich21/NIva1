@@ -55,6 +55,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         # cursor.execute(sql)
         # print("База данных успешно создана")
 
+
         cursor.close()
         conn.close()
 

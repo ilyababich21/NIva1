@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a701660-cde5-4780-98e3-e6132882a22c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="2a701660-cde5-4780-98e3-e6132882a22c" name="Changes" comment="create git ignore">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676370520614</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="create git ignore">
+      <created>1676380622286</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676380622286</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -150,6 +156,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix connect db and new system UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix connect db and new system UI" />
+    <MESSAGE value="create git ignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="create git ignore" />
   </component>
 </project>

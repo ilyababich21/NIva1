@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -26,11 +27,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe829135-8018-42f5-8a3a-b98620d503c2" name="Default Changelist" comment="ghrdf" />
+=======
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2a701660-cde5-4780-98e3-e6132882a22c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/proba.py" beforeDir="false" afterPath="$PROJECT_DIR$/proba.py" afterDir="false" />
+    </list>
+>>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -43,11 +54,53 @@
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="2IAtGQIqVZPxJAjqWURSIFmi5yZ" />
+=======
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$/NIva1" source="origin/master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/NIva1" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="c905de13-749a-4722-b0c1-5be2892594f8" />
+        <option name="url" value="https://github.com/ilyababich21/NIva1.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Lih5ZSpZXtCd4RdPO1jnpHAmXq" />
+>>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -140,6 +193,18 @@
     </configuration>
     <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Hiva1" />
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/NIva1-master&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NIva1-master" />
+>>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -162,16 +227,20 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.test2" />
+<<<<<<< HEAD
         <item itemvalue="Python.ping" />
         <item itemvalue="Python.start" />
         <item itemvalue="Python.proba" />
         <item itemvalue="Python.qtishka" />
+=======
+>>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="fe829135-8018-42f5-8a3a-b98620d503c2" name="Default Changelist" comment="" />
       <created>1669636119652</created>
       <option name="number" value="Default" />
@@ -249,6 +318,36 @@
       <updated>1676379226332</updated>
     </task>
     <option name="localTasksCounter" value="11" />
+=======
+      <changelist id="2a701660-cde5-4780-98e3-e6132882a22c" name="Changes" comment="" />
+      <created>1676359629610</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676359629610</updated>
+    </task>
+    <task id="LOCAL-00001" summary="fix connect db and new system UI">
+      <created>1676360705914</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676360705914</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix connect db and new system UI">
+      <created>1676369276632</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1676369276632</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix connect db and new system UI">
+      <created>1676370520614</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676370520614</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+>>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -262,7 +361,11 @@
                   <entry key="branch">
                     <value>
                       <list>
+<<<<<<< HEAD
                         <option value="main" />
+=======
+                        <option value="origin/master" />
+>>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
                       </list>
                     </value>
                   </entry>
@@ -273,6 +376,7 @@
         </entry>
       </map>
     </option>
+<<<<<<< HEAD
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
@@ -350,5 +454,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1676379066346" />
+=======
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix connect db and new system UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix connect db and new system UI" />
+>>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
   </component>
 </project>

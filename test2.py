@@ -176,7 +176,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             layout.addWidget(btn, num // column, num % column)
             num = num + 1
         self.pushButton.clicked.connect(lambda: self.NewUI(cursor))
-
+gi
 
     def Chicks(self):
         if self.checkBox_2.isChecked():

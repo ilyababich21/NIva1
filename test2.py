@@ -40,7 +40,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
 
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -61,7 +61,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         conn.close()
 
 
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True

@@ -19,6 +19,8 @@ import subprocess
 import psycopg2
 
 
+
+
 class Button(QtWidgets.QPushButton):
     def __init__(self, text, size):  # !!!
         super().__init__()
@@ -53,6 +55,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         # # выполняем код sql
         # cursor.execute(sql)
         # print("База данных успешно создана")
+
 
         cursor.close()
         conn.close()
@@ -210,6 +213,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             num = num + 1
         self.pushButton.clicked.connect(lambda: self.NewUI(cursor))
 
+
     def Chicks(self):
         if self.checkBox_2.isChecked():
             self.label_13.setEnabled(True)
@@ -244,7 +248,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
     def Modbusssss(self):
         self.modbusForm.show()
 
-    def PingTest(self, btn, line):
+    def PingTest(self, btn,line):
 
         ip = line.text()
         if ip == '':
@@ -256,6 +260,8 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             btn.setStyleSheet('background-color: rgb(255,0,0);')
         else:
             btn.setStyleSheet('background-color: rgb(0,255,0);')
+
+
 
 
 class Changer(QtCore.QThread):
@@ -337,6 +343,8 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
                     prt = "E"
                 else:
                     prt = "N"
+
+
 
                 client = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:

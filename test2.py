@@ -1,16 +1,12 @@
-import sys  # sys нужен для передачи argv в QApplication
-import os  # Отсюда нам понадобятся методы для отображения содержимого директорий
+import sys
 
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
 import sqlite3
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QMessageBox
+
 from PyQt6.QtSerialPort import QSerialPort, QSerialPortInfo
-import time
-import qtishka
 import proba
+from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
-from PyQt6.QtGui import *
 import start
 import ping
 import Modbus
@@ -18,9 +14,7 @@ import subprocess
 import psycopg2
 
 
-
-
-class Button(QtWidgets.QPushButton):
+class Button(QPushButton):
     def __init__(self, text, size):  # !!!
         super().__init__()
 
@@ -28,7 +22,7 @@ class Button(QtWidgets.QPushButton):
         self.setFixedSize(*size)  # !!! (*size)
 
 
-class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow):
+class ExampleApp(QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py
@@ -58,7 +52,6 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         cursor.close()
         conn.close()
 
-
         con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
 
         cursor = con.cursor()
@@ -78,7 +71,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         column = 2  # хотим разместить эти кнопки в 2 колонки
         size = (50, 50)  # размер кнопки, например 150х150
 
-        layout = QtWidgets.QGridLayout(self.centralwidget)
+        layout = QGridLayout(self.centralwidget)
         num = 0
         for elem in cursor.fetchall():
             btn = Button(f'{elem[1]}', size)  # !!!
@@ -115,9 +108,9 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
                 self.initUi(self)
                 self.pushButton_22.clicked.connect(self.Ping)
                 self.pushButton_39.clicked.connect(self.Modbusssss)
-                self.pushButton_48.clicked.connect(lambda:self.PingTest(self.pushButton_48,self.lineEdit_12))
-                self.pushButton_49.clicked.connect(lambda:self.PingTest(self.pushButton_49,self.lineEdit_13))
-                self.pushButton_50.clicked.connect(lambda:self.PingTest(self.pushButton_50,self.lineEdit_14))
+                self.pushButton_48.clicked.connect(lambda: self.PingTest(self.pushButton_48, self.lineEdit_12))
+                self.pushButton_49.clicked.connect(lambda: self.PingTest(self.pushButton_49, self.lineEdit_13))
+                self.pushButton_50.clicked.connect(lambda: self.PingTest(self.pushButton_50, self.lineEdit_14))
                 self.checkBox_2.clicked.connect(self.Chicks)
                 self.checkBox_3.clicked.connect(self.Chicks)
                 self.pushButton_2.clicked.connect(self.VIhod)
@@ -125,7 +118,6 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
                 check = 1
         if check == 0:
             self.label_3.setText("Логин или пароль введен неверно")
-
 
     def VIhod(self):
         self.setupUi(self)
@@ -137,7 +129,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         column = 2  # хотим разместить эти кнопки в 4 колонки
         size = (50, 50)  # размер кнопки, например 150х150
 
-        layout = QtWidgets.QGridLayout(self.centralwidget)
+        layout = QGridLayout(self.centralwidget)
         num = 0
         for elem in cursor.fetchall():
             btn = Button(f'{elem[0]}', size)  # !!!
@@ -145,7 +137,6 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             layout.addWidget(btn, num // column, num % column)
             num = num + 1
         self.pushButton.clicked.connect(lambda: self.NewUI(cursor))
-
 
     def Chicks(self):
         if self.checkBox_2.isChecked():
@@ -181,7 +172,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
     def Modbusssss(self):
         self.modbusForm.show()
 
-    def PingTest(self, btn,line):
+    def PingTest(self, btn, line):
 
         ip = line.text()
         if ip == '':
@@ -195,13 +186,11 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             btn.setStyleSheet('background-color: rgb(0,255,0);')
 
 
-
-
-class Changer(QtCore.QThread):
-    nextValueOfText = QtCore.pyqtSignal(str)
+class Changer(QThread):
+    nextValueOfText = pyqtSignal(str)
 
     def __init__(self, parent=None):
-        QtCore.QThread.__init__(self, parent)
+        QThread.__init__(self, parent)
         self.running = False  # Флаг выполнения
 
     text = ''
@@ -218,10 +207,10 @@ class Changer(QtCore.QThread):
             self.text += '\n'
             self.nextValueOfText.emit(self.text)
 
-            QtCore.QThread.msleep(1000)
+            QThread.msleep(1000)
 
 
-class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
+class ModbusForm(QMainWindow, Modbus.Ui_MainWindow):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py
@@ -277,8 +266,6 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
                 else:
                     prt = "N"
 
-
-
                 client = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:
                     client.connect()
@@ -297,7 +284,7 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
                 except:
                     print('hueta')
 
-    @QtCore.pyqtSlot(str)
+    @pyqtSlot(str)
     def setText(self, string):
         self.textEdit.setText(string)
 
@@ -310,7 +297,7 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
             self.widget222.setEnabled(True)
 
 
-class Ping(QtWidgets.QMainWindow, ping.Ui_MainWindow):
+class Ping(QMainWindow, ping.Ui_MainWindow):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py
@@ -334,7 +321,7 @@ class Ping(QtWidgets.QMainWindow, ping.Ui_MainWindow):
 
 
 def main():
-    app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
+    app = QApplication(sys.argv)  # Новый экземпляр QApplication
     window = ExampleApp()  # Создаём объект класса ExampleApp
     # serial = QSerialPort()
     # serial.setBaudRate(9600)

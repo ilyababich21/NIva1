@@ -111,7 +111,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             self.label_3.setText("Введите пароль!!!")
             return
         for elem in cursor.fetchall():
-            if self.lineEdit.text() == f"{elem[0]}" and self.lineEdit_2.text() == f"{elem[1]}":
+            if self.lineEdit.text() == f"{elem[1]}" and self.lineEdit_2.text() == f"{elem[2]}":
                 self.initUi(self)
                 self.pushButton_22.clicked.connect(self.Ping)
                 self.pushButton_39.clicked.connect(self.Modbusssss)
@@ -129,18 +129,48 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
 
     def VIhod(self):
         self.setupUi(self)
-        con = sqlite3.connect("database.db")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
+        cursor = conn.cursor()
+
+        conn.autocommit = True
+        # команда для создания базы данных metanit
+        cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'niva1'")
+        exists = cursor.fetchone()
+        if not exists:
+            cursor.execute('CREATE DATABASE niva1')
+        # rest of the script
+        # sql = "SELECT ‘CREATE DATABASE Niva’ WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = ‘Niva’)\gexec"
+        #
+        # # выполняем код sql
+        # cursor.execute(sql)
+        # print("База данных успешно создана")
+
+        cursor.close()
+        conn.close()
+
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
+
+        cursor = con.cursor()
+        con.autocommit = True
+        cursor.execute("CREATE TABLE IF NOT EXISTS registr (id SERIAL PRIMARY KEY, login text,  password text)")
+
+        cursor.execute("SELECT 1 FROM registr")
+        exists = cursor.fetchone()
+        if not exists:
+            people = [("server", "1111"), ("Ilya", "1234"), ("Kate", "25")]
+            cursor.executemany("INSERT INTO registr (login, password) VALUES (%s, %s)", people)
+
         cursor = con.cursor()
         cursor.execute("SELECT * FROM registr")
 
         # many_buttons = 16  # хотим создать 16 кнопок
-        column = 2  # хотим разместить эти кнопки в 4 колонки
+        column = 2  # хотим разместить эти кнопки в 2 колонки
         size = (50, 50)  # размер кнопки, например 150х150
 
         layout = QtWidgets.QGridLayout(self.centralwidget)
         num = 0
         for elem in cursor.fetchall():
-            btn = Button(f'{elem[0]}', size)  # !!!
+            btn = Button(f'{elem[1]}', size)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
             layout.addWidget(btn, num // column, num % column)
             num = num + 1

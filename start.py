@@ -52,6 +52,8 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.lineEdit_2.editingFinished.connect(self.pushButton.animateClick) # type: ignore
+        self.lineEdit.editingFinished.connect(self.lineEdit_2.setFocus) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

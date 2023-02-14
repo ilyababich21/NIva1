@@ -1,6 +1,6 @@
 import sys  # sys нужен для передачи argv в QApplication
 import os  # Отсюда нам понадобятся методы для отображения содержимого директорий
-
+# Hello world
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
 import sqlite3
 from PyQt6 import QtCore, QtGui, QtWidgets

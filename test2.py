@@ -19,8 +19,6 @@ import subprocess
 import psycopg2
 
 
-
-
 class Button(QtWidgets.QPushButton):
     def __init__(self, text, size):  # !!!
         super().__init__()
@@ -40,7 +38,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
 
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -56,12 +54,10 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         # cursor.execute(sql)
         # print("База данных успешно создана")
 
-
         cursor.close()
         conn.close()
 
-
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True
@@ -83,16 +79,13 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         layout = QtWidgets.QGridLayout(self.centralwidget)
         num = 0
         for elem in cursor.fetchall():
-            btn = Button(f'{elem[1]}', size)  # !!!
+            btn = Button(f'{elem[1]}', size)
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
             layout.addWidget(btn, num // column, num % column)
             num = num + 1
-        self.pushButton.clicked.connect(lambda: self.NewUI(cursor))
+        self.pushButton.clicked.connect(lambda: self.SetupUI(cursor))
 
     def onClicked(self, btn):
-        # тут выполняются какие-то действия по нажатию на кнопку
-        # допустим мы хотим скрыть кнопку, на которуй нажали
-        # btn.hide()
 
         self.lineEdit.setText(btn.text())
 
@@ -106,20 +99,19 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
 
         # self.pushButton.clicked.connect(self.NewUI)
 
-    def NewUI(self, cursor):
+    def SetupUI(self, cursor):
         check = 0
-        cursor.execute("SELECT * FROM registr")
+        cursor.execute("SELECT * FROM registr WHERE id = 1  ")
         if self.lineEdit_2.text() == '':
-            self.label_3.setText("Введите пароль!!!")
             return
         for elem in cursor.fetchall():
             if self.lineEdit.text() == f"{elem[1]}" and self.lineEdit_2.text() == f"{elem[2]}":
                 self.initUi(self)
                 self.pushButton_22.clicked.connect(self.Ping)
                 self.pushButton_39.clicked.connect(self.Modbusssss)
-                self.pushButton_48.clicked.connect(lambda:self.PingTest(self.pushButton_48,self.lineEdit_12))
-                self.pushButton_49.clicked.connect(lambda:self.PingTest(self.pushButton_49,self.lineEdit_13))
-                self.pushButton_50.clicked.connect(lambda:self.PingTest(self.pushButton_50,self.lineEdit_14))
+                self.pushButton_48.clicked.connect(lambda: self.PingTest(self.pushButton_48, self.lineEdit_12))
+                self.pushButton_49.clicked.connect(lambda: self.PingTest(self.pushButton_49, self.lineEdit_13))
+                self.pushButton_50.clicked.connect(lambda: self.PingTest(self.pushButton_50, self.lineEdit_14))
                 self.checkBox_2.clicked.connect(self.Chicks)
                 self.checkBox_3.clicked.connect(self.Chicks)
                 self.pushButton_2.clicked.connect(self.VIhod)
@@ -128,10 +120,9 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         if check == 0:
             self.label_3.setText("Логин или пароль введен неверно")
 
-
     def VIhod(self):
         self.setupUi(self)
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -150,7 +141,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         cursor.close()
         conn.close()
 
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True
@@ -176,8 +167,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
             layout.addWidget(btn, num // column, num % column)
             num = num + 1
-        self.pushButton.clicked.connect(lambda: self.NewUI(cursor))
-
+        self.pushButton.clicked.connect(lambda: self.SetupUI(cursor))
 
     def Chicks(self):
         if self.checkBox_2.isChecked():
@@ -213,7 +203,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
     def Modbusssss(self):
         self.modbusForm.show()
 
-    def PingTest(self, btn,line):
+    def PingTest(self, btn, line):
 
         ip = line.text()
         if ip == '':
@@ -225,8 +215,6 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             btn.setStyleSheet('background-color: rgb(255,0,0);')
         else:
             btn.setStyleSheet('background-color: rgb(0,255,0);')
-
-
 
 
 class Changer(QtCore.QThread):
@@ -308,8 +296,6 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
                     prt = "E"
                 else:
                     prt = "N"
-
-
 
                 client = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:

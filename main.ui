@@ -61,13 +61,13 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_2"/>
+        <widget class="QLineEdit" name="lineEdit_2222"/>
        </item>
       </layout>
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="label_3333">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -86,7 +86,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>lineEdit_2</sender>
+   <sender>lineEdit_2222</sender>
    <signal>editingFinished()</signal>
    <receiver>pushButton</receiver>
    <slot>animateClick()</slot>
@@ -104,7 +104,7 @@
   <connection>
    <sender>lineEdit</sender>
    <signal>editingFinished()</signal>
-   <receiver>lineEdit_2</receiver>
+   <receiver>lineEdit_2222</receiver>
    <slot>setFocus()</slot>
    <hints>
     <hint type="sourcelabel">

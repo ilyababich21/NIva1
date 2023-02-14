@@ -15,3 +15,7 @@ gen
 .idea/**/dictionaries
 .idea/**/shelf
 
+# virtualenv
+.venv
+venv/
+ENV/

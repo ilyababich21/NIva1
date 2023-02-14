@@ -19,8 +19,6 @@ import subprocess
 import psycopg2
 
 
-
-
 class Button(QtWidgets.QPushButton):
     def __init__(self, text, size):  # !!!
         super().__init__()
@@ -56,10 +54,8 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         # cursor.execute(sql)
         # print("База данных успешно создана")
 
-
         cursor.close()
         conn.close()
-
 
         con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
 
@@ -108,28 +104,64 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
 
     def NewUI(self, cursor):
         check = 0
+
         cursor.execute("SELECT * FROM registr")
-        if self.lineEdit_2.text() == '':
-            self.label_3.setText("Введите пароль!!!")
+        if self.lineEdit_2222.text() == '':
+            self.label_3333.setText("Введите пароль!!!")
             return
         for elem in cursor.fetchall():
-            if self.lineEdit.text() == f"{elem[1]}" and self.lineEdit_2.text() == f"{elem[2]}":
+            if self.lineEdit.text() == f"{elem[1]}" and self.lineEdit_2222.text() == f"{elem[2]}":
+                check = 1
+
                 self.initUi(self)
+
+                cursor.execute("SELECT * FROM setting_network")
+
+                id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
+                print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
+                if default_getway != None: default_getway = str(default_getway)
+                self.lineEdit.setText(host_name)
+                self.lineEdit_2.setText(domain_name)
+                self.lineEdit_3.setText(primary_name_server)
+                self.lineEdit_5.setText(secondary_name_server)
+                self.lineEdit_4.setText(default_getway)
+
+                #
+
                 self.pushButton_22.clicked.connect(self.Ping)
                 self.pushButton_39.clicked.connect(self.Modbusssss)
-                self.pushButton_48.clicked.connect(lambda:self.PingTest(self.pushButton_48,self.lineEdit_12))
-                self.pushButton_49.clicked.connect(lambda:self.PingTest(self.pushButton_49,self.lineEdit_13))
-                self.pushButton_50.clicked.connect(lambda:self.PingTest(self.pushButton_50,self.lineEdit_14))
+                self.pushButton_48.clicked.connect(lambda: self.PingTest(self.pushButton_48, self.lineEdit_12))
+                self.pushButton_49.clicked.connect(lambda: self.PingTest(self.pushButton_49, self.lineEdit_13))
+                self.pushButton_50.clicked.connect(lambda: self.PingTest(self.pushButton_50, self.lineEdit_14))
                 self.checkBox_2.clicked.connect(self.Chicks)
                 self.checkBox_3.clicked.connect(self.Chicks)
-                self.pushButton_2.clicked.connect(self.VIhod)
+                self.pushButton_2.clicked.connect(lambda: self.VIhod(cursor))
 
-                check = 1
+                #
+                # cursor.execute("SELECT * FROM setting_network")
+                # id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchall()
+                # print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
+                # # # self.lineEdit.setText(host_name)
+
         if check == 0:
-            self.label_3.setText("Логин или пароль введен неверно")
+            self.label_3333.setText("Логин или пароль введен неверно")
+        elif check == 2:
+            pass
 
+    def VIhod(self, cursor):
+        print(self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_5.text(),
+              int(self.lineEdit_4.text()))
+        cursor.execute("SELECT * FROM setting_network")
 
-    def VIhod(self):
+        id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
+        print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
+        # cursor.execute("UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s,  WHERE id=1", (self.lineEdit.text(),self.lineEdit_2.text(),self.lineEdit_3.text(),self.lineEdit_5.text(),int(self.lineEdit_4.text())))
+        people = [self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_5.text(),
+                  int(self.lineEdit_4.text())]
+        cursor.execute(
+            "UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s  WHERE id=1",
+            people)
+
         self.setupUi(self)
         conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
         cursor = conn.cursor()
@@ -178,7 +210,6 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             num = num + 1
         self.pushButton.clicked.connect(lambda: self.NewUI(cursor))
 
-
     def Chicks(self):
         if self.checkBox_2.isChecked():
             self.label_13.setEnabled(True)
@@ -213,7 +244,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
     def Modbusssss(self):
         self.modbusForm.show()
 
-    def PingTest(self, btn,line):
+    def PingTest(self, btn, line):
 
         ip = line.text()
         if ip == '':
@@ -225,8 +256,6 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             btn.setStyleSheet('background-color: rgb(255,0,0);')
         else:
             btn.setStyleSheet('background-color: rgb(0,255,0);')
-
-
 
 
 class Changer(QtCore.QThread):
@@ -308,8 +337,6 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
                     prt = "E"
                 else:
                     prt = "N"
-
-
 
                 client = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:

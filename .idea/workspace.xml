@@ -1,33 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:main" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </select>
-  </component>
-  <component name="ChangeListManager">
-    <list default="true" id="fe829135-8018-42f5-8a3a-b98620d503c2" name="Default Changelist" comment="ghrdf" />
-=======
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -35,26 +7,11 @@
     <list default="true" id="2a701660-cde5-4780-98e3-e6132882a22c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/proba.py" beforeDir="false" afterPath="$PROJECT_DIR$/proba.py" afterDir="false" />
     </list>
->>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-<<<<<<< HEAD
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
-  </component>
-  <component name="ProjectId" id="2IAtGQIqVZPxJAjqWURSIFmi5yZ" />
-=======
   <component name="Git.Settings">
     <excluded-from-favorite>
       <branch-storage>
@@ -94,106 +51,11 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Lih5ZSpZXtCd4RdPO1jnpHAmXq" />
->>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
-  <component name="RunManager" selected="Python.test2">
-    <configuration name="ping" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Hiva1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ping.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="proba" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Hiva1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/proba.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="qtishka" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Hiva1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/qtishka.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="start" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Hiva1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/start.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Hiva1" />
-=======
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -204,7 +66,6 @@
   <component name="RunManager">
     <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NIva1-master" />
->>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -227,98 +88,12 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.test2" />
-<<<<<<< HEAD
-        <item itemvalue="Python.ping" />
-        <item itemvalue="Python.start" />
-        <item itemvalue="Python.proba" />
-        <item itemvalue="Python.qtishka" />
-=======
->>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-<<<<<<< HEAD
-      <changelist id="fe829135-8018-42f5-8a3a-b98620d503c2" name="Default Changelist" comment="" />
-      <created>1669636119652</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1669636119652</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Niva1">
-      <created>1674568334458</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1674568334458</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Niva1">
-      <created>1674568558177</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1674568558177</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Добавлено автоматическое создание начальных пользователей">
-      <created>1676296155759</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1676296155759</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Переделка">
-      <created>1676374693204</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1676374693204</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Прикол">
-      <created>1676375507361</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1676375507361</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Прикол">
-      <created>1676375680981</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1676375680981</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Прикол">
-      <created>1676375914270</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1676375914270</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Прикол">
-      <created>1676376287807</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1676376287807</updated>
-    </task>
-    <task id="LOCAL-00009" summary="ghrdfmndbca">
-      <created>1676378985345</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1676378985345</updated>
-    </task>
-    <task id="LOCAL-00010" summary="ghrdf">
-      <created>1676379226332</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1676379226332</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
-=======
       <changelist id="2a701660-cde5-4780-98e3-e6132882a22c" name="Changes" comment="" />
       <created>1676359629610</created>
       <option name="number" value="Default" />
@@ -347,7 +122,6 @@
       <updated>1676370520614</updated>
     </task>
     <option name="localTasksCounter" value="4" />
->>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -361,11 +135,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-<<<<<<< HEAD
-                        <option value="main" />
-=======
                         <option value="origin/master" />
->>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
                       </list>
                     </value>
                   </entry>
@@ -376,89 +146,9 @@
         </entry>
       </map>
     </option>
-<<<<<<< HEAD
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Niva1" />
-    <MESSAGE value="Добавлено автоматическое создание начальных пользователей" />
-    <MESSAGE value="Переделка" />
-    <MESSAGE value="Прикол" />
-    <MESSAGE value="ghrdfmndbca" />
-    <MESSAGE value="ghrdf" />
-    <option name="LAST_COMMIT_MESSAGE" value="ghrdf" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1669636456647">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1669636456647" />
-    <state width="744" height="466" key="DebuggerActiveHint" timestamp="1673440275269">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="744" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1673440275269" />
-    <state x="184" y="85" key="DiffContextDialog" timestamp="1676375710918">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="184" y="85" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1676375710918" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1674568076983">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="-1180" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1670704123090" />
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1674568076983" />
-    <state width="1899" height="146" key="GridCell.Tab.0.bottom" timestamp="1676379052880">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="146" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1676379052880" />
-    <state width="1899" height="146" key="GridCell.Tab.0.center" timestamp="1676379052880">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="146" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1676379052880" />
-    <state width="1899" height="146" key="GridCell.Tab.0.left" timestamp="1676379052880">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="146" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1676379052880" />
-    <state width="1899" height="146" key="GridCell.Tab.0.right" timestamp="1676379052880">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="146" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1676379052880" />
-    <state width="1899" height="211" key="GridCell.Tab.1.bottom" timestamp="1674746081015">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="211" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1674746081015" />
-    <state width="1899" height="211" key="GridCell.Tab.1.center" timestamp="1674746081015">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="211" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1674746081015" />
-    <state width="1899" height="211" key="GridCell.Tab.1.left" timestamp="1674746081014">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="211" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1674746081014" />
-    <state width="1899" height="211" key="GridCell.Tab.1.right" timestamp="1674746081015">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="211" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1674746081015" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1669644510554">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1669644510554" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1676379088008">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1676379088008" />
-    <state x="784" y="253" width="351" height="693" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1674568228798">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="784" y="253" width="351" height="693" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1674568228798" />
-    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1676379066346">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1676379066346" />
-=======
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix connect db and new system UI" />
     <option name="LAST_COMMIT_MESSAGE" value="fix connect db and new system UI" />
->>>>>>> c809b9fdfee670cd0d25d9e9b7f41881107469bd
   </component>
 </project>

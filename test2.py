@@ -57,7 +57,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
 
         cursor = con.cursor()
         con.autocommit = True
-        #cursor.execute("CREATE TABLE IF NOT EXISTS registr (id SERIAL PRIMARY KEY, login text,  password text)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS registr (id SERIAL PRIMARY KEY, login text,  password text)")
 
         cursor.execute("SELECT 1 FROM registr")
         exists = cursor.fetchone()
@@ -70,7 +70,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
 
         # many_buttons = 16  # хотим создать 16 кнопок
         column = 2  # хотим разместить эти кнопки в 2 колонки
-        size = (50, 50)  # размер кнопки, например 150х150
+        size = (100, 20)  # размер кнопки, например 150х150
 
         layout = QtWidgets.QGridLayout(self.centralwidget)
         num = 0
@@ -117,12 +117,10 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
                 print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
                 if default_getway != None: default_getway = str(default_getway)
                 self.lineEdit.setText(host_name)
-                self.lineEdit_2.setText(domain_name)
-                self.lineEdit_3.setText(primary_name_server)
+                self.domain_name_edit.setText(domain_name)
+                self.primary_name_server_edit.setText(primary_name_server)
                 self.lineEdit_5.setText(secondary_name_server)
                 self.lineEdit_4.setText(default_getway)
-
-                #
 
                 self.pushButton_22.clicked.connect(self.Ping)
                 self.pushButton_39.clicked.connect(self.Modbusssss)
@@ -133,11 +131,12 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
                 self.checkBox_3.clicked.connect(self.Chicks)
                 self.pushButton_2.clicked.connect(lambda: self.VIhod(cursor))
 
-                #
-                # cursor.execute("SELECT * FROM setting_network")
-                # id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchall()
-                # print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
-                # # # self.lineEdit.setText(host_name)
+                cursor.execute("SELECT * FROM system_setting")
+                id, panel, system_name, system_number = cursor.fetchone()
+                system_number = str(system_number)
+                self.lineEdit_9.setText(panel)
+                self.lineEdit_10.setText(system_name)
+                self.lineEdit_11.setText(system_number)
 
         if check == 0:
             self.label_3333.setText("Логин или пароль введен неверно")
@@ -145,14 +144,16 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             pass
 
     def VIhod(self, cursor):
-        print(self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_5.text(),
+        print(self.lineEdit.text(), self.domain_name.text(), self.primary_name_server_edit.text(),
+              self.lineEdit_5.text(),
               int(self.lineEdit_4.text()))
         cursor.execute("SELECT * FROM setting_network")
 
         id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
         print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
-        # cursor.execute("UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s,  WHERE id=1", (self.lineEdit.text(),self.lineEdit_2.text(),self.lineEdit_3.text(),self.lineEdit_5.text(),int(self.lineEdit_4.text())))
-        people = [self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_5.text(),
+        # cursor.execute("UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s,  WHERE id=1", (self.lineEdit.text(),self.domain_name.text(),self.primary_name_server_edit.text(),self.lineEdit_5.text(),int(self.lineEdit_4.text())))
+        people = [self.lineEdit.text(), self.domain_name_edit.text(), self.primary_name_server_edit.text(),
+                  self.lineEdit_5.text(),
                   int(self.lineEdit_4.text())]
         cursor.execute(
             "UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s  WHERE id=1",
@@ -304,8 +305,8 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
             lambda: self.START(self.checkBox.isChecked(), self.comboBox.currentText(), self.comboBox_3.currentText(),
                                self.comboBox_2.currentText(),
                                self.comboBox_4.currentText(), self.comboBox_6.currentText(),
-                               self.lineEdit_3.text(), self.comboBox_7.currentText(), self.lineEdit.text(),
-                               self.lineEdit_2.text()))
+                               self.lineEdit_2.text(), self.comboBox_7.currentText(), self.lineEdit.text(),
+                               self.lineEdit.text()))
 
         self.changer.nextValueOfText.connect(self.setText)
         self.pushButton_2.clicked.connect(self.STOP)
@@ -321,7 +322,7 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
         global client
         client = None
         global clientTCP
-        if self.lineEdit_3.text() == '':
+        if self.primary_name_server_edit.text() == '':
             self.textEdit.setText("Старт-регистр обязателен для заполнения")
         else:
             global Slavik, addressssio, countio

@@ -1,24 +1,17 @@
+import subprocess
 import sys  # sys нужен для передачи argv в QApplication
-import os  # Отсюда нам понадобятся методы для отображения содержимого директорий
+
+import psycopg2
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtSerialPort import QSerialPortInfo
 # Hello world
 # ghbrffhb
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
-import sqlite3
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QMessageBox
-from PyQt6.QtSerialPort import QSerialPort, QSerialPortInfo
-import time
-import qtishka  # Это наш конвертированный файл дизайна
-import proba
-from PyQt6.QtCore import *
-from PyQt6.QtGui import *
-import start
-import ping
+
 import Modbus
-import subprocess
-import psycopg2
-
-
+import ping
+import proba
+import start
 
 
 class Button(QtWidgets.QPushButton):
@@ -40,7 +33,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
 
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -60,11 +53,11 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         cursor.close()
         conn.close()
 
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
+        con = psycopg2.connect(dbname='Niva', user='postgres', password='root', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True
-        cursor.execute("CREATE TABLE IF NOT EXISTS registr (id SERIAL PRIMARY KEY, login text,  password text)")
+        #cursor.execute("CREATE TABLE IF NOT EXISTS registr (id SERIAL PRIMARY KEY, login text,  password text)")
 
         cursor.execute("SELECT 1 FROM registr")
         exists = cursor.fetchone()
@@ -113,7 +106,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             self.label_3333.setText("Введите пароль!!!")
             return
         for elem in cursor.fetchall():
-            if self.lineEdit.text() == f"{elem[1]}" and self.lineEdit_2222.text() == f"{elem[2]}":
+            if self.lineEdit.text() == f"{elem[0]}" and self.lineEdit_2222.text() == f"{elem[1]}":
                 check = 1
 
                 self.initUi(self)
@@ -166,7 +159,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             people)
 
         self.setupUi(self)
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -185,7 +178,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         cursor.close()
         conn.close()
 
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True

@@ -13,7 +13,6 @@ import Modbus
 import ping
 
 
-
 class Button(QtWidgets.QPushButton):
     def __init__(self, text, size):  # !!!
         super().__init__()
@@ -30,8 +29,8 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         self.ping = Ping()
 
         self.credentialUI(self)  # Это нужно для инициализации нашего дизайна
-
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
+        # РАБОТА С БАЗОЙ ДАННЫХ
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -44,11 +43,16 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         cursor.close()
         conn.close()
 
-        con = psycopg2.connect(dbname='Niva', user='postgres', password='root', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True
         cursor.execute("CREATE TABLE IF NOT EXISTS registr (id SERIAL PRIMARY KEY, login text,  password text)")
+        cursor.execute(
+            "CREATE TABLE IF NOT EXISTS network_interface (id SERIAL PRIMARY KEY, device text  , addressing text  , ip_address text  , subnet_mask text  )")
+        cursor.execute(
+            "CREATE TABLE IF NOT EXISTS setting_network (id SERIAL PRIMARY KEY, host_name text  ,domain_name text  ,primary_name_server text  ,secondary_name_server text ,default_getway integer)")
+        # cursor.execute("CREATE TABLE IF NOT EXISTS setting_time (id SERIAL PRIMARY KEY, login text,  password text)")
 
         cursor.execute("SELECT 1 FROM registr")
         exists = cursor.fetchone()
@@ -56,14 +60,21 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
             people = [("server", "1111"), ("Ilya", "1234"), ("Kate", "25")]
             cursor.executemany("INSERT INTO registr (login, password) VALUES (%s, %s)", people)
 
-        cursor = con.cursor()
-        cursor.execute("SELECT * FROM registr")
+        cursor.execute("SELECT 1 FROM setting_network")
+        exists = cursor.fetchone()
+        if not exists:
+            people = ["", "", "", "", 0]
+            cursor.execute(
+                "INSERT INTO setting_network (host_name, domain_name , primary_name_server, secondary_name_server, default_getway) VALUES (%s, %s, %s, %s, %s)",
+                people)
 
+        cursor.execute("SELECT * FROM registr")
 
         column = 2  # хотим разместить эти кнопки в 2 колонки
         size = (100, 20)  # размер кнопки, например 150х150
 
         layout = QtWidgets.QGridLayout(self.centralwidget)
+
         num = 0
         for elem in cursor.fetchall():
             btn = Button(f'{elem[1]}', size)  # !!!
@@ -101,8 +112,9 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
                 check = 1
 
                 self.mainUI(self)
-
+# ПОдтягивание настроек сети
                 cursor.execute("SELECT * FROM setting_network")
+
 
                 id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
                 print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
@@ -112,6 +124,30 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
                 self.primary_server_edit.setText(primary_name_server)
                 self.secondary_server_edit.setText(secondary_name_server)
                 self.default_gateway_edit.setText(default_getway)
+
+                cursor.execute("SELECT * FROM network_interface")
+                ip_d, device , addressing, ip_address, subnet_mask =cursor.fetchone()
+                print(ip_d,device , addressing, ip_address, subnet_mask)
+                if device:
+                    for elem in range(self.device_combobox.count()):
+                        if device== self.device_combobox.itemText(elem):
+                            self.device_combobox.setCurrentIndex(elem)
+
+                print(device, addressing, ip_address, subnet_mask)
+                if addressing:
+                    for elem in range(self.adressing_combobox.count()):
+                        if addressing == self.adressing_combobox.itemText(elem):
+                            self.adressing_combobox.setCurrentIndex(elem)
+
+                self.ip_address_edit.setText(ip_address)
+                self.mask_edit.setText(subnet_mask)
+
+
+
+
+
+
+
 
                 self.pushButton_22.clicked.connect(self.Ping)
                 self.pushButton_39.clicked.connect(self.Modbusssss)
@@ -135,18 +171,32 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
             pass
 
     def VIhod(self, cursor):
+        # НАстройки сЕти
         print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
               self.secondary_server_edit.text(), self.default_gateway_edit.text())
-        cursor.execute("SELECT * FROM setting_network")
-
-        id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
-        print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
+        # cursor.execute("SELECT * FROM setting_network")
+        #
+        # id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
+        # print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
         # cursor.execute("UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s,  WHERE id=1", (self.lineEdit.text(),self.domain_name.text(),self.primary_name_server_edit.text(),self.lineEdit_5.text(),int(self.lineEdit_4.text())))
         people = [self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
                   self.secondary_server_edit.text(), self.default_gateway_edit.text()]
         cursor.execute(
             "UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s  WHERE id=1",
             people)
+
+
+# Настройки Интерфэйсу
+        print(self.device_combobox.currentText(),self.adressing_combobox.currentText(),
+              self.ip_address_edit.text(), self.mask_edit.text())
+        people = [self.device_combobox.currentText(),self.adressing_combobox.currentText(),
+              self.ip_address_edit.text(), self.mask_edit.text()]
+        cursor.execute(
+            "UPDATE network_interface SET device =%s, addressing =%s, ip_address =%s, subnet_mask =%s  WHERE id=1",
+            people)
+
+
+
 
         self.credentialUI(self)
         conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
@@ -157,7 +207,6 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         exists = cursor.fetchone()
         if not exists:
             cursor.execute('CREATE DATABASE niva1')
-
 
         cursor.close()
         conn.close()
@@ -174,7 +223,7 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
             people = [("server", "1111"), ("Ilya", "1234"), ("Kate", "25")]
             cursor.executemany("INSERT INTO registr (login, password) VALUES (%s, %s)", people)
 
-        cursor = con.cursor()
+        # cursor = con.cursor()
         cursor.execute("SELECT * FROM registr")
 
         # many_buttons = 16  # хотим создать 16 кнопок
@@ -182,6 +231,7 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         size = (50, 50)  # размер кнопки, например 150х150
 
         layout = QtWidgets.QGridLayout(self.centralwidget)
+
         num = 0
         for elem in cursor.fetchall():
             btn = Button(f'{elem[1]}', size)  # !!!

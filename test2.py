@@ -1,6 +1,6 @@
 import subprocess
 import sys
-
+#  hello world
 import psycopg2
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtSerialPort import QSerialPortInfo

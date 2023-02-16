@@ -65,7 +65,7 @@
       <property name="movable">
        <bool>false</bool>
       </property>
-      <property name="tabBarAutoHide" stdset="0">
+      <property name="tabBarAutoHide">
        <bool>false</bool>
       </property>
       <widget class="QWidget" name="tab">
@@ -92,36 +92,36 @@
              <widget class="QGroupBox" name="groupBox">
               <layout class="QGridLayout" name="gridLayout">
                <item row="5" column="1">
-                <widget class="QLineEdit" name="lineEdit_5"/>
+                <widget class="QLineEdit" name="secondary_server_edit"/>
                </item>
                <item row="3" column="1">
-                <widget class="QLineEdit" name="lineEdit_2"/>
+                <widget class="QLineEdit" name="domain_name_edit"/>
                </item>
                <item row="4" column="0">
-                <widget class="QLabel" name="label_5">
+                <widget class="QLabel" name="primary_server_label">
                  <property name="text">
                   <string>Первичный сервер имен:</string>
                  </property>
                 </widget>
                </item>
                <item row="4" column="1">
-                <widget class="QLabel" name="label_6">
+                <widget class="QLabel" name="secondary_name_label">
                  <property name="text">
                   <string>Вторичный сервер имен:</string>
                  </property>
                 </widget>
                </item>
                <item row="5" column="0">
-                <widget class="QLineEdit" name="lineEdit_3"/>
+                <widget class="QLineEdit" name="primary_server_edit"/>
                </item>
                <item row="7" column="0">
-                <widget class="QLineEdit" name="lineEdit_4"/>
+                <widget class="QLineEdit" name="default_gateway_edit"/>
                </item>
                <item row="7" column="1">
-                <widget class="QTextEdit" name="textEdit"/>
+                <widget class="QTextEdit" name="searchlist_edit"/>
                </item>
                <item row="6" column="0">
-                <widget class="QLabel" name="label_7">
+                <widget class="QLabel" name="default_gateway_label">
                  <property name="text">
                   <string>Межсетевой шлюз:</string>
                  </property>
@@ -132,14 +132,14 @@
                  <item row="0" column="0">
                   <layout class="QHBoxLayout" name="horizontalLayout_2">
                    <item>
-                    <widget class="QLabel" name="label_9">
+                    <widget class="QLabel" name="device_label">
                      <property name="text">
                       <string>Устройство:</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="comboBox">
+                    <widget class="QComboBox" name="device_combobox">
                      <item>
                       <property name="text">
                        <string>eth0</string>
@@ -147,7 +147,7 @@
                      </item>
                      <item>
                       <property name="text">
-                       <string>46yr</string>
+                       <string/>
                       </property>
                      </item>
                     </widget>
@@ -157,14 +157,14 @@
                  <item row="1" column="0">
                   <layout class="QHBoxLayout" name="horizontalLayout_3">
                    <item>
-                    <widget class="QLabel" name="label_10">
+                    <widget class="QLabel" name="adressing_label">
                      <property name="text">
-                      <string>Adressing:</string>
+                      <string>Addressing:</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="comboBox_2">
+                    <widget class="QComboBox" name="adressing_combobox">
                      <item>
                       <property name="text">
                        <string>DHCP</string>
@@ -172,7 +172,12 @@
                      </item>
                      <item>
                       <property name="text">
-                       <string>btbbt</string>
+                       <string>Static</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>None</string>
                       </property>
                      </item>
                     </widget>
@@ -184,7 +189,7 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_6">
                      <item>
-                      <widget class="QPushButton" name="pushButton_5">
+                      <widget class="QPushButton" name="delete_pushButton">
                        <property name="enabled">
                         <bool>false</bool>
                        </property>
@@ -194,7 +199,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="pushButton_6">
+                      <widget class="QPushButton" name="add_pushButton">
                        <property name="text">
                         <string>ADD</string>
                        </property>
@@ -205,7 +210,7 @@
                   </layout>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QTableWidget" name="tableWidget">
+                  <widget class="QTableWidget" name="sub_net_mask_tabel">
                    <property name="minimumSize">
                     <size>
                      <width>321</width>
@@ -273,16 +278,16 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_4">
                      <item>
-                      <widget class="QLabel" name="label_11">
+                      <widget class="QLabel" name="ip_address_label">
                        <property name="text">
-                        <string>IP-фдрес:</string>
+                        <string>IP-aдрес:</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLineEdit" name="lineEdit_6">
+                      <widget class="QLineEdit" name="ip_address_edit">
                        <property name="enabled">
-                        <bool>false</bool>
+                        <bool>true</bool>
                        </property>
                        <property name="text">
                         <string>10.0.2.15</string>
@@ -294,16 +299,16 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <item>
-                      <widget class="QLabel" name="label_12">
+                      <widget class="QLabel" name="mask_label">
                        <property name="text">
                         <string>Субмаска сети:</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLineEdit" name="lineEdit_7">
+                      <widget class="QLineEdit" name="mask_edit">
                        <property name="enabled">
-                        <bool>false</bool>
+                        <bool>true</bool>
                        </property>
                        <property name="text">
                         <string>255.255.255.255</string>
@@ -317,14 +322,14 @@
                 </layout>
                </item>
                <item row="2" column="0">
-                <widget class="QLabel" name="label_3">
+                <widget class="QLabel" name="host_name_label">
                  <property name="text">
                   <string>Имя хоста:</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0" colspan="2">
-                <widget class="QLabel" name="label_2">
+                <widget class="QLabel" name="name_setting">
                  <property name="font">
                   <font>
                    <pointsize>9</pointsize>
@@ -338,17 +343,17 @@
                 </widget>
                </item>
                <item row="3" column="0">
-                <widget class="QLineEdit" name="lineEdit"/>
+                <widget class="QLineEdit" name="host_name_edit"/>
                </item>
                <item row="2" column="1">
-                <widget class="QLabel" name="label_4">
+                <widget class="QLabel" name="domain_name_label">
                  <property name="text">
                   <string>Имя домена:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QLabel" name="label">
+                <widget class="QLabel" name="setting_label">
                  <property name="font">
                   <font>
                    <pointsize>10</pointsize>
@@ -369,7 +374,7 @@
                 </widget>
                </item>
                <item row="6" column="1">
-                <widget class="QLabel" name="label_8">
+                <widget class="QLabel" name="searchlist_label">
                  <property name="text">
                   <string>Searchlist:</string>
                  </property>
@@ -379,7 +384,7 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QPushButton" name="pushButton_7">
+             <widget class="QPushButton" name="ok_pushButton">
               <property name="text">
                <string>OK</string>
               </property>
@@ -406,8 +411,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>732</width>
-             <height>519</height>
+             <width>300</width>
+             <height>502</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_24">
@@ -695,7 +700,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>715</width>
+             <width>601</width>
              <height>537</height>
             </rect>
            </property>
@@ -940,7 +945,7 @@
                         <x>0</x>
                         <y>0</y>
                         <width>408</width>
-                        <height>476</height>
+                        <height>89</height>
                        </rect>
                       </property>
                       <layout class="QGridLayout" name="gridLayout_14">
@@ -1194,7 +1199,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>715</width>
+             <width>660</width>
              <height>794</height>
             </rect>
            </property>
@@ -1411,6 +1416,9 @@
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="tabletTracking">
+                      <bool>false</bool>
+                     </property>
                      <property name="acceptDrops">
                       <bool>false</bool>
                      </property>
@@ -1425,9 +1433,6 @@
                      </property>
                      <property name="wordWrap">
                       <bool>true</bool>
-                     </property>
-                     <property name="tabletTracking" stdset="0">
-                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -2418,7 +2423,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>715</width>
+             <width>635</width>
              <height>565</height>
             </rect>
            </property>
@@ -2860,8 +2865,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>732</width>
-             <height>519</height>
+             <width>544</width>
+             <height>389</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_22">
@@ -3279,9 +3284,9 @@
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="save_change_pushButton">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="autoFillBackground">
          <bool>false</bool>
@@ -3295,7 +3300,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="exit_pushButton">
         <property name="text">
          <string>Выход</string>
         </property>

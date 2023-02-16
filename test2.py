@@ -1,23 +1,16 @@
-import sys  # sys нужен для передачи argv в QApplication
-import os  # Отсюда нам понадобятся методы для отображения содержимого директорий
-# Hello world
-# ghbrffhb
-from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
-import sqlite3
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QMessageBox
-from PyQt6.QtSerialPort import QSerialPort, QSerialPortInfo
-import time
-import qtishka  # Это наш конвертированный файл дизайна
-import proba
-from PyQt6.QtCore import *
-from PyQt6.QtGui import *
-import start
-import ping
-import Modbus
 import subprocess
-import psycopg2
+import sys
 
+import psycopg2
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtSerialPort import QSerialPortInfo
+from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
+
+import mainUI
+import credentialUI
+import Modbus
+
+import ping
 
 
 
@@ -29,16 +22,14 @@ class Button(QtWidgets.QPushButton):
         self.setFixedSize(*size)  # !!! (*size)
 
 
-class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow):
+class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_MainWindow):
     def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле design.py
         super().__init__()
 
         self.modbusForm = ModbusForm()
         self.ping = Ping()
 
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+        self.credentialUI(self)  # Это нужно для инициализации нашего дизайна
 
         conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
         cursor = conn.cursor()
@@ -49,13 +40,6 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         exists = cursor.fetchone()
         if not exists:
             cursor.execute('CREATE DATABASE niva1')
-        # rest of the script
-        # sql = "SELECT ‘CREATE DATABASE Niva’ WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = ‘Niva’)\gexec"
-        #
-        # # выполняем код sql
-        # cursor.execute(sql)
-        # print("База данных успешно создана")
-
 
         cursor.close()
         conn.close()
@@ -75,9 +59,9 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         cursor = con.cursor()
         cursor.execute("SELECT * FROM registr")
 
-        # many_buttons = 16  # хотим создать 16 кнопок
+
         column = 2  # хотим разместить эти кнопки в 2 колонки
-        size = (50, 50)  # размер кнопки, например 150х150
+        size = (100, 20)  # размер кнопки, например 150х150
 
         layout = QtWidgets.QGridLayout(self.centralwidget)
         num = 0
@@ -86,14 +70,14 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
             layout.addWidget(btn, num // column, num % column)
             num = num + 1
-        self.pushButton.clicked.connect(lambda: self.NewUI(cursor))
+        self.log_in.clicked.connect(lambda: self.NewUI(cursor))
 
     def onClicked(self, btn):
         # тут выполняются какие-то действия по нажатию на кнопку
         # допустим мы хотим скрыть кнопку, на которуй нажали
         # btn.hide()
 
-        self.lineEdit.setText(btn.text())
+        self.login_lineEdit.setText(btn.text())
 
         # for elem in cursor.fetchall():
         # self.pushButton0 = QtWidgets.QPushButton(self.centralwidget)
@@ -109,27 +93,25 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
         check = 0
 
         cursor.execute("SELECT * FROM registr")
-        if self.lineEdit_2222.text() == '':
-            self.label_3333.setText("Введите пароль!!!")
+        if self.password_lineEdit.text() == '':
+            self.label.setText("Введите пароль!!!")
             return
         for elem in cursor.fetchall():
-            if self.lineEdit.text() == f"{elem[1]}" and self.lineEdit_2222.text() == f"{elem[2]}":
+            if self.login_lineEdit.text() == f"{elem[1]}" and self.password_lineEdit.text() == f"{elem[2]}":
                 check = 1
 
-                self.initUi(self)
+                self.mainUI(self)
 
                 cursor.execute("SELECT * FROM setting_network")
 
                 id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
                 print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
                 if default_getway != None: default_getway = str(default_getway)
-                self.lineEdit.setText(host_name)
-                self.lineEdit_2.setText(domain_name)
-                self.lineEdit_3.setText(primary_name_server)
-                self.lineEdit_5.setText(secondary_name_server)
-                self.lineEdit_4.setText(default_getway)
-
-                #
+                self.host_name_edit.setText(host_name)
+                self.domain_name_edit.setText(domain_name)
+                self.primary_server_edit.setText(primary_name_server)
+                self.secondary_server_edit.setText(secondary_name_server)
+                self.default_gateway_edit.setText(default_getway)
 
                 self.pushButton_22.clicked.connect(self.Ping)
                 self.pushButton_39.clicked.connect(self.Modbusssss)
@@ -138,49 +120,44 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
                 self.pushButton_50.clicked.connect(lambda: self.PingTest(self.pushButton_50, self.lineEdit_14))
                 self.checkBox_2.clicked.connect(self.Chicks)
                 self.checkBox_3.clicked.connect(self.Chicks)
-                self.pushButton_2.clicked.connect(lambda: self.VIhod(cursor))
+                self.exit_pushButton.clicked.connect(lambda: self.VIhod(cursor))
 
-                #
-                # cursor.execute("SELECT * FROM setting_network")
-                # id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchall()
-                # print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
-                # # # self.lineEdit.setText(host_name)
+                # cursor.execute("SELECT * FROM system_setting")
+                # id, panel, system_name, system_number = cursor.fetchone()
+                # system_number = str(system_number)
+                # self.lineEdit_9.setText(panel)
+                # self.lineEdit_10.setText(system_name)
+                # self.lineEdit_11.setText(system_number)
 
         if check == 0:
-            self.label_3333.setText("Логин или пароль введен неверно")
+            self.label.setText("Логин или пароль введен неверно")
         elif check == 2:
             pass
 
     def VIhod(self, cursor):
-        print(self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_5.text(),
-              int(self.lineEdit_4.text()))
+        print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
+              self.secondary_server_edit.text(), self.default_gateway_edit.text())
         cursor.execute("SELECT * FROM setting_network")
 
         id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
         print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
-        # cursor.execute("UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s,  WHERE id=1", (self.lineEdit.text(),self.lineEdit_2.text(),self.lineEdit_3.text(),self.lineEdit_5.text(),int(self.lineEdit_4.text())))
-        people = [self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_5.text(),
-                  int(self.lineEdit_4.text())]
+        # cursor.execute("UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s,  WHERE id=1", (self.lineEdit.text(),self.domain_name.text(),self.primary_name_server_edit.text(),self.lineEdit_5.text(),int(self.lineEdit_4.text())))
+        people = [self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
+                  self.secondary_server_edit.text(), self.default_gateway_edit.text()]
         cursor.execute(
             "UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s  WHERE id=1",
             people)
 
-        self.setupUi(self)
+        self.credentialUI(self)
         conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
-        # команда для создания базы данных metanit
         cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'niva1'")
         exists = cursor.fetchone()
         if not exists:
             cursor.execute('CREATE DATABASE niva1')
-        # rest of the script
-        # sql = "SELECT ‘CREATE DATABASE Niva’ WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = ‘Niva’)\gexec"
-        #
-        # # выполняем код sql
-        # cursor.execute(sql)
-        # print("База данных успешно создана")
+
 
         cursor.close()
         conn.close()
@@ -211,8 +188,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
             layout.addWidget(btn, num // column, num % column)
             num = num + 1
-        self.pushButton.clicked.connect(lambda: self.NewUI(cursor))
-
+        self.log_in.clicked.connect(lambda: self.NewUI(cursor))
 
     def Chicks(self):
         if self.checkBox_2.isChecked():
@@ -248,7 +224,7 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
     def Modbusssss(self):
         self.modbusForm.show()
 
-    def PingTest(self, btn,line):
+    def PingTest(self, btn, line):
 
         ip = line.text()
         if ip == '':
@@ -260,8 +236,6 @@ class ExampleApp(QtWidgets.QMainWindow, start.Ui_MainWindow, proba.Ui_MainWindow
             btn.setStyleSheet('background-color: rgb(255,0,0);')
         else:
             btn.setStyleSheet('background-color: rgb(0,255,0);')
-
-
 
 
 class Changer(QtCore.QThread):
@@ -311,8 +285,8 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
             lambda: self.START(self.checkBox.isChecked(), self.comboBox.currentText(), self.comboBox_3.currentText(),
                                self.comboBox_2.currentText(),
                                self.comboBox_4.currentText(), self.comboBox_6.currentText(),
-                               self.lineEdit_3.text(), self.comboBox_7.currentText(), self.lineEdit.text(),
-                               self.lineEdit_2.text()))
+                               self.lineEdit_2.text(), self.comboBox_7.currentText(), self.lineEdit.text(),
+                               self.lineEdit.text()))
 
         self.changer.nextValueOfText.connect(self.setText)
         self.pushButton_2.clicked.connect(self.STOP)
@@ -328,7 +302,7 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
         global client
         client = None
         global clientTCP
-        if self.lineEdit_3.text() == '':
+        if self.primary_server_edit.text() == '':
             self.textEdit.setText("Старт-регистр обязателен для заполнения")
         else:
             global Slavik, addressssio, countio
@@ -343,8 +317,6 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
                     prt = "E"
                 else:
                     prt = "N"
-
-
 
                 client = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:

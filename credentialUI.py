@@ -33,9 +33,11 @@ class Ui_CredentialUI(object):
         self.login_lineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.login_lineEdit.setGeometry(QtCore.QRect(360, 240, 191, 31))
         self.login_lineEdit.setObjectName("login_lineEdit")
+        self.login_lineEdit.setStyleSheet("border-radius: 8px; border: 1px solid #e0e4e7;padding: 5px 15px;")
         self.password_lineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.password_lineEdit.setGeometry(QtCore.QRect(360, 300, 191, 31))
         self.password_lineEdit.setObjectName("password_lineEdit")
+        self.password_lineEdit.setStyleSheet("border-radius: 8px; border: 1px solid #e0e4e7;padding: 5px 15px;")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(360, 340, 191, 20))
         self.label.setText("")
@@ -46,6 +48,7 @@ class Ui_CredentialUI(object):
         self.layoutButton = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.layoutButton.setContentsMargins(0, 0, 0, 0)
         self.layoutButton.setObjectName("layoutButton")
+
         CredentialUI.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(CredentialUI)

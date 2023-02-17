@@ -19,6 +19,7 @@ class Button(QtWidgets.QPushButton):
 
         self.setText(f'{text}')  # !!! {text} {num}
         self.setFixedSize(*size)  # !!! (*size)
+        self.setStyleSheet("  background-color: #0d6efd;color: #fff;font-weight: 1000;font-weight: 1000;border-radius: 8px;border: 1px solid #0d6efd;padding: 5px 15px; margin-top: 10px;")
 
 
 class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_MainWindow):
@@ -30,7 +31,7 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
 
         self.credentialUI(self)  # Это нужно для инициализации нашего дизайна
         # РАБОТА С БАЗОЙ ДАННЫХ
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -43,7 +44,7 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         cursor.close()
         conn.close()
 
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True
@@ -71,34 +72,21 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         cursor.execute("SELECT * FROM registr")
 
         column = 2  # хотим разместить эти кнопки в 2 колонки
-        size = (100, 20)  # размер кнопки, например 150х150
+        size = (100, 60)  # размер кнопки, например 150х150
 
-        layout = QtWidgets.QGridLayout(self.centralwidget)
+        layout = self.layoutButton
 
         num = 0
         for elem in cursor.fetchall():
             btn = Button(f'{elem[1]}', size)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
-            layout.addWidget(btn, num // column, num % column)
+            layout.addWidget(btn)
             num = num + 1
         self.log_in.clicked.connect(lambda: self.NewUI(cursor))
 
     def onClicked(self, btn):
-        # тут выполняются какие-то действия по нажатию на кнопку
-        # допустим мы хотим скрыть кнопку, на которуй нажали
-        # btn.hide()
 
         self.login_lineEdit.setText(btn.text())
-
-        # for elem in cursor.fetchall():
-        # self.pushButton0 = QtWidgets.QPushButton(self.centralwidget)
-        # self.pushButton0.setGeometry(QtCore.QRect(300, point, 75, 23))
-        # self.pushButton0.setObjectName(f"pushButton{num}")
-        # self.pushButton0.setText(f"{elem[0]}")
-        # point=point+1
-        # num=num+1
-
-        # self.pushButton.clicked.connect(self.NewUI)
 
     def NewUI(self, cursor):
         check = 0
@@ -112,9 +100,8 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
                 check = 1
 
                 self.mainUI(self)
-# ПОдтягивание настроек сети
+                # ПОдтягивание настроек сети
                 cursor.execute("SELECT * FROM setting_network")
-
 
                 id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
                 print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
@@ -126,11 +113,11 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
                 self.default_gateway_edit.setText(default_getway)
 
                 cursor.execute("SELECT * FROM network_interface")
-                ip_d, device , addressing, ip_address, subnet_mask =cursor.fetchone()
-                print(ip_d,device , addressing, ip_address, subnet_mask)
+                ip_d, device, addressing, ip_address, subnet_mask = cursor.fetchone()
+                print(ip_d, device, addressing, ip_address, subnet_mask)
                 if device:
                     for elem in range(self.device_combobox.count()):
-                        if device== self.device_combobox.itemText(elem):
+                        if device == self.device_combobox.itemText(elem):
                             self.device_combobox.setCurrentIndex(elem)
 
                 print(device, addressing, ip_address, subnet_mask)
@@ -142,13 +129,6 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
                 self.ip_address_edit.setText(ip_address)
                 self.mask_edit.setText(subnet_mask)
 
-
-
-
-
-
-
-
                 self.pushButton_22.clicked.connect(self.Ping)
                 self.pushButton_39.clicked.connect(self.Modbusssss)
                 self.pushButton_48.clicked.connect(lambda: self.PingTest(self.pushButton_48, self.lineEdit_12))
@@ -157,13 +137,6 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
                 self.checkBox_2.clicked.connect(self.Chicks)
                 self.checkBox_3.clicked.connect(self.Chicks)
                 self.exit_pushButton.clicked.connect(lambda: self.VIhod(cursor))
-
-                # cursor.execute("SELECT * FROM system_setting")
-                # id, panel, system_name, system_number = cursor.fetchone()
-                # system_number = str(system_number)
-                # self.lineEdit_9.setText(panel)
-                # self.lineEdit_10.setText(system_name)
-                # self.lineEdit_11.setText(system_number)
 
         if check == 0:
             self.label.setText("Логин или пароль введен неверно")
@@ -174,32 +147,23 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         # НАстройки сЕти
         print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
               self.secondary_server_edit.text(), self.default_gateway_edit.text())
-        # cursor.execute("SELECT * FROM setting_network")
-        #
-        # id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
-        # print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
-        # cursor.execute("UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s,  WHERE id=1", (self.lineEdit.text(),self.domain_name.text(),self.primary_name_server_edit.text(),self.lineEdit_5.text(),int(self.lineEdit_4.text())))
         people = [self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
                   self.secondary_server_edit.text(), self.default_gateway_edit.text()]
         cursor.execute(
             "UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s  WHERE id=1",
             people)
 
-
-# Настройки Интерфэйсу
-        print(self.device_combobox.currentText(),self.adressing_combobox.currentText(),
+        # Настройки Интерфэйсу
+        print(self.device_combobox.currentText(), self.adressing_combobox.currentText(),
               self.ip_address_edit.text(), self.mask_edit.text())
-        people = [self.device_combobox.currentText(),self.adressing_combobox.currentText(),
-              self.ip_address_edit.text(), self.mask_edit.text()]
+        people = [self.device_combobox.currentText(), self.adressing_combobox.currentText(),
+                  self.ip_address_edit.text(), self.mask_edit.text()]
         cursor.execute(
             "UPDATE network_interface SET device =%s, addressing =%s, ip_address =%s, subnet_mask =%s  WHERE id=1",
             people)
 
-
-
-
         self.credentialUI(self)
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -211,7 +175,7 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         cursor.close()
         conn.close()
 
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True
@@ -225,18 +189,16 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
 
         # cursor = con.cursor()
         cursor.execute("SELECT * FROM registr")
-
-        # many_buttons = 16  # хотим создать 16 кнопок
         column = 2  # хотим разместить эти кнопки в 2 колонки
-        size = (50, 50)  # размер кнопки, например 150х150
+        size = (100,60)  # размер кнопки, например 150х150
 
-        layout = QtWidgets.QGridLayout(self.centralwidget)
+        layout =self.layoutButton
 
         num = 0
         for elem in cursor.fetchall():
             btn = Button(f'{elem[1]}', size)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
-            layout.addWidget(btn, num // column, num % column)
+            layout.addWidget(btn)
             num = num + 1
         self.log_in.clicked.connect(lambda: self.NewUI(cursor))
 

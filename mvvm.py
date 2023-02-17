@@ -1,25 +1,18 @@
 import subprocess
 import sys
+
 import psycopg2
 from PyQt6 import QtCore, QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
+
+from model import Button
+
 UI_autoriation = "fileUI/authorization.ui"
 UI_main = "fileUI/main.ui"
 UI_ping = "fileUI/ping.ui"
 UI_modbus = "fileUI/modbus.ui"
 
-
-class Button(QtWidgets.QPushButton):
-    def __init__(self, text, size):  # !!!
-        super().__init__()
-
-        self.setText(f'{text}')  # !!! {text} {num}
-        self.setFixedSize(*size)  # !!! (*size)
-        self.setStyleSheet(
-            "  background-color: #0d6efd;color: #fff;font-weight: 1000;font-weight: 1000;"
-            "border-radius: 8px;border: 1px "
-            "solid #0d6efd;padding: 5px 15px; margin-top: 10px;")
 
 
 class ExampleApp(QtWidgets.QMainWindow):
@@ -141,7 +134,6 @@ class ExampleApp(QtWidgets.QMainWindow):
             pass
 
     def VIhod(self, cursor):
-        # НАстройки сЕти
         print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
               self.secondary_server_edit.text(), self.default_gateway_edit.text())
         people = [self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),

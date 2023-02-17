@@ -100,7 +100,6 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
                 check = 1
 
                 self.mainUI(self)
-                # ПОдтягивание настроек сети
                 cursor.execute("SELECT * FROM setting_network")
 
                 id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()

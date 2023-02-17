@@ -4,12 +4,10 @@ import psycopg2
 from PyQt6 import QtCore, QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
-import Modbus
-
-import ping
-
 UI_autoriation = "fileUI/authorization.ui"
 UI_main = "fileUI/main.ui"
+UI_ping = "fileUI/ping.ui"
+UI_modbus = "fileUI/modbus.ui"
 
 
 class Button(QtWidgets.QPushButton):
@@ -99,7 +97,7 @@ class ExampleApp(QtWidgets.QMainWindow):
             if self.login_lineEdit.text() == f"{elem[1]}" and self.password_lineEdit.text() == f"{elem[2]}":
                 check = 1
 
-                uic.loadUi(UI_main,self)
+                uic.loadUi(UI_main, self)
                 cursor.execute("SELECT * FROM setting_network")
 
                 id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
@@ -273,14 +271,13 @@ class Changer(QtCore.QThread):
             QtCore.QThread.msleep(1000)
 
 
-class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
+class ModbusForm(QtWidgets.QMainWindow):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py
         super().__init__()
 
-        self.setupUi(self)
-        # доступные порты
+        uic.loadUi(UI_modbus,self)        # доступные порты
         portlist = []
         ports = QSerialPortInfo().availablePorts()
         for port in ports:
@@ -360,27 +357,26 @@ class ModbusForm(QtWidgets.QMainWindow, Modbus.Ui_MainWindow):
             self.widget222.setEnabled(True)
 
 
-class Ping(QtWidgets.QMainWindow, ping.Ui_MainWindow):
+class Ping(QtWidgets.QMainWindow):
     def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле design.py
+
         super().__init__()
 
-        self.setupUi(self)
-        self.pushButton.clicked.connect(self.PingTest)
+        uic.loadUi(UI_ping, self)
+        self.check_pushButton.clicked.connect(self.PingTest)
 
     def PingTest(self):
 
-        ip = self.lineEdit.text()
+        ip = self.ip_lineEdit.text()
         if ip == '':
-            self.pushButton.setStyleSheet('background-color: rgb(255,0,0);')
+            self.check_pushButton.setStyleSheet('background-color: rgb(255,0,0);')
             return
 
         retcode = subprocess.call("ping -n 1 " + str(ip))
         if retcode != 0:
-            self.pushButton.setStyleSheet('background-color: rgb(255,0,0);')
+            self.check_pushButton.setStyleSheet('background-color: rgb(255,0,0);')
         else:
-            self.pushButton.setStyleSheet('background-color: rgb(0,255,0);')
+            self.check_pushButton.setStyleSheet('background-color: rgb(0,255,0);')
 
 
 def main():
@@ -398,5 +394,3 @@ def main():
     # window.ReadB.isEnabledTo(False)
     window.show()  # Показываем окно
     app.exec()  # и запускаем приложение
-
-

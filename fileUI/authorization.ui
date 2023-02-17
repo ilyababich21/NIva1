@@ -17,16 +17,6 @@
    <string notr="true">QWidget {
   background-color: #fff;
 }
-QPushButton {
-  background-color: #0d6efd;
-  color: #fff;
-  font-weight: 1000;
-  border-radius: 8px;
-  border: 1px solid #0d6efd;
-  padding: 5px 15px;
-  margin-top: 10px;
-  outline: 0px;
-}
 QLabel {
   color: #464d55;
   font-weight: 600;
@@ -38,7 +28,7 @@ QLineEdit {
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="log_in">
+   <widget class="QPushButton" name="log_in_button">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -46,6 +36,18 @@ QLineEdit {
       <width>171</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+  background-color: #0d6efd;
+  color: #fff;
+  font-weight: 1000;
+  border-radius: 8px;
+  border: 1px solid #0d6efd;
+  padding: 5px 15px;
+  margin-top: 10px;
+  outline: 0px;
+}</string>
     </property>
     <property name="text">
      <string>Авторизироваться</string>
@@ -64,7 +66,7 @@ QLineEdit {
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>logo-svg.svg</pixmap>
+     <pixmap>../image/logo-svg.svg</pixmap>
     </property>
     <property name="margin">
      <number>22</number>
@@ -116,7 +118,7 @@ QLineEdit {
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="check_label">
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -163,7 +165,7 @@ QLineEdit {
   <connection>
    <sender>password_lineEdit</sender>
    <signal>editingFinished()</signal>
-   <receiver>log_in</receiver>
+   <receiver>log_in_button</receiver>
    <slot>animateClick()</slot>
    <hints>
     <hint type="sourcelabel">

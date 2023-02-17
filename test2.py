@@ -1,16 +1,15 @@
 import subprocess
 import sys
-#  hello world
 import psycopg2
-from PyQt6 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
-
 import mainUI
-import credentialUI
 import Modbus
 
 import ping
+
+UI_autoriation = "fileUI/authorization.ui"
 
 
 class Button(QtWidgets.QPushButton):
@@ -19,18 +18,19 @@ class Button(QtWidgets.QPushButton):
 
         self.setText(f'{text}')  # !!! {text} {num}
         self.setFixedSize(*size)  # !!! (*size)
-        self.setStyleSheet("  background-color: #0d6efd;color: #fff;font-weight: 1000;font-weight: 1000;border-radius: 8px;border: 1px solid #0d6efd;padding: 5px 15px; margin-top: 10px;")
+        self.setStyleSheet(
+            "  background-color: #0d6efd;color: #fff;font-weight: 1000;font-weight: 1000;"
+            "border-radius: 8px;border: 1px "
+            "solid #0d6efd;padding: 5px 15px; margin-top: 10px;")
 
 
-class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_MainWindow):
+class ExampleApp(QtWidgets.QMainWindow, mainUI.Ui_MainWindow):
     def __init__(self):
         super().__init__()
 
         self.modbusForm = ModbusForm()
         self.ping = Ping()
-
-        self.credentialUI(self)  # Это нужно для инициализации нашего дизайна
-        # РАБОТА С БАЗОЙ ДАННЫХ
+        uic.loadUi(UI_autoriation, self)
         conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
         cursor = conn.cursor()
 
@@ -82,7 +82,7 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
             layout.addWidget(btn)
             num = num + 1
-        self.log_in.clicked.connect(lambda: self.NewUI(cursor))
+        self.log_in_button.clicked.connect(lambda: self.NewUI(cursor))
 
     def onClicked(self, btn):
 
@@ -161,7 +161,7 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
             "UPDATE network_interface SET device =%s, addressing =%s, ip_address =%s, subnet_mask =%s  WHERE id=1",
             people)
 
-        self.credentialUI(self)
+        uic.loadUi(UI_autoriation, self)
         conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
         cursor = conn.cursor()
 
@@ -189,9 +189,9 @@ class ExampleApp(QtWidgets.QMainWindow, credentialUI.Ui_CredentialUI, mainUI.Ui_
         # cursor = con.cursor()
         cursor.execute("SELECT * FROM registr")
         column = 2  # хотим разместить эти кнопки в 2 колонки
-        size = (100,60)  # размер кнопки, например 150х150
+        size = (100, 60)  # размер кнопки, например 150х150
 
-        layout =self.layoutButton
+        layout = self.layoutButton
 
         num = 0
         for elem in cursor.fetchall():

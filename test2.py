@@ -4,12 +4,12 @@ import psycopg2
 from PyQt6 import QtCore, QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
-import mainUI
 import Modbus
 
 import ping
 
 UI_autoriation = "fileUI/authorization.ui"
+UI_main = "fileUI/main.ui"
 
 
 class Button(QtWidgets.QPushButton):
@@ -24,7 +24,7 @@ class Button(QtWidgets.QPushButton):
             "solid #0d6efd;padding: 5px 15px; margin-top: 10px;")
 
 
-class ExampleApp(QtWidgets.QMainWindow, mainUI.Ui_MainWindow):
+class ExampleApp(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -99,7 +99,7 @@ class ExampleApp(QtWidgets.QMainWindow, mainUI.Ui_MainWindow):
             if self.login_lineEdit.text() == f"{elem[1]}" and self.password_lineEdit.text() == f"{elem[2]}":
                 check = 1
 
-                self.mainUI(self)
+                uic.loadUi(UI_main,self)
                 cursor.execute("SELECT * FROM setting_network")
 
                 id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
@@ -199,7 +199,7 @@ class ExampleApp(QtWidgets.QMainWindow, mainUI.Ui_MainWindow):
             btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
             layout.addWidget(btn)
             num = num + 1
-        self.log_in.clicked.connect(lambda: self.NewUI(cursor))
+        self.log_in_button.clicked.connect(lambda: self.NewUI(cursor))
 
     def Chicks(self):
         if self.checkBox_2.isChecked():

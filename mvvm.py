@@ -6,13 +6,22 @@ from PyQt6 import QtCore, QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
 
-from model import Button
-
 UI_autoriation = "fileUI/authorization.ui"
 UI_main = "fileUI/main.ui"
 UI_ping = "fileUI/ping.ui"
 UI_modbus = "fileUI/modbus.ui"
 
+
+class Button(QtWidgets.QPushButton):
+    def __init__(self, text, size):  # !!!
+        super().__init__()
+
+        self.setText(f'{text}')  # !!! {text} {num}
+        self.setFixedSize(*size)  # !!! (*size)
+        self.setStyleSheet(
+            "  background-color: #0d6efd;color: #fff;font-weight: 1000;font-weight: 1000;"
+            "border-radius: 8px;border: 1px "
+            "solid #0d6efd;padding: 5px 15px; margin-top: 10px;")
 
 
 class ExampleApp(QtWidgets.QMainWindow):
@@ -39,28 +48,30 @@ class ExampleApp(QtWidgets.QMainWindow):
 
         cursor = con.cursor()
         con.autocommit = True
-        cursor.execute("CREATE TABLE IF NOT EXISTS registr (id SERIAL PRIMARY KEY, login text,  password text)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS credential (id SERIAL PRIMARY KEY, login text,  password text)")
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS network_interface (id SERIAL PRIMARY KEY, device text  , addressing text  , ip_address text  , subnet_mask text  )")
+            "CREATE TABLE IF NOT EXISTS network_interface (id SERIAL PRIMARY KEY, device text  ,"
+            " addressing text  , ip_address text  , subnet_mask text  )")
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS setting_network (id SERIAL PRIMARY KEY, host_name text  ,domain_name text  ,primary_name_server text  ,secondary_name_server text ,default_getway integer)")
-        # cursor.execute("CREATE TABLE IF NOT EXISTS setting_time (id SERIAL PRIMARY KEY, login text,  password text)")
+            "CREATE TABLE IF NOT EXISTS setting_network (id SERIAL PRIMARY KEY, host_name text  ,"
+            "domain_name text  ,primary_name_server text  ,secondary_name_server text ,default_getway integer)")
 
-        cursor.execute("SELECT 1 FROM registr")
+        cursor.execute("SELECT 1 FROM credential")
         exists = cursor.fetchone()
         if not exists:
-            people = [("server", "1111"), ("Ilya", "1234"), ("Kate", "25")]
-            cursor.executemany("INSERT INTO registr (login, password) VALUES (%s, %s)", people)
+            users = [("server", "1111"), ("IFC", "ifc")]
+            cursor.executemany("INSERT INTO credential (login, password) VALUES (%s, %s)", users)
 
         cursor.execute("SELECT 1 FROM setting_network")
         exists = cursor.fetchone()
         if not exists:
             people = ["", "", "", "", 0]
             cursor.execute(
-                "INSERT INTO setting_network (host_name, domain_name , primary_name_server, secondary_name_server, default_getway) VALUES (%s, %s, %s, %s, %s)",
+                "INSERT INTO setting_network (host_name, domain_name ,"
+                " primary_name_server, secondary_name_server, default_getway) VALUES (%s, %s, %s, %s, %s)",
                 people)
 
-        cursor.execute("SELECT * FROM registr")
+        cursor.execute("SELECT * FROM credential")
 
         column = 2  # хотим разместить эти кнопки в 2 колонки
         size = (100, 60)  # размер кнопки, например 150х150
@@ -82,7 +93,7 @@ class ExampleApp(QtWidgets.QMainWindow):
     def NewUI(self, cursor):
         check = 0
 
-        cursor.execute("SELECT * FROM registr")
+        cursor.execute("SELECT * FROM credential")
         if self.password_lineEdit.text() == '':
             self.label.setText("Введите пароль!!!")
             return
@@ -139,7 +150,8 @@ class ExampleApp(QtWidgets.QMainWindow):
         people = [self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
                   self.secondary_server_edit.text(), self.default_gateway_edit.text()]
         cursor.execute(
-            "UPDATE setting_network SET host_name =%s, domain_name =%s, primary_name_server =%s, secondary_name_server =%s, default_getway =%s  WHERE id=1",
+            "UPDATE setting_network SET host_name =%s, domain_name =%s,"
+            " primary_name_server =%s, secondary_name_server =%s, default_getway =%s  WHERE id=1",
             people)
 
         # Настройки Интерфэйсу
@@ -168,16 +180,16 @@ class ExampleApp(QtWidgets.QMainWindow):
 
         cursor = con.cursor()
         con.autocommit = True
-        cursor.execute("CREATE TABLE IF NOT EXISTS registr (id SERIAL PRIMARY KEY, login text,  password text)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS credential (id SERIAL PRIMARY KEY, login text,  password text)")
 
-        cursor.execute("SELECT 1 FROM registr")
+        cursor.execute("SELECT 1 FROM credential")
         exists = cursor.fetchone()
         if not exists:
-            people = [("server", "1111"), ("Ilya", "1234"), ("Kate", "25")]
-            cursor.executemany("INSERT INTO registr (login, password) VALUES (%s, %s)", people)
+            users = [("server", "1111"), ("IFC", "ifc")]
+            cursor.executemany("INSERT INTO credential (login, password) VALUES (%s, %s)", users)
 
         # cursor = con.cursor()
-        cursor.execute("SELECT * FROM registr")
+        cursor.execute("SELECT * FROM credential")
         column = 2  # хотим разместить эти кнопки в 2 колонки
         size = (100, 60)  # размер кнопки, например 150х150
 
@@ -269,7 +281,7 @@ class ModbusForm(QtWidgets.QMainWindow):
         # и т.д. в файле design.py
         super().__init__()
 
-        uic.loadUi(UI_modbus,self)        # доступные порты
+        uic.loadUi(UI_modbus, self)  # доступные порты
         portlist = []
         ports = QSerialPortInfo().availablePorts()
         for port in ports:

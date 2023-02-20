@@ -4,7 +4,7 @@ import psycopg2
 from PyQt6 import QtCore, QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
-import mainUI
+
 import Modbus
 
 import ping

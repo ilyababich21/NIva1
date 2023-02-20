@@ -54,7 +54,7 @@ class ExampleApp(QtWidgets.QMainWindow):
             " addressing text  , ip_address text  , subnet_mask text  )")
         cursor.execute(
             "CREATE TABLE IF NOT EXISTS setting_network (id SERIAL PRIMARY KEY, host_name text  ,"
-            "domain_name text  ,primary_name_server text  ,secondary_name_server text ,default_getway integer)")
+            "domain_name text  ,primary_name_server text  ,secondary_name_server text ,default_gateway text)")
 
         cursor.execute("SELECT 1 FROM credential")
         exists = cursor.fetchone()
@@ -65,15 +65,14 @@ class ExampleApp(QtWidgets.QMainWindow):
         cursor.execute("SELECT 1 FROM setting_network")
         exists = cursor.fetchone()
         if not exists:
-            people = ["", "", "", "", 0]
+            settings = ["Niva", "Niva main", "main", "main2", "127.0.0.1"]
             cursor.execute(
                 "INSERT INTO setting_network (host_name, domain_name ,"
-                " primary_name_server, secondary_name_server, default_getway) VALUES (%s, %s, %s, %s, %s)",
-                people)
+                " primary_name_server, secondary_name_server, default_gateway) VALUES (%s, %s, %s, %s, %s)",
+                settings)
 
         cursor.execute("SELECT * FROM credential")
 
-        column = 2  # хотим разместить эти кнопки в 2 колонки
         size = (100, 60)  # размер кнопки, например 150х150
 
         layout = self.layoutButton
@@ -102,16 +101,14 @@ class ExampleApp(QtWidgets.QMainWindow):
                 check = 1
 
                 uic.loadUi(UI_main, self)
-                cursor.execute("SELECT * FROM setting_network")
 
-                id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway = cursor.fetchone()
-                print(id, host_name, domain_name, primary_name_server, secondary_name_server, default_getway)
-                if default_getway != None: default_getway = str(default_getway)
+                cursor.execute("SELECT * FROM setting_network")
+                id, host_name, domain_name, primary_name_server, secondary_name_server, default_gateway = cursor.fetchone()
                 self.host_name_edit.setText(host_name)
                 self.domain_name_edit.setText(domain_name)
                 self.primary_server_edit.setText(primary_name_server)
                 self.secondary_server_edit.setText(secondary_name_server)
-                self.default_gateway_edit.setText(default_getway)
+                self.default_gateway_edit.setText(default_gateway)
 
                 cursor.execute("SELECT * FROM network_interface")
                 ip_d, device, addressing, ip_address, subnet_mask = cursor.fetchone()
@@ -135,8 +132,8 @@ class ExampleApp(QtWidgets.QMainWindow):
                 self.pushButton_48.clicked.connect(lambda: self.PingTest(self.pushButton_48, self.lineEdit_12))
                 self.pushButton_49.clicked.connect(lambda: self.PingTest(self.pushButton_49, self.lineEdit_13))
                 self.pushButton_50.clicked.connect(lambda: self.PingTest(self.pushButton_50, self.lineEdit_14))
-                self.checkBox_2.clicked.connect(self.Chicks)
-                self.checkBox_3.clicked.connect(self.Chicks)
+                self.checkBox_2.clicked.connect(self.check_timezone)
+                self.checkBox_3.clicked.connect(self.check_timezone)
                 self.exit_pushButton.clicked.connect(lambda: self.VIhod(cursor))
 
         if check == 0:
@@ -151,10 +148,9 @@ class ExampleApp(QtWidgets.QMainWindow):
                   self.secondary_server_edit.text(), self.default_gateway_edit.text()]
         cursor.execute(
             "UPDATE setting_network SET host_name =%s, domain_name =%s,"
-            " primary_name_server =%s, secondary_name_server =%s, default_getway =%s  WHERE id=1",
+            " primary_name_server =%s, secondary_name_server =%s, default_gateway =%s  WHERE id=1",
             people)
 
-        # Настройки Интерфэйсу
         print(self.device_combobox.currentText(), self.adressing_combobox.currentText(),
               self.ip_address_edit.text(), self.mask_edit.text())
         people = [self.device_combobox.currentText(), self.adressing_combobox.currentText(),
@@ -188,9 +184,7 @@ class ExampleApp(QtWidgets.QMainWindow):
             users = [("server", "1111"), ("IFC", "ifc")]
             cursor.executemany("INSERT INTO credential (login, password) VALUES (%s, %s)", users)
 
-        # cursor = con.cursor()
         cursor.execute("SELECT * FROM credential")
-        column = 2  # хотим разместить эти кнопки в 2 колонки
         size = (100, 60)  # размер кнопки, например 150х150
 
         layout = self.layoutButton
@@ -203,7 +197,7 @@ class ExampleApp(QtWidgets.QMainWindow):
             num = num + 1
         self.log_in_button.clicked.connect(lambda: self.NewUI(cursor))
 
-    def Chicks(self):
+    def check_timezone(self):
         if self.checkBox_2.isChecked():
             self.label_13.setEnabled(True)
             self.lineEdit_8.setEnabled(True)
@@ -277,8 +271,6 @@ class Changer(QtCore.QThread):
 
 class ModbusForm(QtWidgets.QMainWindow):
     def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле design.py
         super().__init__()
 
         uic.loadUi(UI_modbus, self)  # доступные порты

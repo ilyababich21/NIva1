@@ -4,6 +4,7 @@ import psycopg2
 from PyQt6 import QtCore, QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
+import mainUI
 import Modbus
 
 import ping
@@ -31,7 +32,7 @@ class ExampleApp(QtWidgets.QMainWindow):
         self.modbusForm = ModbusForm()
         self.ping = Ping()
         uic.loadUi(UI_autoriation, self)
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -44,7 +45,7 @@ class ExampleApp(QtWidgets.QMainWindow):
         cursor.close()
         conn.close()
 
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True
@@ -162,7 +163,7 @@ class ExampleApp(QtWidgets.QMainWindow):
             people)
 
         uic.loadUi(UI_autoriation, self)
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="1111", host="127.0.0.1")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -174,7 +175,7 @@ class ExampleApp(QtWidgets.QMainWindow):
         cursor.close()
         conn.close()
 
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
+        con = psycopg2.connect(dbname='niva1', user='postgres', password='1111', host='127.0.0.1')
 
         cursor = con.cursor()
         con.autocommit = True
@@ -400,3 +401,5 @@ def main():
     app.exec()  # и запускаем приложение
 
 
+if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
+    main()  # то запускаем функцию main()

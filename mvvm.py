@@ -1,15 +1,11 @@
-import subprocess
 import sys
-
 import psycopg2
-from PyQt6 import QtCore, QtWidgets, uic
-from PyQt6.QtSerialPort import QSerialPortInfo
-from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
+from PyQt6 import QtWidgets, uic
+from modbus.modbusMain import ModbusForm
+from ping.pingMain import Ping
 
 UI_autoriation = "fileUI/authorization.ui"
 UI_main = "fileUI/main.ui"
-UI_ping = "fileUI/ping.ui"
-UI_modbus = "fileUI/modbus.ui"
 
 
 class Button(QtWidgets.QPushButton):
@@ -35,7 +31,6 @@ class ExampleApp(QtWidgets.QMainWindow):
         cursor = conn.cursor()
 
         conn.autocommit = True
-        # команда для создания базы данных metanit
         cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'niva1'")
         exists = cursor.fetchone()
         if not exists:
@@ -127,11 +122,12 @@ class ExampleApp(QtWidgets.QMainWindow):
                 self.ip_address_edit.setText(ip_address)
                 self.mask_edit.setText(subnet_mask)
 
-                self.pushButton_22.clicked.connect(self.Ping)
-                self.pushButton_39.clicked.connect(self.Modbusssss)
-                self.pushButton_48.clicked.connect(lambda: self.PingTest(self.pushButton_48, self.lineEdit_12))
-                self.pushButton_49.clicked.connect(lambda: self.PingTest(self.pushButton_49, self.lineEdit_13))
-                self.pushButton_50.clicked.connect(lambda: self.PingTest(self.pushButton_50, self.lineEdit_14))
+                self.pushButton_22.clicked.connect(self.ping_show)
+                self.pushButton_39.clicked.connect(self.modbus_show)
+                self.pushButton_48.clicked.connect(
+                    lambda: self.pingMain.ping_test(self.pushButton_48, self.lineEdit_12))
+                self.pushButton_49.clicked.connect(lambda: self.ping_test(self.pushButton_49, self.lineEdit_13))
+                self.pushButton_50.clicked.connect(lambda: self.ping_test(self.pushButton_50, self.lineEdit_14))
                 self.checkBox_2.clicked.connect(self.check_timezone)
                 self.checkBox_3.clicked.connect(self.check_timezone)
                 self.exit_pushButton.clicked.connect(lambda: self.VIhod(cursor))
@@ -225,154 +221,14 @@ class ExampleApp(QtWidgets.QMainWindow):
             self.comboBox_9.setEnabled(True)
             self.comboBox_10.setEnabled(True)
 
-    def Ping(self):
+    def ping_show(self):
         self.ping.show()
 
-    def Modbusssss(self):
+    def modbus_show(self):
         self.modbusForm.show()
 
-    def PingTest(self, btn, line):
-
-        ip = line.text()
-        if ip == '':
-            btn.setStyleSheet('background-color: rgb(255,0,0);')
-            return
-
-        retcode = subprocess.call("ping -n 1 " + str(ip))
-        if retcode != 0:
-            btn.setStyleSheet('background-color: rgb(255,0,0);')
-        else:
-            btn.setStyleSheet('background-color: rgb(0,255,0);')
 
 
-class Changer(QtCore.QThread):
-    nextValueOfText = QtCore.pyqtSignal(str)
-
-    def __init__(self, parent=None):
-        QtCore.QThread.__init__(self, parent)
-        self.running = False  # Флаг выполнения
-
-    text = ''
-
-    def run(self):
-        self.running = True
-        while self.running == True:
-            if client:
-                self.text += str(
-                    client.read_holding_registers(int(addressssio), int(countio), unit=int(Slavik)).registers[0])
-            else:
-                self.text += str(
-                    clientTCP.read_holding_registers(int(addressssio), int(countio), unit=int(Slavik)).registers[0])
-            self.text += '\n'
-            self.nextValueOfText.emit(self.text)
-
-            QtCore.QThread.msleep(1000)
-
-
-class ModbusForm(QtWidgets.QMainWindow):
-    def __init__(self):
-        super().__init__()
-
-        uic.loadUi(UI_modbus, self)  # доступные порты
-        portlist = []
-        ports = QSerialPortInfo().availablePorts()
-        for port in ports:
-            portlist.append(port.portName())
-        self.comboBox.addItems(portlist)
-
-        self.checkBox.clicked.connect(self.Vibor)
-
-        self.checkBox_2.clicked.connect(self.Vibor)
-        self.changer = Changer()
-
-        self.pushButton.clicked.connect(
-            lambda: self.START(self.checkBox.isChecked(), self.comboBox.currentText(), self.comboBox_3.currentText(),
-                               self.comboBox_2.currentText(),
-                               self.comboBox_4.currentText(), self.comboBox_6.currentText(),
-                               self.lineEdit_2.text(), self.comboBox_7.currentText(), self.lineEdit.text(),
-                               self.lineEdit.text()))
-
-        self.changer.nextValueOfText.connect(self.setText)
-        self.pushButton_2.clicked.connect(self.STOP)
-
-    def STOP(self):
-        self.changer.running = False
-        if client:
-            client.close()
-        else:
-            clientTCP.close()
-
-    def START(self, shchk, com_port, baudrate, stopbits, parity, SlaveID, address, count, label7, label8):
-        global client
-        client = None
-        global clientTCP
-        if self.primary_server_edit.text() == '':
-            self.textEdit.setText("Старт-регистр обязателен для заполнения")
-        else:
-            global Slavik, addressssio, countio
-            addressssio = address
-            countio = count
-            Slavik = SlaveID
-            if shchk:
-                prt = parity
-                if prt == "odd":
-                    prt = "O"
-                elif prt == "even":
-                    prt = "E"
-                else:
-                    prt = "N"
-
-                client = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
-                try:
-                    client.connect()
-                    print('norm')
-                    self.changer.start()
-                except:
-                    print('hueta')
-
-            else:
-
-                clientTCP = ModbusTcpClient(host=label7, port=int(label8))
-                try:
-                    clientTCP.connect()
-                    print('norm')
-                    self.changer.start()
-                except:
-                    print('hueta')
-
-    @QtCore.pyqtSlot(str)
-    def setText(self, string):
-        self.textEdit.setText(string)
-
-    def Vibor(self):
-        if self.checkBox.isChecked():
-            self.widget111.setEnabled(True)
-            self.widget222.setEnabled(False)
-        else:
-            self.widget111.setEnabled(False)
-            self.widget222.setEnabled(True)
-
-
-class Ping(QtWidgets.QMainWindow):
-    def __init__(self):
-
-        super().__init__()
-
-        uic.loadUi(UI_ping, self)
-        self.check_pushButton.clicked.connect(self.PingTest)
-
-    def PingTest(self):
-
-        ip = self.ip_lineEdit.text()
-        if ip == '':
-            self.check_pushButton.setStyleSheet('background-color: rgb(255,0,0);')
-            return
-
-        retcode = subprocess.call("ping -n 1 " + str(ip))
-        if retcode != 0:
-            self.check_pushButton.setStyleSheet('background-color: rgb(255,0,0);')
-        else:
-            self.check_pushButton.setStyleSheet('background-color: rgb(0,255,0);')
 
 
 def main():

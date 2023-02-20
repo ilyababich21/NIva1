@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>776</width>
-    <height>655</height>
+    <height>648</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -21,6 +21,33 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_16">
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="save_change_pushButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Сохранить изменения</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="exit_pushButton">
+        <property name="text">
+         <string>Выход</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="enabled">
@@ -48,7 +75,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="iconSize">
        <size>
@@ -83,8 +110,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>732</width>
-             <height>519</height>
+             <width>509</width>
+             <height>507</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -191,7 +218,7 @@
                      <item>
                       <widget class="QPushButton" name="delete_pushButton">
                        <property name="enabled">
-                        <bool>false</bool>
+                        <bool>true</bool>
                        </property>
                        <property name="text">
                         <string>DELETE</string>
@@ -1157,7 +1184,7 @@
                         <item>
                          <layout class="QHBoxLayout" name="horizontalLayout_7">
                           <item>
-                           <widget class="QComboBox" name="comboBox_3">
+                           <widget class="QComboBox" name="time_comboBox">
                             <item>
                              <property name="text">
                               <string>Asia/Yakutsk</string>
@@ -1191,7 +1218,7 @@
                            </widget>
                           </item>
                           <item>
-                           <widget class="QCheckBox" name="checkBox">
+                           <widget class="QCheckBox" name="many_checkBox">
                             <property name="text">
                              <string>Больше поясов</string>
                             </property>
@@ -1200,7 +1227,7 @@
                          </layout>
                         </item>
                         <item>
-                         <widget class="QCheckBox" name="checkBox_2">
+                         <widget class="QCheckBox" name="auto_checkBox">
                           <property name="text">
                            <string>Автоматически</string>
                           </property>
@@ -1211,7 +1238,7 @@
                       <item>
                        <layout class="QVBoxLayout" name="verticalLayout_5">
                         <item>
-                         <widget class="QLabel" name="label_13">
+                         <widget class="QLabel" name="time_server_label">
                           <property name="enabled">
                            <bool>false</bool>
                           </property>
@@ -1230,7 +1257,7 @@
                        </layout>
                       </item>
                       <item>
-                       <widget class="QCheckBox" name="checkBox_3">
+                       <widget class="QCheckBox" name="manually_checkBox">
                         <property name="acceptDrops">
                          <bool>false</bool>
                         </property>
@@ -1596,7 +1623,7 @@
                         <x>0</x>
                         <y>0</y>
                         <width>408</width>
-                        <height>89</height>
+                        <height>476</height>
                        </rect>
                       </property>
                       <layout class="QGridLayout" name="gridLayout_14">
@@ -1849,8 +1876,8 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>660</width>
+             <y>-181</y>
+             <width>715</width>
              <height>794</height>
             </rect>
            </property>
@@ -2211,7 +2238,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLineEdit" name="lineEdit_12">
+                  <widget class="QLineEdit" name="ip_comp_lineEdit">
                    <property name="minimumSize">
                     <size>
                      <width>80</width>
@@ -2227,7 +2254,7 @@
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QPushButton" name="pushButton_48">
+                  <widget class="QPushButton" name="test_alz_pushButton">
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
@@ -2521,7 +2548,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_13">
+                    <widget class="QLineEdit" name="ip_main_comp_lineEdit">
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
@@ -2537,7 +2564,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_49">
+                    <widget class="QPushButton" name="main_drive_pushButton">
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
@@ -2583,7 +2610,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_14">
+                    <widget class="QLineEdit" name="second_drive_lineEdit">
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
@@ -2599,7 +2626,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_50">
+                    <widget class="QPushButton" name="second_drive_pushButton">
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
@@ -3669,7 +3696,7 @@
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QPushButton" name="pushButton_39">
+             <widget class="QPushButton" name="scan_modbus_pushButton">
               <property name="minimumSize">
                <size>
                 <width>260</width>
@@ -3688,7 +3715,7 @@
              </widget>
             </item>
             <item row="5" column="0">
-             <widget class="QPushButton" name="pushButton_22">
+             <widget class="QPushButton" name="ping_query_pushButton">
               <property name="minimumSize">
                <size>
                 <width>260</width>
@@ -3932,33 +3959,6 @@
       </widget>
      </widget>
     </item>
-    <item row="1" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="save_change_pushButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>Сохранить изменения</string>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="exit_pushButton">
-        <property name="text">
-         <string>Выход</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -3976,9 +3976,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox_3</sender>
+   <sender>manually_checkBox</sender>
    <signal>clicked(bool)</signal>
-   <receiver>checkBox_2</receiver>
+   <receiver>auto_checkBox</receiver>
    <slot>toggle()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -3992,9 +3992,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_2</sender>
+   <sender>auto_checkBox</sender>
    <signal>clicked(bool)</signal>
-   <receiver>checkBox_3</receiver>
+   <receiver>manually_checkBox</receiver>
    <slot>toggle()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -1,6 +1,7 @@
 import sys
 import psycopg2
 from PyQt6 import QtWidgets, uic
+
 from modbus.modbusMain import ModbusForm
 from ping.pingMain import Ping
 
@@ -122,14 +123,16 @@ class ExampleApp(QtWidgets.QMainWindow):
                 self.ip_address_edit.setText(ip_address)
                 self.mask_edit.setText(subnet_mask)
 
-                self.pushButton_22.clicked.connect(self.ping_show)
-                self.pushButton_39.clicked.connect(self.modbus_show)
-                self.pushButton_48.clicked.connect(
-                    lambda: self.pingMain.ping_test(self.pushButton_48, self.lineEdit_12))
-                self.pushButton_49.clicked.connect(lambda: self.ping_test(self.pushButton_49, self.lineEdit_13))
-                self.pushButton_50.clicked.connect(lambda: self.ping_test(self.pushButton_50, self.lineEdit_14))
-                self.checkBox_2.clicked.connect(self.check_timezone)
-                self.checkBox_3.clicked.connect(self.check_timezone)
+                self.ping_query_pushButton.clicked.connect(self.ping_show)
+                self.scan_modbus_pushButton.clicked.connect(self.modbus_show)
+                self.test_alz_pushButton.clicked.connect(
+                    lambda: self.pingMain.ping_test(self.test_alz_pushButton, self.ip_comp_lineEdit))
+                self.main_drive_pushButton.clicked.connect(
+                    lambda: self.pingMain.ping_test(self.main_drive_pushButton, self.ip_main_comp_lineEdit))
+                self.second_drive_pushButton.clicked.connect(
+                    lambda: self.pingMain.ping_test(self.second_drive_pushButton, self.second_drive_lineEdit))
+                self.auto_checkBox.clicked.connect(self.check_timezone)
+                self.manually_checkBox.clicked.connect(self.check_timezone)
                 self.exit_pushButton.clicked.connect(lambda: self.VIhod(cursor))
 
         if check == 0:

@@ -2,7 +2,7 @@ import sys
 
 from PyQt6 import QtWidgets
 
-from test2 import ExampleApp
+from mvvm import ExampleApp
 
 
 def main():

@@ -1,5 +1,6 @@
 altgraph==0.17.3
 future==0.18.2
+greenlet==2.0.2
 iso8601==1.1.0
 pefile==2022.5.30
 ping3==4.0.4
@@ -20,3 +21,5 @@ PyYAML==6.0
 serial==0.0.97
 shiboken6==6.4.1
 simplethread==1.0.1
+SQLAlchemy==2.0.4
+typing_extensions==4.5.0

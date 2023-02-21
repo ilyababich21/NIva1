@@ -52,5 +52,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>ip_lineEdit</sender>
+   <signal>editingFinished()</signal>
+   <receiver>check_pushButton</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>54</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

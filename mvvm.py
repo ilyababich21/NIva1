@@ -1,7 +1,10 @@
 import subprocess
 import sys
+
 import psycopg2
 from PyQt6 import QtWidgets, uic
+from model import Model
+import model
 from modbus.modbusMain import ModbusForm
 from ping.pingMain import Ping
 
@@ -27,61 +30,27 @@ class ExampleApp(QtWidgets.QMainWindow):
 
         self.modbusForm = ModbusForm()
         self.ping = Ping()
+
         uic.loadUi(UI_autoriation, self)
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="root", host="127.0.0.1")
-        cursor = conn.cursor()
 
-        conn.autocommit = True
-        cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'niva1'")
-        exists = cursor.fetchone()
-        if not exists:
-            cursor.execute('CREATE DATABASE niva1')
+        self.model = Model()
+        self.model.connection_database()
 
-        cursor.close()
-        conn.close()
-
-        con = psycopg2.connect(dbname='niva1', user='postgres', password='root', host='127.0.0.1')
-
-        cursor = con.cursor()
-        con.autocommit = True
-        cursor.execute("CREATE TABLE IF NOT EXISTS credential (id SERIAL PRIMARY KEY, login text,  password text)")
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS network_interface (id SERIAL PRIMARY KEY, device text  ,"
-            " addressing text  , ip_address text  , subnet_mask text  )")
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS setting_network (id SERIAL PRIMARY KEY, host_name text  ,"
-            "domain_name text  ,primary_name_server text  ,secondary_name_server text ,default_gateway text)")
-
-        cursor.execute("SELECT 1 FROM credential")
-        exists = cursor.fetchone()
-        if not exists:
-            users = [("server", "1111"), ("IFC", "ifc")]
-            cursor.executemany("INSERT INTO credential (login, password) VALUES (%s, %s)", users)
-
-        cursor.execute("SELECT 1 FROM setting_network")
-        exists = cursor.fetchone()
-        if not exists:
-            settings = ["Niva", "Niva main", "main", "main2", "127.0.0.1"]
-            cursor.execute(
-                "INSERT INTO setting_network (host_name, domain_name ,"
-                " primary_name_server, secondary_name_server, default_gateway) VALUES (%s, %s, %s, %s, %s)",
-                settings)
-
-        cursor.execute("SELECT * FROM credential")
+        # self.model.cursor.execute("SELECT * FROM credential")
 
         size = (100, 60)  # размер кнопки, например 150х150
 
         layout = self.layoutButton
 
         num = 0
-        for elem in cursor.fetchall():
+        for elem in self.model.get_count_of_users():
             btn = Button(f'{elem[1]}', size)  # !!!
-            btn.clicked.connect(lambda ch, b=btn: self.onClicked(b))
+            btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
             layout.addWidget(btn)
             num = num + 1
-        self.log_in_button.clicked.connect(lambda: self.NewUI(cursor))
+        self.log_in_button.clicked.connect(lambda: self.NewUI(self.model.cursor))
 
-    def onClicked(self, btn):
+    def on_clicked(self, btn):
 
         self.login_lineEdit.setText(btn.text())
 

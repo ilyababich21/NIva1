@@ -1,9 +1,7 @@
 import subprocess
 import sys
-
 import psycopg2
 from PyQt6 import QtWidgets, uic
-
 from modbus.modbusMain import ModbusForm
 from ping.pingMain import Ping
 

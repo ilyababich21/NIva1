@@ -1,4 +1,6 @@
+import subprocess
 import sys
+
 import psycopg2
 from PyQt6 import QtWidgets, uic
 
@@ -126,11 +128,11 @@ class ExampleApp(QtWidgets.QMainWindow):
                 self.ping_query_pushButton.clicked.connect(self.ping_show)
                 self.scan_modbus_pushButton.clicked.connect(self.modbus_show)
                 self.test_alz_pushButton.clicked.connect(
-                    lambda: self.pingMain.ping_test(self.test_alz_pushButton, self.ip_comp_lineEdit))
+                    lambda: self.ping_test_for_button(self.test_alz_pushButton, self.ip_comp_lineEdit))
                 self.main_drive_pushButton.clicked.connect(
-                    lambda: self.pingMain.ping_test(self.main_drive_pushButton, self.ip_main_comp_lineEdit))
+                    lambda: self.ping_test_for_button(self.main_drive_pushButton, self.ip_main_comp_lineEdit))
                 self.second_drive_pushButton.clicked.connect(
-                    lambda: self.pingMain.ping_test(self.second_drive_pushButton, self.second_drive_lineEdit))
+                    lambda: self.ping_test_for_button(self.second_drive_pushButton, self.second_drive_lineEdit))
                 self.auto_checkBox.clicked.connect(self.check_timezone)
                 self.manually_checkBox.clicked.connect(self.check_timezone)
                 self.exit_pushButton.clicked.connect(lambda: self.VIhod(cursor))
@@ -197,8 +199,8 @@ class ExampleApp(QtWidgets.QMainWindow):
         self.log_in_button.clicked.connect(lambda: self.NewUI(cursor))
 
     def check_timezone(self):
-        if self.checkBox_2.isChecked():
-            self.label_13.setEnabled(True)
+        if self.auto_checkBox.isChecked():
+            self.time_server_label.setEnabled(True)
             self.lineEdit_8.setEnabled(True)
             self.label_14.setEnabled(False)
             self.label_15.setEnabled(False)
@@ -211,7 +213,7 @@ class ExampleApp(QtWidgets.QMainWindow):
             self.comboBox_9.setEnabled(False)
             self.comboBox_10.setEnabled(False)
         else:
-            self.label_13.setEnabled(False)
+            self.time_server_label.setEnabled(False)
             self.lineEdit_8.setEnabled(False)
             self.label_14.setEnabled(True)
             self.label_15.setEnabled(True)
@@ -230,6 +232,17 @@ class ExampleApp(QtWidgets.QMainWindow):
     def modbus_show(self):
         self.modbusForm.show()
 
+    def ping_test_for_button(self, btn, line):
+        ip = line.text()
+        if ip == '':
+            btn.setStyleSheet('background-color: rgb(255,0,0);')
+            return
+
+        retcode = subprocess.call("ping -n 1 " + str(ip))
+        if retcode != 0:
+            btn.setStyleSheet('background-color: rgb(255,0,0);')
+        else:
+            btn.setStyleSheet('background-color: rgb(0,255,0);')
 
 
 

@@ -3,7 +3,7 @@ from PyQt6 import QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
 
-UI_modbus = "fileUI/modbus.ui"
+UI_modbus = "view/service/modbus_view.ui"
 
 
 class Changer(QtCore.QThread):
@@ -11,7 +11,7 @@ class Changer(QtCore.QThread):
 
     def __init__(self, parent=None):
         QtCore.QThread.__init__(self, parent)
-        self.running = False  # Флаг выполнения
+        self.running = False
 
     text = ''
 

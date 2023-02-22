@@ -3,16 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Session
 import sqlalchemy
-
-
-
-
-# <<<<<<< HEAD
-# =======
-# def connection_database():
-#
-#     engine = create_engine("postgresql://postgres:root@localhost/niva1")
-# >>>>>>> 0888870d1909ee1481c401683cc5041a65c2d50d
+from ping.pingModel import PingTabel
 
 def connection_database():
     pass
@@ -38,16 +29,14 @@ class SettingNetwork(Base):
     secondary_name_server = Column(String)
     default_gateway = Column(String)
 
-    def update_setting_network(self, host_name,domain_name,primary_name_server,secondary_name_server,default_gateway):
-        self.host_name=host_name
-        self.domain_name=domain_name
-        self.primary_name_server=primary_name_server
-        self.secondary_name_server=secondary_name_server
-        self.default_gateway=default_gateway
+    def update_setting_network(self, host_name, domain_name, primary_name_server, secondary_name_server,
+                               default_gateway):
+        self.host_name = host_name
+        self.domain_name = domain_name
+        self.primary_name_server = primary_name_server
+        self.secondary_name_server = secondary_name_server
+        self.default_gateway = default_gateway
         session.commit()
-
-
-
 
 
 class NetworkInterface(Base):
@@ -58,74 +47,30 @@ class NetworkInterface(Base):
     ip_address = Column(String)
     subnet_mask = Column(String)
 
-    def update_network_interface(self,device,addressing,ip_address,subnet_mask):
-        self.device=device
-        self.addressing=addressing
-        self.ip_address=ip_address
-        self.subnet_mask=subnet_mask
+    def update_network_interface(self, device, addressing, ip_address, subnet_mask):
+        self.device = device
+        self.addressing = addressing
+        self.ip_address = ip_address
+        self.subnet_mask = subnet_mask
         session.commit()
 
-engine = create_engine("postgresql://postgres:1111@localhost/niva1")
+
+engine = create_engine("postgresql://postgres:root@localhost/niva1")
 Base.metadata.create_all(bind=engine)
 
 DBsession = sqlalchemy.orm.sessionmaker(bind=engine)
 session = DBsession()
 
-# class ConnectionDb(object):
-#     def __init__(self):
-#         super().__init__()
-#         self.engine = create_engine("postgresql://postgres:1111@localhost/niva1")
-#         Base.metadata.create_all(bind=self.engine)
-#
-#         DBsession = sqlalchemy.orm.sessionmaker(bind=self.engine)
-#         self.session = DBsession()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def work_users():
-
     with Session(autoflush=False, bind=connection_database()) as db:
         users = db.query(Users).all()
-        if users==[]:
+        if not users:
             service = Users(login="service", password="1111")
             ifc = Users(login="IFC", password="ifc")
             db.add_all([service, ifc])
             db.commit()
             users = db.query(Users).all()
-
 
     return users
 
@@ -152,7 +97,3 @@ def work_network_interface():
         network_interface = db.get(NetworkInterface, 1)
 
     return network_interface
-
-
-# Base.metadata.create_all(bind=connection_database())
-# work_users()

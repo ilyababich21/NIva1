@@ -4,6 +4,7 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Session
 
 
+
 def connection_database():
     engine = create_engine("postgresql://postgres:root@localhost/niva1", echo=True)
 
@@ -27,7 +28,7 @@ def work_pingTable():
         db.commit()
         print(pingRow.id)
 
-
+#
 Base.metadata.create_all(bind=connection_database())
 
 

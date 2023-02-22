@@ -1,25 +1,14 @@
 import subprocess
 import sys
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
 from PyQt6 import QtWidgets, uic
-#
-import model
-# from modbus.modbusMain import ModbusForm
-# from ping.pingMain import Ping
-from model import session, sqlalchemy, engine, DBsession, Users, SettingNetwork, NetworkInterface
-# =======
-
+import service.service_model as model
+from service.service_model import  session, Users, SettingNetwork, NetworkInterface
 from modbus.modbusVm import ModbusForm
-from model import connection_database
-from model import work_network_interface
-from model import work_setting_network
-from model import work_users
 from ping.pingVm import Ping
-# >>>>>>> 0888870d1909ee1481c401683cc5041a65c2d50d
 
-UI_autoriation = "fileUI/authorization.ui"
-UI_main = "fileUI/main.ui"
+
+UI_autoriation = "view/authorization_view.ui"
+UI_main = "view/service_view.ui"
 
 
 class Button(QtWidgets.QPushButton):
@@ -34,7 +23,7 @@ class Button(QtWidgets.QPushButton):
             "solid #0d6efd;padding: 5px 15px; margin-top: 10px;")
 
 
-class ExampleApp(QtWidgets.QMainWindow):
+class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -43,8 +32,7 @@ class ExampleApp(QtWidgets.QMainWindow):
 
         uic.loadUi(UI_autoriation, self)
 
-        # self.engine = create_engine("postgresql://postgres:1111@localhost/niva1", echo=True)
-        size = (100, 60)  # размер кнопки, например 150х150
+        size_of_user_button = (100, 60)
         layout = self.layoutButton
 
         self.users = session.query(model.Users).all()
@@ -53,12 +41,12 @@ class ExampleApp(QtWidgets.QMainWindow):
             session.commit()
             self.users = session.query(model.Users).all()
         self.setting_network = session.get(model.SettingNetwork, 1)
-        if self.setting_network == None:
+        if self.setting_network is None:
             session.add(SettingNetwork())
             session.commit()
             self.setting_network = session.get(model.SettingNetwork, 1)
         self.network_interface = session.get(model.NetworkInterface, 1)
-        if self.network_interface == None:
+        if self.network_interface is None:
             session.add(NetworkInterface())
             session.commit()
             self.network_interface = session.get(model.NetworkInterface, 1)
@@ -66,7 +54,7 @@ class ExampleApp(QtWidgets.QMainWindow):
         num = 0
         for p in self.users:
             print(f"{p.id}.{p.login} ({p.password})")
-            btn = Button(f'{p.login}', size)  # !!!
+            btn = Button(f'{p.login}', size_of_user_button)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
             layout.addWidget(btn)
             num = num + 1
@@ -77,6 +65,7 @@ class ExampleApp(QtWidgets.QMainWindow):
         self.login_lineEdit.setText(btn.text())
 
     def NewUI(self):
+
         check = 0
         if self.password_lineEdit.text() == '':
             self.check_label.setText("Введите пароль!!!")
@@ -103,15 +92,6 @@ class ExampleApp(QtWidgets.QMainWindow):
 
                 self.ip_address_edit.setText(self.network_interface.ip_address)
                 self.mask_edit.setText(self.network_interface.subnet_mask)
-
-
-
-
-
-
-
-
-
 
                 self.ping_query_pushButton.clicked.connect(self.ping_show)
                 self.scan_modbus_pushButton.clicked.connect(self.modbus_show)
@@ -205,7 +185,7 @@ class ExampleApp(QtWidgets.QMainWindow):
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    window = ExampleApp()
+    window = ServiceViewModel()
     window.show()
     app.exec()
 

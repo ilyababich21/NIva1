@@ -2,7 +2,7 @@ import subprocess
 
 from PyQt6 import QtWidgets, uic
 
-UI_ping = "fileUI/ping.ui"
+UI_ping = "view/service/ping_requst_view.ui"
 
 
 class Ping(QtWidgets.QMainWindow):

@@ -2,12 +2,12 @@ import sys
 
 from PyQt6 import QtWidgets
 
-from mvvm import ExampleApp
+from service.service_vm import ServiceViewModel
 
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    window = ExampleApp()
+    window = ServiceViewModel()
     window.show()
     app.exec()
 

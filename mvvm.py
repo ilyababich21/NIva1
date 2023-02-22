@@ -3,10 +3,20 @@ import sys
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from PyQt6 import QtWidgets, uic
+#
 import model
-from modbus.modbusMain import ModbusForm
-from ping.pingMain import Ping
+# from modbus.modbusMain import ModbusForm
+# from ping.pingMain import Ping
 from model import session, sqlalchemy, engine, DBsession, Users, SettingNetwork, NetworkInterface
+# =======
+
+from modbus.modbusVm import ModbusForm
+from model import connection_database
+from model import work_network_interface
+from model import work_setting_network
+from model import work_users
+from ping.pingVm import Ping
+# >>>>>>> 0888870d1909ee1481c401683cc5041a65c2d50d
 
 UI_autoriation = "fileUI/authorization.ui"
 UI_main = "fileUI/main.ui"
@@ -68,9 +78,8 @@ class ExampleApp(QtWidgets.QMainWindow):
 
     def NewUI(self):
         check = 0
-
         if self.password_lineEdit.text() == '':
-            self.label.setText("Введите пароль!!!")
+            self.check_label.setText("Введите пароль!!!")
             return
         for user in self.users:
             if self.login_lineEdit.text() == f"{user.login}" \
@@ -117,7 +126,7 @@ class ExampleApp(QtWidgets.QMainWindow):
                 self.exit_pushButton.clicked.connect(self.VIhod)
 
         if check == 0:
-            self.label.setText("Логин или пароль введен неверно")
+            self.check_label.setText("Логин или пароль введен неверно")
         elif check == 2:
             pass
 

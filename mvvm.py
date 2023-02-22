@@ -3,12 +3,12 @@ import sys
 
 from PyQt6 import QtWidgets, uic
 
-from modbus.modbusMain import ModbusForm
+from modbus.modbusVm import ModbusForm
 from model import connection_database
 from model import work_network_interface
 from model import work_setting_network
 from model import work_users
-from ping.pingMain import Ping
+from ping.pingVm import Ping
 
 UI_authorization = "fileUI/authorization.ui"
 UI_main = "fileUI/main.ui"
@@ -54,9 +54,8 @@ class ExampleApp(QtWidgets.QMainWindow):
 
     def NewUI(self):
         check = 0
-
         if self.password_lineEdit.text() == '':
-            self.label.setText("Введите пароль!!!")
+            self.check_label.setText("Введите пароль!!!")
             return
         for user in self.users:
             if self.login_lineEdit.text() == f"{user.login}" \
@@ -94,7 +93,7 @@ class ExampleApp(QtWidgets.QMainWindow):
                 self.exit_pushButton.clicked.connect(self.exit_service)
 
         if check == 0:
-            self.label.setText("Логин или пароль введен неверно")
+            self.check_label.setText("Логин или пароль введен неверно")
         elif check == 2:
             pass
 

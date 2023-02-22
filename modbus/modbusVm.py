@@ -41,9 +41,9 @@ class ModbusForm(QtWidgets.QMainWindow):
             portlist.append(port.portName())
         self.comboBox.addItems(portlist)
 
-        self.checkBox.clicked.connect(self.vibor)
+        self.checkBox.clicked.connect(self.choice_checkBox)
 
-        self.checkBox_2.clicked.connect(self.vibor)
+        self.checkBox_2.clicked.connect(self.choice_checkBox)
         self.changer = Changer()
 
         self.pushButton.clicked.connect(
@@ -105,7 +105,7 @@ class ModbusForm(QtWidgets.QMainWindow):
     def setText(self, string):
         self.textEdit.setText(string)
 
-    def vibor(self):
+    def choice_checkBox(self):
         if self.checkBox.isChecked():
             self.widget111.setEnabled(True)
             self.widget222.setEnabled(False)

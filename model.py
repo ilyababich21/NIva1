@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 
 def connection_database():
+
     engine = create_engine("postgresql://postgres:root@localhost/niva1")
 
     return engine
@@ -41,21 +42,21 @@ class NetworkInterface(Base):
 
 
 def work_users():
-    Base.metadata.create_all(bind=connection_database())
+
     with Session(autoflush=False, bind=connection_database()) as db:
         users = db.query(Users).all()
-        if not users:
+        if users==[]:
             service = Users(login="service", password="1111")
             ifc = Users(login="IFC", password="ifc")
             db.add_all([service, ifc])
             db.commit()
             users = db.query(Users).all()
 
+
     return users
 
 
 def work_setting_network():
-    Base.metadata.create_all(bind=connection_database())
     with Session(autoflush=False, bind=connection_database()) as db:
         setting_network = db.get(SettingNetwork, 1)
     if setting_network is None:
@@ -68,7 +69,6 @@ def work_setting_network():
 
 
 def work_network_interface():
-    Base.metadata.create_all(bind=connection_database())
     with Session(autoflush=False, bind=connection_database()) as db:
         network_interface = db.get(NetworkInterface, 1)
     if network_interface is None:
@@ -78,3 +78,7 @@ def work_network_interface():
         network_interface = db.get(NetworkInterface, 1)
 
     return network_interface
+
+
+Base.metadata.create_all(bind=connection_database())
+work_users()

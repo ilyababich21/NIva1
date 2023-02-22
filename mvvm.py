@@ -1,13 +1,16 @@
 import subprocess
 import sys
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
+
 from PyQt6 import QtWidgets, uic
-import model
+
 from modbus.modbusMain import ModbusForm
+from model import connection_database
+from model import work_network_interface
+from model import work_setting_network
+from model import work_users
 from ping.pingMain import Ping
 
-UI_autoriation = "fileUI/authorization.ui"
+UI_authorization = "fileUI/authorization.ui"
 UI_main = "fileUI/main.ui"
 
 
@@ -29,41 +32,16 @@ class ExampleApp(QtWidgets.QMainWindow):
 
         self.modbusForm = ModbusForm()
         self.ping = Ping()
-
-        uic.loadUi(UI_autoriation, self)
-
-        self.engine = create_engine("postgresql://postgres:1111@localhost/niva1", echo=True)
+        uic.loadUi(UI_authorization, self)
+        self.connectionDb = connection_database()
         size = (100, 60)  # размер кнопки, например 150х150
         layout = self.layoutButton
-
-        model.Base.metadata.create_all(bind=self.engine)
-        with Session(autoflush=False, bind=self.engine) as db:
-
-            self.users = db.query(model.Users).all()
-            if self.users == []:
-                service = model.Users(login="service", password="1111")
-                ilya = model.Users(login="ilya", password="1234")
-                db.add_all([service, ilya])
-                db.commit()
-                self.users = db.query(model.Users).all()
-
-            self.setting_network = db.get(model.SettingNetwork, 1)
-            if self.setting_network == None:
-                line = model.SettingNetwork()
-                db.add(line)
-                db.commit()
-                self.setting_network = db.get(model.SettingNetwork, 1)
-
-            self.network_interface = db.get(model.NetworkInterface, 1)
-            if self.network_interface == None:
-                line = model.NetworkInterface()
-                db.add(line)
-                db.commit()
-                self.network_interface = db.get(model.NetworkInterface, 1)
+        self.users = work_users()
+        self.settingNetwork = work_setting_network()
+        self.networkInterface = work_network_interface()
 
         num = 0
         for p in self.users:
-            print(f"{p.id}.{p.login} ({p.password})")
             btn = Button(f'{p.login}', size)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
             layout.addWidget(btn)
@@ -86,22 +64,22 @@ class ExampleApp(QtWidgets.QMainWindow):
                 check = 1
 
                 uic.loadUi(UI_main, self)
-                self.host_name_edit.setText(self.setting_network.host_name)
-                self.domain_name_edit.setText(self.setting_network.domain_name)
-                self.primary_server_edit.setText(self.setting_network.primary_name_server)
-                self.secondary_server_edit.setText(self.setting_network.secondary_name_server)
-                self.default_gateway_edit.setText(self.setting_network.default_gateway)
+                self.host_name_edit.setText(self.settingNetwork.host_name)
+                self.domain_name_edit.setText(self.settingNetwork.domain_name)
+                self.primary_server_edit.setText(self.settingNetwork.primary_name_server)
+                self.secondary_server_edit.setText(self.settingNetwork.secondary_name_server)
+                self.default_gateway_edit.setText(self.settingNetwork.default_gateway)
 
                 for elem in range(self.device_combobox.count()):
-                    if self.network_interface.device == self.device_combobox.itemText(elem):
+                    if self.networkInterface.device == self.device_combobox.itemText(elem):
                         self.device_combobox.setCurrentIndex(elem)
 
                 for elem in range(self.adressing_combobox.count()):
-                    if self.network_interface.addressing == self.adressing_combobox.itemText(elem):
+                    if self.networkInterface.addressing == self.adressing_combobox.itemText(elem):
                         self.adressing_combobox.setCurrentIndex(elem)
 
-                self.ip_address_edit.setText(self.network_interface.ip_address)
-                self.mask_edit.setText(self.network_interface.subnet_mask)
+                self.ip_address_edit.setText(self.networkInterface.ip_address)
+                self.mask_edit.setText(self.networkInterface.subnet_mask)
 
                 self.ping_query_pushButton.clicked.connect(self.ping_show)
                 self.scan_modbus_pushButton.clicked.connect(self.modbus_show)
@@ -113,40 +91,29 @@ class ExampleApp(QtWidgets.QMainWindow):
                     lambda: self.ping_test_for_button(self.second_drive_pushButton, self.second_drive_lineEdit))
                 self.auto_checkBox.clicked.connect(self.check_timezone)
                 self.manually_checkBox.clicked.connect(self.check_timezone)
-                self.exit_pushButton.clicked.connect(self.VIhod)
+                self.exit_pushButton.clicked.connect(self.exit_service)
 
         if check == 0:
             self.label.setText("Логин или пароль введен неверно")
         elif check == 2:
             pass
 
-    def VIhod(self):
-        print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
-              self.secondary_server_edit.text(), self.default_gateway_edit.text())
-        with Session(autoflush=False, bind=self.engine) as db:
-            self.setting_network = db.get(model.SettingNetwork, 1)
-            self.setting_network.host_name = self.host_name_edit.text()
-            self.setting_network.domain_name = self.domain_name_edit.text()
-            self.setting_network.primary_name_server = self.primary_server_edit.text()
-            self.setting_network.secondary_name_server = self.secondary_server_edit.text()
-            self.setting_network.default_gateway = self.default_gateway_edit.text()
-            self.network_interface = db.get(model.NetworkInterface, 1)
-            self.network_interface.device = self.device_combobox.currentText()
-            self.network_interface.addressing = self.adressing_combobox.currentText()
-            self.network_interface.ip_address = self.ip_address_edit.text()
-            self.network_interface.subnet_mask = self.mask_edit.text()
-            db.commit()
-            tomas = db.query(model.SettingNetwork).filter(model.SettingNetwork.id == 1).first()
-            print(f"{tomas.id}.{tomas.host_name} ({tomas.domain_name})")
-            tomas2 = db.query(model.NetworkInterface).filter(model.NetworkInterface.id == 1).first()
-            print(f"{tomas2.id}.{tomas2.device} ({tomas2.addressing})")
+    def exit_service(self):
+        self.settingNetwork.host_name = self.host_name_edit.text()
+        self.settingNetwork.domain_name = self.domain_name_edit.text()
+        self.settingNetwork.primary_name_server = self.primary_server_edit.text()
+        self.settingNetwork.secondary_name_server = self.secondary_server_edit.text()
+        self.settingNetwork.default_gateway = self.default_gateway_edit.text()
+        self.networkInterface.device = self.device_combobox.currentText()
+        self.networkInterface.addressing = self.adressing_combobox.currentText()
+        self.networkInterface.ip_address = self.ip_address_edit.text()
+        self.networkInterface.subnet_mask = self.mask_edit.text()
 
-        uic.loadUi(UI_autoriation, self)
+        uic.loadUi(UI_authorization, self)
         size = (100, 60)  # размер кнопки, например 150х150
         layout = self.layoutButton
         num = 0
         for p in self.users:
-            print(f"{p.id}.{p.login} ({p.password})")
             btn = Button(f'{p.login}', size)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
             layout.addWidget(btn)

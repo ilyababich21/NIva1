@@ -128,7 +128,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         session.refresh(self.network_interface)
 
         uic.loadUi(UI_authorization, self)
-        size = (100, 60)  # размер кнопки, например 150х150
+        size = (100, 60)
         layout = self.layoutButton
         num = 0
         for p in self.users:

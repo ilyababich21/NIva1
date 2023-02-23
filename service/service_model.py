@@ -4,6 +4,10 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Session
 import sqlalchemy
 
+engine = create_engine("postgresql://postgres:root@localhost/niva1")
+db_session = sqlalchemy.orm.sessionmaker(bind=engine)
+session = db_session()
+
 
 class Base(DeclarativeBase): pass
 
@@ -51,11 +55,7 @@ class NetworkInterface(Base):
         session.commit()
 
 
-engine = create_engine("postgresql://postgres:root@localhost/niva1")
 Base.metadata.create_all(bind=engine)
-
-DBsession = sqlalchemy.orm.sessionmaker(bind=engine)
-session = DBsession()
 
 
 def work_users():

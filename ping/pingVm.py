@@ -14,12 +14,14 @@ class Ping(QtWidgets.QMainWindow):
 
         uic.loadUi(UI_ping, self)
         self.ping_table = session.get(ping.PingTable, 1)
-        self.ip_lineEdit.setText(self.ping_table.ping)
         self.check_pushButton.clicked.connect(self.ping_test)
-        session.add(PingTable(ping="127.0.0.1"))
-        session.commit()
+        self.pings = session.query(ping.PingTable).all()
+        if self.pings == []:
+            session.add(PingTable(ping="127.0.0.1"))
+            session.commit()
+        self.ip_lineEdit.setText(self.ping_table.ping)
         self.ping_table.update_pingTable(self.ip_lineEdit.text())
-        session.refresh(self.ping_table)
+
     def ping_test(self):
 
         ip = self.ip_lineEdit.text()

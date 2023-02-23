@@ -1,6 +1,8 @@
 import subprocess
-
+from ping.pingModel import session
+from ping.pingModel import PingTable
 from PyQt6 import QtWidgets, uic
+import ping.pingModel as ping
 
 UI_ping = "view/service/ping_requst_view.ui"
 
@@ -11,8 +13,13 @@ class Ping(QtWidgets.QMainWindow):
         super().__init__()
 
         uic.loadUi(UI_ping, self)
+        self.ping_table = session.get(ping.PingTable, 1)
+        self.ip_lineEdit.setText(self.ping_table.ping)
         self.check_pushButton.clicked.connect(self.ping_test)
-
+        session.add(PingTable(ping="127.0.0.1"))
+        session.commit()
+        self.ping_table.update_pingTable(self.ip_lineEdit.text())
+        session.refresh(self.ping_table)
     def ping_test(self):
 
         ip = self.ip_lineEdit.text()

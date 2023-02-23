@@ -3,10 +3,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Session
 import sqlalchemy
-from ping.pingModel import PingTabel
-
-def connection_database():
-    pass
 
 
 class Base(DeclarativeBase): pass
@@ -63,7 +59,7 @@ session = DBsession()
 
 
 def work_users():
-    with Session(autoflush=False, bind=connection_database()) as db:
+    with Session(autoflush=False, bind=engine) as db:
         users = db.query(Users).all()
         if not users:
             service = Users(login="service", password="1111")
@@ -76,7 +72,7 @@ def work_users():
 
 
 def work_setting_network():
-    with Session(autoflush=False, bind=connection_database()) as db:
+    with Session(autoflush=False, bind=engine) as db:
         setting_network = db.get(SettingNetwork, 1)
     if setting_network is None:
         line = SettingNetwork()
@@ -88,7 +84,7 @@ def work_setting_network():
 
 
 def work_network_interface():
-    with Session(autoflush=False, bind=connection_database()) as db:
+    with Session(autoflush=False, bind=engine) as db:
         network_interface = db.get(NetworkInterface, 1)
     if network_interface is None:
         line = NetworkInterface()

@@ -7,8 +7,8 @@ from modbus.modbusVm import ModbusForm
 from ping.pingVm import Ping
 
 
-UI_autoriation = "view/authorization_view.ui"
-UI_main = "view/service_view.ui"
+UI_authorization = "view/authorization_view.ui"
+UI_main = "view/service/service_view.ui"
 
 
 class Button(QtWidgets.QPushButton):
@@ -30,7 +30,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.modbusForm = ModbusForm()
         self.ping = Ping()
 
-        uic.loadUi(UI_autoriation, self)
+        uic.loadUi(UI_authorization, self)
 
         size_of_user_button = (100, 60)
         layout = self.layoutButton
@@ -114,9 +114,11 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
               self.secondary_server_edit.text(), self.default_gateway_edit.text())
 
-        self.setting_network.update_setting_network(self.host_name_edit.text(), self.domain_name_edit.text(),
+        self.setting_network.update_setting_network(self.host_name_edit.text(),
+                                                    self.domain_name_edit.text(),
                                                     self.primary_server_edit.text(),
-                                                    self.secondary_server_edit.text(), self.default_gateway_edit.text())
+                                                    self.secondary_server_edit.text(),
+                                                    self.default_gateway_edit.text())
 
         self.network_interface.update_network_interface(self.device_combobox.currentText(),
                                                         self.adressing_combobox.currentText(),
@@ -125,7 +127,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         session.refresh(self.setting_network)
         session.refresh(self.network_interface)
 
-        uic.loadUi(UI_autoriation, self)
+        uic.loadUi(UI_authorization, self)
         size = (100, 60)  # размер кнопки, например 150х150
         layout = self.layoutButton
         num = 0

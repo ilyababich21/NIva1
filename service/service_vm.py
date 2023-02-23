@@ -2,10 +2,9 @@ import subprocess
 import sys
 from PyQt6 import QtWidgets, uic
 import service.service_model as model
-from service.service_model import  session, Users, SettingNetwork, NetworkInterface
+from service.service_model import session, Users, SettingNetwork, NetworkInterface
 from modbus.modbusVm import ModbusForm
 from ping.pingVm import Ping
-
 
 UI_authorization = "view/authorization_view.ui"
 UI_main = "view/service/service_view.ui"
@@ -104,16 +103,14 @@ class ServiceViewModel(QtWidgets.QMainWindow):
                 self.auto_checkBox.clicked.connect(self.check_timezone)
                 self.manually_checkBox.clicked.connect(self.check_timezone)
                 self.exit_pushButton.clicked.connect(self.VIhod)
+                self.save_change_pushButton.clicked.connect(lambda: self.save_on_clicked_data())
 
         if check == 0:
             self.check_label.setText("Логин или пароль введен неверно")
         elif check == 2:
             pass
 
-    def VIhod(self):
-        print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
-              self.secondary_server_edit.text(), self.default_gateway_edit.text())
-
+    def save_on_clicked_data(self):
         self.setting_network.update_setting_network(self.host_name_edit.text(),
                                                     self.domain_name_edit.text(),
                                                     self.primary_server_edit.text(),
@@ -126,6 +123,10 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
         session.refresh(self.setting_network)
         session.refresh(self.network_interface)
+
+    def VIhod(self):
+        print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
+              self.secondary_server_edit.text(), self.default_gateway_edit.text())
 
         uic.loadUi(UI_authorization, self)
         size = (100, 60)

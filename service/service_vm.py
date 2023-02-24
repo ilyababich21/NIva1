@@ -28,13 +28,12 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
         self.modbusForm = ModbusForm()
         self.ping = Ping()
+        self.size_of_user_button = (100, 60)
 
         uic.loadUi(UI_authorization, self)
 
-        self.size_of_user_button = (100, 60)
-
         self.users = session.query(model.Users).all()
-        if not self.users:
+        if self.users == []:
             session.add_all([Users(login="service", password="1111"), Users(login="ilya", password="1234")])
             session.commit()
             self.users = session.query(model.Users).all()
@@ -49,7 +48,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
             session.commit()
             self.network_interface = session.get(model.NetworkInterface, 1)
 
-        self.view_user_from_database = self.get_user_in_database()
+        self.get_user_from_database()
         self.log_in_button.clicked.connect(self.show_main_UI)
 
     def show_main_UI(self):
@@ -119,7 +118,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
         uic.loadUi(UI_authorization, self)
 
-        self.view_user_from_database = self.get_user_in_database()
+        self.get_user_from_database()
 
         self.log_in_button.clicked.connect(self.show_main_UI)
 
@@ -129,7 +128,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
     def on_clicked(self, btn):
         self.login_lineEdit.setText(btn.text())
 
-    def get_user_in_database(self):
+    def get_user_from_database(self):
         layout = self.layoutButton
         num = 0
         for user in self.users:

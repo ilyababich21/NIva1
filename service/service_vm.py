@@ -32,25 +32,24 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
         uic.loadUi(UI_authorization, self)
 
-        self.users = session.query(model.Users).all()
+        self.users = session.query(Users).all()
         if self.users == []:
             session.add_all([Users(login="service", password="1111"), Users(login="ilya", password="1234")])
             session.commit()
             self.users = session.query(model.Users).all()
-        self.setting_network = session.get(model.SettingNetwork, 1)
-        if self.setting_network is None:
-            session.add(SettingNetwork())
-            session.commit()
-            self.setting_network = session.get(model.SettingNetwork, 1)
-        self.network_interface = session.get(model.NetworkInterface, 1)
-        if self.network_interface is None:
-            session.add(NetworkInterface())
-            session.commit()
-            self.network_interface = session.get(model.NetworkInterface, 1)
+        self.setting_network = self.check_first_load(SettingNetwork)
+        self.network_interface = self.check_first_load(NetworkInterface)
 
         self.get_user_from_database()
         self.log_in_button.clicked.connect(self.show_main_UI)
 
+    def check_first_load(self,model_object):
+        object=session.get(model_object,1)
+        if object is None:
+            session.add(model_object())
+            session.commit()
+            object = session.get(model_object,1)
+        return object
 
     def load_main_UI(self):
         uic.loadUi(UI_main, self)
@@ -82,7 +81,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.auto_checkBox.clicked.connect(self.check_timezone)
         self.manually_checkBox.clicked.connect(self.check_timezone)
         self.exit_pushButton.clicked.connect(self.exit_from_menu)
-        self.save_change_pushButton.clicked.connect(lambda: self.save_on_clicked_data())
+        self.save_change_pushButton.clicked.connect(self.save_on_clicked_data)
 
 
     def show_main_UI(self):

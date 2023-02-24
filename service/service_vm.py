@@ -51,6 +51,40 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.get_user_from_database()
         self.log_in_button.clicked.connect(self.show_main_UI)
 
+
+    def load_main_UI(self):
+        uic.loadUi(UI_main, self)
+        self.host_name_edit.setText(self.setting_network.host_name)
+        self.domain_name_edit.setText(self.setting_network.domain_name)
+        self.primary_server_edit.setText(self.setting_network.primary_name_server)
+        self.secondary_server_edit.setText(self.setting_network.secondary_name_server)
+        self.default_gateway_edit.setText(self.setting_network.default_gateway)
+
+        for elem in range(self.device_combobox.count()):
+            if self.network_interface.device == self.device_combobox.itemText(elem):
+                self.device_combobox.setCurrentIndex(elem)
+
+        for elem in range(self.adressing_combobox.count()):
+            if self.network_interface.addressing == self.adressing_combobox.itemText(elem):
+                self.adressing_combobox.setCurrentIndex(elem)
+
+        self.ip_address_edit.setText(self.network_interface.ip_address)
+        self.mask_edit.setText(self.network_interface.subnet_mask)
+
+        self.ping_query_pushButton.clicked.connect(self.ping_show)
+        self.scan_modbus_pushButton.clicked.connect(self.modbus_show)
+        self.test_alz_pushButton.clicked.connect(
+            lambda: self.ping_test_for_button(self.test_alz_pushButton, self.ip_comp_lineEdit))
+        self.main_drive_pushButton.clicked.connect(
+            lambda: self.ping_test_for_button(self.main_drive_pushButton, self.ip_main_comp_lineEdit))
+        self.second_drive_pushButton.clicked.connect(
+            lambda: self.ping_test_for_button(self.second_drive_pushButton, self.second_drive_lineEdit))
+        self.auto_checkBox.clicked.connect(self.check_timezone)
+        self.manually_checkBox.clicked.connect(self.check_timezone)
+        self.exit_pushButton.clicked.connect(self.exit_from_menu)
+        self.save_change_pushButton.clicked.connect(lambda: self.save_on_clicked_data())
+
+
     def show_main_UI(self):
 
         check = 0
@@ -61,42 +95,12 @@ class ServiceViewModel(QtWidgets.QMainWindow):
             if self.login_lineEdit.text() == f"{user.login}" \
                     and self.password_lineEdit.text() == f"{user.password}":
                 check = 1
-
-                uic.loadUi(UI_main, self)
-                self.host_name_edit.setText(self.setting_network.host_name)
-                self.domain_name_edit.setText(self.setting_network.domain_name)
-                self.primary_server_edit.setText(self.setting_network.primary_name_server)
-                self.secondary_server_edit.setText(self.setting_network.secondary_name_server)
-                self.default_gateway_edit.setText(self.setting_network.default_gateway)
-
-                for elem in range(self.device_combobox.count()):
-                    if self.network_interface.device == self.device_combobox.itemText(elem):
-                        self.device_combobox.setCurrentIndex(elem)
-
-                for elem in range(self.adressing_combobox.count()):
-                    if self.network_interface.addressing == self.adressing_combobox.itemText(elem):
-                        self.adressing_combobox.setCurrentIndex(elem)
-
-                self.ip_address_edit.setText(self.network_interface.ip_address)
-                self.mask_edit.setText(self.network_interface.subnet_mask)
-
-                self.ping_query_pushButton.clicked.connect(self.ping_show)
-                self.scan_modbus_pushButton.clicked.connect(self.modbus_show)
-                self.test_alz_pushButton.clicked.connect(
-                    lambda: self.ping_test_for_button(self.test_alz_pushButton, self.ip_comp_lineEdit))
-                self.main_drive_pushButton.clicked.connect(
-                    lambda: self.ping_test_for_button(self.main_drive_pushButton, self.ip_main_comp_lineEdit))
-                self.second_drive_pushButton.clicked.connect(
-                    lambda: self.ping_test_for_button(self.second_drive_pushButton, self.second_drive_lineEdit))
-                self.auto_checkBox.clicked.connect(self.check_timezone)
-                self.manually_checkBox.clicked.connect(self.check_timezone)
-                self.exit_pushButton.clicked.connect(self.exit_from_menu)
-                self.save_change_pushButton.clicked.connect(lambda: self.save_on_clicked_data())
-
         if check == 0:
             self.check_label.setText("Логин или пароль введен неверно")
-        elif check == 2:
-            pass
+            return
+        self.load_main_UI()
+
+
 
     def save_on_clicked_data(self):
         self.setting_network.update_setting_network(self.host_name_edit.text(),

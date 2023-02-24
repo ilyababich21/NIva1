@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 
 def connection_database():
-    engine = create_engine("postgresql://postgres:root@localhost/niva1")
+    engine = create_engine("postgresql://postgres:1111@localhost/niva1")
     db_session = sqlalchemy.orm.sessionmaker(bind=engine)
     session = db_session()
 

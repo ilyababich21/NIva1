@@ -1,6 +1,4 @@
-import sqlalchemy
 from sqlalchemy import Column, Integer, String
-from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase
 from service.service_model import engine
 
@@ -18,16 +16,7 @@ class PingTable(Base):
         self.ping = ping
 
 
-engine = create_engine("postgresql://postgres:1111@localhost/niva1")
 Base.metadata.create_all(bind=engine)
-DBsession = sqlalchemy.orm.sessionmaker(bind=engine)
-session = DBsession()
 
-# def work_pingTable():
-#     with Session(autoflush=False, bind=engine) as db:
-#         pingRow = PingTable(ping="127.0.0.1")
-#         db.add(pingRow)
-#         db.commit()
-#         print(pingRow.id)
 
-#
+

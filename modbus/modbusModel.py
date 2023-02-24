@@ -1,14 +1,6 @@
-import sqlalchemy
 from sqlalchemy import Column, Integer, String, Boolean, BigInteger
-from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Session
-
-
-def connection_database():
-    engine = create_engine("postgresql://postgres:1111@localhost/niva1")
-    db_session = sqlalchemy.orm.sessionmaker(bind=engine)
-    session = db_session()
+from service.service_model import engine
 
 
 class Base(DeclarativeBase): pass
@@ -46,4 +38,4 @@ class modbusTable(Base):
         self.number = number
 
 
-Base.metadata.create_all(bind=connection_database())
+Base.metadata.create_all(bind=engine)

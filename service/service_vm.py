@@ -41,15 +41,30 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.network_interface = self.check_first_load(NetworkInterface)
 
         self.get_user_from_database()
-        self.log_in_button.clicked.connect(self.show_main_UI)
+        self.log_in_button.clicked.connect(self.check_credential)
 
-    def check_first_load(self,model_object):
-        object=session.get(model_object,1)
-        if object is None:
+    def check_first_load(self, model_object):
+        object_database = session.get(model_object, 1)
+        if object_database is None:
             session.add(model_object())
             session.commit()
-            object = session.get(model_object,1)
-        return object
+            object_database = session.get(model_object, 1)
+        return object_database
+
+    def check_credential(self):
+
+        check = 0
+        if self.password_lineEdit.text() == '':
+            self.check_label.setText("Введите пароль!!!")
+            return
+        for user in self.users:
+            if self.login_lineEdit.text() == f"{user.login}" \
+                    and self.password_lineEdit.text() == f"{user.password}":
+                check = 1
+        if check == 0:
+            self.check_label.setText("Логин или пароль введен неверно")
+            return
+        self.load_main_UI()
 
     def load_main_UI(self):
         uic.loadUi(UI_main, self)
@@ -83,24 +98,6 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.exit_pushButton.clicked.connect(self.exit_from_menu)
         self.save_change_pushButton.clicked.connect(self.save_on_clicked_data)
 
-
-    def show_main_UI(self):
-
-        check = 0
-        if self.password_lineEdit.text() == '':
-            self.check_label.setText("Введите пароль!!!")
-            return
-        for user in self.users:
-            if self.login_lineEdit.text() == f"{user.login}" \
-                    and self.password_lineEdit.text() == f"{user.password}":
-                check = 1
-        if check == 0:
-            self.check_label.setText("Логин или пароль введен неверно")
-            return
-        self.load_main_UI()
-
-
-
     def save_on_clicked_data(self):
         self.setting_network.update_setting_network(self.host_name_edit.text(),
                                                     self.domain_name_edit.text(),
@@ -123,7 +120,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
         self.get_user_from_database()
 
-        self.log_in_button.clicked.connect(self.show_main_UI)
+        self.log_in_button.clicked.connect(self.check_credential)
 
     def ping_show(self):
         self.ping.show()

@@ -7,6 +7,9 @@ import ping.pingModel as ping
 UI_ping = "view/service/ping_requst_view.ui"
 
 
+
+
+
 class Ping(QtWidgets.QMainWindow):
     def __init__(self):
 

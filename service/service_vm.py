@@ -31,11 +31,10 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
         uic.loadUi(UI_authorization, self)
 
-        size_of_user_button = (100, 60)
-        layout = self.layoutButton
+        self.size_of_user_button = (100, 60)
 
         self.users = session.query(model.Users).all()
-        if self.users == []:
+        if not self.users:
             session.add_all([Users(login="service", password="1111"), Users(login="ilya", password="1234")])
             session.commit()
             self.users = session.query(model.Users).all()
@@ -50,20 +49,10 @@ class ServiceViewModel(QtWidgets.QMainWindow):
             session.commit()
             self.network_interface = session.get(model.NetworkInterface, 1)
 
-        num = 0
-        for p in self.users:
-            print(f"{p.id}.{p.login} ({p.password})")
-            btn = Button(f'{p.login}', size_of_user_button)  # !!!
-            btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
-            layout.addWidget(btn)
-            num = num + 1
+        self.view_user_from_database = self.get_user_in_database()
+        self.log_in_button.clicked.connect(self.show_main_UI)
 
-        self.log_in_button.clicked.connect(self.NewUI)
-
-    def on_clicked(self, btn):
-        self.login_lineEdit.setText(btn.text())
-
-    def NewUI(self):
+    def show_main_UI(self):
 
         check = 0
         if self.password_lineEdit.text() == '':
@@ -102,7 +91,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
                     lambda: self.ping_test_for_button(self.second_drive_pushButton, self.second_drive_lineEdit))
                 self.auto_checkBox.clicked.connect(self.check_timezone)
                 self.manually_checkBox.clicked.connect(self.check_timezone)
-                self.exit_pushButton.clicked.connect(self.VIhod)
+                self.exit_pushButton.clicked.connect(self.exit_from_menu)
                 self.save_change_pushButton.clicked.connect(lambda: self.save_on_clicked_data())
 
         if check == 0:
@@ -124,21 +113,31 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         session.refresh(self.setting_network)
         session.refresh(self.network_interface)
 
-    def VIhod(self):
+    def exit_from_menu(self):
         print(self.host_name_edit.text(), self.domain_name_edit.text(), self.primary_server_edit.text(),
               self.secondary_server_edit.text(), self.default_gateway_edit.text())
 
         uic.loadUi(UI_authorization, self)
-        size = (100, 60)
+
+        self.view_user_from_database = self.get_user_in_database()
+
+        self.log_in_button.clicked.connect(self.show_main_UI)
+
+    def ping_show(self):
+        self.ping.show()
+
+    def on_clicked(self, btn):
+        self.login_lineEdit.setText(btn.text())
+
+    def get_user_in_database(self):
         layout = self.layoutButton
         num = 0
-        for p in self.users:
-            print(f"{p.id}.{p.login} ({p.password})")
-            btn = Button(f'{p.login}', size)  # !!!
+        for user in self.users:
+            print(f"{user.id}.{user.login} ({user.password})")
+            btn = Button(f'{user.login}', self.size_of_user_button)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
             layout.addWidget(btn)
             num = num + 1
-        self.log_in_button.clicked.connect(self.NewUI)
 
     def check_timezone(self):
         if self.auto_checkBox.isChecked():
@@ -168,9 +167,6 @@ class ServiceViewModel(QtWidgets.QMainWindow):
             self.comboBox_9.setEnabled(True)
             self.comboBox_10.setEnabled(True)
 
-    def ping_show(self):
-        self.ping.show()
-
     def modbus_show(self):
         self.modbusForm.show()
 
@@ -184,14 +180,3 @@ class ServiceViewModel(QtWidgets.QMainWindow):
             btn.setStyleSheet('background-color: rgb(255,0,0);')
         else:
             btn.setStyleSheet('background-color: rgb(0,255,0);')
-
-
-def main():
-    app = QtWidgets.QApplication(sys.argv)
-    window = ServiceViewModel()
-    window.show()
-    app.exec()
-
-
-if __name__ == '__main__':
-    main()

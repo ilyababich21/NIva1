@@ -50,7 +50,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox">
+             <widget class="QCheckBox" name="RTU_checkBox">
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -68,7 +68,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_2">
+             <widget class="QCheckBox" name="TCP_checkBox">
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -103,7 +103,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="comboBox"/>
+                      <widget class="QComboBox" name="device_comboBox"/>
                      </item>
                     </layout>
                    </item>
@@ -117,7 +117,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="comboBox_2">
+                      <widget class="QComboBox" name="stop_bit_comboBox">
                        <item>
                         <property name="text">
                          <string>1</string>
@@ -146,7 +146,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="comboBox_3">
+                      <widget class="QComboBox" name="speed_comboBox">
                        <item>
                         <property name="text">
                          <string>2400</string>
@@ -201,7 +201,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="comboBox_4">
+                      <widget class="QComboBox" name="parity_comboBox">
                        <item>
                         <property name="text">
                          <string>odd</string>
@@ -252,7 +252,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit"/>
+                    <widget class="QLineEdit" name="ip_lineEdit"/>
                    </item>
                   </layout>
                  </item>
@@ -272,7 +272,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_2"/>
+                    <widget class="QLineEdit" name="port_lineEdit"/>
                    </item>
                   </layout>
                  </item>
@@ -303,7 +303,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboBox_6">
+                 <widget class="QComboBox" name="address_device_comboBox">
                   <property name="minimumSize">
                    <size>
                     <width>100</width>
@@ -386,7 +386,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboBox_7">
+                 <widget class="QComboBox" name="number_comboBox">
                   <item>
                    <property name="text">
                     <string>1</string>
@@ -424,7 +424,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_15">
               <item>
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="start_pushButton">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -434,7 +434,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_2">
+               <widget class="QPushButton" name="exit_pushButton">
                 <property name="text">
                  <string>Закрыть</string>
                 </property>
@@ -457,9 +457,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox</sender>
+   <sender>RTU_checkBox</sender>
    <signal>clicked()</signal>
-   <receiver>checkBox_2</receiver>
+   <receiver>TCP_checkBox</receiver>
    <slot>toggle()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -473,9 +473,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_2</sender>
+   <sender>TCP_checkBox</sender>
    <signal>clicked()</signal>
-   <receiver>checkBox</receiver>
+   <receiver>RTU_checkBox</receiver>
    <slot>toggle()</slot>
    <hints>
     <hint type="sourcelabel">

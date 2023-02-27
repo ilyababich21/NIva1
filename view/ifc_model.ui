@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1202</width>
+    <height>891</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>100</width>
+    <height>100</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1202</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="tools_menu">
+    <property name="geometry">
+     <rect>
+      <x>254</x>
+      <y>126</y>
+      <width>135</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>100</width>
+      <height>100</height>
+     </size>
+    </property>
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Прочие настройки</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/setup.png</normaloff>../image/img tools/setup.png</iconset>
+    </property>
+   </widget>
+   <widget class="QMenu" name="search">
+    <property name="title">
+     <string>поиск</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/search.png</normaloff>../image/img tools/search.png</iconset>
+    </property>
+   </widget>
+   <widget class="QMenu" name="place_lava">
+    <property name="title">
+     <string>место доступа в лаву</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="conveier">
+    <property name="title">
+     <string>штрековый конвейер</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/stageloader.png</normaloff>../image/img tools/stageloader.png</iconset>
+    </property>
+   </widget>
+   <widget class="QMenu" name="avtomatic">
+    <property name="title">
+     <string>Автоматики</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/automatic.png</normaloff>../image/img tools/automatic.png</iconset>
+    </property>
+   </widget>
+   <widget class="QMenu" name="function">
+    <property name="title">
+     <string>функции</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="electric">
+    <property name="title">
+     <string>снабжение</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/electric.png</normaloff>../image/img tools/electric.png</iconset>
+    </property>
+   </widget>
+   <addaction name="tools_menu"/>
+   <addaction name="search"/>
+   <addaction name="place_lava"/>
+   <addaction name="conveier"/>
+   <addaction name="avtomatic"/>
+   <addaction name="function"/>
+   <addaction name="electric"/>
+  </widget>
+  <action name="action">
+   <property name="text">
+    <string>Изменить имя</string>
+   </property>
+  </action>
+  <action name="actionuf">
+   <property name="text">
+    <string>uf</string>
+   </property>
+  </action>
+  <action name="actionuyf">
+   <property name="text">
+    <string>uyf</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

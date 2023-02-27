@@ -1,5 +1,4 @@
 import subprocess
-import sys
 from PyQt6 import QtWidgets, uic
 import service.service_model as model
 from service.service_model import session, Users, SettingNetwork, NetworkInterface

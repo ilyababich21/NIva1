@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1452</width>
+    <width>1279</width>
     <height>2792</height>
    </rect>
   </property>
@@ -94,17 +94,6 @@ qproperty-iconSize:16px 16px;
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>990</x>
-      <y>0</y>
-      <width>461</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout"/>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="enabled">
@@ -114,26 +103,29 @@ qproperty-iconSize:16px 16px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1452</width>
+     <width>1279</width>
      <height>22</height>
     </rect>
    </property>
    <property name="tabletTracking">
     <bool>false</bool>
    </property>
+   <property name="toolTip">
+    <string/>
+   </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
    <property name="nativeMenuBar">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <widget class="QMenu" name="tools_menu">
     <property name="geometry">
      <rect>
-      <x>355</x>
-      <y>142</y>
+      <x>308</x>
+      <y>126</y>
       <width>239</width>
-      <height>257</height>
+      <height>267</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -142,8 +134,17 @@ qproperty-iconSize:16px 16px;
       <height>100</height>
      </size>
     </property>
+    <property name="toolTip">
+     <string>,mhv</string>
+    </property>
+    <property name="toolTipDuration">
+     <number>-1</number>
+    </property>
+    <property name="statusTip">
+     <string notr="true">Прочие настрйки</string>
+    </property>
     <property name="tearOffEnabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="title">
      <string>Прочие настройки</string>
@@ -151,6 +152,12 @@ qproperty-iconSize:16px 16px;
     <property name="icon">
      <iconset>
       <normaloff>../image/img tools/setup.png</normaloff>../image/img tools/setup.png</iconset>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>true</bool>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>true</bool>
     </property>
     <addaction name="change_name_action"/>
     <addaction name="screenshot_action"/>
@@ -164,12 +171,21 @@ qproperty-iconSize:16px 16px;
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="search">
+    <property name="toolTip">
+     <string>онреас</string>
+    </property>
+    <property name="statusTip">
+     <string>щгн</string>
+    </property>
     <property name="title">
      <string>поиск</string>
     </property>
     <property name="icon">
      <iconset>
       <normaloff>../image/img tools/search.png</normaloff>../image/img tools/search.png</iconset>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>true</bool>
     </property>
     <addaction name="one_searc_action"/>
     <addaction name="two_searc_action"/>

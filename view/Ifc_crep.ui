@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>923</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLineEdit" name="num_crep">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>40</y>
+      <width>91</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>50</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string>f</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>923</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuTools">
+    <property name="minimumSize">
+     <size>
+      <width>26</width>
+      <height>45</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/setup.png</normaloff>../image/img tools/setup.png</iconset>
+    </property>
+    <widget class="QMenu" name="menuHummer">
+     <property name="title">
+      <string>hummer</string>
+     </property>
+     <addaction name="actionCrinzh"/>
+     <addaction name="actionPizda"/>
+    </widget>
+    <addaction name="menuHummer"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Показания</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/sensor.png</normaloff>../image/img tools/sensor.png</iconset>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Схэма</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/prop_pressure.png</normaloff>../image/img tools/prop_pressure.png</iconset>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuDanger">
+    <property name="title">
+     <string>danger</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/danger.png</normaloff>../image/img tools/danger.png</iconset>
+    </property>
+   </widget>
+   <addaction name="menuTools"/>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menuDanger"/>
+  </widget>
+  <action name="actionCrinzh">
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/setup.png</normaloff>../image/img tools/setup.png</iconset>
+   </property>
+   <property name="text">
+    <string>crinzh</string>
+   </property>
+  </action>
+  <action name="actionPizda">
+   <property name="text">
+    <string>pizda</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

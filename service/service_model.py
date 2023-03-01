@@ -18,6 +18,7 @@ class Users(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     login = Column(String)
     password = Column(String)
+    role = Column(String)
 
 
 class SettingNetwork(Base):

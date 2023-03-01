@@ -9,6 +9,7 @@ UI_authorization = "view/authorization_view.ui"
 UI_main = "view/service/service_view.ui"
 
 
+
 class Button(QtWidgets.QPushButton):
     def __init__(self, text, size):  # !!!
         super().__init__()
@@ -33,7 +34,8 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
         self.users = session.query(Users).all()
         if self.users == []:
-            session.add_all([Users(login="service", password="1111"), Users(login="ilya", password="1234")])
+            session.add_all([Users(login="service", password="1111", role="service"),
+                             Users(login="IFC", password="ifc", role="user")])
             session.commit()
             self.users = session.query(model.Users).all()
         self.setting_network = self.check_first_load(SettingNetwork)
@@ -63,9 +65,9 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         if check == 0:
             self.check_label.setText("Логин или пароль введен неверно")
             return
-        self.load_main_UI()
+        self.load_main_service_UI()
 
-    def load_main_UI(self):
+    def load_main_service_UI(self):
         uic.loadUi(UI_main, self)
         self.host_name_edit.setText(self.setting_network.host_name)
         self.domain_name_edit.setText(self.setting_network.domain_name)

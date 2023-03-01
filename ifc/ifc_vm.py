@@ -7,5 +7,4 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
-    def load_ifc_UI(self):
         uic.loadUi(UI_ifc, self)

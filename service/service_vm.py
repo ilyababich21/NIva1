@@ -4,10 +4,10 @@ import service.service_model as model
 from service.service_model import session, Users, SettingNetwork, NetworkInterface
 from modbus.modbusVm import ModbusForm
 from ping.pingVm import Ping
+from ifc.ifc_vm import IfcViewModel
 
 UI_authorization = "view/authorization_view.ui"
 UI_main = "view/service/service_view.ui"
-
 
 
 class Button(QtWidgets.QPushButton):
@@ -25,7 +25,7 @@ class Button(QtWidgets.QPushButton):
 class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-
+        self.ifc = IfcViewModel()
         self.modbusForm = ModbusForm()
         self.ping = Ping()
         self.size_of_user_button = (100, 60)
@@ -61,11 +61,15 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         for user in self.users:
             if self.login_lineEdit.text() == f"{user.login}" \
                     and self.password_lineEdit.text() == f"{user.password}":
+                role= user.role
                 check = 1
         if check == 0:
             self.check_label.setText("Логин или пароль введен неверно")
             return
-        self.load_main_service_UI()
+        if role == 'service':
+            self.load_main_service_UI()
+        if role == 'user':
+            self.ifc.show()
 
     def load_main_service_UI(self):
         uic.loadUi(UI_main, self)

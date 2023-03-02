@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1118</width>
-    <height>597</height>
+    <width>1446</width>
+    <height>284</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,10 +26,28 @@ qproperty-iconSize:16px 16px;
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item row="1" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0,0,0">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>100</number>
+      </property>
       <item>
        <widget class="QLabel" name="label">
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
         <property name="text">
          <string>Количество секций:</string>
         </property>
@@ -61,6 +79,22 @@ qproperty-iconSize:16px 16px;
      </layout>
     </item>
     <item row="1" column="0">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>1000</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0" colspan="3">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLabel" name="label_4">
@@ -71,7 +105,7 @@ qproperty-iconSize:16px 16px;
          </size>
         </property>
         <property name="text">
-         <string>600-0</string>
+         <string>0-600</string>
         </property>
        </widget>
       </item>
@@ -80,7 +114,7 @@ qproperty-iconSize:16px 16px;
       </item>
      </layout>
     </item>
-    <item row="2" column="0">
+    <item row="4" column="0" colspan="3">
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="label_5">
@@ -91,7 +125,7 @@ qproperty-iconSize:16px 16px;
          </size>
         </property>
         <property name="text">
-         <string>200-0</string>
+         <string>0-200</string>
         </property>
        </widget>
       </item>
@@ -110,9 +144,12 @@ qproperty-iconSize:16px 16px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1118</width>
+     <width>1446</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="tabletTracking">
+    <bool>false</bool>
    </property>
    <property name="toolTip">
     <string/>
@@ -122,9 +159,6 @@ qproperty-iconSize:16px 16px;
    </property>
    <property name="nativeMenuBar">
     <bool>true</bool>
-   </property>
-   <property name="tabletTracking" stdset="0">
-    <bool>false</bool>
    </property>
    <widget class="QMenu" name="tools_menu">
     <property name="geometry">
@@ -144,6 +178,9 @@ qproperty-iconSize:16px 16px;
     <property name="toolTip">
      <string>,mhv</string>
     </property>
+    <property name="toolTipDuration">
+     <number>-1</number>
+    </property>
     <property name="statusTip">
      <string notr="true">Прочие настрйки</string>
     </property>
@@ -160,10 +197,7 @@ qproperty-iconSize:16px 16px;
     <property name="separatorsCollapsible">
      <bool>true</bool>
     </property>
-    <property name="toolTipDuration" stdset="0">
-     <number>-1</number>
-    </property>
-    <property name="toolTipsVisible" stdset="0">
+    <property name="toolTipsVisible">
      <bool>true</bool>
     </property>
     <addaction name="change_name_action"/>
@@ -191,7 +225,7 @@ qproperty-iconSize:16px 16px;
      <iconset>
       <normaloff>../image/img tools/search.png</normaloff>../image/img tools/search.png</iconset>
     </property>
-    <property name="toolTipsVisible" stdset="0">
+    <property name="toolTipsVisible">
      <bool>true</bool>
     </property>
     <addaction name="one_searc_action"/>
@@ -274,7 +308,7 @@ qproperty-iconSize:16px 16px;
     <property name="separatorsCollapsible">
      <bool>true</bool>
     </property>
-    <property name="toolTipsVisible" stdset="0">
+    <property name="toolTipsVisible">
      <bool>true</bool>
     </property>
     <addaction name="consup_current_actual_action"/>

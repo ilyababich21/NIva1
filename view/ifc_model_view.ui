@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1706</width>
-    <height>2792</height>
+    <width>1118</width>
+    <height>597</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,48 +25,82 @@ qproperty-iconSize:16px 16px;
    </size>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>1000</x>
-      <y>0</y>
-      <width>535</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Количество секций:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>от</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="section_min_lineEdit"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>до</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="section_max_lineEdit"/>
-     </item>
-     <item>
-      <widget class="QDateTimeEdit" name="dateTimeEdit"/>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Количество секций:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>от</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="section_min_lineEdit"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>до</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="section_max_lineEdit"/>
+      </item>
+      <item>
+       <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>600-0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_600"/>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>200-0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_200"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="enabled">
@@ -76,12 +110,9 @@ qproperty-iconSize:16px 16px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1706</width>
+     <width>1118</width>
      <height>22</height>
     </rect>
-   </property>
-   <property name="tabletTracking">
-    <bool>false</bool>
    </property>
    <property name="toolTip">
     <string/>
@@ -91,6 +122,9 @@ qproperty-iconSize:16px 16px;
    </property>
    <property name="nativeMenuBar">
     <bool>true</bool>
+   </property>
+   <property name="tabletTracking" stdset="0">
+    <bool>false</bool>
    </property>
    <widget class="QMenu" name="tools_menu">
     <property name="geometry">
@@ -110,9 +144,6 @@ qproperty-iconSize:16px 16px;
     <property name="toolTip">
      <string>,mhv</string>
     </property>
-    <property name="toolTipDuration">
-     <number>-1</number>
-    </property>
     <property name="statusTip">
      <string notr="true">Прочие настрйки</string>
     </property>
@@ -129,7 +160,10 @@ qproperty-iconSize:16px 16px;
     <property name="separatorsCollapsible">
      <bool>true</bool>
     </property>
-    <property name="toolTipsVisible">
+    <property name="toolTipDuration" stdset="0">
+     <number>-1</number>
+    </property>
+    <property name="toolTipsVisible" stdset="0">
      <bool>true</bool>
     </property>
     <addaction name="change_name_action"/>
@@ -157,7 +191,7 @@ qproperty-iconSize:16px 16px;
      <iconset>
       <normaloff>../image/img tools/search.png</normaloff>../image/img tools/search.png</iconset>
     </property>
-    <property name="toolTipsVisible">
+    <property name="toolTipsVisible" stdset="0">
      <bool>true</bool>
     </property>
     <addaction name="one_searc_action"/>
@@ -240,7 +274,7 @@ qproperty-iconSize:16px 16px;
     <property name="separatorsCollapsible">
      <bool>true</bool>
     </property>
-    <property name="toolTipsVisible">
+    <property name="toolTipsVisible" stdset="0">
      <bool>true</bool>
     </property>
     <addaction name="consup_current_actual_action"/>

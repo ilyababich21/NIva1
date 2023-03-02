@@ -61,7 +61,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         for user in self.users:
             if self.login_lineEdit.text() == f"{user.login}" \
                     and self.password_lineEdit.text() == f"{user.password}":
-                role= user.role
+                role = user.role
                 check = 1
         if check == 0:
             self.check_label.setText("Логин или пароль введен неверно")

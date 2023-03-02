@@ -8,7 +8,6 @@ class ButtonForSection(QtWidgets.QMainWindow):
         super().__init__()
 
 
-
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()

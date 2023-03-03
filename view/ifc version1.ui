@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>919</width>
+    <height>490</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMenu{
+qproperty-iconSize:16px 16px;
+}</string>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>100</width>
+    <height>100</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QFormLayout" name="formLayout">
+    <item row="12" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QLabel" name="label_7">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>0-10000</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_10000">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="11" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>0-1000</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_1000">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="10" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>0-250</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_250">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="9" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>0-600</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_600">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="8" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>0-200</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_200">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="7" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0,0,0">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>100</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string>Количество секций:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>от</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="section_min_lineEdit"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>до</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="section_max_lineEdit"/>
+      </item>
+      <item>
+       <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+      </item>
+     </layout>
+    </item>
+    <item row="13" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <widget class="QLabel" name="label_9">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>0-1000</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_6">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>919</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="tabletTracking">
+    <bool>false</bool>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
+   </property>
+   <widget class="QMenu" name="tools_menu">
+    <property name="geometry">
+     <rect>
+      <x>308</x>
+      <y>126</y>
+      <width>239</width>
+      <height>267</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>100</width>
+      <height>100</height>
+     </size>
+    </property>
+    <property name="toolTip">
+     <string>,mhv</string>
+    </property>
+    <property name="toolTipDuration">
+     <number>-1</number>
+    </property>
+    <property name="statusTip">
+     <string notr="true">Прочие настрйки</string>
+    </property>
+    <property name="tearOffEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>Прочие настройки</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/setup.png</normaloff>../image/img tools/setup.png</iconset>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>true</bool>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>true</bool>
+    </property>
+    <addaction name="change_name_action"/>
+    <addaction name="screenshot_action"/>
+    <addaction name="list_sensors_action"/>
+    <addaction name="list_camera_action"/>
+    <addaction name="list_link_action"/>
+    <addaction name="change_setting_action"/>
+    <addaction name="graffik_name_action"/>
+    <addaction name="conveier_name_action"/>
+    <addaction name="direction_name_action"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="search">
+    <property name="toolTip">
+     <string>онреас</string>
+    </property>
+    <property name="statusTip">
+     <string>щгн</string>
+    </property>
+    <property name="title">
+     <string>поиск</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/search.png</normaloff>../image/img tools/search.png</iconset>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>true</bool>
+    </property>
+    <addaction name="one_searc_action"/>
+    <addaction name="two_searc_action"/>
+    <addaction name="three_searc_action"/>
+    <addaction name="four_searc_action"/>
+    <addaction name="five_searc_action"/>
+   </widget>
+   <widget class="QMenu" name="place_lava">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>место доступа в лаву</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/mesto.png</normaloff>../image/img tools/mesto.png</iconset>
+    </property>
+    <addaction name="on_lava_action"/>
+    <addaction name="off_lava_action"/>
+   </widget>
+   <widget class="QMenu" name="conveier_shek">
+    <property name="title">
+     <string>штрековый конвейер</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/stageloader.png</normaloff>../image/img tools/stageloader.png</iconset>
+    </property>
+    <addaction name="on_conv_action"/>
+    <addaction name="off_conveier_action"/>
+   </widget>
+   <widget class="QMenu" name="avtomatic">
+    <property name="title">
+     <string>Автоматики</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/automatic.png</normaloff>../image/img tools/automatic.png</iconset>
+    </property>
+    <addaction name="automatics_action"/>
+    <addaction name="time_rs_action"/>
+    <addaction name="time_all_work_day"/>
+    <addaction name="time_unloading_action"/>
+    <addaction name="time_going_action"/>
+    <addaction name="time_raspor_action"/>
+    <addaction name="time_from_unloading_action"/>
+   </widget>
+   <widget class="QMenu" name="function">
+    <property name="title">
+     <string>функции</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/function.png</normaloff>../image/img tools/function.png</iconset>
+    </property>
+    <addaction name="functions_action"/>
+    <addaction name="sinhronize_action"/>
+    <addaction name="resist_action"/>
+    <addaction name="audio_light_action"/>
+    <addaction name="neighbor_branch_manage_action"/>
+   </widget>
+   <widget class="QMenu" name="electric">
+    <property name="geometry">
+     <rect>
+      <x>1440</x>
+      <y>147</y>
+      <width>221</width>
+      <height>204</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>снабжение</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/electric.png</normaloff>../image/img tools/electric.png</iconset>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>true</bool>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>true</bool>
+    </property>
+    <addaction name="consup_current_actual_action"/>
+    <addaction name="consup_current_valve_action"/>
+    <addaction name="cons_current_action"/>
+    <addaction name="sipply_voltage_action"/>
+    <addaction name="sensor_sipply_voltage_action"/>
+    <addaction name="valve_sipply_voltage_action"/>
+    <addaction name="R_voltage_sipply"/>
+   </widget>
+   <widget class="QMenu" name="tilt_angle">
+    <property name="title">
+     <string>Значение наклона</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/znach naklon.png</normaloff>../image/img tools/znach naklon.png</iconset>
+    </property>
+    <addaction name="transverse_slope_grounds_action"/>
+    <addaction name="longitudinal_slope_overlap_a"/>
+    <addaction name="transverse_slope_grounds"/>
+    <addaction name="longitudial_slope_overlap_action"/>
+   </widget>
+   <widget class="QMenu" name="conveier">
+    <property name="title">
+     <string>конвейер</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/conveyor_distance.png</normaloff>../image/img tools/conveyor_distance.png</iconset>
+    </property>
+    <addaction name="V_action"/>
+    <addaction name="zaz_action"/>
+   </widget>
+   <widget class="QMenu" name="shield_menu">
+    <property name="title">
+     <string>Верхяки и щиты </string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/cantilever.png</normaloff>../image/img tools/cantilever.png</iconset>
+    </property>
+    <addaction name="action_44"/>
+    <addaction name="action_45"/>
+    <addaction name="action_46"/>
+    <addaction name="action_47"/>
+    <addaction name="action_48"/>
+    <addaction name="action_49"/>
+    <addaction name="action_50"/>
+    <addaction name="action_51"/>
+    <addaction name="action_52"/>
+    <addaction name="action_53"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>Измерение высоты секции</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/shield_height.png</normaloff>../image/img tools/shield_height.png</iconset>
+    </property>
+    <addaction name="action_54"/>
+    <addaction name="action_55"/>
+    <addaction name="action_56"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>датчики</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/sensor.png</normaloff>../image/img tools/sensor.png</iconset>
+    </property>
+    <addaction name="action_57"/>
+    <addaction name="action_58"/>
+    <addaction name="action_59"/>
+    <addaction name="action_60"/>
+    <addaction name="action_61"/>
+    <addaction name="action_62"/>
+    <addaction name="action_63"/>
+    <addaction name="action_64"/>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>лава</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/front_view.png</normaloff>../image/img tools/front_view.png</iconset>
+    </property>
+    <addaction name="action_65"/>
+    <addaction name="action_66"/>
+   </widget>
+   <widget class="QMenu" name="menu_6">
+    <property name="title">
+     <string>распознование опастности</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/danger.png</normaloff>../image/img tools/danger.png</iconset>
+    </property>
+    <addaction name="action_67"/>
+    <addaction name="action_68"/>
+    <addaction name="action_69"/>
+   </widget>
+   <widget class="QMenu" name="combine_menu">
+    <property name="title">
+     <string>комбайн</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/shearer.png</normaloff>../image/img tools/shearer.png</iconset>
+    </property>
+    <addaction name="on_combine_actiona"/>
+    <addaction name="off_combine_action"/>
+   </widget>
+   <widget class="QMenu" name="menu_7">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>конвейер</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/conveyor.png</normaloff>../image/img tools/conveyor.png</iconset>
+    </property>
+    <addaction name="action_72"/>
+    <addaction name="action_73"/>
+    <addaction name="action_74"/>
+    <addaction name="action_75"/>
+   </widget>
+   <widget class="QMenu" name="tel_menu">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>переговорное устройство</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/voicelockup.png</normaloff>../image/img tools/voicelockup.png</iconset>
+    </property>
+    <addaction name="on_tel_action"/>
+    <addaction name="off_tel_action"/>
+   </widget>
+   <widget class="QMenu" name="menu_9">
+    <property name="title">
+     <string>лава</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/mining.png</normaloff>../image/img tools/mining.png</iconset>
+    </property>
+    <addaction name="actionujhb"/>
+    <addaction name="action_gc"/>
+    <addaction name="action_78"/>
+    <addaction name="action_79"/>
+    <addaction name="action_80"/>
+    <addaction name="action_81"/>
+    <addaction name="action_82"/>
+    <addaction name="action_83"/>
+   </widget>
+   <widget class="QMenu" name="menu_10">
+    <property name="title">
+     <string>энергопоезд</string>
+    </property>
+   </widget>
+   <addaction name="tools_menu"/>
+   <addaction name="search"/>
+   <addaction name="place_lava"/>
+   <addaction name="conveier_shek"/>
+   <addaction name="avtomatic"/>
+   <addaction name="function"/>
+   <addaction name="electric"/>
+   <addaction name="tilt_angle"/>
+   <addaction name="conveier"/>
+   <addaction name="shield_menu"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_4"/>
+   <addaction name="menu_5"/>
+   <addaction name="menu_6"/>
+   <addaction name="combine_menu"/>
+   <addaction name="menu_7"/>
+   <addaction name="tel_menu"/>
+   <addaction name="menu_9"/>
+   <addaction name="menu_10"/>
+  </widget>
+  <action name="action">
+   <property name="text">
+    <string>Изменить имя</string>
+   </property>
+  </action>
+  <action name="actionuf">
+   <property name="text">
+    <string>uf</string>
+   </property>
+  </action>
+  <action name="actionuyf">
+   <property name="text">
+    <string>uyf</string>
+   </property>
+  </action>
+  <action name="change_name_action">
+   <property name="text">
+    <string>изменить имя</string>
+   </property>
+   <property name="toolTip">
+    <string>изменить имя</string>
+   </property>
+  </action>
+  <action name="screenshot_action">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>скриншот</string>
+   </property>
+  </action>
+  <action name="list_sensors_action">
+   <property name="text">
+    <string>список датчиков</string>
+   </property>
+  </action>
+  <action name="list_camera_action">
+   <property name="text">
+    <string>список камер</string>
+   </property>
+  </action>
+  <action name="list_link_action">
+   <property name="text">
+    <string>список линий связи</string>
+   </property>
+  </action>
+  <action name="change_setting_action">
+   <property name="text">
+    <string>изменить настройки экрана</string>
+   </property>
+  </action>
+  <action name="graffik_name_action">
+   <property name="text">
+    <string>график: отобразить название</string>
+   </property>
+  </action>
+  <action name="conveier_name_action">
+   <property name="text">
+    <string>конвейер отобразить анимацию</string>
+   </property>
+  </action>
+  <action name="direction_name_action">
+   <property name="text">
+    <string>направление лавы</string>
+   </property>
+  </action>
+  <action name="one_searc_action">
+   <property name="text">
+    <string>1</string>
+   </property>
+  </action>
+  <action name="two_searc_action">
+   <property name="text">
+    <string>2</string>
+   </property>
+  </action>
+  <action name="three_searc_action">
+   <property name="text">
+    <string>3</string>
+   </property>
+  </action>
+  <action name="four_searc_action">
+   <property name="text">
+    <string>4</string>
+   </property>
+  </action>
+  <action name="five_searc_action">
+   <property name="text">
+    <string>5</string>
+   </property>
+  </action>
+  <action name="action_12">
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/место доступа в лаву.png</normaloff>../image/img tools/место доступа в лаву.png</iconset>
+   </property>
+   <property name="text">
+    <string>главный привод</string>
+   </property>
+  </action>
+  <action name="action_13">
+   <property name="text">
+    <string>вспомогательный</string>
+   </property>
+  </action>
+  <action name="on_conv_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>вкл</string>
+   </property>
+  </action>
+  <action name="off_conveier_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>выкл</string>
+   </property>
+  </action>
+  <action name="on_lava_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>доступ к лаве главный</string>
+   </property>
+  </action>
+  <action name="off_lava_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>доступ к лаве вспомогательный привод</string>
+   </property>
+  </action>
+  <action name="automatics_action">
+   <property name="text">
+    <string>автоматики</string>
+   </property>
+  </action>
+  <action name="time_rs_action">
+   <property name="text">
+    <string>промежут время РЦ</string>
+   </property>
+  </action>
+  <action name="time_all_work_day">
+   <property name="text">
+    <string>Время Общий раб день </string>
+   </property>
+  </action>
+  <action name="time_unloading_action">
+   <property name="text">
+    <string>время разгрузка</string>
+   </property>
+  </action>
+  <action name="time_going_action">
+   <property name="text">
+    <string>время передвижка</string>
+   </property>
+  </action>
+  <action name="time_raspor_action">
+   <property name="text">
+    <string>Время распор</string>
+   </property>
+  </action>
+  <action name="time_from_unloading_action">
+   <property name="text">
+    <string>время от разгруз </string>
+   </property>
+  </action>
+  <action name="functions_action">
+   <property name="text">
+    <string>функции</string>
+   </property>
+  </action>
+  <action name="sinhronize_action">
+   <property name="text">
+    <string>синх</string>
+   </property>
+  </action>
+  <action name="resist_action">
+   <property name="text">
+    <string>сопр</string>
+   </property>
+  </action>
+  <action name="audio_light_action">
+   <property name="text">
+    <string>звук и свет сигн</string>
+   </property>
+  </action>
+  <action name="neighbor_branch_manage_action">
+   <property name="text">
+    <string>управление соcедней веткой </string>
+   </property>
+  </action>
+  <action name="consup_current_actual_action">
+   <property name="text">
+    <string>потребление тока Текущ</string>
+   </property>
+  </action>
+  <action name="consup_current_valve_action">
+   <property name="text">
+    <string>потребление тока Клапан</string>
+   </property>
+  </action>
+  <action name="cons_current_action">
+   <property name="text">
+    <string>Потребление тока Общее</string>
+   </property>
+  </action>
+  <action name="sipply_voltage_action">
+   <property name="text">
+    <string>Напряжение питания </string>
+   </property>
+  </action>
+  <action name="sensor_sipply_voltage_action">
+   <property name="text">
+    <string>Датчик Напряж питания</string>
+   </property>
+  </action>
+  <action name="valve_sipply_voltage_action">
+   <property name="text">
+    <string>Клапан Напряжения питания</string>
+   </property>
+  </action>
+  <action name="R_voltage_sipply">
+   <property name="text">
+    <string>РоЕ напяжение питания</string>
+   </property>
+  </action>
+  <action name="transverse_slope_grounds_action">
+   <property name="text">
+    <string>поперечный наклон основания</string>
+   </property>
+  </action>
+  <action name="longitudinal_slope_overlap_a">
+   <property name="text">
+    <string>продольный наклон основания</string>
+   </property>
+  </action>
+  <action name="transverse_slope_grounds">
+   <property name="text">
+    <string>поперечный наклон перекрытия</string>
+   </property>
+  </action>
+  <action name="longitudial_slope_overlap_action">
+   <property name="text">
+    <string>продольный наклон перекрытия</string>
+   </property>
+  </action>
+  <action name="V_action">
+   <property name="text">
+    <string>ЦП</string>
+   </property>
+  </action>
+  <action name="zaz_action">
+   <property name="text">
+    <string>Зазор цил передв</string>
+   </property>
+  </action>
+  <action name="pressure_rack1_action">
+   <property name="text">
+    <string>давл стойка /1</string>
+   </property>
+  </action>
+  <action name="pressure_rack2_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>давл стойка /2</string>
+   </property>
+  </action>
+  <action name="action_44">
+   <property name="text">
+    <string>Щит УГЗ</string>
+   </property>
+  </action>
+  <action name="action_45">
+   <property name="text">
+    <string>Щит УГЗ ДЩатчик приближения </string>
+   </property>
+  </action>
+  <action name="action_46">
+   <property name="text">
+    <string>Щит УГЗ Угол</string>
+   </property>
+  </action>
+  <action name="action_47">
+   <property name="text">
+    <string>Щит УГЗ передв (ход)</string>
+   </property>
+  </action>
+  <action name="action_48">
+   <property name="text">
+    <string>Щит УГЗ давление</string>
+   </property>
+  </action>
+  <action name="action_49">
+   <property name="text">
+    <string>Щит УГЗ  3 Сокр/расп</string>
+   </property>
+  </action>
+  <action name="action_50">
+   <property name="text">
+    <string>Выдвиж верхняк</string>
+   </property>
+  </action>
+  <action name="action_51">
+   <property name="text">
+    <string>Выдвиж верхняк Передв (ход)</string>
+   </property>
+  </action>
+  <action name="action_52">
+   <property name="text">
+    <string>Подж. призаб (козырек)</string>
+   </property>
+  </action>
+  <action name="action_53">
+   <property name="text">
+    <string>Перекрытие состояние</string>
+   </property>
+  </action>
+  <action name="action_54">
+   <property name="text">
+    <string>Высота секции 1</string>
+   </property>
+  </action>
+  <action name="action_55">
+   <property name="text">
+    <string>Высота секции 2</string>
+   </property>
+  </action>
+  <action name="action_56">
+   <property name="text">
+    <string>Высота секции 3</string>
+   </property>
+  </action>
+  <action name="action_57">
+   <property name="text">
+    <string>Датчики</string>
+   </property>
+  </action>
+  <action name="action_58">
+   <property name="text">
+    <string>Датчик пыли</string>
+   </property>
+  </action>
+  <action name="action_59">
+   <property name="text">
+    <string>Датчик газа</string>
+   </property>
+  </action>
+  <action name="action_60">
+   <property name="text">
+    <string>Люди</string>
+   </property>
+  </action>
+  <action name="action_61">
+   <property name="text">
+    <string>Индекс качества линии связи</string>
+   </property>
+  </action>
+  <action name="action_62">
+   <property name="text">
+    <string>Влажность внутри</string>
+   </property>
+  </action>
+  <action name="action_63">
+   <property name="text">
+    <string>Температура внутри </string>
+   </property>
+  </action>
+  <action name="action_64">
+   <property name="text">
+    <string>Наппряжение ИК датчик</string>
+   </property>
+  </action>
+  <action name="action_65">
+   <property name="text">
+    <string>Распознование породы </string>
+   </property>
+  </action>
+  <action name="action_66">
+   <property name="text">
+    <string>Поперечное сечение лавы</string>
+   </property>
+  </action>
+  <action name="action_67">
+   <property name="text">
+    <string>Распознование столкновений</string>
+   </property>
+  </action>
+  <action name="action_68">
+   <property name="text">
+    <string>Анализ конверг.стар кровля</string>
+   </property>
+  </action>
+  <action name="action_69">
+   <property name="text">
+    <string>Анализ конверг Текущее положение кровли</string>
+   </property>
+  </action>
+  <action name="on_combine_actiona">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>вкл </string>
+   </property>
+  </action>
+  <action name="off_combine_action">
+   <property name="text">
+    <string>выкл</string>
+   </property>
+  </action>
+  <action name="action_72">
+   <property name="text">
+    <string>Забойный конвейер</string>
+   </property>
+  </action>
+  <action name="action_73">
+   <property name="text">
+    <string>Поперечн.наклон конвейера</string>
+   </property>
+  </action>
+  <action name="action_74">
+   <property name="text">
+    <string>Прод наклон конвейера</string>
+   </property>
+  </action>
+  <action name="action_75">
+   <property name="text">
+    <string>Конвейер для выемки с верху</string>
+   </property>
+  </action>
+  <action name="on_tel_action">
+   <property name="text">
+    <string>вкл</string>
+   </property>
+  </action>
+  <action name="off_tel_action">
+   <property name="text">
+    <string>выкл</string>
+   </property>
+  </action>
+  <action name="actionujhb">
+   <property name="text">
+    <string>Коррекрировка LaSC</string>
+   </property>
+  </action>
+  <action name="action_gc">
+   <property name="text">
+    <string>Положение лавы LASC</string>
+   </property>
+  </action>
+  <action name="action_78">
+   <property name="text">
+    <string>Посл.корр.инерц.сист.упр</string>
+   </property>
+  </action>
+  <action name="action_79">
+   <property name="text">
+    <string>Предпосл.корр.инерц.сист.упр</string>
+   </property>
+  </action>
+  <action name="action_80">
+   <property name="text">
+    <string>Сумма корр.инерц.сист.упр</string>
+   </property>
+  </action>
+  <action name="action_81">
+   <property name="text">
+    <string>Корректировка резания</string>
+   </property>
+  </action>
+  <action name="action_82">
+   <property name="text">
+    <string>Разница корректировок</string>
+   </property>
+  </action>
+  <action name="action_83">
+   <property name="text">
+    <string>Продвижения забоя</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

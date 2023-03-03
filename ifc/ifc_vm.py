@@ -1,7 +1,7 @@
 from PyQt6 import uic, QtWidgets
 from crep.crep_vm import CrepViewModel
 
-UI_ifc = "view/ifc_model_view.ui"
+UI_ifc = "view/ifc version1.ui"
 
 
 class ButtonForSection(QtWidgets.QPushButton):
@@ -18,9 +18,17 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         self.make_buttons(self.layout_600)
         self.make_buttons(self.layout_200)
+        self.make_buttons(self.layout_1000)
+        self.make_buttons(self.layout_10000)
+        self.make_buttons(self.layout_250)
+        self.make_buttons(self.layout_6)
 
     def make_buttons(self, layout):
-        num = 16
+
+        num = self.section_max_lineEdit.text()
+        if num == "":
+            num = 0
+        num = int(num)
         for elem in range(num):
             btn = ButtonForSection(elem + 1)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))

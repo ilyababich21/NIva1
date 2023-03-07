@@ -191,8 +191,8 @@
       <rect>
        <x>0</x>
        <y>50</y>
-       <width>201</width>
-       <height>51</height>
+       <width>224</width>
+       <height>31</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -264,6 +264,36 @@
       </item>
      </layout>
     </widget>
+   </widget>
+   <widget class="QLineEdit" name="sensors1_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>80</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="sensor2_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>120</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="sensors3_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>150</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <action name="actionCrinzh">

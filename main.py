@@ -2,7 +2,7 @@ import sys
 
 from PyQt6 import QtWidgets
 
-from service.service_vm import ServiceViewModel
+from serviceApp.service.service_vm import ServiceViewModel
 
 
 def main():

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import DeclarativeBase
-from service.service_model import engine
+from serviceApp.service.service_model import engine
 
 
 class Base(DeclarativeBase): pass

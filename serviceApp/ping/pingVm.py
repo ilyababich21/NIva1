@@ -1,8 +1,8 @@
 import subprocess
-from service.service_model import session
-from ping.pingModel import PingTable
+from serviceApp.service.service_model import session
+from serviceApp.ping.pingModel import PingTable
 from PyQt6 import QtWidgets, uic
-import ping.pingModel as ping
+import serviceApp.ping.pingModel as ping
 
 UI_ping = "view/service/ping_requst_view.ui"
 

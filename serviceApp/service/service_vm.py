@@ -1,10 +1,10 @@
 import subprocess
 from PyQt6 import QtWidgets, uic
-import service.service_model as model
-from service.service_model import session, Users, SettingNetwork, NetworkInterface
-from modbus.modbusVm import ModbusForm
-from ping.pingVm import Ping
-from ifc.ifc_vm import IfcViewModel
+import serviceApp.service.service_model as model
+from serviceApp.service.service_model import session, Users, SettingNetwork, NetworkInterface
+from serviceApp.modbus.modbusVm import ModbusForm
+from serviceApp.ping.pingVm import Ping
+from ifcApp.ifc.ifc_vm import IfcViewModel
 
 UI_authorization = "view/authorization_view.ui"
 UI_main = "view/service/service_view.ui"
@@ -132,7 +132,6 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
     def on_clicked(self, btn):
         self.login_lineEdit.setText(btn.text())
-        
 
     def get_user_from_database(self):
         layout = self.layoutButton

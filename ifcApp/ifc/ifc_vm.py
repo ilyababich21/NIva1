@@ -1,7 +1,7 @@
 from PyQt6 import uic, QtWidgets
 
 from ifcApp.crep.crep_vm import CrepViewModel
-from ifcApp.dataSensors.data_sensors_vm import DataSensors
+from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 
 UI_ifc = "view/ifc version1.ui"
 
@@ -17,7 +17,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.size_of_button = (20, 150)
-        self.data_sensors = DataSensors()
+        self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
         self.make_buttons(self.layout_600)
         self.make_buttons(self.layout_250)

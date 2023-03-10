@@ -109,7 +109,7 @@ qproperty-iconSize:16px 16px;
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="mining_overview">
+    <widget class="QPushButton" name="mining_overview_pushButton">
      <property name="geometry">
       <rect>
        <x>1810</x>
@@ -135,138 +135,107 @@ qproperty-iconSize:16px 16px;
       </size>
      </property>
     </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_2">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>60</y>
-      <width>1891</width>
-      <height>831</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string/>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="5" column="0">
-      <layout class="QHBoxLayout" name="layout_10000">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>0-600</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="0">
-      <layout class="QHBoxLayout" name="layout_600">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>0-1000</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <layout class="QHBoxLayout" name="layout_1000">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="3" column="0">
-      <layout class="QHBoxLayout" name="layout_6">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_7">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>0-600</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="2" column="0">
-      <layout class="QHBoxLayout" name="layout_250">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>0-250</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="4" column="0">
-      <layout class="QHBoxLayout" name="layout_200">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_8">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap>../image/img tools/prop_pressure.png</pixmap>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+    <widget class="QPushButton" name="level_charge_device_pushbutton">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>0</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../image/img tools/rfid.png</normaloff>../image/img tools/rfid.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="entitlement_section_push_button">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Мониторинг гидравлики</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../image/img tools/shield.png</normaloff>../image/img tools/shield.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="function_pushButton">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>0</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Мониторинг гидравлики</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../image/img tools/function.png</normaloff>../image/img tools/function.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="list_error_pushButton">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>0</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Мониторинг гидравлики</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../image/img tools/rfid_error.png</normaloff>../image/img tools/rfid_error.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -352,6 +321,106 @@ qproperty-iconSize:16px 16px;
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>159</y>
+      <width>1341</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QGroupBox" name="groupBox1">
+       <property name="title">
+        <string>1</string>
+       </property>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>30</y>
+          <width>47</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>60</y>
+          <width>47</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>9</y>
+          <width>1221</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="layout1"/>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox2">
+       <property name="title">
+        <string>GroupBox</string>
+       </property>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>47</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>50</y>
+          <width>47</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>40</y>
+          <width>1241</width>
+          <height>111</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="layout2"/>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="enabled">
@@ -380,9 +449,9 @@ qproperty-iconSize:16px 16px;
    <widget class="QMenu" name="tools_menu">
     <property name="geometry">
      <rect>
-      <x>308</x>
-      <y>126</y>
-      <width>239</width>
+      <x>694</x>
+      <y>223</y>
+      <width>247</width>
       <height>267</height>
      </rect>
     </property>
@@ -557,7 +626,7 @@ qproperty-iconSize:16px 16px;
      <iconset>
       <normaloff>../image/img tools/conveyor_distance.png</normaloff>../image/img tools/conveyor_distance.png</iconset>
     </property>
-    <addaction name="V_action"/>
+    <addaction name="v_action"/>
     <addaction name="zaz_action"/>
    </widget>
    <widget class="QMenu" name="shield_menu">
@@ -587,7 +656,7 @@ qproperty-iconSize:16px 16px;
      <iconset>
       <normaloff>../image/img tools/shield_height.png</normaloff>../image/img tools/shield_height.png</iconset>
     </property>
-    <addaction name="action_54"/>
+    <addaction name="hight_section_action1"/>
     <addaction name="action_55"/>
     <addaction name="action_56"/>
    </widget>
@@ -694,6 +763,17 @@ qproperty-iconSize:16px 16px;
      <string>энергопоезд</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../image/img tools/prop_pressure.png</normaloff>../image/img tools/prop_pressure.png</iconset>
+    </property>
+    <addaction name="action_2"/>
+    <addaction name="action_3"/>
+   </widget>
    <addaction name="tools_menu"/>
    <addaction name="search"/>
    <addaction name="place_lava"/>
@@ -703,6 +783,7 @@ qproperty-iconSize:16px 16px;
    <addaction name="electric"/>
    <addaction name="tilt_angle"/>
    <addaction name="conveier"/>
+   <addaction name="menu"/>
    <addaction name="shield_menu"/>
    <addaction name="menu_3"/>
    <addaction name="menu_4"/>
@@ -761,6 +842,13 @@ qproperty-iconSize:16px 16px;
    </property>
   </action>
   <action name="change_setting_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/longwallface.png</normaloff>../image/img tools/longwallface.png</iconset>
+   </property>
    <property name="text">
     <string>изменить настройки экрана</string>
    </property>
@@ -978,12 +1066,29 @@ qproperty-iconSize:16px 16px;
     <string>продольный наклон перекрытия</string>
    </property>
   </action>
-  <action name="V_action">
+  <action name="v_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/conveyor_distance.png</normaloff>../image/img tools/conveyor_distance.png</iconset>
+   </property>
    <property name="text">
-    <string>ЦП</string>
+    <string/>
    </property>
   </action>
   <action name="zaz_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/conveyor_clearance.png</normaloff>../image/img tools/conveyor_clearance.png</iconset>
+   </property>
    <property name="text">
     <string>Зазор цил передв</string>
    </property>
@@ -1005,66 +1110,157 @@ qproperty-iconSize:16px 16px;
    </property>
   </action>
   <action name="action_44">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/articulated_cantilever_pos.png</normaloff>../image/img tools/articulated_cantilever_pos.png</iconset>
+   </property>
    <property name="text">
     <string>Щит УГЗ</string>
    </property>
   </action>
   <action name="action_45">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/articulated_cantilever_switch.png</normaloff>../image/img tools/articulated_cantilever_switch.png</iconset>
+   </property>
    <property name="text">
-    <string>Щит УГЗ ДЩатчик приближения </string>
+    <string>Щит УГЗ Датчик приближения </string>
    </property>
   </action>
   <action name="action_46">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/articulated_cantilever_angle.png</normaloff>../image/img tools/articulated_cantilever_angle.png</iconset>
+   </property>
    <property name="text">
     <string>Щит УГЗ Угол</string>
    </property>
   </action>
   <action name="action_47">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/articulated_cantilever_way.png</normaloff>../image/img tools/articulated_cantilever_way.png</iconset>
+   </property>
    <property name="text">
     <string>Щит УГЗ передв (ход)</string>
    </property>
   </action>
   <action name="action_48">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/articulated_cantilever_pressure.png</normaloff>../image/img tools/articulated_cantilever_pressure.png</iconset>
+   </property>
    <property name="text">
     <string>Щит УГЗ давление</string>
    </property>
   </action>
   <action name="action_49">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/articulated_cantilever3.png</normaloff>../image/img tools/articulated_cantilever3.png</iconset>
+   </property>
    <property name="text">
     <string>Щит УГЗ  3 Сокр/расп</string>
    </property>
   </action>
   <action name="action_50">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/cantilever.png</normaloff>../image/img tools/cantilever.png</iconset>
+   </property>
    <property name="text">
     <string>Выдвиж верхняк</string>
    </property>
   </action>
   <action name="action_51">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/articulated_cantilever_way.png</normaloff>../image/img tools/articulated_cantilever_way.png</iconset>
+   </property>
    <property name="text">
     <string>Выдвиж верхняк Передв (ход)</string>
    </property>
   </action>
   <action name="action_52">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/slidebar_pos.png</normaloff>../image/img tools/slidebar_pos.png</iconset>
+   </property>
    <property name="text">
     <string>Подж. призаб (козырек)</string>
    </property>
   </action>
   <action name="action_53">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/cantilever_state.png</normaloff>../image/img tools/cantilever_state.png</iconset>
+   </property>
    <property name="text">
     <string>Перекрытие состояние</string>
    </property>
   </action>
-  <action name="action_54">
+  <action name="hight_section_action1">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/shield_height_1.png</normaloff>../image/img tools/shield_height_1.png</iconset>
+   </property>
    <property name="text">
     <string>Высота секции 1</string>
    </property>
   </action>
   <action name="action_55">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/shield_height_2.png</normaloff>../image/img tools/shield_height_2.png</iconset>
+   </property>
    <property name="text">
     <string>Высота секции 2</string>
    </property>
   </action>
   <action name="action_56">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/shield_height_3.png</normaloff>../image/img tools/shield_height_3.png</iconset>
+   </property>
    <property name="text">
     <string>Высота секции 3</string>
    </property>
@@ -1218,6 +1414,30 @@ qproperty-iconSize:16px 16px;
   <action name="action_83">
    <property name="text">
     <string>Продвижения забоя</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/prop_pressure_1.png</normaloff>../image/img tools/prop_pressure_1.png</iconset>
+   </property>
+   <property name="text">
+    <string>давление в стойке</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/prop_pressure_2.png</normaloff>../image/img tools/prop_pressure_2.png</iconset>
+   </property>
+   <property name="text">
+    <string>давление в стойке 2 </string>
    </property>
   </action>
  </widget>

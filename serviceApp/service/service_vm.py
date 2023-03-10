@@ -69,7 +69,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         if role == 'service':
             self.load_main_service_UI()
         if role == 'user':
-            self.ifc.show()
+            self.ifc.showMaximized()
 
     def load_main_service_UI(self):
         uic.loadUi(UI_main, self)

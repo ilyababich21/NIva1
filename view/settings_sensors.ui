@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>Settings_sensors</class>
+ <widget class="QMainWindow" name="Settings_sensors">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Настройки датчиков</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../image/img tools/longwallface.png</normaloff>../image/img tools/longwallface.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {

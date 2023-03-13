@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1891</width>
-    <height>912</height>
+    <width>1925</width>
+    <height>958</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -321,105 +321,510 @@ qproperty-iconSize:16px 16px;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>159</y>
-      <width>1341</width>
-      <height>351</height>
+      <x>0</x>
+      <y>60</y>
+      <width>1921</width>
+      <height>861</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QGroupBox" name="groupBox1">
-       <property name="title">
-        <string>1</string>
-       </property>
-       <widget class="QLabel" name="label_4">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>30</y>
-          <width>47</width>
-          <height>13</height>
-         </rect>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>-267</y>
+       <width>1902</width>
+       <height>1126</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QGroupBox" name="groupBox1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="text">
-         <string>TextLabel</string>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>120</height>
+         </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QLabel" name="label_4">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-100</string>
+         </property>
+        </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>10</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_100">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
        </widget>
-       <widget class="QLabel" name="label_5">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>60</y>
-          <width>47</width>
-          <height>13</height>
-         </rect>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="text">
-         <string>TextLabel</string>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>120</height>
+         </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>0</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_200">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_5">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-200</string>
+         </property>
+        </widget>
        </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>9</y>
-          <width>1221</width>
-          <height>141</height>
-         </rect>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <layout class="QHBoxLayout" name="layout1"/>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_3">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>0</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_300">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_6">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-300</string>
+         </property>
+        </widget>
        </widget>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox2">
-       <property name="title">
-        <string>GroupBox</string>
-       </property>
-       <widget class="QLabel" name="label_6">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>47</width>
-          <height>13</height>
-         </rect>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="text">
-         <string>TextLabel</string>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>120</height>
+         </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_4">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>10</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_400">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_7">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-400</string>
+         </property>
+        </widget>
        </widget>
-       <widget class="QLabel" name="label_7">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>50</y>
-          <width>47</width>
-          <height>13</height>
-         </rect>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="text">
-         <string>TextLabel</string>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>120</height>
+         </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_5">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>0</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_500">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_8">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-500</string>
+         </property>
+        </widget>
        </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget_2">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>40</y>
-          <width>1241</width>
-          <height>111</height>
-         </rect>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <layout class="QHBoxLayout" name="layout2"/>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_6">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>0</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_600">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_9">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-600</string>
+         </property>
+        </widget>
        </widget>
-      </widget>
-     </item>
-    </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_7">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>10</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_700">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_10">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-700</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox8">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_8">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>10</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_800">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_11">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-800</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox9">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_9">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>10</y>
+           <width>1831</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="layout_900">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_12">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>0-900</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -430,7 +835,7 @@ qproperty-iconSize:16px 16px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1891</width>
+     <width>1925</width>
      <height>22</height>
     </rect>
    </property>
@@ -449,8 +854,8 @@ qproperty-iconSize:16px 16px;
    <widget class="QMenu" name="tools_menu">
     <property name="geometry">
      <rect>
-      <x>694</x>
-      <y>223</y>
+      <x>196</x>
+      <y>126</y>
       <width>247</width>
       <height>267</height>
      </rect>
@@ -637,11 +1042,11 @@ qproperty-iconSize:16px 16px;
      <iconset>
       <normaloff>../image/img tools/cantilever.png</normaloff>../image/img tools/cantilever.png</iconset>
     </property>
-    <addaction name="action_44"/>
-    <addaction name="action_45"/>
-    <addaction name="action_46"/>
-    <addaction name="action_47"/>
-    <addaction name="action_48"/>
+    <addaction name="shield_UGZ_action"/>
+    <addaction name="shield_UGZ_sensor_approximation_action"/>
+    <addaction name="shield_UGZ_angle_action"/>
+    <addaction name="shield_UGZ_shifting_action"/>
+    <addaction name="shield_UGZ_pressure_action"/>
     <addaction name="action_49"/>
     <addaction name="action_50"/>
     <addaction name="action_51"/>
@@ -763,7 +1168,7 @@ qproperty-iconSize:16px 16px;
      <string>энергопоезд</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="pressuremenu">
     <property name="title">
      <string/>
     </property>
@@ -771,8 +1176,8 @@ qproperty-iconSize:16px 16px;
      <iconset>
       <normaloff>../image/img tools/prop_pressure.png</normaloff>../image/img tools/prop_pressure.png</iconset>
     </property>
-    <addaction name="action_2"/>
-    <addaction name="action_3"/>
+    <addaction name="pressure_stand1_action"/>
+    <addaction name="pressure_stand2_action"/>
    </widget>
    <addaction name="tools_menu"/>
    <addaction name="search"/>
@@ -783,7 +1188,7 @@ qproperty-iconSize:16px 16px;
    <addaction name="electric"/>
    <addaction name="tilt_angle"/>
    <addaction name="conveier"/>
-   <addaction name="menu"/>
+   <addaction name="pressuremenu"/>
    <addaction name="shield_menu"/>
    <addaction name="menu_3"/>
    <addaction name="menu_4"/>
@@ -1109,7 +1514,7 @@ qproperty-iconSize:16px 16px;
     <string>давл стойка /2</string>
    </property>
   </action>
-  <action name="action_44">
+  <action name="shield_UGZ_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1121,7 +1526,7 @@ qproperty-iconSize:16px 16px;
     <string>Щит УГЗ</string>
    </property>
   </action>
-  <action name="action_45">
+  <action name="shield_UGZ_sensor_approximation_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1133,7 +1538,7 @@ qproperty-iconSize:16px 16px;
     <string>Щит УГЗ Датчик приближения </string>
    </property>
   </action>
-  <action name="action_46">
+  <action name="shield_UGZ_angle_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1145,7 +1550,7 @@ qproperty-iconSize:16px 16px;
     <string>Щит УГЗ Угол</string>
    </property>
   </action>
-  <action name="action_47">
+  <action name="shield_UGZ_shifting_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1157,7 +1562,7 @@ qproperty-iconSize:16px 16px;
     <string>Щит УГЗ передв (ход)</string>
    </property>
   </action>
-  <action name="action_48">
+  <action name="shield_UGZ_pressure_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1416,7 +1821,7 @@ qproperty-iconSize:16px 16px;
     <string>Продвижения забоя</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="pressure_stand1_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1428,7 +1833,7 @@ qproperty-iconSize:16px 16px;
     <string>давление в стойке</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="pressure_stand2_action">
    <property name="checkable">
     <bool>true</bool>
    </property>

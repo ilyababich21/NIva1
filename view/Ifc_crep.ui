@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>831</width>
-    <height>570</height>
+    <height>564</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -74,18 +74,21 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
        <width>224</width>
-       <height>26</height>
+       <height>30</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="control_pushButton">
+        <property name="toolTip">
+         <string>Контроль</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -118,12 +121,26 @@
         <property name="text">
          <string/>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../image/img tools/auto_error.png</normaloff>../image/img tools/auto_error.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_4">
         <property name="text">
          <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../image/img tools/edit.png</normaloff>../image/img tools/edit.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -143,10 +160,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>740</x>
       <y>40</y>
-      <width>81</width>
-      <height>61</height>
+      <width>91</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -186,7 +203,7 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -225,7 +242,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../image/img tools/left.png</normaloff>../image/img tools/left.png</iconset>
+          <normaloff>../image/img tools/left1.png</normaloff>../image/img tools/left1.png</iconset>
         </property>
        </widget>
       </item>
@@ -236,7 +253,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../image/img tools/right.png</normaloff>../image/img tools/right.png</iconset>
+          <normaloff>../image/img tools/right1.png</normaloff>../image/img tools/right1.png</iconset>
         </property>
        </widget>
       </item>

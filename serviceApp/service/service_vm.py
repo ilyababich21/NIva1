@@ -132,6 +132,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
     def on_clicked(self, btn):
         self.login_lineEdit.setText(btn.text())
+        self.password_lineEdit.setFocus()
 
     def get_user_from_database(self):
         layout = self.layoutButton

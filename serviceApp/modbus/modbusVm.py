@@ -4,7 +4,7 @@ from PyQt6 import QtCore
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
 from pymodbus.client import ModbusSerialClient,ModbusTcpClient
-from pyModbusTCP.client import ModbusClient
+
 
 UI_modbus = "view/service/modbus_view.ui"
 

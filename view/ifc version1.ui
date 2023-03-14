@@ -307,6 +307,9 @@ qproperty-iconSize:16px 16px;
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="text">
+        <string>60</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -347,7 +350,7 @@ qproperty-iconSize:16px 16px;
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>-1295</y>
+       <y>0</y>
        <width>1902</width>
        <height>2154</height>
       </rect>
@@ -1414,8 +1417,8 @@ qproperty-iconSize:16px 16px;
    <widget class="QMenu" name="electric">
     <property name="geometry">
      <rect>
-      <x>1440</x>
-      <y>147</y>
+      <x>410</x>
+      <y>130</y>
       <width>221</width>
       <height>204</height>
      </rect>

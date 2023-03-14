@@ -3,7 +3,8 @@ import sys
 from PyQt6 import QtCore
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
-from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
+from pymodbus.client import ModbusSerialClient,ModbusTcpClient
+from pyModbusTCP.client import ModbusClient
 
 UI_modbus = "view/service/modbus_view.ui"
 
@@ -25,7 +26,7 @@ class Changer(QtCore.QThread):
                     client.read_holding_registers(int(addressssio), int(countio), unit=int(Slavik)).registers[0])
             else:
                 self.text += str(
-                    clientTCP.read_holding_registers(int(addressssio), int(countio), unit=int(Slavik)).registers[0])
+                    clientTCP.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers[0])
             self.text += '\n'
             self.nextValueOfText.emit(self.text)
 
@@ -51,8 +52,8 @@ class ModbusForm(QtWidgets.QMainWindow):
             lambda: self.start(self.RTU_checkBox.isChecked(), self.device_comboBox.currentText(),
                                self.speed_comboBox.currentText(), self.stop_bit_comboBox.currentText(),
                                self.parity_comboBox.currentText(), self.address_device_comboBox.currentText(),
-                               self.port_lineEdit.text(), self.number_comboBox.currentText(),
-                               self.ip_lineEdit.text(), self.ip_lineEdit.text()))
+                               self.lineEdit_3.text(), self.number_comboBox.currentText(),
+                               self.ip_modbus_lineEdit.text(), self.port_lineEdit.text()))
 
     def stop(self):
         self.changer.running = False
@@ -64,6 +65,7 @@ class ModbusForm(QtWidgets.QMainWindow):
     def start(self, shchk, com_port, baudrate, stopbits, parity, SlaveID, address, count, label7, label8):
         global client
         global clientTCP
+        client =None
         if self.lineEdit_3.text() == '':
             self.textEdit.setText("Старт-регистр обязателен для заполнения")
         else:
@@ -80,17 +82,17 @@ class ModbusForm(QtWidgets.QMainWindow):
                 else:
                     prt = "N"
 
-                client = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
+                client = ModbusSerialClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:
                     client.connect()
                     print('norm')
                     self.changer.start()
                 except:
-                    print('hueta')
+                    print('No connection')
 
             else:
 
-                clientTCP = ModbusTcpClient(host=label7, port=int(label8))
+                clientTCP = ModbusTcpClient(host=label7, port=label8)
                 try:
                     clientTCP.connect()
                     print('norm')

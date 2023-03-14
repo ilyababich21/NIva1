@@ -252,7 +252,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="ip_lineEdit"/>
+                    <widget class="QLineEdit" name="ip_modbus_lineEdit"/>
                    </item>
                   </layout>
                  </item>

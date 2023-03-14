@@ -20,12 +20,12 @@ class Changer(QtCore.QThread):
     def run(self):
         self.running = True
         while self.running == True:
-            if client:
+            if clientRTU:
                 self.text += str(
-                    client.read_holding_registers(int(addressssio), int(countio), unit=int(Slavik)).registers[0])
+                    clientRTU.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers[0])
             else:
                 self.text += str(
-                    clientTCP.read_holding_registers(int(addressssio), int(countio), unit=int(Slavik)).registers[0])
+                    clientTCP.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers[0])
             self.text += '\n'
             self.nextValueOfText.emit(self.text)
 
@@ -51,18 +51,19 @@ class ModbusForm(QtWidgets.QMainWindow):
             lambda: self.start(self.RTU_checkBox.isChecked(), self.device_comboBox.currentText(),
                                self.speed_comboBox.currentText(), self.stop_bit_comboBox.currentText(),
                                self.parity_comboBox.currentText(), self.address_device_comboBox.currentText(),
-                               self.port_lineEdit.text(), self.number_comboBox.currentText(),
-                               self.ip_lineEdit.text(), self.ip_lineEdit.text()))
+                               self.lineEdit_3.text(), self.number_comboBox.currentText(),
+                               self.ip_lineEdit.text(), self.port_lineEdit.text()))
 
     def stop(self):
         self.changer.running = False
-        if client:
-            client.close()
+        if clientRTU:
+            clientRTU.close()
         else:
             clientTCP.close()
 
     def start(self, shchk, com_port, baudrate, stopbits, parity, SlaveID, address, count, label7, label8):
-        global client
+        global clientRTU
+        clientRTU=None
         global clientTCP
         if self.lineEdit_3.text() == '':
             self.textEdit.setText("Старт-регистр обязателен для заполнения")
@@ -80,9 +81,9 @@ class ModbusForm(QtWidgets.QMainWindow):
                 else:
                     prt = "N"
 
-                client = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
+                clientRTU = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:
-                    client.connect()
+                    clientRTU.connect()
                     print('norm')
                     self.changer.start()
                 except:

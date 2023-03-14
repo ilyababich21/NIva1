@@ -3,7 +3,8 @@ import sys
 from PyQt6 import QtCore
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
-from pymodbus.client import ModbusSerialClient as ModbusClient, ModbusTcpClient
+from pymodbus.client import ModbusSerialClient,ModbusTcpClient
+from pyModbusTCP.client import ModbusClient
 
 UI_modbus = "view/service/modbus_view.ui"
 
@@ -52,7 +53,7 @@ class ModbusForm(QtWidgets.QMainWindow):
                                self.speed_comboBox.currentText(), self.stop_bit_comboBox.currentText(),
                                self.parity_comboBox.currentText(), self.address_device_comboBox.currentText(),
                                self.lineEdit_3.text(), self.number_comboBox.currentText(),
-                               self.ip_lineEdit.text(), self.port_lineEdit.text()))
+                               self.ip_modbus_lineEdit.text(), self.port_lineEdit.text()))
 
     def stop(self):
         self.changer.running = False
@@ -81,17 +82,17 @@ class ModbusForm(QtWidgets.QMainWindow):
                 else:
                     prt = "N"
 
-                clientRTU = ModbusClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
+                client = ModbusSerialClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:
                     clientRTU.connect()
                     print('norm')
                     self.changer.start()
                 except:
-                    print('hueta')
+                    print('No connection')
 
             else:
 
-                clientTCP = ModbusTcpClient(host=label7, port=int(label8))
+                clientTCP = ModbusTcpClient(host=label7, port=label8)
                 try:
                     clientTCP.connect()
                     print('norm')

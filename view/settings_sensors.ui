@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1327</width>
-    <height>843</height>
+    <height>881</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>10</y>
       <width>1324</width>
       <height>859</height>
      </rect>
@@ -272,7 +272,7 @@
       </widget>
      </item>
      <item row="27" column="4">
-      <widget class="QPushButton" name="pushButton_104">
+      <widget class="QPushButton" name="color_transversal_slope_base_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -304,7 +304,7 @@
       </widget>
      </item>
      <item row="28" column="4">
-      <widget class="QPushButton" name="pushButton_105">
+      <widget class="QPushButton" name="color_log_base_slope_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1215,7 +1215,7 @@
       </widget>
      </item>
      <item row="22" column="13">
-      <widget class="QPushButton" name="pushButton_82">
+      <widget class="QPushButton" name="color_shifting_height_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1250,7 +1250,7 @@
       </widget>
      </item>
      <item row="25" column="13">
-      <widget class="QPushButton" name="pushButton_85">
+      <widget class="QPushButton" name="color_temperature_inside_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1269,7 +1269,7 @@
       </widget>
      </item>
      <item row="21" column="13">
-      <widget class="QPushButton" name="pushButton_81">
+      <widget class="QPushButton" name="color_height__pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1288,7 +1288,7 @@
       </widget>
      </item>
      <item row="23" column="13">
-      <widget class="QPushButton" name="pushButton_83">
+      <widget class="QPushButton" name="color_shifting_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1307,7 +1307,7 @@
       </widget>
      </item>
      <item row="18" column="13">
-      <widget class="QPushButton" name="pushButton_79">
+      <widget class="QPushButton" name="color_height_section2_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1326,7 +1326,7 @@
       </widget>
      </item>
      <item row="24" column="13">
-      <widget class="QPushButton" name="pushButton_84">
+      <widget class="QPushButton" name="color_wetness_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1345,7 +1345,7 @@
       </widget>
      </item>
      <item row="16" column="13">
-      <widget class="QPushButton" name="pushButton_76">
+      <widget class="QPushButton" name="color_podzh_pressure_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1364,7 +1364,7 @@
       </widget>
      </item>
      <item row="17" column="13">
-      <widget class="QPushButton" name="pushButton_77">
+      <widget class="QPushButton" name="color_height_section1_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1383,7 +1383,7 @@
       </widget>
      </item>
      <item row="15" column="13">
-      <widget class="QPushButton" name="pushButton_75">
+      <widget class="QPushButton" name="color_podzh_position_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1402,7 +1402,7 @@
       </widget>
      </item>
      <item row="20" column="13">
-      <widget class="QPushButton" name="pushButton_80">
+      <widget class="QPushButton" name="color_height_coal_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1421,7 +1421,7 @@
       </widget>
      </item>
      <item row="19" column="13">
-      <widget class="QPushButton" name="pushButton_78">
+      <widget class="QPushButton" name="color_height_section3_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1654,7 +1654,7 @@
       </widget>
      </item>
      <item row="14" column="13">
-      <widget class="QPushButton" name="pushButton_74">
+      <widget class="QPushButton" name="color_extention_top_shifting_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1673,7 +1673,7 @@
       </widget>
      </item>
      <item row="13" column="13">
-      <widget class="QPushButton" name="pushButton_87">
+      <widget class="QPushButton" name="color_extention_top_sensor_appr_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2707,7 +2707,7 @@
       </widget>
      </item>
      <item row="2" column="7">
-      <widget class="QLineEdit" name="lineEdit_66">
+      <widget class="QLineEdit" name="three_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3923,7 +3923,7 @@
       </widget>
      </item>
      <item row="9" column="13">
-      <widget class="QPushButton" name="pushButton_86">
+      <widget class="QPushButton" name="color_shield_angle_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3942,7 +3942,7 @@
       </widget>
      </item>
      <item row="12" column="13">
-      <widget class="QPushButton" name="pushButton_71">
+      <widget class="QPushButton" name="color_extention_top_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3961,7 +3961,7 @@
       </widget>
      </item>
      <item row="11" column="13">
-      <widget class="QPushButton" name="pushButton_66">
+      <widget class="QPushButton" name="color_shield_UGZ_pressure_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3980,7 +3980,7 @@
       </widget>
      </item>
      <item row="8" column="13">
-      <widget class="QPushButton" name="pushButton_97">
+      <widget class="QPushButton" name="color_shield_UGZ_sensor_appr_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3999,7 +3999,7 @@
       </widget>
      </item>
      <item row="7" column="13">
-      <widget class="QPushButton" name="pushButton_96">
+      <widget class="QPushButton" name="color_shield_UGZ_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4074,27 +4074,8 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="13">
-      <widget class="QPushButton" name="pushButton_92">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>50</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="7">
-      <widget class="QPushButton" name="pushButton_98">
+      <widget class="QPushButton" name="color_sensor_broken_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4113,7 +4094,7 @@
       </widget>
      </item>
      <item row="2" column="13">
-      <widget class="QPushButton" name="pushButton_91">
+      <widget class="QPushButton" name="color_CP_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4132,7 +4113,7 @@
       </widget>
      </item>
      <item row="1" column="13">
-      <widget class="QPushButton" name="pushButton_90">
+      <widget class="QPushButton" name="color_logitudinal_floor_slope_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4151,7 +4132,7 @@
       </widget>
      </item>
      <item row="0" column="7">
-      <widget class="QPushButton" name="pushButton_89">
+      <widget class="QPushButton" name="color_error_sensors_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4163,6 +4144,11 @@
          <width>50</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+color: #fff; 
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -4170,26 +4156,7 @@
       </widget>
      </item>
      <item row="0" column="13">
-      <widget class="QPushButton" name="pushButton_99">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>50</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="12">
-      <widget class="QPushButton" name="pushButton_101">
+      <widget class="QPushButton" name="color_transversal_slope_floor_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4416,7 +4383,7 @@
       </widget>
      </item>
      <item row="26" column="13">
-      <widget class="QPushButton" name="pushButton_108">
+      <widget class="QPushButton" name="color_sensor_dust_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4443,7 +4410,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;Попер наклперекрытия&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;Попер наклон перекрытия&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -4502,7 +4469,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;Покрытие состояния&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;Датчики&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -4585,7 +4552,7 @@
       </widget>
      </item>
      <item row="27" column="13">
-      <widget class="QPushButton" name="pushButton_107">
+      <widget class="QPushButton" name="color_sensor_gaz_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4604,7 +4571,7 @@
       </widget>
      </item>
      <item row="28" column="13">
-      <widget class="QPushButton" name="pushButton_106">
+      <widget class="QPushButton" name="color_sensor_CO_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4786,6 +4753,25 @@
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;Высота секции1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="12">
+      <widget class="QPushButton" name="pushButton_101">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>

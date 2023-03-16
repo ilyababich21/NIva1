@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1925</width>
+    <width>1923</width>
     <height>967</height>
    </rect>
   </property>
@@ -350,7 +350,7 @@ qproperty-iconSize:16px 16px;
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>-1295</y>
        <width>1902</width>
        <height>2154</height>
       </rect>
@@ -482,7 +482,7 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>0</x>
            <y>100</y>
            <width>151</width>
            <height>16</height>
@@ -545,6 +545,22 @@ qproperty-iconSize:16px 16px;
           <string>0-300</string>
          </property>
         </widget>
+        <widget class="QLabel" name="pressure_st1_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>151</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Давление в стойке 1</string>
+         </property>
+        </widget>
        </widget>
       </item>
       <item>
@@ -574,7 +590,7 @@ qproperty-iconSize:16px 16px;
          <property name="geometry">
           <rect>
            <x>50</x>
-           <y>10</y>
+           <y>0</y>
            <width>1831</width>
            <height>101</height>
           </rect>
@@ -596,6 +612,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-400</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="pressure_st2_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>151</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Давление в стойке 2</string>
          </property>
         </widget>
        </widget>
@@ -651,6 +683,22 @@ qproperty-iconSize:16px 16px;
           <string>0-500</string>
          </property>
         </widget>
+        <widget class="QLabel" name="shield_UGZ_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>151</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Щит УГЗ</string>
+         </property>
+        </widget>
        </widget>
       </item>
       <item>
@@ -704,6 +752,22 @@ qproperty-iconSize:16px 16px;
           <string>0-600</string>
          </property>
         </widget>
+        <widget class="QLabel" name="shield_UGZ_sensor_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>171</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Щит УГЗ Датчик приближения </string>
+         </property>
+        </widget>
        </widget>
       </item>
       <item>
@@ -733,7 +797,7 @@ qproperty-iconSize:16px 16px;
          <property name="geometry">
           <rect>
            <x>50</x>
-           <y>10</y>
+           <y>0</y>
            <width>1831</width>
            <height>101</height>
           </rect>
@@ -755,6 +819,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-700</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="shield_UGZ_angle_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Щит УГЗ Угол </string>
          </property>
         </widget>
        </widget>
@@ -786,7 +866,7 @@ qproperty-iconSize:16px 16px;
          <property name="geometry">
           <rect>
            <x>50</x>
-           <y>10</y>
+           <y>0</y>
            <width>1831</width>
            <height>101</height>
           </rect>
@@ -808,6 +888,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-800</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="shield_UGZ_hod_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Щит УГЗ передвижка (ход)</string>
          </property>
         </widget>
        </widget>
@@ -839,7 +935,7 @@ qproperty-iconSize:16px 16px;
          <property name="geometry">
           <rect>
            <x>50</x>
-           <y>10</y>
+           <y>0</y>
            <width>1831</width>
            <height>101</height>
           </rect>
@@ -861,6 +957,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-900</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="shield_UGZ_pressure_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Щит УГЗ давление</string>
          </property>
         </widget>
        </widget>
@@ -892,7 +1004,7 @@ qproperty-iconSize:16px 16px;
          <property name="geometry">
           <rect>
            <x>50</x>
-           <y>10</y>
+           <y>0</y>
            <width>1831</width>
            <height>101</height>
           </rect>
@@ -914,6 +1026,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-1000</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="shield_UGZ_thrust_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Щит УГЗ сокращение/распор</string>
          </property>
         </widget>
        </widget>
@@ -945,7 +1073,7 @@ qproperty-iconSize:16px 16px;
          <property name="geometry">
           <rect>
            <x>50</x>
-           <y>10</y>
+           <y>0</y>
            <width>1831</width>
            <height>101</height>
           </rect>
@@ -967,6 +1095,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-1100</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="extension_top_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Выдвижка верхняк</string>
          </property>
         </widget>
        </widget>
@@ -1000,7 +1144,7 @@ qproperty-iconSize:16px 16px;
            <x>50</x>
            <y>10</y>
            <width>1831</width>
-           <height>101</height>
+           <height>91</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="layout_1200">
@@ -1020,6 +1164,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-1200</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="extension_top_progress_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Выдвижка верхняк (ход)</string>
          </property>
         </widget>
        </widget>
@@ -1053,7 +1213,7 @@ qproperty-iconSize:16px 16px;
            <x>50</x>
            <y>10</y>
            <width>1831</width>
-           <height>101</height>
+           <height>91</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="layout_1300">
@@ -1073,6 +1233,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-1300</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="koz_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Подж призаб (козырек)</string>
          </property>
         </widget>
        </widget>
@@ -1106,7 +1282,7 @@ qproperty-iconSize:16px 16px;
            <x>50</x>
            <y>10</y>
            <width>1831</width>
-           <height>101</height>
+           <height>91</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="layout_1400">
@@ -1126,6 +1302,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-1400</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="shifting_state_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Перекрытие состояние</string>
          </property>
         </widget>
        </widget>
@@ -1159,7 +1351,7 @@ qproperty-iconSize:16px 16px;
            <x>50</x>
            <y>10</y>
            <width>1831</width>
-           <height>101</height>
+           <height>91</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="layout_1500">
@@ -1179,6 +1371,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-1500</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="height_section1_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Высота секции 1</string>
          </property>
         </widget>
        </widget>
@@ -1212,7 +1420,7 @@ qproperty-iconSize:16px 16px;
            <x>50</x>
            <y>10</y>
            <width>1831</width>
-           <height>101</height>
+           <height>91</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="layout_1600">
@@ -1232,6 +1440,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-1600</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="height_section2_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Высота секции 2</string>
          </property>
         </widget>
        </widget>
@@ -1265,7 +1489,7 @@ qproperty-iconSize:16px 16px;
            <x>50</x>
            <y>10</y>
            <width>1831</width>
-           <height>101</height>
+           <height>91</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="layout_1700">
@@ -1287,6 +1511,22 @@ qproperty-iconSize:16px 16px;
           <string>0-1700</string>
          </property>
         </widget>
+        <widget class="QLabel" name="height_section3_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>161</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Высота секции 3</string>
+         </property>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -1301,7 +1541,7 @@ qproperty-iconSize:16px 16px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1925</width>
+     <width>1923</width>
      <height>22</height>
     </rect>
    </property>

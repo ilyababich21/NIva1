@@ -92,10 +92,41 @@ class IfcViewModel(QtWidgets.QMainWindow):
         if self.show_name_action.isChecked():
             self.CP_label.show()
             self.zaz_label.show()
+            self.pressure_st1_label.show()
+            self.pressure_st2_label.show()
+            self.shield_UGZ_label.show()
+            self.shield_UGZ_sensor_label.show()
+            self.shield_UGZ_angle_label.show()
+            self.shield_UGZ_hod_label.show()
+            self.shield_UGZ_pressure_label.show()
+            self.shield_UGZ_thrust_label.show()
+            self.extension_top_label.show()
+            self.extension_top_progress_label.show()
+            self.koz_label.show()
+            self.shifting_state_label.show()
+            self.height_section1_label.show()
+            self.height_section2_label.show()
+            self.height_section3_label.show()
 
         else:
             self.CP_label.hide()
             self.zaz_label.hide()
+            self.pressure_st1_label.hide()
+            self.pressure_st2_label.hide()
+            self.shield_UGZ_label.hide()
+            self.shield_UGZ_sensor_label.hide()
+            self.shield_UGZ_angle_label.hide()
+            self.shield_UGZ_hod_label.hide()
+            self.shield_UGZ_pressure_label.hide()
+            self.shield_UGZ_thrust_label.hide()
+            self.extension_top_label.hide()
+            self.extension_top_progress_label.hide()
+            self.koz_label.hide()
+            self.shifting_state_label.hide()
+            self.height_section1_label.hide()
+            self.height_section2_label.hide()
+            self.height_section3_label.hide()
+
 
     def checked_action(self):
         if self.v_action.isChecked():

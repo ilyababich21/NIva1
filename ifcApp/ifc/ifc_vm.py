@@ -70,6 +70,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
             layout.itemAt(i).widget().deleteLater()
         for elem in range(int(self.section_max_lineEdit.text())):
             btn = ButtonForSection(elem + 1)  # !!!
+            # crep = CrepViewModel(btn.id)
+
             btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
             layout.addWidget(btn)
 

@@ -591,7 +591,7 @@
       </widget>
      </item>
      <item row="10" column="7">
-      <widget class="QLineEdit" name="lineEdit_62">
+      <widget class="QLineEdit" name="time_upload_in_location_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -607,7 +607,7 @@
       </widget>
      </item>
      <item row="12" column="7">
-      <widget class="QLineEdit" name="lineEdit_60">
+      <widget class="QLineEdit" name="function_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -623,7 +623,7 @@
       </widget>
      </item>
      <item row="11" column="7">
-      <widget class="QLineEdit" name="lineEdit_61">
+      <widget class="QLineEdit" name="time_trust_height_pressure_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -829,7 +829,7 @@
       </widget>
      </item>
      <item row="9" column="7">
-      <widget class="QLineEdit" name="lineEdit_63">
+      <widget class="QLineEdit" name="time_upload_in_trust_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -861,7 +861,7 @@
       </widget>
      </item>
      <item row="10" column="6">
-      <widget class="QLineEdit" name="lineEdit_53">
+      <widget class="QLineEdit" name="time_upload_in_location_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -877,7 +877,7 @@
       </widget>
      </item>
      <item row="13" column="7">
-      <widget class="QLineEdit" name="lineEdit_46">
+      <widget class="QLineEdit" name="sound_light_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -912,7 +912,7 @@
       </widget>
      </item>
      <item row="11" column="6">
-      <widget class="QLineEdit" name="lineEdit_54">
+      <widget class="QLineEdit" name="time_trust_height_pressure_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -928,7 +928,7 @@
       </widget>
      </item>
      <item row="8" column="6">
-      <widget class="QLineEdit" name="lineEdit_51">
+      <widget class="QLineEdit" name="time_thrust_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -944,7 +944,7 @@
       </widget>
      </item>
      <item row="10" column="2">
-      <widget class="QPushButton" name="pushButton_53">
+      <widget class="QPushButton" name="time_upload_in_location_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -963,7 +963,7 @@
       </widget>
      </item>
      <item row="4" column="7">
-      <widget class="QLineEdit" name="lineEdit_48">
+      <widget class="QLineEdit" name="between_time_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -979,7 +979,7 @@
       </widget>
      </item>
      <item row="6" column="6">
-      <widget class="QLineEdit" name="lineEdit_36">
+      <widget class="QLineEdit" name="time_upload_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -995,7 +995,7 @@
       </widget>
      </item>
      <item row="7" column="6">
-      <widget class="QLineEdit" name="lineEdit_50">
+      <widget class="QLineEdit" name="time_shifting_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1011,7 +1011,7 @@
       </widget>
      </item>
      <item row="4" column="6">
-      <widget class="QLineEdit" name="lineEdit_47">
+      <widget class="QLineEdit" name="between_time_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1027,7 +1027,7 @@
       </widget>
      </item>
      <item row="9" column="6">
-      <widget class="QLineEdit" name="lineEdit_52">
+      <widget class="QLineEdit" name="time_upload_in_trust_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1043,7 +1043,7 @@
       </widget>
      </item>
      <item row="11" column="2">
-      <widget class="QPushButton" name="pushButton_55">
+      <widget class="QPushButton" name="time_trust_height_pressure_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1062,7 +1062,7 @@
       </widget>
      </item>
      <item row="5" column="6">
-      <widget class="QLineEdit" name="lineEdit_49">
+      <widget class="QLineEdit" name="time_work_cycle_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1078,7 +1078,7 @@
       </widget>
      </item>
      <item row="13" column="2">
-      <widget class="QPushButton" name="pushButton_38">
+      <widget class="QPushButton" name="color_sound_light_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1097,7 +1097,7 @@
       </widget>
      </item>
      <item row="13" column="3">
-      <widget class="QPushButton" name="pushButton_47">
+      <widget class="QPushButton" name="color_sound_light_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1151,7 +1151,7 @@
       </widget>
      </item>
      <item row="6" column="7">
-      <widget class="QLineEdit" name="lineEdit_59">
+      <widget class="QLineEdit" name="time_upload_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1167,7 +1167,7 @@
       </widget>
      </item>
      <item row="5" column="7">
-      <widget class="QLineEdit" name="lineEdit_57">
+      <widget class="QLineEdit" name="time_work_cycle_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1199,7 +1199,7 @@
       </widget>
      </item>
      <item row="7" column="7">
-      <widget class="QLineEdit" name="lineEdit_56">
+      <widget class="QLineEdit" name="time_shifting_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1234,7 +1234,7 @@
       </widget>
      </item>
      <item row="8" column="7">
-      <widget class="QLineEdit" name="lineEdit_55">
+      <widget class="QLineEdit" name="time_thrust_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1584,7 +1584,7 @@
       </widget>
      </item>
      <item row="14" column="7">
-      <widget class="QLineEdit" name="lineEdit_108">
+      <widget class="QLineEdit" name="synch_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1616,7 +1616,7 @@
       </widget>
      </item>
      <item row="6" column="3">
-      <widget class="QPushButton" name="pushButton_41">
+      <widget class="QPushButton" name="color_time_upload_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1635,7 +1635,7 @@
       </widget>
      </item>
      <item row="4" column="3">
-      <widget class="QPushButton" name="pushButton_39">
+      <widget class="QPushButton" name="color_between_time_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1692,7 +1692,7 @@
       </widget>
      </item>
      <item row="7" column="3">
-      <widget class="QPushButton" name="pushButton_44">
+      <widget class="QPushButton" name="color_time_shifting_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1711,7 +1711,7 @@
       </widget>
      </item>
      <item row="5" column="3">
-      <widget class="QPushButton" name="pushButton_40">
+      <widget class="QPushButton" name="color_time_work_cycle_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1730,7 +1730,7 @@
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="QPushButton" name="pushButton_56">
+      <widget class="QPushButton" name="color_between_time_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1749,7 +1749,7 @@
       </widget>
      </item>
      <item row="8" column="3">
-      <widget class="QPushButton" name="pushButton_46">
+      <widget class="QPushButton" name="color_time_thrust_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1768,7 +1768,7 @@
       </widget>
      </item>
      <item row="9" column="3">
-      <widget class="QPushButton" name="pushButton_42">
+      <widget class="QPushButton" name="time_upload_in_trust_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1787,7 +1787,7 @@
       </widget>
      </item>
      <item row="9" column="2">
-      <widget class="QPushButton" name="pushButton_52">
+      <widget class="QPushButton" name="time_upload_in_trust_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1806,7 +1806,7 @@
       </widget>
      </item>
      <item row="7" column="2">
-      <widget class="QPushButton" name="pushButton_50">
+      <widget class="QPushButton" name="color_time_shifting_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1825,7 +1825,7 @@
       </widget>
      </item>
      <item row="8" column="2">
-      <widget class="QPushButton" name="pushButton_51">
+      <widget class="QPushButton" name="color_time_thrust_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1863,7 +1863,7 @@
       </widget>
      </item>
      <item row="6" column="2">
-      <widget class="QPushButton" name="pushButton_49">
+      <widget class="QPushButton" name="color_time_upload_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1914,7 +1914,7 @@
       </widget>
      </item>
      <item row="11" column="3">
-      <widget class="QPushButton" name="pushButton_45">
+      <widget class="QPushButton" name="time_trust_height_pressure_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1933,7 +1933,7 @@
       </widget>
      </item>
      <item row="5" column="2">
-      <widget class="QPushButton" name="pushButton_48">
+      <widget class="QPushButton" name="color_time_work_cycle_pushButton1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1959,7 +1959,7 @@
       </widget>
      </item>
      <item row="10" column="3">
-      <widget class="QPushButton" name="pushButton_43">
+      <widget class="QPushButton" name="time_upload_in_location_pushButton2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2368,7 +2368,7 @@
       </widget>
      </item>
      <item row="3" column="7">
-      <widget class="QLineEdit" name="lineEdit_124">
+      <widget class="QLineEdit" name="automatic_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2480,7 +2480,7 @@
       </widget>
      </item>
      <item row="3" column="6">
-      <widget class="QLineEdit" name="lineEdit_127">
+      <widget class="QLineEdit" name="automatic_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2576,7 +2576,7 @@
       </widget>
      </item>
      <item row="3" column="5">
-      <widget class="QLineEdit" name="lineEdit_126">
+      <widget class="QLineEdit" name="automatic_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2608,7 +2608,7 @@
       </widget>
      </item>
      <item row="14" column="5">
-      <widget class="QLineEdit" name="lineEdit_107">
+      <widget class="QLineEdit" name="synch_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2656,7 +2656,7 @@
       </widget>
      </item>
      <item row="14" column="6">
-      <widget class="QLineEdit" name="lineEdit_105">
+      <widget class="QLineEdit" name="synch_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2688,7 +2688,7 @@
       </widget>
      </item>
      <item row="21" column="4">
-      <widget class="QPushButton" name="pushButton_70">
+      <widget class="QPushButton" name="color_sensor_sipply_voltage_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2707,7 +2707,7 @@
       </widget>
      </item>
      <item row="2" column="7">
-      <widget class="QLineEdit" name="three_lineEdit">
+      <widget class="QLineEdit" name="distance_between_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2723,7 +2723,7 @@
       </widget>
      </item>
      <item row="18" column="6">
-      <widget class="QLineEdit" name="lineEdit_129">
+      <widget class="QLineEdit" name="current_cons_valve_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2755,7 +2755,7 @@
       </widget>
      </item>
      <item row="22" column="4">
-      <widget class="QPushButton" name="pushButton_69">
+      <widget class="QPushButton" name="color_valve_sipply_voltage_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2854,7 +2854,7 @@
       </widget>
      </item>
      <item row="18" column="7">
-      <widget class="QLineEdit" name="lineEdit_128">
+      <widget class="QLineEdit" name="current_cons_valve_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2870,7 +2870,7 @@
       </widget>
      </item>
      <item row="17" column="7">
-      <widget class="QLineEdit" name="lineEdit_160">
+      <widget class="QLineEdit" name="current_cons_now_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2918,7 +2918,7 @@
       </widget>
      </item>
      <item row="15" column="7">
-      <widget class="QLineEdit" name="lineEdit_158">
+      <widget class="QLineEdit" name="resist_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2966,7 +2966,7 @@
       </widget>
      </item>
      <item row="15" column="6">
-      <widget class="QLineEdit" name="lineEdit_155">
+      <widget class="QLineEdit" name="resist_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2982,7 +2982,7 @@
       </widget>
      </item>
      <item row="17" column="6">
-      <widget class="QLineEdit" name="lineEdit_157">
+      <widget class="QLineEdit" name="current_cons_now_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -2998,7 +2998,7 @@
       </widget>
      </item>
      <item row="16" column="7">
-      <widget class="QLineEdit" name="lineEdit_159">
+      <widget class="QLineEdit" name="neighboring_section_coeff_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3014,7 +3014,7 @@
       </widget>
      </item>
      <item row="16" column="6">
-      <widget class="QLineEdit" name="lineEdit_156">
+      <widget class="QLineEdit" name="neighboring_section_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3094,7 +3094,7 @@
       </widget>
      </item>
      <item row="18" column="5">
-      <widget class="QLineEdit" name="lineEdit_161">
+      <widget class="QLineEdit" name="current_cons_valve_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3126,7 +3126,7 @@
       </widget>
      </item>
      <item row="15" column="5">
-      <widget class="QLineEdit" name="lineEdit_164">
+      <widget class="QLineEdit" name="resist_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3142,7 +3142,7 @@
       </widget>
      </item>
      <item row="16" column="5">
-      <widget class="QLineEdit" name="lineEdit_165">
+      <widget class="QLineEdit" name="neighboring_section_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3254,7 +3254,7 @@
       </widget>
      </item>
      <item row="17" column="5">
-      <widget class="QLineEdit" name="lineEdit_166">
+      <widget class="QLineEdit" name="current_cons_now_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3398,7 +3398,7 @@
       </widget>
      </item>
      <item row="19" column="4">
-      <widget class="QPushButton" name="pushButton_72">
+      <widget class="QPushButton" name="color_current_all_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3433,7 +3433,7 @@
       </widget>
      </item>
      <item row="9" column="4">
-      <widget class="QPushButton" name="pushButton_33">
+      <widget class="QPushButton" name="time_upload_in_trust_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3468,7 +3468,7 @@
       </widget>
      </item>
      <item row="10" column="4">
-      <widget class="QPushButton" name="pushButton_34">
+      <widget class="QPushButton" name="time_upload_in_location_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3487,7 +3487,7 @@
       </widget>
      </item>
      <item row="5" column="5">
-      <widget class="QLineEdit" name="lineEdit_43">
+      <widget class="QLineEdit" name="time_work_cycle_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3503,7 +3503,7 @@
       </widget>
      </item>
      <item row="7" column="5">
-      <widget class="QLineEdit" name="lineEdit_40">
+      <widget class="QLineEdit" name="time_shifting_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3519,7 +3519,7 @@
       </widget>
      </item>
      <item row="5" column="4">
-      <widget class="QPushButton" name="pushButton_30">
+      <widget class="QPushButton" name="color_time_work_cycle_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3538,7 +3538,7 @@
       </widget>
      </item>
      <item row="6" column="4">
-      <widget class="QPushButton" name="pushButton_31">
+      <widget class="QPushButton" name="color_time_upload_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3557,7 +3557,7 @@
       </widget>
      </item>
      <item row="4" column="5">
-      <widget class="QLineEdit" name="lineEdit_45">
+      <widget class="QLineEdit" name="between_time_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3573,7 +3573,7 @@
       </widget>
      </item>
      <item row="11" column="4">
-      <widget class="QPushButton" name="pushButton_36">
+      <widget class="QPushButton" name="time_trust_height_pressure_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3592,7 +3592,7 @@
       </widget>
      </item>
      <item row="8" column="4">
-      <widget class="QPushButton" name="pushButton_32">
+      <widget class="QPushButton" name="color_time_thrust_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3611,7 +3611,7 @@
       </widget>
      </item>
      <item row="14" column="4">
-      <widget class="QPushButton" name="pushButton_26">
+      <widget class="QPushButton" name="color_synch_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3630,7 +3630,7 @@
       </widget>
      </item>
      <item row="4" column="4">
-      <widget class="QPushButton" name="pushButton_29">
+      <widget class="QPushButton" name="color_between_time_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3668,7 +3668,7 @@
       </widget>
      </item>
      <item row="7" column="4">
-      <widget class="QPushButton" name="pushButton_35">
+      <widget class="QPushButton" name="color_time_shifting_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3687,7 +3687,7 @@
       </widget>
      </item>
      <item row="13" column="5">
-      <widget class="QLineEdit" name="lineEdit_37">
+      <widget class="QLineEdit" name="sound_light_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3703,7 +3703,7 @@
       </widget>
      </item>
      <item row="11" column="5">
-      <widget class="QLineEdit" name="lineEdit_39">
+      <widget class="QLineEdit" name="time_trust_height_pressure_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3719,7 +3719,7 @@
       </widget>
      </item>
      <item row="15" column="4">
-      <widget class="QPushButton" name="pushButton_27">
+      <widget class="QPushButton" name="color_resist_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3738,7 +3738,7 @@
       </widget>
      </item>
      <item row="12" column="6">
-      <widget class="QLineEdit" name="lineEdit_58">
+      <widget class="QLineEdit" name="function_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3754,7 +3754,7 @@
       </widget>
      </item>
      <item row="9" column="5">
-      <widget class="QLineEdit" name="lineEdit_42">
+      <widget class="QLineEdit" name="time_upload_in_trust_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3770,7 +3770,7 @@
       </widget>
      </item>
      <item row="13" column="6">
-      <widget class="QLineEdit" name="lineEdit_35">
+      <widget class="QLineEdit" name="sound_light_max_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3786,7 +3786,7 @@
       </widget>
      </item>
      <item row="12" column="5">
-      <widget class="QLineEdit" name="lineEdit_34">
+      <widget class="QLineEdit" name="function_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3802,7 +3802,7 @@
       </widget>
      </item>
      <item row="8" column="5">
-      <widget class="QLineEdit" name="lineEdit_41">
+      <widget class="QLineEdit" name="time_thrust_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3818,7 +3818,7 @@
       </widget>
      </item>
      <item row="10" column="5">
-      <widget class="QLineEdit" name="lineEdit_38">
+      <widget class="QLineEdit" name="time_upload_in_location_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3850,7 +3850,7 @@
       </widget>
      </item>
      <item row="17" column="4">
-      <widget class="QPushButton" name="pushButton_28">
+      <widget class="QPushButton" name="color_current_cons_now_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3869,7 +3869,7 @@
       </widget>
      </item>
      <item row="6" column="5">
-      <widget class="QLineEdit" name="lineEdit_44">
+      <widget class="QLineEdit" name="time_upload_min_value_lineEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3885,7 +3885,7 @@
       </widget>
      </item>
      <item row="18" column="4">
-      <widget class="QPushButton" name="pushButton_65">
+      <widget class="QPushButton" name="color_current_cons_valve_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -3904,7 +3904,7 @@
       </widget>
      </item>
      <item row="13" column="4">
-      <widget class="QPushButton" name="pushButton_25">
+      <widget class="QPushButton" name="color_sound_light_pushButton3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -4213,7 +4213,7 @@ color: #fff;
       </widget>
      </item>
      <item row="20" column="4">
-      <widget class="QPushButton" name="pushButton_88">
+      <widget class="QPushButton" name="color_sipply_voltage_pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>

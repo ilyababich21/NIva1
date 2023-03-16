@@ -42,6 +42,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.height_section_action2.triggered.connect(self.checked_action)
         self.height_section_action3.triggered.connect(self.checked_action)
 
+        self.show_name_action.triggered.connect(self.show_name_sensors)
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
         self.data_sensors_pushButton.clicked.connect(self.show_data_sensors)
 
@@ -86,6 +87,15 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.settings_sensors.show()
         else:
             self.settings_sensors.close()
+
+    def show_name_sensors(self):
+        if self.show_name_action.isChecked():
+            self.CP_label.show()
+            self.zaz_label.show()
+
+        else:
+            self.CP_label.hide()
+            self.zaz_label.hide()
 
     def checked_action(self):
         if self.v_action.isChecked():

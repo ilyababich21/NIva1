@@ -26,7 +26,7 @@ class Changer(QtCore.QThread):
                     clientRTU.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers[0])
             else:
                 self.text += str(
-                    clientTCP.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers[0])
+                    clientTCP.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers)
             self.text += '\n'
             self.nextValueOfText.emit(self.text)
 

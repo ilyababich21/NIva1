@@ -33,6 +33,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         uic.loadUi(UI_authorization, self)
 
         self.users = session.query(Users).all()
+
         if self.users == []:
             session.add_all([Users(login="service", password="1111", role="service"),
                              Users(login="IFC", password="ifc", role="user")])
@@ -41,7 +42,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.setting_network = self.check_first_load(SettingNetwork)
         self.network_interface = self.check_first_load(NetworkInterface)
 
-        self.get_user_from_database()
+        self.view_user_from_database()
         self.log_in_button.clicked.connect(self.check_credential)
 
     def check_first_load(self, model_object):
@@ -123,7 +124,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
 
         uic.loadUi(UI_authorization, self)
 
-        self.get_user_from_database()
+        self.view_user_from_database()
 
         self.log_in_button.clicked.connect(self.check_credential)
 
@@ -134,7 +135,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.login_lineEdit.setText(btn.text())
         self.password_lineEdit.setFocus()
 
-    def get_user_from_database(self):
+    def view_user_from_database(self):
         layout = self.layoutButton
         num = 0
         for user in self.users:

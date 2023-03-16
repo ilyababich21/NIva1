@@ -407,6 +407,22 @@ qproperty-iconSize:16px 16px;
           </property>
          </layout>
         </widget>
+        <widget class="QLabel" name="CP_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>100</y>
+           <width>47</width>
+           <height>13</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>ЦП</string>
+         </property>
+        </widget>
        </widget>
       </item>
       <item>
@@ -458,6 +474,22 @@ qproperty-iconSize:16px 16px;
          </property>
          <property name="text">
           <string>0-200</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="zaz_label">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>100</y>
+           <width>151</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Зазор целевой передвижки</string>
          </property>
         </widget>
        </widget>
@@ -1288,8 +1320,8 @@ qproperty-iconSize:16px 16px;
    <widget class="QMenu" name="tools_menu">
     <property name="geometry">
      <rect>
-      <x>196</x>
-      <y>126</y>
+      <x>1044</x>
+      <y>289</y>
       <width>247</width>
       <height>267</height>
      </rect>
@@ -1331,7 +1363,7 @@ qproperty-iconSize:16px 16px;
     <addaction name="list_camera_action"/>
     <addaction name="list_link_action"/>
     <addaction name="change_setting_action"/>
-    <addaction name="graffik_name_action"/>
+    <addaction name="show_name_action"/>
     <addaction name="conveier_name_action"/>
     <addaction name="direction_name_action"/>
     <addaction name="separator"/>
@@ -1692,7 +1724,17 @@ qproperty-iconSize:16px 16px;
     <string>изменить настройки экрана</string>
    </property>
   </action>
-  <action name="graffik_name_action">
+  <action name="show_name_action">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../image/img tools/name.png</normaloff>../image/img tools/name.png</iconset>
+   </property>
    <property name="text">
     <string>график: отобразить название</string>
    </property>

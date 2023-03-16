@@ -1,8 +1,9 @@
 from PyQt6 import uic, QtWidgets
+from PyQt6.QtWidgets import QColorDialog
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
-from ifcApp.dataSensors.settings_data_sensors import SettingsSensors
+from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 
 UI_ifc = "view/ifc version1.ui"
 
@@ -41,10 +42,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.height_section_action2.triggered.connect(self.checked_action)
         self.height_section_action3.triggered.connect(self.checked_action)
 
+        self.show_name_action.triggered.connect(self.show_name_sensors)
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
         self.data_sensors_pushButton.clicked.connect(self.show_data_sensors)
 
         self.Ok_button.clicked.connect(self.show_button)
+
     def show_button(self):
         self.make_buttons(self.layout_100)
         self.make_buttons(self.layout_200)
@@ -64,7 +67,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.make_buttons(self.layout_1600)
         self.make_buttons(self.layout_1700)
 
-
     def make_buttons(self, layout):
         for i in reversed(range(layout.count())):
             layout.itemAt(i).widget().deleteLater()
@@ -74,9 +76,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
             btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
             layout.addWidget(btn)
-
-
-
 
     def on_clicked(self, btn):
         self.crep = CrepViewModel(btn.id)
@@ -90,6 +89,15 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.settings_sensors.show()
         else:
             self.settings_sensors.close()
+
+    def show_name_sensors(self):
+        if self.show_name_action.isChecked():
+            self.CP_label.show()
+            self.zaz_label.show()
+
+        else:
+            self.CP_label.hide()
+            self.zaz_label.hide()
 
     def checked_action(self):
         if self.v_action.isChecked():

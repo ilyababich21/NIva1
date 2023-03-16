@@ -308,7 +308,7 @@ qproperty-iconSize:16px 16px;
         </sizepolicy>
        </property>
        <property name="text">
-        <string>60</string>
+        <string>20</string>
        </property>
       </widget>
      </item>

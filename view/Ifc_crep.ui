@@ -292,7 +292,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="sensor2_lineEdit">
+   <widget class="QLineEdit" name="sensors2_lineEdit">
     <property name="geometry">
      <rect>
       <x>160</x>

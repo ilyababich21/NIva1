@@ -2,7 +2,7 @@ from PyQt6 import uic, QtWidgets
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from PyQt6 import QtCore
 import asyncio
-from pymodbus.client import ModbusSerialClient
+from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 
 from pymodbus.client import AsyncModbusSerialClient
 UI_crep = "view/ifc_crep.ui"
@@ -13,11 +13,14 @@ class Changer(QtCore.QThread):
     dat1 = QtCore.pyqtSignal(str)
     dat2 = QtCore.pyqtSignal(str)
     dat3 = QtCore.pyqtSignal(str)
-    clientRTU = ModbusSerialClient(port="COM1", baudrate=9600)
-    SlaveID=None
+    clientRTU = ModbusTcpClient(host="127.0.0.1", port=500)
+    try:
+        clientRTU.connect()
+    except:
+        print('No connection')
+    SlaveID = None
     def __init__(self, parent=None):
         QtCore.QThread.__init__(self, parent)
-
         self.running = False
     text = ''
 

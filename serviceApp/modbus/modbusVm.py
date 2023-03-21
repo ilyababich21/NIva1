@@ -21,9 +21,9 @@ class Changer(QtCore.QThread):
     def run(self):
         self.running = True
         while self.running == True:
-            if clientRTU:
+            if client_modbus:
                 self.text += str(
-                    clientRTU.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers[0])
+                    client_modbus.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers[0])
             else:
                 self.text += str(
                     clientTCP.read_holding_registers(int(addressssio), int(countio), int(Slavik)).registers)
@@ -57,14 +57,15 @@ class ModbusForm(QtWidgets.QMainWindow):
 
     def stop(self):
         self.changer.running = False
-        if clientRTU:
-            clientRTU.close()
+        if client_modbus:
+            client_modbus.close()
         else:
             clientTCP.close()
 
     def start(self, shchk, com_port, baudrate, stopbits, parity, SlaveID, address, count, label7, label8):
         global clientRTU
-        clientRTU=None
+        global client_modbus
+        client_modbus=None
         global clientTCP
         if self.lineEdit_3.text() == '':
             self.textEdit.setText("Старт-регистр обязателен для заполнения")
@@ -82,9 +83,9 @@ class ModbusForm(QtWidgets.QMainWindow):
                 else:
                     prt = "N"
 
-                client = ModbusSerialClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
+                client_modbus = ModbusSerialClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
                 try:
-                    clientRTU.connect()
+                    client_modbus.connect()
                     print('norm')
                     self.changer.start()
                 except:

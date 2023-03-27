@@ -2,7 +2,7 @@ from datetime import datetime
 
 from PyQt6 import uic, QtWidgets, QtCore
 from PyQt6.QtWidgets import QColorDialog
-
+from pymodbus.client import ModbusSerialClient
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
@@ -45,6 +45,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
+        self.section_max_lineEdit.setText('22')
+
+        self.clientRTU= ModbusSerialClient(port="COM9", baudrate=9600)
+        if self.clientRTU.connected is False:
+            self.clientRTU = None
         self.show_button()
 
         self.v_action.triggered.connect(self.checked_action)
@@ -76,36 +81,39 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_button(self):
         self.make_buttons(self.layout_100)
-        self.make_buttons(self.layout_200)
-        self.make_buttons(self.layout_300)
-        self.make_buttons(self.layout_400)
-        self.make_buttons(self.layout_500)
-        self.make_buttons(self.layout_600)
-        self.make_buttons(self.layout_700)
-        self.make_buttons(self.layout_800)
-        self.make_buttons(self.layout_900)
-        self.make_buttons(self.layout_1000)
-        self.make_buttons(self.layout_1100)
-        self.make_buttons(self.layout_1200)
-        self.make_buttons(self.layout_1300)
-        self.make_buttons(self.layout_1400)
-        self.make_buttons(self.layout_1500)
-        self.make_buttons(self.layout_1600)
-        self.make_buttons(self.layout_1700)
+        # self.make_buttons(self.layout_200)
+        # self.make_buttons(self.layout_300)
+        # self.make_buttons(self.layout_400)
+        # self.make_buttons(self.layout_500)
+        # self.make_buttons(self.layout_600)
+        # self.make_buttons(self.layout_700)
+        # self.make_buttons(self.layout_800)
+        # self.make_buttons(self.layout_900)
+        # self.make_buttons(self.layout_1000)
+        # self.make_buttons(self.layout_1100)
+        # self.make_buttons(self.layout_1200)
+        # self.make_buttons(self.layout_1300)
+        # self.make_buttons(self.layout_1400)
+        # self.make_buttons(self.layout_1500)
+        # self.make_buttons(self.layout_1600)
+        # self.make_buttons(self.layout_1700)
 
     def make_buttons(self, layout):
         for i in reversed(range(layout.count())):
             layout.itemAt(i).widget().deleteLater()
         for elem in range(int(self.section_max_lineEdit.text())):
             btn = ButtonForSection(elem + 1)  # !!!
-            # crep = CrepViewModel(btn.id)
 
-            btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
+            self.crep = CrepViewModel(btn.id,self.clientRTU)
+            btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b))
             layout.addWidget(btn)
 
-    def on_clicked(self, btn):
-        self.crep = CrepViewModel(btn.id)
-        self.crep.show()
+    def on_clicked(self, crepWin):
+        if crepWin.isVisible():
+            crepWin.hide()
+
+        else:
+            crepWin.show()
 
     def show_data_sensors(self):
         self.data_sensors.show()

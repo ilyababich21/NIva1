@@ -1,8 +1,10 @@
 from PyQt6 import uic, QtWidgets
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from PyQt6 import QtCore
+import serial
 import asyncio
-from pymodbus.client import ModbusSerialClient
+from pymodbus.client import ModbusSerialClient,ModbusTcpClient
+from pymodbus.client import AsyncModbusTcpClient
 
 from pymodbus.client import AsyncModbusSerialClient
 UI_crep = "view/ifc_crep.ui"
@@ -13,13 +15,14 @@ class Changer(QtCore.QThread):
     dat1 = QtCore.pyqtSignal(str)
     dat2 = QtCore.pyqtSignal(str)
     dat3 = QtCore.pyqtSignal(str)
-    clientRTU = ModbusSerialClient(port="COM1", baudrate=9600)
+    clientRTU= None
+    # clientRTU = ModbusTcpClient("127.0.0.1",502)
     SlaveID=None
     def __init__(self, parent=None):
         QtCore.QThread.__init__(self, parent)
 
         self.running = False
-    text = ''
+    text = ['','','']
 
     def run(self):
         self.running = True
@@ -27,8 +30,10 @@ class Changer(QtCore.QThread):
         while self.running == True:
             if self.clientRTU:
                 try:
-                    self.text = self.clientRTU.read_holding_registers(0, 3, int(self.SlaveID)).registers
-                except:
+                    self.text = self.clientRTU.read_holding_registers(address=0,count= 10,slave=self.SlaveID).registers
+                    print(self.text)
+                except serial.SerialException as e:
+                    print(e)
                     self.text = ['','','']
 
             # else:
@@ -39,7 +44,7 @@ class Changer(QtCore.QThread):
             self.dat2.emit(str(self.text[1]))
             self.dat3.emit(str(self.text[2]))
 
-            QtCore.QThread.msleep(100)
+            QtCore.QThread.msleep(10)
 
 
 
@@ -71,7 +76,7 @@ class Changer(QtCore.QThread):
 
 
 class CrepViewModel(QtWidgets.QMainWindow):
-    def __init__(self, num):
+    def __init__(self, num, clientRTU):
         super().__init__()
 
         uic.loadUi(UI_crep, self)
@@ -80,17 +85,18 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.control_pushButton.clicked.connect(self.show_data_sensors_section)
 
         self.tracker = Changer()
+        self.tracker.clientRTU = clientRTU
         self.tracker.SlaveID=num
         self.tracker.dat1.connect(self.setText1)
         self.tracker.dat2.connect(self.setText2)
         self.tracker.dat3.connect(self.setText3)
         self.tracker.start()
 
-    def closeEvent(self, event):  # Вызывается при закрытии окна
-        self.hide()  # Скрываем окно
-        self.tracker.running = False  # Изменяем флаг выполнения
-        self.tracker.wait(1000)  # Даем время, чтобы закончить
-        event.accept()  # Закрываем окно
+    # def closeEvent(self, event):  # Вызывается при закрытии окна
+    #     self.hide()  # Скрываем окно
+    #     self.tracker.running = False  # Изменяем флаг выполнения
+    #     self.tracker.wait(1000)  # Даем время, чтобы закончить
+    #     event.accept()  # Закрываем окно
 
     def show_data_sensors_section(self):
         self.data_sensors_section.show()

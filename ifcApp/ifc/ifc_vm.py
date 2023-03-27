@@ -1,4 +1,6 @@
-from PyQt6 import uic, QtWidgets
+from datetime import datetime
+
+from PyQt6 import uic, QtWidgets, QtCore
 from PyQt6.QtWidgets import QColorDialog
 from pymodbus.client import ModbusSerialClient
 from ifcApp.crep.crep_vm import CrepViewModel
@@ -6,6 +8,26 @@ from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 
 UI_ifc = "view/ifc version1.ui"
+
+
+class DataTime(QtCore.QThread):
+    data_time = QtCore.pyqtSignal(object)
+
+    def __init__(self, parent=None):
+        QtCore.QThread.__init__(self, parent)
+
+        self.running = False
+
+    text = None
+
+    def run(self):
+        self.running = True
+
+        while self.running == True:
+            self.text = datetime.now()
+            self.data_time.emit(self.text)
+
+            QtCore.QThread.msleep(1000)
 
 
 class ButtonForSection(QtWidgets.QPushButton):
@@ -19,6 +41,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.size_of_button = ()
+        self.date_time = DataTime()
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
@@ -52,6 +75,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.data_sensors_pushButton.clicked.connect(self.show_data_sensors)
 
         self.Ok_button.clicked.connect(self.show_button)
+
+        self.date_time.data_time.connect(self.set_dateTime)
+        self.date_time.start()
 
     def show_button(self):
         self.make_buttons(self.layout_100)
@@ -136,7 +162,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.height_section1_label.hide()
             self.height_section2_label.hide()
             self.height_section3_label.hide()
-
 
     def checked_action(self):
         if self.v_action.isChecked():
@@ -240,3 +265,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         else:
             self.groupBox17.hide()
+
+    @QtCore.pyqtSlot(object)
+    def set_dateTime(self, object):
+        self.dateTimeEdit.setDisplayFormat('dd.MM.yyyy HH:mm:ss')
+        self.dateTimeEdit.setDateTime(object)

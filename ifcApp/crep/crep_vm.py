@@ -1,4 +1,7 @@
 from PyQt6 import uic, QtWidgets
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
+
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from PyQt6 import QtCore
 import serial
@@ -8,6 +11,31 @@ from pymodbus.client import AsyncModbusTcpClient
 
 from pymodbus.client import AsyncModbusSerialClient
 UI_crep = "view/ifc_crep.ui"
+
+
+class MyWin(QWidget):
+    def __init__(self,parent=None):
+        super().__init__(parent)
+        scene = QGraphicsScene()
+        scene.setSceneRect(+10, -12, self.width()-42 , self.height())
+        self.pixmap = QPixmap("image/sensors/sparaw.png")
+        self.arrow = scene.addPixmap(self.pixmap)
+        self.arrow.setTransformOriginPoint(38, 11)
+        self.arrow.setRotation(-5)
+        self.graphicsView = QGraphicsView()
+        self.graphicsView.setStyleSheet("background-image:url(image/sensors/sensors.png);\n"
+                                   "background-repeat:no-repeat;\n"
+                                   "background-position: center;")
+        self.graphicsView.setScene(scene)
+
+    def valuechange(self,lineEdit):
+        angel = lineEdit.text()
+        if angel == '':
+            angel = 0
+        else:
+            angel = int(angel)
+        self.arrow.setRotation((angel*2  - 5))
+        print(angel)
 
 
 
@@ -30,11 +58,15 @@ class Changer(QtCore.QThread):
         while self.running == True:
             if self.clientRTU:
                 try:
-                    self.text = self.clientRTU.read_holding_registers(address=0,count= 10,slave=self.SlaveID).registers
+                    self.text = self.clientRTU.read_holding_registers(address=0,count= 3,slave=self.SlaveID).registers
                     print(self.text)
-                except serial.SerialException as e:
-                    print(e)
+                # except serial.SerialException as e:
+                #     print(e)
+                #     self.text = ['','','']
+                except :
+
                     self.text = ['','','']
+
 
             # else:
             #     self.text += str(
@@ -44,17 +76,7 @@ class Changer(QtCore.QThread):
             self.dat2.emit(str(self.text[1]))
             self.dat3.emit(str(self.text[2]))
 
-            QtCore.QThread.msleep(10)
-
-
-
-
-
-
-
-
-
-
+            QtCore.QThread.msleep(1000)
 
 
     #     self.running = True
@@ -80,6 +102,19 @@ class CrepViewModel(QtWidgets.QMainWindow):
         super().__init__()
 
         uic.loadUi(UI_crep, self)
+
+        speed = MyWin(self)
+        self.gridLayout1.addWidget(speed.graphicsView)
+        self.sensors1_lineEdit.textChanged.connect(lambda: speed.valuechange(self.sensors1_lineEdit))
+
+        speed2 = MyWin(self)
+        self.gridLayout2.addWidget(speed2.graphicsView)
+        self.sensors2_lineEdit.textChanged.connect(lambda: speed2.valuechange(self.sensors2_lineEdit))
+
+        speed3 = MyWin(self)
+        self.gridLayout3.addWidget(speed3.graphicsView)
+        self.sensors3_lineEdit.textChanged.connect(lambda: speed3.valuechange(self.sensors3_lineEdit))
+
         self.data_sensors_section = DataSensorsSection()
         self.num_crep.setText(str(num))
         self.control_pushButton.clicked.connect(self.show_data_sensors_section)

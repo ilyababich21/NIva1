@@ -285,9 +285,9 @@
    <widget class="QLineEdit" name="sensors1_lineEdit">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>80</y>
-      <width>113</width>
+      <x>320</x>
+      <y>120</y>
+      <width>61</width>
       <height>20</height>
      </rect>
     </property>
@@ -295,9 +295,9 @@
    <widget class="QLineEdit" name="sensors2_lineEdit">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>390</x>
       <y>120</y>
-      <width>113</width>
+      <width>61</width>
       <height>20</height>
      </rect>
     </property>
@@ -305,12 +305,45 @@
    <widget class="QLineEdit" name="sensors3_lineEdit">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>150</y>
-      <width>113</width>
+      <x>460</x>
+      <y>120</y>
+      <width>61</width>
       <height>20</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>50</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout1"/>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>50</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout2"/>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>50</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout3"/>
    </widget>
   </widget>
   <action name="actionCrinzh">

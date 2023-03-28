@@ -2,7 +2,7 @@ from datetime import datetime
 
 from PyQt6 import uic, QtWidgets, QtCore
 from PyQt6.QtWidgets import QColorDialog
-from pymodbus.client import ModbusSerialClient
+from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
@@ -45,9 +45,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
-        self.section_max_lineEdit.setText('22')
+        self.section_max_lineEdit.setText('2')
 
-        self.clientRTU= ModbusSerialClient(port="COM9", baudrate=9600)
+        self.clientRTU= ModbusTcpClient("127.0.0.1", port=500)
         if self.clientRTU.connected is False:
             self.clientRTU = None
         self.show_button()

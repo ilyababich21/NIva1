@@ -7,7 +7,7 @@ from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 
-UI_ifc = "view/ifc version1.ui"
+UI_ifc = "view/ifc/ifc version1.ui"
 
 
 class DataTime(QtCore.QThread):

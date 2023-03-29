@@ -1,18 +1,18 @@
 from PyQt6 import uic, QtWidgets
+from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
-
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from PyQt6 import QtCore
-import serial
-import asyncio
-from pymodbus.client import ModbusSerialClient,ModbusTcpClient
-from pymodbus.client import AsyncModbusTcpClient
 
-from pymodbus.client import AsyncModbusSerialClient
-UI_crep = "view/ifc_crep.ui"
+UI_crep = "view/ifc/ifc_crep.ui"
+class ClickedGraphics(QGraphicsView):
+    clicked = pyqtSignal()
 
+    def mouseReleaseEvent(self, e):
+        super().mouseReleaseEvent(e)
 
+        self.clicked.emit()
 class MyWin(QWidget):
     def __init__(self,parent=None):
         super().__init__(parent)
@@ -22,11 +22,12 @@ class MyWin(QWidget):
         self.arrow = scene.addPixmap(self.pixmap)
         self.arrow.setTransformOriginPoint(38, 11)
         self.arrow.setRotation(-5)
-        self.graphicsView = QGraphicsView()
+        self.graphicsView = ClickedGraphics()
         self.graphicsView.setStyleSheet("background-image:url(image/sensors/sensors.png);\n"
                                    "background-repeat:no-repeat;\n"
                                    "background-position: center;")
         self.graphicsView.setScene(scene)
+        self.graphicsView.clicked.connect(lambda: print('Console'))
 
     def valuechange(self,lineEdit):
         angel = lineEdit.text()

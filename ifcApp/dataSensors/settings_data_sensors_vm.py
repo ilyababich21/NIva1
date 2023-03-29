@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QColorDialog
 from serviceApp.service.service_model import session
 from ifcApp.dataSensors.setting_data_sensors_model import SettingsSensorsTable
 
-UI_settings_sensors = "view/settings_sensors.ui"
+UI_settings_sensors = "view/sensors/settings_sensors.ui"
 
 
 class SettingsSensors(QtWidgets.QMainWindow):

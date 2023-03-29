@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from PyQt6 import uic, QtWidgets, QtCore
-from PyQt6.QtWidgets import QColorDialog
-from pymodbus.client import ModbusSerialClient, ModbusTcpClient
+from pymodbus.client import ModbusTcpClient
+
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
@@ -40,14 +40,13 @@ class ButtonForSection(QtWidgets.QPushButton):
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.size_of_button = ()
         self.date_time = DataTime()
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
         self.section_max_lineEdit.setText('2')
 
-        self.clientRTU= ModbusTcpClient("127.0.0.1", port=500)
+        self.clientRTU = ModbusTcpClient("127.0.0.1", port=500)
         if self.clientRTU.connected is False:
             self.clientRTU = None
         self.show_button()
@@ -104,7 +103,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for elem in range(int(self.section_max_lineEdit.text())):
             btn = ButtonForSection(elem + 1)  # !!!
 
-            self.crep = CrepViewModel(btn.id,self.clientRTU)
+            self.crep = CrepViewModel(btn.id, self.clientRTU)
             btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b))
             layout.addWidget(btn)
 

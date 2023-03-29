@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>258</width>
-    <height>130</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="ip_label">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>111</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Введите IP-адресс:</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>50</y>
-      <width>216</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLineEdit" name="ip_lineEdit"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="check_pushButton">
-       <property name="text">
-        <string>ТЕСТ</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
- </widget>
- <resources/>
- <connections>
-  <connection>
-   <sender>ip_lineEdit</sender>
-   <signal>editingFinished()</signal>
-   <receiver>check_pushButton</receiver>
-   <slot>animateClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>134</x>
-     <y>66</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>190</x>
-     <y>54</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+    <class>MainWindow</class>
+    <widget class="QMainWindow" name="MainWindow">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>258</width>
+                <height>130</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>MainWindow</string>
+        </property>
+        <widget class="QWidget" name="centralwidget">
+            <widget class="QLabel" name="ip_label">
+                <property name="geometry">
+                    <rect>
+                        <x>30</x>
+                        <y>30</y>
+                        <width>111</width>
+                        <height>16</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Введите IP-адресс:</string>
+                </property>
+            </widget>
+            <widget class="QWidget" name="layoutWidget">
+                <property name="geometry">
+                    <rect>
+                        <x>20</x>
+                        <y>50</y>
+                        <width>216</width>
+                        <height>25</height>
+                    </rect>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                    <item>
+                        <widget class="QLineEdit" name="ip_lineEdit"/>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="check_pushButton">
+                            <property name="text">
+                                <string>ТЕСТ</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </widget>
+        </widget>
+    </widget>
+    <resources/>
+    <connections>
+        <connection>
+            <sender>ip_lineEdit</sender>
+            <signal>editingFinished()</signal>
+            <receiver>check_pushButton</receiver>
+            <slot>animateClick()</slot>
+            <hints>
+                <hint type="sourcelabel">
+                    <x>134</x>
+                    <y>66</y>
+                </hint>
+                <hint type="destinationlabel">
+                    <x>190</x>
+                    <y>54</y>
+                </hint>
+            </hints>
+        </connection>
+    </connections>
 </ui>

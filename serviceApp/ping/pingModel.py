@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import DeclarativeBase
+
 from serviceApp.service.service_model import engine
 
 
@@ -17,6 +18,3 @@ class PingTable(Base):
 
 
 Base.metadata.create_all(bind=engine)
-
-
-

@@ -1,327 +1,330 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>361</width>
-    <height>550</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>70</y>
-      <width>361</width>
-      <height>481</height>
-     </rect>
-    </property>
-    <row>
-     <property name="text">
-      <string>Возраст данных</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Давл/стойка слева</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Давл/стойка справа</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Продвижение забоя</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>ЦП</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Зазор цил.передв</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Макс зазор.ЦП</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Измер зазор ЦП</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Источник данных зазора ЦП</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Выдвиж верняк</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Конц.перекл.выдв.верхняк</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Прод наклон перекрытия</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Попер. наклон перекрытия</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Прод.наклон.основания</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Попер.наклон. основания</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Давления щита УГЗ</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Датч.приближ для щита УГЗ</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Передвизкащита УГЗ</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Угол наклона щита УГЗ</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Датч приближения для щита УГЗ</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Позиция прот. козырька</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Давл.в цил.козырька</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Предв.телеск.выдв.верх</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Сост верх.и щитов</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Высота секциии 1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Высота секциии 2</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Высота секциии 3</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Предв верх.д/выпуска</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Предв.конц секц</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Необраб.значение ИК датчика</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Звук и свет </string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Функции</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Доп датчик</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Доп датчик</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Подключен сет.блок пит.</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>ИУС(LQI) на A1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>ИУС(LQI) на F1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Вход.напряж.сет.блока пит.</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Вых.напряж.сет.блока пит.</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Темп.сет.блока пит.1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Темп.сет.блока пит.2</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Короткое замыкание на датчиках</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Короткое замыкание на клапанах</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Ускор в напаравлении угольного забоя</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Ускор в напаравлении лавы</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Время Общий раб.цикл.</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Время Разгрузка</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Время Передвижка</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Время Распор</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Время От разгрузки до распора </string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Время Распор выс.давл</string>
-     </property>
-    </row>
-    <column>
-     <property name="text">
-      <string>Значение</string>
-     </property>
-    </column>
-    <item row="21" column="0">
-     <property name="text">
-      <string/>
-     </property>
-    </item>
-   </widget>
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>361</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QGroupBox{
-  background-color: #d3d3d3;
-}</string>
-    </property>
-    <property name="title">
-     <string/>
-    </property>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>311</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; font-style:italic;&quot;&gt;Обзор данных секции&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
+    <class>MainWindow</class>
+    <widget class="QMainWindow" name="MainWindow">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>361</width>
+                <height>550</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>MainWindow</string>
+        </property>
+        <widget class="QWidget" name="centralwidget">
+            <widget class="QTableWidget" name="tableWidget">
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>
+                        <y>70</y>
+                        <width>361</width>
+                        <height>481</height>
+                    </rect>
+                </property>
+                <row>
+                    <property name="text">
+                        <string>Возраст данных</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Давл/стойка слева</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Давл/стойка справа</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Продвижение забоя</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>ЦП</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Зазор цил.передв</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Макс зазор.ЦП</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Измер зазор ЦП</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Источник данных зазора ЦП</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Выдвиж верняк</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Конц.перекл.выдв.верхняк</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Прод наклон перекрытия</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Попер. наклон перекрытия</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Прод.наклон.основания</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Попер.наклон. основания</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Давления щита УГЗ</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Датч.приближ для щита УГЗ</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Передвизкащита УГЗ</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Угол наклона щита УГЗ</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Датч приближения для щита УГЗ</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Позиция прот. козырька</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Давл.в цил.козырька</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Предв.телеск.выдв.верх</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Сост верх.и щитов</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Высота секциии 1</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Высота секциии 2</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Высота секциии 3</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Предв верх.д/выпуска</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Предв.конц секц</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Необраб.значение ИК датчика</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Звук и свет</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Функции</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Доп датчик</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Доп датчик</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Подключен сет.блок пит.</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>ИУС(LQI) на A1</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>ИУС(LQI) на F1</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Вход.напряж.сет.блока пит.</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Вых.напряж.сет.блока пит.</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Темп.сет.блока пит.1</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Темп.сет.блока пит.2</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Короткое замыкание на датчиках</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Короткое замыкание на клапанах</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Ускор в напаравлении угольного забоя</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Ускор в напаравлении лавы</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Время Общий раб.цикл.</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Время Разгрузка</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Время Передвижка</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Время Распор</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Время От разгрузки до распора</string>
+                    </property>
+                </row>
+                <row>
+                    <property name="text">
+                        <string>Время Распор выс.давл</string>
+                    </property>
+                </row>
+                <column>
+                    <property name="text">
+                        <string>Значение</string>
+                    </property>
+                </column>
+                <item row="21" column="0">
+                    <property name="text">
+                        <string/>
+                    </property>
+                </item>
+            </widget>
+            <widget class="QGroupBox" name="groupBox">
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>361</width>
+                        <height>71</height>
+                    </rect>
+                </property>
+                <property name="styleSheet">
+                    <string notr="true">QGroupBox{
+                        background-color: #d3d3d3;
+                        }
+                    </string>
+                </property>
+                <property name="title">
+                    <string/>
+                </property>
+                <widget class="QLabel" name="label">
+                    <property name="geometry">
+                        <rect>
+                            <x>20</x>
+                            <y>10</y>
+                            <width>311</width>
+                            <height>41</height>
+                        </rect>
+                    </property>
+                    <property name="text">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;
+                            font-weight:600; font-style:italic;&quot;&gt;Обзор данных секции&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                        </string>
+                    </property>
+                </widget>
+            </widget>
+        </widget>
     </widget>
-   </widget>
-  </widget>
- </widget>
- <resources/>
- <connections/>
+    <resources/>
+    <connections/>
 </ui>

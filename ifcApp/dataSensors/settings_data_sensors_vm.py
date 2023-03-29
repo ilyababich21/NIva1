@@ -1,8 +1,8 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QColorDialog
 
-from serviceApp.service.service_model import session
 from ifcApp.dataSensors.setting_data_sensors_model import SettingsSensorsTable
+from serviceApp.service.service_model import session
 
 UI_settings_sensors = "view/sensors/settings_sensors.ui"
 
@@ -104,7 +104,8 @@ class SettingsSensors(QtWidgets.QMainWindow):
                 self.color_error_sensors_pushButton.setStyleSheet(
                     'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
             if one_row_in_query.id == 2:
-                self.color_sensor_broken_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_sensor_broken_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
             if one_row_in_query.id == 3:
                 self.distance_between_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 4:
@@ -152,30 +153,42 @@ class SettingsSensors(QtWidgets.QMainWindow):
                 self.time_shifting_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.time_shifting_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 9:
-                self.color_time_thrust_pushButton1.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
-                self.color_time_thrust_pushButton2.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
-                self.color_time_thrust_pushButton3.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
+                self.color_time_thrust_pushButton1.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_time_thrust_pushButton2.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
+                self.color_time_thrust_pushButton3.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
                 self.time_thrust_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.time_thrust_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.time_thrust_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 10:
-                self.time_upload_in_trust_pushButton1.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
-                self.time_upload_in_trust_pushButton2.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
-                self.time_upload_in_trust_pushButton3.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
+                self.time_upload_in_trust_pushButton1.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.time_upload_in_trust_pushButton2.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
+                self.time_upload_in_trust_pushButton3.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
                 self.time_upload_in_trust_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.time_upload_in_trust_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.time_upload_in_trust_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 11:
-                self.time_upload_in_location_pushButton1.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
-                self.time_upload_in_location_pushButton2.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
-                self.time_upload_in_location_pushButton3.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
+                self.time_upload_in_location_pushButton1.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.time_upload_in_location_pushButton2.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
+                self.time_upload_in_location_pushButton3.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
                 self.time_upload_in_location_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.time_upload_in_location_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.time_upload_in_location_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 12:
-                self.time_trust_height_pressure_pushButton1.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
-                self.time_trust_height_pressure_pushButton2.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
-                self.time_trust_height_pressure_pushButton3.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
+                self.time_trust_height_pressure_pushButton1.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.time_trust_height_pressure_pushButton2.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
+                self.time_trust_height_pressure_pushButton3.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
                 self.time_trust_height_pressure_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.time_trust_height_pressure_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.time_trust_height_pressure_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
@@ -184,19 +197,24 @@ class SettingsSensors(QtWidgets.QMainWindow):
                 self.function_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.function_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 14:
-                self.color_sound_light_pushButton1.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
-                self.color_sound_light_pushButton2.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
-                self.color_sound_light_pushButton3.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
+                self.color_sound_light_pushButton1.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_sound_light_pushButton2.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_two)
+                self.color_sound_light_pushButton3.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_three)
                 self.sound_light_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.sound_light_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.sound_light_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 15:
-                self.color_synch_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_synch_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
                 self.synch_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.synch_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.synch_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 16:
-                self.color_resist_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_resist_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
                 self.resist_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.resist_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.resist_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
@@ -205,33 +223,41 @@ class SettingsSensors(QtWidgets.QMainWindow):
                 self.neighboring_section_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.neighboring_section_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 18:
-                self.color_current_cons_now_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_current_cons_now_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
                 self.current_cons_now_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.current_cons_now_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.current_cons_now_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 19:
-                self.color_current_cons_valve_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_current_cons_valve_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
                 self.current_cons_valve_min_value_lineEdit.setText(str(one_row_in_query.min_value))
                 self.current_cons_valve_max_value_lineEdit.setText(str(one_row_in_query.max_value))
                 self.current_cons_valve_coeff_lineEdit.setText(str(one_row_in_query.coefficient_value))
             if one_row_in_query.id == 20:
-                self.color_current_all_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_current_all_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
 
             if one_row_in_query.id == 21:
-                self.color_sipply_voltage_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_sipply_voltage_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
 
             if one_row_in_query.id == 22:
-                self.color_sensor_sipply_voltage_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_sensor_sipply_voltage_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
 
             if one_row_in_query.id == 23:
-                self.color_valve_sipply_voltage_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_valve_sipply_voltage_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
             # if one_row_in_query.id == 24:
             # if one_row_in_query.id == 25:
             # if one_row_in_query.id == 26:
             if one_row_in_query.id == 27:
-                self.color_transversal_slope_base_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_transversal_slope_base_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
             if one_row_in_query.id == 28:
-                self.color_log_base_slope_pushButton.setStyleSheet('QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
+                self.color_log_base_slope_pushButton.setStyleSheet(
+                    'QPushButton { background-color: %s }' % one_row_in_query.color_button_one)
 
             # if one_row_in_query.id == 29:
             # if one_row_in_query.id == 30:

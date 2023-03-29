@@ -1,8 +1,7 @@
+import sqlalchemy
 from sqlalchemy import Column, Integer, String
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Session
-import sqlalchemy
 
 engine = create_engine("postgresql://postgres:root@localhost/niva1")
 db_session = sqlalchemy.orm.sessionmaker(bind=engine)
@@ -57,7 +56,6 @@ class NetworkInterface(Base):
 
 
 Base.metadata.create_all(bind=engine)
-
 
 # def work_users():
 #     with Session(autoflush=False, bind=engine) as db:

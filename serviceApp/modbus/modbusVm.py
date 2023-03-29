@@ -1,10 +1,7 @@
-import sys
-
 from PyQt6 import QtCore
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtSerialPort import QSerialPortInfo
-from pymodbus.client import ModbusSerialClient,ModbusTcpClient
-
+from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 
 UI_modbus = "view/service/modbus_view.ui"
 
@@ -65,7 +62,7 @@ class ModbusForm(QtWidgets.QMainWindow):
     def start(self, shchk, com_port, baudrate, stopbits, parity, SlaveID, address, count, label7, label8):
         global clientRTU
         global client_modbus
-        client_modbus=None
+        client_modbus = None
         global clientTCP
         if self.lineEdit_3.text() == '':
             self.textEdit.setText("Старт-регистр обязателен для заполнения")
@@ -83,7 +80,8 @@ class ModbusForm(QtWidgets.QMainWindow):
                 else:
                     prt = "N"
 
-                client_modbus = ModbusSerialClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits), parity=prt)
+                client_modbus = ModbusSerialClient(port=com_port, baudrate=int(baudrate), stopbits=int(stopbits),
+                                                   parity=prt)
                 try:
                     client_modbus.connect()
                     print('norm')

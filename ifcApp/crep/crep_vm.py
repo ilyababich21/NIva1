@@ -1,14 +1,11 @@
-from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
-
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
+from PyQt6 import QtCore
 
 UI_crep = "view/ifc/ifc_crep.ui"
-
-
 class ClickedGraphics(QGraphicsView):
     clicked = pyqtSignal()
 
@@ -40,15 +37,16 @@ class CreateGraphicScene(QWidget):
             angel = 0
         else:
             angel = int(angel)
-        self.arrow.setRotation((angel * 2 - 5))
-        print(angel)
+        self.arrow.setRotation((angel*2  - 5))
+        # print(angel)
+
 
 
 class Changer(QtCore.QThread):
     dat1 = QtCore.pyqtSignal(str)
     dat2 = QtCore.pyqtSignal(str)
     dat3 = QtCore.pyqtSignal(str)
-    clientRTU = None
+    clientRTU= None
     # clientRTU = ModbusTcpClient("127.0.0.1",502)
     SlaveID = None
 
@@ -105,7 +103,8 @@ class Changer(QtCore.QThread):
 
 
 class CrepViewModel(QtWidgets.QMainWindow):
-    def __init__(self, num, clientRTU):
+    # def __init__(self, num, clientRTU):
+    def __init__(self, num):
         super().__init__()
 
         uic.loadUi(UI_crep, self)
@@ -127,13 +126,13 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.num_crep.setText(str(num))
         self.control_pushButton.clicked.connect(self.show_data_sensors_section)
 
-        self.tracker = Changer()
-        self.tracker.clientRTU = clientRTU
-        self.tracker.SlaveID = num
-        self.tracker.dat1.connect(self.setText1)
-        self.tracker.dat2.connect(self.setText2)
-        self.tracker.dat3.connect(self.setText3)
-        self.tracker.start()
+        # self.tracker = Changer()
+        # self.tracker.clientRTU = clientRTU
+        # self.tracker.SlaveID=num
+        # self.tracker.dat1.connect(self.setText1)
+        # self.tracker.dat2.connect(self.setText2)
+        # self.tracker.dat3.connect(self.setText3)
+        # self.tracker.start()
 
     # def closeEvent(self, event):  # Вызывается при закрытии окна
     #     self.hide()  # Скрываем окно
@@ -143,6 +142,9 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
     def show_data_sensors_section(self):
         self.data_sensors_section.show()
+
+
+
 
     @QtCore.pyqtSlot(str)
     def setText1(self, string):

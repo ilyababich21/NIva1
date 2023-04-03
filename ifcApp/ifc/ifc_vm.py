@@ -1,13 +1,87 @@
 from datetime import datetime
-
+import asyncio
 from PyQt6 import uic, QtWidgets, QtCore
+from PyQt6.QtCore import pyqtSignal, pyqtBoundSignal, QObject
 from PyQt6.QtWidgets import QColorDialog
 from pymodbus.client import ModbusSerialClient, ModbusTcpClient
+from async_modbus import AsyncTCPClient
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 
 UI_ifc = "view/ifc/ifc version1.ui"
+
+
+class WorkerSignals(QObject):
+
+
+    result = pyqtSignal(str)
+
+
+class BrowserHandler(QtCore.QObject):
+    running = False
+    num = None
+
+    # sigOnal = pyqtSignal(str)
+    newTextAndColor = []
+
+    def __init__(self, parent=None):
+        super(BrowserHandler, self).__init__(parent)
+
+
+
+    # method which will execute algorithm in another thread
+    def run(self):
+        # for elem in range(self.num):
+        #     siOn = pyqtSignal(str)
+        #     self.newTextAndColor.append(siOn)
+        asyncio.run(self.RunRead())
+
+
+    async def RunRead(self):
+        try:
+            reader = await asyncio.open_connection('127.0.0.1', 502)
+
+            client = AsyncTCPClient(reader)
+        except:
+            self.running=False
+        while True:
+            # await asyncio.wait([read(client,i) for i in range(1,8)])
+            try:
+                await self.read(client)
+            except:
+                break
+
+            # await asyncio.sleep(0.5)
+
+            # print(list)
+
+    async def read(self,client):
+        # for elem in range(1, self.num+1):
+        #     result = await client.read_holding_registers(slave_id=elem, starting_address=0, quantity=1)
+        #     print(result)
+        # result = []
+
+        for elem in range(len(self.newTextAndColor)):
+        # for elem in range(len(self.newTextAndColor)):
+            result = await client.read_holding_registers(slave_id=1, starting_address=0, quantity=1)
+
+            self.newTextAndColor[elem].result.emit(str(result[0]))
+            # result.append(  await client.read_holding_registers(slave_id=1, starting_address=0, quantity=1))
+            # result.append(  await client.read_holding_registers(slave_id=elem+1, starting_address=0, quantity=1))
+            # self.newTextAndColor[elem].emit(str(result[0]))
+
+            # self.newTextAndColor[elem].result.emit(str(result[elem][0]))
+            # await asyncio.sleep(0.002)
+        # print("    ",result)
+        # for elem in range(len(self.newTextAndColor)):
+        #     print(result[elem][0])
+
+
+        # self.newTextAndColor.emit(str( await client.read_holding_registers(slave_id=1, starting_address=0, quantity=10)))
+
+
+
 
 
 class DataTime(QtCore.QThread):
@@ -40,17 +114,26 @@ class ButtonForSection(QtWidgets.QPushButton):
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.size_of_button = ()
+
         self.date_time = DataTime()
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
-        self.section_max_lineEdit.setText('2')
+        self.section_max_lineEdit.setText('12')
+        self.thread = QtCore.QThread()
+        # create object which will be moved to another thread
+        self.browserHandler = BrowserHandler()
+        self.browserHandler.num = int(self.section_max_lineEdit.text())
+        self.browserHandler.moveToThread(self.thread)
 
-        self.clientRTU= ModbusTcpClient("127.0.0.1", port=500)
-        if self.clientRTU.connected is False:
-            self.clientRTU = None
+
+        # self.clientRTU= ModbusTcpClient("127.0.0.1", port=502)
+        # if self.clientRTU.connected is False:
+        #     self.clientRTU = None
         self.show_button()
+        self.thread.started.connect(self.browserHandler.run)
+        self.thread.start()
+
 
         self.v_action.triggered.connect(self.checked_action)
         self.zaz_action.triggered.connect(self.checked_action)
@@ -80,7 +163,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.date_time.start()
 
     def show_button(self):
-        self.make_buttons(self.layout_100)
+        self.make_buttons([self.layout_100,self.layout_200,self.layout_300,self.layout_400,self.layout_500,self.layout_600,self.layout_700,self.layout_800,])
         # self.make_buttons(self.layout_200)
         # self.make_buttons(self.layout_300)
         # self.make_buttons(self.layout_400)
@@ -98,20 +181,25 @@ class IfcViewModel(QtWidgets.QMainWindow):
         # self.make_buttons(self.layout_1600)
         # self.make_buttons(self.layout_1700)
 
-    def make_buttons(self, layout):
-        for i in reversed(range(layout.count())):
-            layout.itemAt(i).widget().deleteLater()
+    def make_buttons(self, layout_list):
+        for layout in layout_list:
+            for i in reversed(range(layout.count())):
+                layout.itemAt(i).widget().deleteLater()
         for elem in range(int(self.section_max_lineEdit.text())):
-            btn = ButtonForSection(elem + 1)  # !!!
-
-            self.crep = CrepViewModel(btn.id,self.clientRTU)
-            btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b))
-            layout.addWidget(btn)
+            sigOnal = WorkerSignals()
+            self.browserHandler.newTextAndColor.append(sigOnal)
+            # self.crep = CrepViewModel(btn.id,self.clientRTU)
+            self.crep = CrepViewModel(elem+1)
+            self.browserHandler.newTextAndColor[-1].result.connect(self.crep.setText1)
+            for layout in layout_list:
+                btn = ButtonForSection(elem + 1)  # !!!
+                btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b))
+                # btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b,checked))
+                layout.addWidget(btn)
 
     def on_clicked(self, crepWin):
         if crepWin.isVisible():
             crepWin.hide()
-
         else:
             crepWin.show()
 

@@ -36,7 +36,7 @@ class MyWin(QWidget):
         else:
             angel = int(angel)
         self.arrow.setRotation((angel*2  - 5))
-        print(angel)
+        # print(angel)
 
 
 
@@ -77,6 +77,7 @@ class Changer(QtCore.QThread):
             self.dat2.emit(str(self.text[1]))
             self.dat3.emit(str(self.text[2]))
 
+
             QtCore.QThread.msleep(1000)
 
 
@@ -99,7 +100,8 @@ class Changer(QtCore.QThread):
 
 
 class CrepViewModel(QtWidgets.QMainWindow):
-    def __init__(self, num, clientRTU):
+    # def __init__(self, num, clientRTU):
+    def __init__(self, num):
         super().__init__()
 
         uic.loadUi(UI_crep, self)
@@ -120,13 +122,13 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.num_crep.setText(str(num))
         self.control_pushButton.clicked.connect(self.show_data_sensors_section)
 
-        self.tracker = Changer()
-        self.tracker.clientRTU = clientRTU
-        self.tracker.SlaveID=num
-        self.tracker.dat1.connect(self.setText1)
-        self.tracker.dat2.connect(self.setText2)
-        self.tracker.dat3.connect(self.setText3)
-        self.tracker.start()
+        # self.tracker = Changer()
+        # self.tracker.clientRTU = clientRTU
+        # self.tracker.SlaveID=num
+        # self.tracker.dat1.connect(self.setText1)
+        # self.tracker.dat2.connect(self.setText2)
+        # self.tracker.dat3.connect(self.setText3)
+        # self.tracker.start()
 
     # def closeEvent(self, event):  # Вызывается при закрытии окна
     #     self.hide()  # Скрываем окно

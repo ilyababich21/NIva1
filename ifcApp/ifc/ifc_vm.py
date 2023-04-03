@@ -1,6 +1,8 @@
 from datetime import datetime
 
 from PyQt6 import uic, QtWidgets, QtCore
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtGui import QPainter, QColor
 from pymodbus.client import ModbusTcpClient
 
 from ifcApp.crep.crep_vm import CrepViewModel
@@ -30,11 +32,28 @@ class DataTime(QtCore.QThread):
             QtCore.QThread.msleep(1000)
 
 
-class ButtonForSection(QtWidgets.QPushButton):
+class ClickedGraphics(QtWidgets.QFrame):
+    clicked = pyqtSignal()
+
+    def mouseReleaseEvent(self, e):
+        super().mouseReleaseEvent(e)
+        self.clicked.emit()
+
+
+class ButtonForSection(ClickedGraphics):
     def __init__(self, number):
         super().__init__()
         self.id = number
-        self.setFixedHeight(100)
+        # self.setMaximumHeight(90)
+        # self.setStyleSheet("QFrame { background-color: #0d6efd;}")
+    # def paintEvent(self, event):
+    #     painter = QPainter(self)
+    #     painter.setBrush(QColor(200, 0, 0))
+    #     painter.drawRect(0, 90, int(10), -20)
+    #     painter.setBrush(QColor(255, 80, 0, 160))
+    #     painter.drawRect(10, 90, int(10), -40)
+    #         # self.Layout.addWidget(painter)
+
 
 
 class IfcViewModel(QtWidgets.QMainWindow):
@@ -80,15 +99,15 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_button(self):
         self.make_buttons(self.layout_100)
-        # self.make_buttons(self.layout_200)
-        # self.make_buttons(self.layout_300)
+        self.make_buttons(self.layout_200)
+        self.make_buttons(self.layout_300)
         # self.make_buttons(self.layout_400)
         # self.make_buttons(self.layout_500)
         # self.make_buttons(self.layout_600)
         # self.make_buttons(self.layout_700)
         # self.make_buttons(self.layout_800)
         # self.make_buttons(self.layout_900)
-        # self.make_buttons(self.layout_1000)
+        self.make_buttons(self.layout_1000)
         # self.make_buttons(self.layout_1100)
         # self.make_buttons(self.layout_1200)
         # self.make_buttons(self.layout_1300)
@@ -102,10 +121,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
             layout.itemAt(i).widget().deleteLater()
         for elem in range(int(self.section_max_lineEdit.text())):
             btn = ButtonForSection(elem + 1)  # !!!
-
+            #
             self.crep = CrepViewModel(btn.id, self.clientRTU)
-            btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b))
+            btn.clicked.connect(lambda  b=self.crep: self.on_clicked(b))
+            if elem % 2 ==0:
+                btn.setStyleSheet(" background-color: #666666;")
+            else:
+                btn.setStyleSheet("background-color: #a0a0a0;")
+
             layout.addWidget(btn)
+            print(btn.size())
 
     def on_clicked(self, crepWin):
         if crepWin.isVisible():

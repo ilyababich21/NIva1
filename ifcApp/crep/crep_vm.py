@@ -22,7 +22,7 @@ class CreateGraphicScene(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         scene = QGraphicsScene()
-        scene.setSceneRect(+10, -12, self.width() - 42, self.height())
+        scene.setSceneRect(+10, -10, self.width() - 41, self.height())
         self.pixmap = QPixmap("image/sensors/sparaw.png")
         self.arrow = scene.addPixmap(self.pixmap)
         self.arrow.setTransformOriginPoint(38, 11)

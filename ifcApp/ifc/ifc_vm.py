@@ -209,14 +209,17 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.crep = CrepViewModel(elem+1)
             self.browserHandler.newTextAndColor[-1].result.connect(self.crep.setText1)
             for layout in layout_list:
-                btn = ButtonForSection(elem + 1)  # !!!
-                btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b))
+                btn = ButtonForSection(elem + 1)
+                if elem % 2 == 0:
+                    btn.setStyleSheet(" background-color: #666666;")
+                else:
+                    btn.setStyleSheet("background-color: #a0a0a0;")
+
+                btn.clicked.connect(lambda b=self.crep: self.on_clicked(b))
                 # btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b,checked))
+
                 layout.addWidget(btn)
-                # if elem % 2 == 0:
-                #     btn.setStyleSheet(" background-color: #666666;")
-                # else:
-                #     btn.setStyleSheet("background-color: #a0a0a0;")
+
 
     def on_clicked(self, crepWin):
         if crepWin.isVisible():

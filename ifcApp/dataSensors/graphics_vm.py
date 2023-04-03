@@ -1,8 +1,8 @@
 import datetime as dt
 import random
-import matplotlib.pyplot
-import matplotlib.animation as animation
 
+import matplotlib.animation as animation
+import matplotlib.pyplot
 
 # Create figure for plotting
 fig = matplotlib.pyplot.figure()
@@ -12,16 +12,13 @@ ys = []
 
 
 def animate(i, xs, ys):
-
-
-    temp = round(random.randint(1,60),2)
+    temp = round(random.randint(1, 60), 2)
 
     xs.append(dt.datetime.now().strftime('%H:%M:%S'))
     ys.append(temp)
 
     xs = xs[-10:]
     ys = ys[-10:]
-
 
     ax.clear()
     ax.plot(xs, ys)
@@ -34,4 +31,3 @@ def animate(i, xs, ys):
 
 ani = animation.FuncAnimation(fig, animate, fargs=(xs, ys), interval=1000)
 matplotlib.pyplot.show()
-

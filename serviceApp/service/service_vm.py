@@ -1,10 +1,12 @@
 import subprocess
+
 from PyQt6 import QtWidgets, uic
+
 import serviceApp.service.service_model as model
-from serviceApp.service.service_model import session, Users, SettingNetwork, NetworkInterface
+from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.modbus.modbusVm import ModbusForm
 from serviceApp.ping.pingVm import Ping
-from ifcApp.ifc.ifc_vm import IfcViewModel
+from serviceApp.service.service_model import session, Users, SettingNetwork, NetworkInterface
 
 UI_authorization = "view/authorization_view.ui"
 UI_main = "view/service/service_view.ui"

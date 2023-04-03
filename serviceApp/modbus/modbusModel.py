@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, BigInteger
 from sqlalchemy.orm import DeclarativeBase
+
 from serviceApp.service.service_model import engine
 
 

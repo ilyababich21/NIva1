@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import DeclarativeBase
-from serviceApp.service.service_model import engine, session
+
+from serviceApp.service.service_model import engine
 
 
 class Base(DeclarativeBase): pass
@@ -18,8 +19,12 @@ class SettingsSensorsTable(Base):
     max_value = Column(Integer)
     coefficient_value = Column(Integer)
 
-    def update_settingsSensorsTable(self, color_button_one, color_button_two, color_button_three,
-                                    color_button_four, min_value, max_value, coefficient_value, ):
+    def update_settingsSensorsTable(self, color_button_one,
+                                    color_button_two,
+                                    color_button_three,
+                                    color_button_four,
+                                    min_value, max_value,
+                                    coefficient_value, ):
         self.color_button_one = color_button_one
         self.color_button_two = color_button_two
         self.color_button_three = color_button_three
@@ -30,4 +35,3 @@ class SettingsSensorsTable(Base):
 
 
 Base.metadata.create_all(bind=engine)
-

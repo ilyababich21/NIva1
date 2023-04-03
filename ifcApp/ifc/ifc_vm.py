@@ -131,9 +131,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         # if self.clientRTU.connected is False:
         #     self.clientRTU = None
         self.show_button()
-        self.thread.started.connect(self.browserHandler.run)
-        self.thread.start()
-
 
         self.v_action.triggered.connect(self.checked_action)
         self.zaz_action.triggered.connect(self.checked_action)
@@ -200,6 +197,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def on_clicked(self, crepWin):
         if crepWin.isVisible():
             crepWin.hide()
+
         else:
             crepWin.show()
 

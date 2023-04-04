@@ -34,7 +34,7 @@ class AsyncTcpReciver(QtCore.QObject):
     # method which will execute algorithm in another thread
     def run(self):
         self.RunSync()
-
+        #     asyncio.run(self.RunRead())
 
     def RunSync(self):
         try:
@@ -59,11 +59,7 @@ class AsyncTcpReciver(QtCore.QObject):
             self.all_signal[elem].result.emit(str(result.registers[0]))
 
 
-    # def run(self):
-    #     # for elem in range(self.num):
-    #     #     siOn = pyqtSignal(str)
-    #     #     self.newTextAndColor.append(siOn)
-    #     asyncio.run(self.RunRead())
+
 
 
     async def RunRead(self):
@@ -163,7 +159,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
-        self.section_max_lineEdit.setText('12')
+        self.section_max_lineEdit.setText('100')
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
         self.AsyncTcpReciver.num = int(self.section_max_lineEdit.text())

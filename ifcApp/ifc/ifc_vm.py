@@ -108,7 +108,9 @@ class ButtonForSection(ClickedGraphics):
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.show_time)
+        self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
@@ -375,9 +377,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.groupBox17.hide()
 
     def show_time(self):
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.show_time)
-        self.timer.start(1000)
+
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)

@@ -51,12 +51,12 @@ class AsyncTcpReciver(QtCore.QObject):
 
 
     def readSync(self,client):
-        for elem in range(len(self.newTextAndColor)):
+        for elem in range(len(self.all_signal)):
             # for elem in range(len(self.newTextAndColor)):
             result =client.read_holding_registers(address=0, count=1, slave=1)
             print(result.registers[0])
 
-            self.newTextAndColor[elem].result.emit(str(result.registers[0]))
+            self.all_signal[elem].result.emit(str(result.registers[0]))
 
 
     # def run(self):

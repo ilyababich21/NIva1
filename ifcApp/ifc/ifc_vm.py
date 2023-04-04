@@ -4,6 +4,7 @@ from PyQt6 import uic, QtWidgets, QtCore
 from PyQt6.QtCore import pyqtSignal, pyqtBoundSignal, QObject
 from PyQt6.QtWidgets import QColorDialog
 from pymodbus.client import ModbusSerialClient, ModbusTcpClient
+from pymodbus.server import StartTcpServer
 from async_modbus import AsyncTCPClient
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
@@ -31,11 +32,39 @@ class BrowserHandler(QtCore.QObject):
 
 
     # method which will execute algorithm in another thread
+
     def run(self):
-        # for elem in range(self.num):
-        #     siOn = pyqtSignal(str)
-        #     self.newTextAndColor.append(siOn)
-        asyncio.run(self.RunRead())
+        self.RunSync()
+
+
+    def RunSync(self):
+        try:
+            client = ModbusTcpClient("127.0.0.1", port=502)
+        except:
+            print("Net podklychenia")
+            self.running=False
+        while True:
+            try:
+                self.readSync(client)
+            except:
+                print("neverno ukaazan address")
+                break
+
+
+    def readSync(self,client):
+        for elem in range(len(self.newTextAndColor)):
+            # for elem in range(len(self.newTextAndColor)):
+            result =client.read_holding_registers(address=0, count=1, slave=1)
+            print(result.registers[0])
+
+            self.newTextAndColor[elem].result.emit(str(result.registers[0]))
+
+
+    # def run(self):
+    #     # for elem in range(self.num):
+    #     #     siOn = pyqtSignal(str)
+    #     #     self.newTextAndColor.append(siOn)
+    #     asyncio.run(self.RunRead())
 
 
     async def RunRead(self):
@@ -119,7 +148,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
-        self.section_max_lineEdit.setText('12')
+        self.section_max_lineEdit.setText('100')
         self.thread = QtCore.QThread()
         # create object which will be moved to another thread
         self.browserHandler = BrowserHandler()
@@ -131,6 +160,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         # if self.clientRTU.connected is False:
         #     self.clientRTU = None
         self.show_button()
+
+        self.thread.started.connect(self.browserHandler.run)
+        self.thread.start()
+
+
 
         self.v_action.triggered.connect(self.checked_action)
         self.zaz_action.triggered.connect(self.checked_action)

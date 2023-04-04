@@ -1,11 +1,12 @@
+from datetime import datetime
 import asyncio
-
 from PyQt6 import uic, QtWidgets, QtCore
-from PyQt6.QtCore import QObject, QTimer, QDateTime
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import pyqtSignal, pyqtBoundSignal, QObject, QTimer, QDateTime
+from PyQt6.QtWidgets import QColorDialog
+from pymodbus.client import ModbusSerialClient, ModbusTcpClient
+from pymodbus.server import StartTcpServer
 from PyQt6.QtGui import QPainter, QColor
 from async_modbus import AsyncTCPClient
-
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
@@ -14,6 +15,8 @@ UI_ifc = "view/ifc/ifc version1.ui"
 
 
 class WorkerSignals(QObject):
+
+
     result = pyqtSignal(str)
 
 
@@ -30,11 +33,38 @@ class AsyncTcpReciver(QtCore.QObject):
 
     # method which will execute algorithm in another thread
     def run(self):
-        # for elem in range(self.num):
-        #     siOn = pyqtSignal(str)
-        #     self.all_signal.append(siOn)
-        print("hello")
-        asyncio.run(self.RunRead())
+        self.RunSync()
+
+
+    def RunSync(self):
+        try:
+            client = ModbusTcpClient("127.0.0.1", port=502)
+        except:
+            print("Net podklychenia")
+            self.running=False
+        while True:
+            try:
+                self.readSync(client)
+            except:
+                print("neverno ukaazan address")
+                break
+
+
+    def readSync(self,client):
+        for elem in range(len(self.all_signal)):
+            # for elem in range(len(self.newTextAndColor)):
+            result =client.read_holding_registers(address=0, count=1, slave=1)
+            print(result.registers[0])
+
+            self.all_signal[elem].result.emit(str(result.registers[0]))
+
+
+    # def run(self):
+    #     # for elem in range(self.num):
+    #     #     siOn = pyqtSignal(str)
+    #     #     self.newTextAndColor.append(siOn)
+    #     asyncio.run(self.RunRead())
+
 
     async def RunRead(self):
         try:
@@ -45,7 +75,6 @@ class AsyncTcpReciver(QtCore.QObject):
         except:
             self.running = False
             print("zhopa2")
-
         while True:
             # await asyncio.wait([read(client,i) for i in range(1,8)])
             try:
@@ -238,7 +267,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
                 btn.clicked.connect(lambda  b=self.crep: self.on_clicked(b))
                 # btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b,checked))
-
                 layout.addWidget(btn)
 
     def on_clicked(self, crepWin):

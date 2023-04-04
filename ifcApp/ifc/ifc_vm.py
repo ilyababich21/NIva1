@@ -34,7 +34,7 @@ class AsyncTcpReciver(QtCore.QObject):
     # method which will execute algorithm in another thread
     def run(self):
         self.RunSync()
-
+        #     asyncio.run(self.RunRead())
 
     def RunSync(self):
         try:
@@ -63,7 +63,6 @@ class AsyncTcpReciver(QtCore.QObject):
     #     # for elem in range(self.num):
     #     #     siOn = pyqtSignal(str)
     #     #     self.newTextAndColor.append(siOn)
-    #     asyncio.run(self.RunRead())
 
 
     async def RunRead(self):

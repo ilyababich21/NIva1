@@ -75,7 +75,6 @@ class AsyncTcpReciver(QtCore.QObject):
         except:
             self.running = False
             print("zhopa2")
-
         while True:
             # await asyncio.wait([read(client,i) for i in range(1,8)])
             try:

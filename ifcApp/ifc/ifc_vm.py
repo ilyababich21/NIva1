@@ -99,6 +99,7 @@ class ButtonForPressureSection(ClickedGraphics):
         super().__init__()
         self.id = number
         self.setMaximumHeight(90)
+        self.h, self.b = 20, 0
 
 
 
@@ -108,9 +109,27 @@ class ButtonForPressureSection(ClickedGraphics):
 
         painter = QPainter(self)
         painter.setBrush(QColor(200, 0, 0))
-        painter.drawRect(0, 60, int(10), -int(50))
+        painter.drawRect(0, 60, int(10), -self.h)
         painter.setBrush(QColor(255, 80, 0, 160))
-        painter.drawRect(10, 60, int(10), -40)
+        painter.drawRect(10, 60, int(10), -self.b)
+
+
+    def change_rectangle_size(self, value):
+        self.h = value.text()
+        if self.h == '':
+            self.h = 0
+        else:
+            self.h = int(self.h)
+
+        self.update()
+
+    def change_rectangle_size1(self, value1):
+        self.b = value1
+        if self.b == '':
+            self.b = 0
+        else:
+            self.b = int(self.b)
+        self.update()
 
 
 
@@ -207,6 +226,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
             for layout in layout_list:
                 if layout == self.layout_200 or layout == self.layout_300:
                     btn = ButtonForPressureSection(elem + 1)
+                    # self.crep.sensors1_lineEdit.textChanged.connect(lambda: btn.change_rectangle_size(self.crep.sensors1_lineEdit))
+
+
                 else:
                     btn = ButtonForSection(elem + 1)
                 if elem % 2 == 0:

@@ -124,7 +124,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
         self.data_sensors_section = DataSensorsSection()
         self.num_crep.setText(str(num))
-        self.control_pushButton.clicked.connect(self.show_data_sensors_section)
+        self.control_pushbutton.clicked.connect(self.show_data_sensors_section)
 
         # self.tracker = Changer()
         # self.tracker.clientRTU = clientRTU

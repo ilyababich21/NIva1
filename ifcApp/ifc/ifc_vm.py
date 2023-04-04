@@ -1,13 +1,10 @@
-from datetime import datetime
+import asyncio
 
 from PyQt6 import uic, QtWidgets, QtCore
-from PyQt6.QtCore import pyqtSignal, pyqtBoundSignal, QObject
-from PyQt6.QtWidgets import QColorDialog
-from pymodbus.client import ModbusSerialClient, ModbusTcpClient
-from async_modbus import AsyncTCPClient
+from PyQt6.QtCore import QObject, QTimer, QDateTime
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPainter, QColor
-from pymodbus.client import ModbusTcpClient
+from async_modbus import AsyncTCPClient
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
@@ -17,30 +14,25 @@ UI_ifc = "view/ifc/ifc version1.ui"
 
 
 class WorkerSignals(QObject):
-
-
     result = pyqtSignal(str)
 
 
-class BrowserHandler(QtCore.QObject):
+class AsyncTcpReciver(QtCore.QObject):
     running = False
     num = None
 
     # sigOnal = pyqtSignal(str)
-    newTextAndColor = []
+    all_signal = []
 
     def __init__(self, parent=None):
-        super(BrowserHandler, self).__init__(parent)
-
-
+        super(AsyncTcpReciver, self).__init__(parent)
 
     # method which will execute algorithm in another thread
     def run(self):
         # for elem in range(self.num):
         #     siOn = pyqtSignal(str)
-        #     self.newTextAndColor.append(siOn)
+        #     self.all_signal.append(siOn)
         asyncio.run(self.RunRead())
-
 
     async def RunRead(self):
         try:
@@ -48,7 +40,7 @@ class BrowserHandler(QtCore.QObject):
 
             client = AsyncTCPClient(reader)
         except:
-            self.running=False
+            self.running = False
         while True:
             # await asyncio.wait([read(client,i) for i in range(1,8)])
             try:
@@ -60,52 +52,28 @@ class BrowserHandler(QtCore.QObject):
 
             # print(list)
 
-    async def read(self,client):
+    async def read(self, client):
         # for elem in range(1, self.num+1):
         #     result = await client.read_holding_registers(slave_id=elem, starting_address=0, quantity=1)
         #     print(result)
         # result = []
 
-        for elem in range(len(self.newTextAndColor)):
-        # for elem in range(len(self.newTextAndColor)):
+        for elem in range(len(self.all_signal)):
+            # for elem in range(len(self.all_signal)):
             result = await client.read_holding_registers(slave_id=1, starting_address=0, quantity=1)
 
-            self.newTextAndColor[elem].result.emit(str(result[0]))
+            self.all_signal[elem].result.emit(str(result[0]))
             # result.append(  await client.read_holding_registers(slave_id=1, starting_address=0, quantity=1))
             # result.append(  await client.read_holding_registers(slave_id=elem+1, starting_address=0, quantity=1))
-            # self.newTextAndColor[elem].emit(str(result[0]))
+            # self.all_signal[elem].emit(str(result[0]))
 
-            # self.newTextAndColor[elem].result.emit(str(result[elem][0]))
+            # self.all_signal[elem].result.emit(str(result[elem][0]))
             # await asyncio.sleep(0.002)
         # print("    ",result)
-        # for elem in range(len(self.newTextAndColor)):
+        # for elem in range(len(self.all_signal)):
         #     print(result[elem][0])
 
-
-        # self.newTextAndColor.emit(str( await client.read_holding_registers(slave_id=1, starting_address=0, quantity=10)))
-
-
-
-
-
-class DataTime(QtCore.QThread):
-    data_time = QtCore.pyqtSignal(object)
-
-    def __init__(self, parent=None):
-        QtCore.QThread.__init__(self, parent)
-
-        self.running = False
-
-    text = None
-
-    def run(self):
-        self.running = True
-
-        while self.running == True:
-            self.text = datetime.now()
-            self.data_time.emit(self.text)
-
-            QtCore.QThread.msleep(1000)
+        # self.all_signal.emit(str( await client.read_holding_registers(slave_id=1, starting_address=0, quantity=10)))
 
 
 class ClickedGraphics(QtWidgets.QFrame):
@@ -116,36 +84,41 @@ class ClickedGraphics(QtWidgets.QFrame):
         self.clicked.emit()
 
 
+class ButtonForPressureSection(ClickedGraphics):
+    def __init__(self, number):
+        super().__init__()
+        self.id = number
+        self.setMaximumHeight(90)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setBrush(QColor(200, 0, 0))
+        painter.drawRect(0, 60, int(10), -20)
+        painter.setBrush(QColor(255, 80, 0, 160))
+        painter.drawRect(10, 60, int(10), -40)
+
+
 class ButtonForSection(ClickedGraphics):
     def __init__(self, number):
         super().__init__()
         self.id = number
-        # self.setMaximumHeight(90)
-        # self.setStyleSheet("QFrame { background-color: #0d6efd;}")
-    # def paintEvent(self, event):
-    #     painter = QPainter(self)
-    #     painter.setBrush(QColor(200, 0, 0))
-    #     painter.drawRect(0, 90, int(10), -20)
-    #     painter.setBrush(QColor(255, 80, 0, 160))
-    #     painter.drawRect(10, 90, int(10), -40)
-    #         # self.Layout.addWidget(painter)
-
+        self.setMaximumHeight(90)
 
 
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.date_time = DataTime()
+
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
         self.section_max_lineEdit.setText('12')
         self.thread = QtCore.QThread()
         # create object which will be moved to another thread
-        self.browserHandler = BrowserHandler()
-        self.browserHandler.num = int(self.section_max_lineEdit.text())
-        self.browserHandler.moveToThread(self.thread)
-
+        self.AsyncTcpReciver = AsyncTcpReciver()
+        self.AsyncTcpReciver.num = int(self.section_max_lineEdit.text())
+        self.AsyncTcpReciver.moveToThread(self.thread)
+        self.show_time()
 
         # self.clientRTU= ModbusTcpClient("127.0.0.1", port=502)
         # if self.clientRTU.connected is False:
@@ -176,12 +149,13 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         self.Ok_button.clicked.connect(self.show_button)
 
-        self.date_time.data_time.connect(self.set_dateTime)
-        self.date_time.start()
+
 
     def show_button(self):
-        self.make_buttons([self.layout_100,self.layout_200,self.layout_300,self.layout_400,self.layout_500,self.layout_600,self.layout_700,self.layout_800,])
-        # self.make_buttons(self.layout_200)
+        self.make_buttons(
+            [self.layout_100, self.layout_400, self.layout_500, self.layout_600,
+             self.layout_700, self.layout_800, ])
+        self.make_buttons_for_pressure([self.layout_200, self.layout_300])
         # self.make_buttons(self.layout_300)
         # self.make_buttons(self.layout_400)
         # self.make_buttons(self.layout_500)
@@ -204,10 +178,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 layout.itemAt(i).widget().deleteLater()
         for elem in range(int(self.section_max_lineEdit.text())):
             sigOnal = WorkerSignals()
-            self.browserHandler.newTextAndColor.append(sigOnal)
+            self.AsyncTcpReciver.all_signal.append(sigOnal)
             # self.crep = CrepViewModel(btn.id,self.clientRTU)
-            self.crep = CrepViewModel(elem+1)
-            self.browserHandler.newTextAndColor[-1].result.connect(self.crep.setText1)
+            self.crep = CrepViewModel(elem + 1)
+            self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText1)
             for layout in layout_list:
                 btn = ButtonForSection(elem + 1)
                 if elem % 2 == 0:
@@ -220,6 +194,27 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
                 layout.addWidget(btn)
 
+    def make_buttons_for_pressure(self, layout_list):
+        for layout in layout_list:
+            for i in reversed(range(layout.count())):
+                layout.itemAt(i).widget().deleteLater()
+        for elem in range(int(self.section_max_lineEdit.text())):
+            sigOnal = WorkerSignals()
+            self.AsyncTcpReciver.all_signal.append(sigOnal)
+            # self.crep = CrepViewModel(btn.id,self.clientRTU)
+            self.crep = CrepViewModel(elem + 1)
+            self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText1)
+            for layout in layout_list:
+                btn = ButtonForPressureSection(elem + 1)
+                if elem % 2 == 0:
+                    btn.setStyleSheet(" background-color: #666666;")
+                else:
+                    btn.setStyleSheet("background-color: #a0a0a0;")
+
+                btn.clicked.connect(lambda b=self.crep: self.on_clicked(b))
+                # btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b,checked))
+
+                layout.addWidget(btn)
 
     def on_clicked(self, crepWin):
         if crepWin.isVisible():
@@ -379,7 +374,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         else:
             self.groupBox17.hide()
 
-    @QtCore.pyqtSlot(object)
-    def set_dateTime(self, object):
-        self.dateTimeEdit.setDisplayFormat('dd.MM.yyyy HH:mm:ss')
-        self.dateTimeEdit.setDateTime(object)
+    def show_time(self):
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.show_time)
+        self.timer.start(1000)
+        time = QDateTime.currentDateTime()
+        timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
+        self.date_time.setText(timeDisplay)

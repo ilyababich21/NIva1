@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -60,6 +63,9 @@
        <bool>true</bool>
       </property>
       <widget class="QPushButton" name="data_sensors_pushButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -302,6 +308,9 @@
         </item>
         <item>
          <widget class="QLineEdit" name="section_max_lineEdit">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -314,12 +323,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QDateTimeEdit" name="dateTimeEdit">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QLineEdit" name="date_time">
+          <property name="enabled">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -354,6 +360,9 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QGroupBox" name="groupBox1">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -382,7 +391,7 @@
           </property>
           <widget class="QLabel" name="CP_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -462,7 +471,7 @@
             <pixmap>../../image/img tools/conveyor_distance.png</pixmap>
            </property>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>50</x>
@@ -565,6 +574,9 @@
            </property>
           </widget>
           <widget class="QLabel" name="zaz_label">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>1740</x>
@@ -577,7 +589,7 @@
             <string>Зазор целевой передвижки</string>
            </property>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>50</x>
@@ -592,6 +604,7 @@
             </property>
            </layout>
           </widget>
+          <zorder>layoutWidget</zorder>
           <zorder>zaz_label</zorder>
           <zorder>label_5</zorder>
           <zorder>label_21</zorder>
@@ -681,6 +694,9 @@
            </property>
           </widget>
           <widget class="QLabel" name="pressure_st1_label">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>1780</x>
@@ -693,7 +709,7 @@
             <string>Давление в стойке 1 </string>
            </property>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>50</x>
@@ -708,6 +724,7 @@
             </property>
            </layout>
           </widget>
+          <zorder>layoutWidget</zorder>
           <zorder>pressure_st1_label</zorder>
           <zorder>label_6</zorder>
           <zorder>label_23</zorder>
@@ -797,6 +814,9 @@
            </property>
           </widget>
           <widget class="QLabel" name="pressure_st2_label">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>1780</x>
@@ -809,7 +829,7 @@
             <string>Давление в стойке 2 </string>
            </property>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>50</x>
@@ -824,6 +844,7 @@
             </property>
            </layout>
           </widget>
+          <zorder>layoutWidget</zorder>
           <zorder>pressure_st2_label</zorder>
           <zorder>label_7</zorder>
           <zorder>label_24</zorder>
@@ -888,7 +909,7 @@
           </widget>
           <widget class="QLabel" name="shield_UGZ_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -997,11 +1018,11 @@
           </widget>
           <widget class="QLabel" name="shield_UGZ_sensor_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
-             <x>1740</x>
+             <x>1730</x>
              <y>60</y>
              <width>161</width>
              <height>20</height>
@@ -1105,7 +1126,7 @@
           </widget>
           <widget class="QLabel" name="shield_UGZ_angle_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1208,7 +1229,7 @@
           </widget>
           <widget class="QLabel" name="shield_UGZ_hod_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1311,7 +1332,7 @@
           </widget>
           <widget class="QLabel" name="shield_UGZ_pressure_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1420,7 +1441,7 @@
           </widget>
           <widget class="QLabel" name="shield_UGZ_thrust_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1523,7 +1544,7 @@
           </widget>
           <widget class="QLabel" name="extension_top_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1626,7 +1647,7 @@
           </widget>
           <widget class="QLabel" name="extension_top_progress_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1716,7 +1737,7 @@
           </widget>
           <widget class="QLabel" name="koz_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1806,7 +1827,7 @@
           </widget>
           <widget class="QLabel" name="shifting_state_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1896,7 +1917,7 @@
           </widget>
           <widget class="QLabel" name="height_section1_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -1986,7 +2007,7 @@
           </widget>
           <widget class="QLabel" name="height_section2_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -2076,7 +2097,7 @@
           </widget>
           <widget class="QLabel" name="height_section3_label">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="geometry">
             <rect>
@@ -2116,7 +2137,7 @@
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -2214,7 +2235,7 @@
    </widget>
    <widget class="QMenu" name="place_lava">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="title">
      <string>место доступа в лаву</string>
@@ -2405,7 +2426,7 @@
    </widget>
    <widget class="QMenu" name="menu_7">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="title">
      <string>конвейер</string>
@@ -2421,7 +2442,7 @@
    </widget>
    <widget class="QMenu" name="tel_menu">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="title">
      <string>переговорное устройство</string>

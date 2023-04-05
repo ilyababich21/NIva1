@@ -26,6 +26,7 @@ class AsyncTcpReciver(QtCore.QObject):
 
     # sigOnal = pyqtSignal(str)
     all_signal = []
+    all_signal2 = []
 
     def __init__(self, parent=None):
         super(AsyncTcpReciver, self).__init__(parent)
@@ -51,12 +52,20 @@ class AsyncTcpReciver(QtCore.QObject):
 
 
     def readSync(self,client):
+        list = []
+        list2 = []
         for elem in range(len(self.all_signal)):
             # for elem in range(len(self.newTextAndColor)):
-            result =client.read_holding_registers(address=0, count=1, slave=1)
+            result =client.read_holding_registers(address=0, count=2, slave=elem+1)
+            list.append(result.registers[0])
+            list2.append(result.registers[1])
+
             print(result.registers[0])
 
-            self.all_signal[elem].result.emit(str(result.registers[0]))
+        for elem in range(len(self.all_signal)):
+
+            self.all_signal[elem].result.emit(str(list[elem]))
+            self.all_signal2[elem].result.emit(str(list2[elem]))
 
 
 
@@ -124,22 +133,25 @@ class ButtonForPressureSection(ClickedGraphics):
         super().__init__()
         self.id = number
         self.setMaximumHeight(90)
+        self.h,self.b = 7,7
 
 
 
+    def Hell(self):
+        print("hel;lllllllk")
 
 
     def paintEvent(self, event):
 
         painter = QPainter(self)
         painter.setBrush(QColor(200, 0, 0))
-        painter.drawRect(0, 60, int(10), -self.h)
+        painter.drawRect(0, 60, int(10),int( -self.h))
         painter.setBrush(QColor(255, 80, 0, 160))
         painter.drawRect(10, 60, int(10), -self.b)
 
 
     def change_rectangle_size(self, value):
-        self.h = value.text()
+        self.h = value
         if self.h == '':
             self.h = 0
         else:
@@ -177,7 +189,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
-        self.section_max_lineEdit.setText('12')
+        self.section_max_lineEdit.setText('100')
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
         self.AsyncTcpReciver.num = int(self.section_max_lineEdit.text())
@@ -217,8 +229,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_button(self):
         self.make_buttons(
-            [self.layout_100, self.layout_200, self.layout_300,self.layout_400, self.layout_500, self.layout_600,
-             self.layout_700, self.layout_800, ])
+            [
+                self.layout_100,self.layout_200, self.layout_300,self.layout_400, self.layout_500, self.layout_600,
+             self.layout_700, self.layout_800,
+            ],
+            [ self.layout_200, self.layout_300])
         # self.make_buttons_for_pressure([self.layout_200, self.layout_300])
         # self.make_buttons(self.layout_300)
         # self.make_buttons(self.layout_400)
@@ -236,23 +251,27 @@ class IfcViewModel(QtWidgets.QMainWindow):
         # self.make_buttons(self.layout_1600)
         # self.make_buttons(self.layout_1700)
 
-    def make_buttons(self, layout_list):
+    def make_buttons(self, layout_list,layout_diagram):
         for layout in layout_list:
             for i in reversed(range(layout.count())):
                 layout.itemAt(i).widget().deleteLater()
         for elem in range(int(self.section_max_lineEdit.text())):
             sigOnal = WorkerSignals()
+            sigMinet =  WorkerSignals()
             self.AsyncTcpReciver.all_signal.append(sigOnal)
+            self.AsyncTcpReciver.all_signal2.append(sigMinet)
             # self.crep = CrepViewModel(btn.id,self.clientRTU)
             self.crep = CrepViewModel(elem + 1)
             self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText1)
+            self.AsyncTcpReciver.all_signal2[-1].result.connect(self.crep.setText2)
             # self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText2)
             for layout in layout_list:
-                if layout == self.layout_200 or layout == self.layout_300:
+                if layout==  self.layout_200 or layout==  self.layout_300:
                     btn = ButtonForPressureSection(elem + 1)
-                    # self.crep.sensors1_lineEdit.textChanged.connect(lambda: btn.change_rectangle_size(self.crep.sensors1_lineEdit))
-
-
+                    self.crep.sensors1_lineEdit.textChanged.connect(
+                        lambda checked, b=btn, g=self.crep: b.change_rectangle_size(g.show_sensor1_data()))
+                    self.crep.sensors2_lineEdit.textChanged.connect(
+                        lambda checked, b=btn, g=self.crep: b.change_rectangle_size1(g.show_sensor2_data()))
                 else:
                     btn = ButtonForSection(elem + 1)
                 if elem % 2 == 0:
@@ -260,9 +279,27 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 else:
                     btn.setStyleSheet("background-color: #a0a0a0;")
 
-                btn.clicked.connect(lambda  b=self.crep: self.on_clicked(b))
+                btn.clicked.connect(lambda b=self.crep: self.on_clicked(b))
                 # btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b,checked))
                 layout.addWidget(btn)
+            # for layout in layout_diagram:
+            #     butn = ButtonForPressureSection(elem + 1)
+            #
+            #     self.crep.sensors1_lineEdit.textChanged.connect(
+            #         lambda checked, b = butn, g = self.crep: b.change_rectangle_size(g.show_sensor1_data()))
+            #     self.crep.sensors2_lineEdit.textChanged.connect(
+            #         lambda checked, b=butn, g=self.crep: b.change_rectangle_size1(g.show_sensor2_data()))
+            #
+            #     if elem % 2 == 0:
+            #         butn.setStyleSheet(" background-color: #666666;")
+            #     else:
+            #         butn.setStyleSheet("background-color: #a0a0a0;")
+            #
+            #     butn.clicked.connect(lambda  b=self.crep: self.on_clicked(b))
+            #     # btn.clicked.connect(lambda checked, b=self.crep: self.on_clicked(b,checked))
+            #     layout.addWidget(butn)
+
+
 
     def on_clicked(self, crepWin):
         if crepWin.isVisible():

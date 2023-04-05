@@ -91,6 +91,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.gridLayout1.addWidget(speed.graphicsView)
         self.sensors1_lineEdit.textChanged.connect \
             (lambda: speed.valuechange(self.sensors1_lineEdit))
+        self.sensors1_lineEdit.textChanged.connect(self.Hell)
 
         speed2 = CreateGraphicScene(self)
         self.gridLayout2.addWidget(speed2.graphicsView)
@@ -107,6 +108,13 @@ class CrepViewModel(QtWidgets.QMainWindow):
     def show_data_sensors_section(self):
         self.data_sensors_section.show()
 
+
+
+    def show_sensor1_data(self):
+        return self.sensors1_lineEdit.text()
+    def show_sensor2_data(self):
+        return self.sensors2_lineEdit.text()
+
     @QtCore.pyqtSlot(str)
     def setText1(self, string):
         self.sensors1_lineEdit.setText(string)
@@ -122,3 +130,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
     def setTet1(self, int):
         self.sensors1_lineEdit.setText(int)
+
+
+    def Hell(self):
+        print("hel;lllllllk")

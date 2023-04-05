@@ -56,7 +56,7 @@ class AsyncTcpReciver(QtCore.QObject):
         list2 = []
         for elem in range(len(self.all_signal)):
             # for elem in range(len(self.newTextAndColor)):
-            result =client.read_holding_registers(address=0, count=2, slave=elem+1)
+            result =client.read_holding_registers(address=0, count=2, slave=1)
             list.append(result.registers[0])
             list2.append(result.registers[1])
 
@@ -189,7 +189,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
-        self.section_max_lineEdit.setText('100')
+        self.section_max_lineEdit.setText('200')
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
         self.AsyncTcpReciver.num = int(self.section_max_lineEdit.text())

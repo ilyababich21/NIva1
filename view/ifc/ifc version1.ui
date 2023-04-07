@@ -2137,7 +2137,7 @@
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -2162,8 +2162,8 @@
    <widget class="QMenu" name="tools_menu">
     <property name="geometry">
      <rect>
-      <x>1044</x>
-      <y>289</y>
+      <x>269</x>
+      <y>126</y>
       <width>247</width>
       <height>267</height>
      </rect>

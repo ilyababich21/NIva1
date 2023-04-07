@@ -1,3 +1,5 @@
+import time
+
 from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import pyqtSignal
@@ -44,41 +46,6 @@ class CreateGraphicScene(QWidget):
 
 
 
-class Changer(QtCore.QThread):
-    dat1 = QtCore.pyqtSignal(str)
-    dat2 = QtCore.pyqtSignal(str)
-    dat3 = QtCore.pyqtSignal(str)
-    clientRTU = None
-    # clientRTU = ModbusTcpClient("127.0.0.1",502)
-    SlaveID = None
-
-    def __init__(self, parent=None):
-        QtCore.QThread.__init__(self, parent)
-
-        self.running = False
-
-    text = ['', '', '']
-
-    def run(self):
-        self.running = True
-
-        while self.running == True:
-            if self.clientRTU:
-                try:
-                    self.text = self.clientRTU.read_holding_registers \
-                        (address=0, count=3, slave=self.SlaveID).registers
-                    print(self.text)
-
-                except:
-
-                    self.text = ['', '', '']
-
-            self.dat1.emit(str(self.text[0]))
-            self.dat2.emit(str(self.text[1]))
-            self.dat3.emit(str(self.text[2]))
-
-            QtCore.QThread.msleep(1000)
-
 
 class CrepViewModel(QtWidgets.QMainWindow):
     def __init__(self, num):
@@ -88,7 +55,6 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.gridLayout1.addWidget(speed.graphicsView)
         self.sensors1_lineEdit.textChanged.connect \
             (lambda: speed.valuechange(self.sensors1_lineEdit))
-        self.sensors1_lineEdit.textChanged.connect(self.Hell)
 
         speed2 = CreateGraphicScene(self)
         self.gridLayout2.addWidget(speed2.graphicsView)
@@ -114,7 +80,9 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
     @QtCore.pyqtSlot(str)
     def setText1(self, string):
+        str=time.time()
         self.sensors1_lineEdit.setText(string)
+        # print("vremya peredechi 1 sensor:--------", time.time()-str)
 
     @QtCore.pyqtSlot(str)
     def setText2(self, string):
@@ -125,9 +93,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
     def setText3(self, string):
         self.sensors3_lineEdit.setText(string)
 
-    def setTet1(self, int):
-        self.sensors1_lineEdit.setText(int)
 
 
-    def Hell(self):
-        print("hel;lllllllk")
+
+

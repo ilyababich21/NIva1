@@ -11,6 +11,7 @@ from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 
+
 UI_ifc = "view/ifc/ifc version1.ui"
 
 
@@ -180,10 +181,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.timer = QTimer()
-
-
-
-
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
@@ -233,7 +230,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 self.layout_100,self.layout_200, self.layout_300,self.layout_400, self.layout_500, self.layout_600,
              self.layout_700, self.layout_800,
             ],
-            [ self.layout_200, self.layout_300])
+            [ self.layout_300, self.layout_400])
         # self.make_buttons_for_pressure([self.layout_200, self.layout_300])
         # self.make_buttons(self.layout_300)
         # self.make_buttons(self.layout_400)
@@ -266,7 +263,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.AsyncTcpReciver.all_signal2[-1].result.connect(self.crep.setText2)
             # self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText2)
             for layout in layout_list:
-                if layout==  self.layout_200 or layout==  self.layout_300:
+                if layout==  self.layout_300 or layout==  self.layout_400:
                     btn = ButtonForPressureSection(elem + 1)
                     self.crep.sensors1_lineEdit.textChanged.connect(
                         lambda checked, b=btn, g=self.crep: b.change_rectangle_size(g.show_sensor1_data()))
@@ -310,6 +307,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_data_sensors(self):
         self.data_sensors.show()
+
 
     def show_settings_sensors(self):
         if self.change_setting_action.isChecked():

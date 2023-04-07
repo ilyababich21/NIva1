@@ -4,7 +4,7 @@ from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
-
+from ifcApp.graphics.graphics_vm import GraphicsWindow
 UI_crep = "view/ifc/ifc_crep.ui"
 
 
@@ -20,6 +20,7 @@ class ClickedGraphics(QGraphicsView):
 class CreateGraphicScene(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.show_graphic_window = GraphicsWindow()
         scene = QGraphicsScene()
         scene.setSceneRect(+10, -10, self.width() - 41, self.height())
         self.pixmap = QPixmap("image/sensors/sparaw.png")
@@ -31,7 +32,7 @@ class CreateGraphicScene(QWidget):
                                         "background-repeat:no-repeat;\n"
                                         "background-position: center;")
         self.graphicsView.setScene(scene)
-        self.graphicsView.clicked.connect(lambda: print('Console'))
+        self.graphicsView.clicked.connect(lambda: self.show_graphic_window.show())
 
     def valuechange(self, lineEdit):
         angel = lineEdit.text()
@@ -40,7 +41,7 @@ class CreateGraphicScene(QWidget):
         else:
             angel = int(angel)
         self.arrow.setRotation((angel * 2 - 5))
-        # print(angel)
+
 
 
 class Changer(QtCore.QThread):
@@ -82,11 +83,7 @@ class Changer(QtCore.QThread):
 class CrepViewModel(QtWidgets.QMainWindow):
     def __init__(self, num):
         super().__init__()
-
-
         uic.loadUi(UI_crep, self)
-
-
         speed = CreateGraphicScene(self)
         self.gridLayout1.addWidget(speed.graphicsView)
         self.sensors1_lineEdit.textChanged.connect \

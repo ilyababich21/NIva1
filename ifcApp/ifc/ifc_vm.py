@@ -81,7 +81,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText1)
             self.AsyncTcpReciver.all_signal2[-1].result.connect(self.crep.setText2)
             for layout in layout_list:
-                if layout == self.layout_200 or layout == self.layout_300:
+                if layout==  self.layout_300 or layout==  self.layout_400:
                     btn = ButtonForPressureSection(elem + 1)
                     self.crep.sensors1_lineEdit.textChanged.connect(
                         lambda checked, b=btn, g=self.crep: b.change_rectangle_size(g.show_sensor1_data()))

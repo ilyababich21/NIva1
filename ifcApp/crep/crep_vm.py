@@ -51,6 +51,8 @@ class CrepViewModel(QtWidgets.QMainWindow):
     def __init__(self, num):
         super().__init__()
         uic.loadUi(UI_crep, self)
+
+
         speed = CreateGraphicScene(self)
         self.gridLayout1.addWidget(speed.graphicsView)
         self.sensors1_lineEdit.textChanged.connect \

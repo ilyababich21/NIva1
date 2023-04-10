@@ -12,19 +12,23 @@ class ClickedGraphics(QtWidgets.QFrame):
 
 
 class ButtonForPressureSection(ClickedGraphics):
+    rate = 1
     def __init__(self, number):
         super().__init__()
         self.id = number
         self.setMaximumHeight(90)
         self.h, self.b = 7, 7
+        self.leftHand=QColor(0, 0, 0)
+        self.rightHand=QColor(0, 0, 0)
+
 
     def paintEvent(self, event):
 
         painter = QPainter(self)
-        painter.setBrush(QColor(200, 0, 0))
+        painter.setBrush(self.leftHand)
         painter.drawRect(0, 60, int(10), int(-self.h))
-        painter.setBrush(QColor(255, 80, 0, 160))
-        painter.drawRect(10, 60, int(10), -self.b)
+        painter.setBrush(self.rightHand)
+        painter.drawRect(10, 60, int(10), int(-self.b))
 
     def change_rectangle_size(self, value):
         self.h = value
@@ -32,6 +36,14 @@ class ButtonForPressureSection(ClickedGraphics):
             self.h = 0
         else:
             self.h = int(self.h)
+            if self.h < 20:
+                self.leftHand = QColor(0, 255, 0)
+            elif self.h >= 20 and self.h < 45:
+                self.leftHand = QColor(230, 255, 0)
+            else:
+                self.leftHand = QColor(250, 64, 0)
+
+            self.h *= self.rate
 
         self.update()
 
@@ -41,6 +53,15 @@ class ButtonForPressureSection(ClickedGraphics):
             self.b = 0
         else:
             self.b = int(self.b)
+            if self.b < 30:
+                self.rightHand = QColor(0, 255, 0)
+            elif self.b >= 30 and self.b < 45:
+                self.rightHand = QColor(230, 255, 0)
+            else:
+                self.rightHand = QColor(250, 64, 0)
+
+            self.b *= self.rate
+
         self.update()
 
 

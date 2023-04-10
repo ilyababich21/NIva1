@@ -6,6 +6,7 @@ from matplotlib.pyplot import figure
 from sqlalchemy.orm import Session
 from ifcApp.graphics.graphics_model import Graphics
 from serviceApp.service.service_model import engine
+from matplotlib.figure import Figure
 
 UI = "view/sensors/graphic.ui"
 
@@ -13,8 +14,8 @@ UI = "view/sensors/graphic.ui"
 
 class MplCanvas(FigureCanvasQTAgg):
 
-    def __init__(self):
-        self.fig = plt.figure()
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        self.fig = Figure(figsize=(width, height), dpi=dpi)
         self.ax = self.fig.add_subplot(111)
         super(MplCanvas, self).__init__(self.fig)
 

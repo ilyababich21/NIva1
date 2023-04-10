@@ -71,9 +71,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             ])
 
     def make_buttons(self, layout_list):
-        for layout in layout_list:
-            for i in reversed(range(layout.count())):
-                layout.itemAt(i).widget().deleteLater()
+        self.cleaner_layouts(layout_list)
         for elem in range(int(self.section_max_lineEdit.text())):
             sigOnal = WorkerSignals()
             sigMinet = WorkerSignals()
@@ -99,6 +97,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 btn.clicked.connect(lambda b=self.crep: self.on_clicked(b))
                 layout.addWidget(btn)
 
+
+    def cleaner_layouts(self,layout_list):
+        for layout in layout_list:
+            for i in reversed(range(layout.count())):
+                layout.itemAt(i).widget().deleteLater()
     def on_clicked(self, crepWin):
         if crepWin.isVisible():
             crepWin.hide()

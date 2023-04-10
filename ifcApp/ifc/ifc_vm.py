@@ -71,34 +71,42 @@ class IfcViewModel(QtWidgets.QMainWindow):
             ])
 
     def make_buttons(self, layout_list):
+        self.cleaner_layouts(layout_list)
+        for elem in range(int(self.section_max_lineEdit.text())):
+            self.setting_async_reciver(elem)
+            self.create_but_layout_list(layout_list,elem)
+
+
+    def create_but_layout_list(self,layout_list,elem):
+        for layout in layout_list:
+            if layout == self.layout_300 or layout == self.layout_400:
+                btn = ButtonForPressureSection(elem + 1)
+                self.crep.sensors1_lineEdit.textChanged.connect(
+                    lambda checked, b=btn, g=self.crep: b.change_rectangle_size(g.show_sensor1_data()))
+                self.crep.sensors2_lineEdit.textChanged.connect(
+                    lambda checked, b=btn, g=self.crep: b.change_rectangle_size1(g.show_sensor2_data()))
+            else:
+                btn = ButtonForSection(elem + 1)
+            if elem % 2 == 0:
+                btn.setStyleSheet(" background-color: #666666;")
+            else:
+                btn.setStyleSheet("background-color: #a0a0a0;")
+
+            btn.clicked.connect(lambda b=self.crep: self.on_clicked(b))
+            layout.addWidget(btn)
+    def setting_async_reciver(self,elem):
+        sigOnal = WorkerSignals()
+        sigMinet = WorkerSignals()
+        self.AsyncTcpReciver.all_signal.append(sigOnal)
+        self.AsyncTcpReciver.all_signal2.append(sigMinet)
+        self.crep = CrepViewModel(elem + 1)
+        self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText1)
+        self.AsyncTcpReciver.all_signal2[-1].result.connect(self.crep.setText2)
+
+    def cleaner_layouts(self,layout_list):
         for layout in layout_list:
             for i in reversed(range(layout.count())):
                 layout.itemAt(i).widget().deleteLater()
-        for elem in range(int(self.section_max_lineEdit.text())):
-            sigOnal = WorkerSignals()
-            sigMinet = WorkerSignals()
-            self.AsyncTcpReciver.all_signal.append(sigOnal)
-            self.AsyncTcpReciver.all_signal2.append(sigMinet)
-            self.crep = CrepViewModel(elem + 1)
-            self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText1)
-            self.AsyncTcpReciver.all_signal2[-1].result.connect(self.crep.setText2)
-            for layout in layout_list:
-                if layout==  self.layout_300 or layout==  self.layout_400:
-                    btn = ButtonForPressureSection(elem + 1)
-                    self.crep.sensors1_lineEdit.textChanged.connect(
-                        lambda checked, b=btn, g=self.crep: b.change_rectangle_size(g.show_sensor1_data()))
-                    self.crep.sensors2_lineEdit.textChanged.connect(
-                        lambda checked, b=btn, g=self.crep: b.change_rectangle_size1(g.show_sensor2_data()))
-                else:
-                    btn = ButtonForSection(elem + 1)
-                if elem % 2 == 0:
-                    btn.setStyleSheet(" background-color: #666666;")
-                else:
-                    btn.setStyleSheet("background-color: #a0a0a0;")
-
-                btn.clicked.connect(lambda b=self.crep: self.on_clicked(b))
-                layout.addWidget(btn)
-
     def on_clicked(self, crepWin):
         if crepWin.isVisible():
             crepWin.hide()

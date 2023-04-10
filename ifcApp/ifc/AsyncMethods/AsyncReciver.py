@@ -1,15 +1,10 @@
 import asyncio
-from PyQt6 import uic, QtWidgets, QtCore
-from PyQt6.QtCore import pyqtSignal, pyqtBoundSignal, QObject, QTimer, QDateTime
-
-from pymodbus.client import ModbusSerialClient, ModbusTcpClient
-
-from async_modbus import AsyncTCPClient
-
 import time
 
-
-
+from PyQt6 import QtCore
+from PyQt6.QtCore import pyqtSignal, QObject
+from async_modbus import AsyncTCPClient
+from pymodbus.client import ModbusTcpClient
 
 
 class WorkerSignals(QObject):

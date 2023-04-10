@@ -7,7 +7,7 @@ from sqlalchemy.orm import  Session
 from ifcApp.graphics.graphics_model import Graphics
 from serviceApp.service.service_model import engine
 
-UI = "view/sensors/graphic.ui"
+UI = "graphic.ui"
 
 
 
@@ -16,6 +16,7 @@ class MplCanvas(FigureCanvasQTAgg):
     def __init__(self):
         self.fig = plt.figure()
         self.ax = self.fig.add_subplot(1,1,1)
+
         super(MplCanvas, self).__init__(self.fig)
 class GraphicsWindow(QMainWindow):
 
@@ -30,8 +31,6 @@ class GraphicsWindow(QMainWindow):
         self.vLayout.addWidget(self.sc)
         xs = []
         ys = []
-
-
 
         def animate(i, xs, ys):
             with Session(autoflush=False, bind=engine) as db:
@@ -52,10 +51,12 @@ class GraphicsWindow(QMainWindow):
             plt.title('datetime')
             plt.ylabel('random')
 
-
-
-
         self.ani = animation.FuncAnimation(self.sc.fig, animate, fargs=(xs, ys), interval=1000)
+
+
+
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

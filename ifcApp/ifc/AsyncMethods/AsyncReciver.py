@@ -13,8 +13,7 @@ class WorkerSignals(QObject):
 
 class AsyncTcpReciver(QtCore.QObject):
     running = False
-    num = None
-
+    prec=True
     # sigOnal = pyqtSignal(str)
     all_signal = []
     all_signal2 = []
@@ -31,10 +30,11 @@ class AsyncTcpReciver(QtCore.QObject):
     def RunSync(self):
         try:
             client = ModbusTcpClient("127.0.0.1", port=502)
+
         except:
             print("Net podklychenia")
-            self.running = False
-        while True:
+
+        while self.prec:
             try:
                 stat = time.time()
                 self.readSync(client)
@@ -53,13 +53,17 @@ class AsyncTcpReciver(QtCore.QObject):
             list.append(result.registers[0])
             list2.append(result.registers[1])
 
-            # print(result.registers[0])
+            print(result.registers[0])
         print("Time to search:    ", time.time() - start)
 
         crinzh = time.time()
-        for elem in range(len(self.all_signal)):
-            self.all_signal[elem].result.emit(str(list[elem]))
-            self.all_signal2[elem].result.emit(str(list2[elem]))
+        try:
+
+            for elem in range(len(self.all_signal)):
+                self.all_signal[elem].result.emit(str(list[elem]))
+                self.all_signal2[elem].result.emit(str(list2[elem]))
+        except:
+            print("ebaniy rot")
         print("Time to emit all signals:    ------", time.time() - crinzh)
 
     async def RunRead(self):

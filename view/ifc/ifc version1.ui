@@ -3213,5 +3213,22 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>section_max_lineEdit</sender>
+   <signal>editingFinished()</signal>
+   <receiver>Ok_button</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1513</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1761</x>
+     <y>43</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -11,6 +11,9 @@ UI_crep = "view/ifc/ifc_crep.ui"
 
 
 
+
+
+
 class CrepViewModel(QtWidgets.QMainWindow):
     def __init__(self, num):
         super().__init__()

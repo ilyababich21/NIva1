@@ -28,13 +28,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
         self.section_max_lineEdit.setText('100')
+        self.list_all_crep=[]
+
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
-        self.AsyncTcpReciver.num = int(self.section_max_lineEdit.text())
         self.AsyncTcpReciver.moveToThread(self.thread)
+        self.thread.started.connect(self.AsyncTcpReciver.run)
+
 
         self.show_button()
-        self.thread.started.connect(self.AsyncTcpReciver.run)
+
         self.thread.start()
 
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
@@ -61,7 +64,15 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
         self.data_sensors_pushButton.clicked.connect(self.show_data_sensors)
 
-        self.Ok_button.clicked.connect(self.show_button)
+        self.Ok_button.clicked.connect(self.remaster_creps)
+
+
+    def remaster_creps(self):
+        self.AsyncTcpReciver.all_signal.clear()
+        self.AsyncTcpReciver.all_signal2.clear()
+
+        self.show_button()
+
 
     def show_button(self):
         self.make_buttons(
@@ -70,12 +81,26 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 self.layout_700, self.layout_800,
             ])
 
+
     def make_buttons(self, layout_list):
+
         self.cleaner_layouts(layout_list)
+        print("heeee")
         for elem in range(int(self.section_max_lineEdit.text())):
-            self.crep = CrepViewModel(elem + 1)
+            self.list_all_crep.append(CrepViewModel(elem + 1))
+            # self.crep = CrepViewModel(elem + 1)
             self.setting_async_reciver()
             self.create_but_layout_list(layout_list,elem)
+    def setting_async_reciver(self):
+        sigOnal = WorkerSignals()
+        sigMinet = WorkerSignals()
+        sigOnal.result.connect(self.list_all_crep[-1].setText1)
+        sigMinet.result.connect(self.list_all_crep[-1].setText2)
+
+        self.AsyncTcpReciver.all_signal.append(sigOnal)
+        self.AsyncTcpReciver.all_signal2.append(sigMinet)
+
+
 
 
     def create_but_layout_list(self,layout_list,elem):
@@ -84,10 +109,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 btn = ButtonForPressureSection(elem + 1)
                 if layout == self.layout_400:
                     btn.rate=0.5
-                self.crep.sensors1_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.crep: b.change_rectangle_size(g.show_sensor1_data()))
-                self.crep.sensors2_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.crep: b.change_rectangle_size1(g.show_sensor2_data()))
+                self.list_all_crep[-1].sensors1_lineEdit.textChanged.connect(
+                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(g.show_sensor1_data()))
+                self.list_all_crep[-1].sensors2_lineEdit.textChanged.connect(
+                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size1(g.show_sensor2_data()))
 
             else:
                 btn = ButtonForSection(elem + 1)
@@ -96,18 +121,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
             else:
                 btn.setStyleSheet("background-color: #a0a0a0;")
 
-            btn.clicked.connect(lambda b=self.crep: self.on_clicked(b))
+            btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
             layout.addWidget(btn)
-    def setting_async_reciver(self):
-        sigOnal = WorkerSignals()
-        sigMinet = WorkerSignals()
-        self.AsyncTcpReciver.all_signal.append(sigOnal)
-        self.AsyncTcpReciver.all_signal2.append(sigMinet)
-
-        self.AsyncTcpReciver.all_signal[-1].result.connect(self.crep.setText1)
-        self.AsyncTcpReciver.all_signal2[-1].result.connect(self.crep.setText2)
 
     def cleaner_layouts(self,layout_list):
+        self.list_all_crep.clear()
+
         for layout in layout_list:
             for i in reversed(range(layout.count())):
                 layout.itemAt(i).widget().deleteLater()

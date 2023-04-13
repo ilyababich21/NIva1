@@ -8,15 +8,13 @@ from pymodbus.client import ModbusTcpClient
 
 
 class WorkerSignals(QObject):
-    result = pyqtSignal(str)
+    result = pyqtSignal(list)
 
 
 class AsyncTcpReciver(QtCore.QObject):
     running = False
     prec=True
-    # sigOnal = pyqtSignal(str)
     all_signal = []
-    all_signal2 = []
 
     def __init__(self, parent=None):
         super(AsyncTcpReciver, self).__init__(parent)
@@ -44,27 +42,16 @@ class AsyncTcpReciver(QtCore.QObject):
                 break
 
     def readSync(self, client):
-        list = []
-        list2 = []
-        start = time.time()
+
         for elem in range(len(self.all_signal)):
             # for elem in range(len(self.newTextAndColor)):
-            result = client.read_holding_registers(address=0, count=2, slave=elem + 1)
-            list.append(result.registers[0])
-            list2.append(result.registers[1])
+            result = client.read_holding_registers(address=0, count=7, slave=elem + 1)
 
-            print(result.registers[0])
-        print("Time to search:    ", time.time() - start)
+            try:
+                 self.all_signal[elem].result.emit(result.registers)
 
-        crinzh = time.time()
-        try:
-
-            for elem in range(len(self.all_signal)):
-                self.all_signal[elem].result.emit(str(list[elem]))
-                self.all_signal2[elem].result.emit(str(list2[elem]))
-        except:
-            print("ebaniy rot")
-        print("Time to emit all signals:    ------", time.time() - crinzh)
+            except:
+                print("ebaniy rot")
 
     async def RunRead(self):
         try:

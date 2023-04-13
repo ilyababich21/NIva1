@@ -6,14 +6,6 @@ from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
 
 UI_crep = "view/ifc/ifc_crep.ui"
-
-
-
-
-
-
-
-
 class CrepViewModel(QtWidgets.QMainWindow):
     def __init__(self, num):
         super().__init__()
@@ -87,13 +79,25 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.section1_progressBar = ClickedProgressbar()
         self.section_one_layout.addWidget(self.section1_progressBar)
         self.section_one_layout.addWidget(self.section_one_lineEdit)
-        self.section1_progressBar.clicked.connect(lambda: print("iou"))
+        self.section1_progressBar.clicked.connect(lambda: print("1"))
         self.section_one_lineEdit.textChanged.connect(lambda: self.diff_value_progress_bar(self.section_one_lineEdit,self.section1_progressBar))
 
-
-
+        self.section2_progressBar = ClickedProgressbar()
+        self.section_two_layout.addWidget(self.section2_progressBar)
+        self.section_two_layout.addWidget(self.section_two_lineEdit)
+        self.section2_progressBar.clicked.connect(lambda: print("2"))
         self.section_two_lineEdit.textChanged.connect(lambda: self.diff_value_progress_bar(self.section_two_lineEdit,self.section2_progressBar))
+
+        self.section3_progressBar = ClickedProgressbar()
+        self.section_three_layout.addWidget(self.section3_progressBar)
+        self.section_three_layout.addWidget(self.section_three_lineEdit)
+        self.section3_progressBar.clicked.connect(lambda: print("3"))
         self.section_three_lineEdit.textChanged.connect(lambda: self.diff_value_progress_bar(self.section_three_lineEdit,self.section3_progressBar))
+
+        self.poz_shifting_progressBar = ClickedProgressbar()
+        self.poz_shifting_layout.addWidget(self.poz_shifting_progressBar)
+        self.poz_shifting_layout.addWidget(self.poz_shifting_lineEdit)
+        self.poz_shifting_progressBar.clicked.connect(lambda: print("4"))
         self.poz_shifting_lineEdit.textChanged.connect(lambda: self.diff_value_progress_bar(self.poz_shifting_lineEdit,self.poz_shifting_progressBar))
 
 
@@ -120,7 +124,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.sensors1_lineEdit.setText(string)
     @QtCore.pyqtSlot(str)
     def setText2(self, string):
-        self.sensors2_lineEdit.setText(string)
+        self.sensoёrs2_lineEdit.setText(string)
 
     #
     @QtCore.pyqtSlot(str)

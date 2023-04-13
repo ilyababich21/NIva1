@@ -2,12 +2,12 @@ import sys
 from PyQt6 import uic, QtCore, QtWidgets
 from matplotlib import  pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
-from matplotlib.pyplot import figure
+import matplotlib
 from sqlalchemy.orm import Session
 from ifcApp.graphics.graphics_model import Graphics
 from serviceApp.service.service_model import engine
 from matplotlib.figure import Figure
-
+matplotlib.use('QtAgg')
 UI = "view/sensors/graphic.ui"
 
 

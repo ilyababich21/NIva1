@@ -27,7 +27,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
-        self.section_max_lineEdit.setText('100')
+        # self.section_max_lineEdit.setText('10')
         self.list_all_crep=[]
 
         self.thread = QtCore.QThread()
@@ -122,7 +122,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 btn.setStyleSheet("background-color: #a0a0a0;")
 
             btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
+
             layout.addWidget(btn)
+
 
     def cleaner_layouts(self,layout_list):
         self.list_all_crep.clear()

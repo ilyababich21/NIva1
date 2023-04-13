@@ -23,7 +23,6 @@ class CreateGraphicScene(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         scene = QGraphicsScene()
-        # self.show_graphic_window = GraphicsWindow()
         scene.setSceneRect(+10, -10, self.width() - 41, self.height())
         self.pixmap = QPixmap("image/sensors/sparaw.png")
         self.arrow = scene.addPixmap(self.pixmap)
@@ -34,8 +33,15 @@ class CreateGraphicScene(QWidget):
                                         "background-repeat:no-repeat;\n"
                                         "background-position: center;")
         self.graphicsView.setScene(scene)
-        # self.graphicsView.clicked.connect(lambda: self.show_graphic_window.show())
+        self.graphicsView.clicked.connect(self.create_plot)
 
+
+
+
+
+    def create_plot(self):
+        self.show_graphic_window = GraphicsWindow()
+        self.show_graphic_window.show()
     def valuechange(self, lineEdit):
         angel = lineEdit.text()
         if angel == '':

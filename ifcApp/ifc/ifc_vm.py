@@ -107,6 +107,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for layout in layout_list:
             if layout == self.layout_300 or layout == self.layout_400:
                 btn = ButtonForPressureSection(elem + 1)
+
                 if layout == self.layout_400:
                     btn.rate = 0.5
                 self.list_all_crep[-1].sensors1_lineEdit.textChanged.connect(
@@ -120,9 +121,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 btn.setStyleSheet(" background-color: #666666;")
             else:
                 btn.setStyleSheet("background-color: #a0a0a0;")
+            btn.setMaximumWidth(int(btn.width()/(0.35*int(self.section_max_lineEdit.text()))))
 
             btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
             layout.addWidget(btn)
+            print(btn.size())
 
     def cleaner_layouts(self,layout_list):
         self.list_all_crep.clear()

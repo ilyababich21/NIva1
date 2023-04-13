@@ -74,9 +74,17 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.poper_hieght_lineEdit.textChanged.connect \
             (lambda: speed11.valuechange(self.poper_hieght_lineEdit))
 
-        self.data_sensors_section = DataSensorsSection()
-        self.num_crep.setText(str(num))
-        self.control_pushbutton.clicked.connect(self.show_data_sensors_section)
+
+        list_section_layouts=[self.section_one_layout,self.section_two_layout,self.section_three_layout,self.poz_shifting_layout]
+        list_section_Bar_lineEdits=[self.section_one_lineEdit,self.section_two_lineEdit,self.section_three_lineEdit,self.poz_shifting_lineEdit]
+
+
+        # for bar in range(len(list_section_layouts)):
+        #     section1_progressBar = ClickedProgressbar()
+        #     list_section_layouts[bar].addWidget(section1_progressBar)
+        #     list_section_layouts[bar].addWidget(list_section_Bar_lineEdits[bar])
+        #     list_section_Bar_lineEdits[bar].textChanged.connect(
+        #         lambda: self.diff_value_progress_bar( list_section_Bar_lineEdits[bar], section1_progressBar))
 
         self.section1_progressBar = ClickedProgressbar()
         self.section_one_layout.addWidget(self.section1_progressBar)
@@ -102,6 +110,14 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.poz_shifting_progressBar.clicked.connect(lambda: print("4"))
         self.poz_shifting_lineEdit.textChanged.connect(lambda: self.diff_value_progress_bar(self.poz_shifting_lineEdit,self.poz_shifting_progressBar))
 
+
+
+
+
+
+        self.data_sensors_section = DataSensorsSection()
+        self.num_crep.setText(str(num))
+        self.control_pushbutton.clicked.connect(self.show_data_sensors_section)
 
     def diff_value_progress_bar(self,lineEdit,progressbar):
         value = lineEdit.text()

@@ -15,3 +15,12 @@ class ClickedProgressbar(QProgressBar):
         super().mouseReleaseEvent(e)
 
         self.clicked.emit()
+
+    def diff_value_progress_bar(self, lineEdit, progressbar):
+        value = lineEdit.text()
+        if value == '':
+            value = 0
+        else:
+            value = int(value)
+
+        progressbar.setValue(value)

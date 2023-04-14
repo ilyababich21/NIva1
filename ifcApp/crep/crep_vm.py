@@ -26,7 +26,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
             self.list_of_grid_layouts[lent].addWidget(speed.graphicsView)
             self.list_of_grid_layouts[lent].addWidget(self.list_All_lineEdit[lent])
             self.list_All_lineEdit[lent].textChanged.connect \
-            (lambda ch, s=speed: s.valuechange(self.list_All_lineEdit[lent]))
+            (lambda ch, s=speed, l = self.list_All_lineEdit[lent]: s.valuechange(l))
 
         # speed = CreateGraphicScene(self)
         # self.gridLayout1.addWidget(speed.graphicsView)
@@ -150,5 +150,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
     @QtCore.pyqtSlot(list)
     def setText1(self, lst):
-        for lEd in range(len(self.list_All_lineEdit)):
-            self.list_All_lineEdit[lEd].setText(str(lst[lEd]))
+        # for lEd in range(len(self.list_All_lineEdit)):
+        #     self.list_All_lineEdit[lEd].setText(str(lst[lEd]))
+        for elem in range(len(lst)):
+            self.list_All_lineEdit[elem].setText(str(lst[elem]))

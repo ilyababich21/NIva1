@@ -68,7 +68,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.make_buttons(
             [
                 self.layout_100, self.layout_200, self.layout_300, self.layout_400, self.layout_500, self.layout_600,
-                self.layout_700
+                self.layout_700,self.layout_800, self.layout_900, self.layout_1000, self.layout_1100, self.layout_1200, self.layout_1300,
+                self.layout_1400,self.layout_1500, self.layout_1600, self.layout_1700
             ])
 
     def make_buttons(self, layout_list):

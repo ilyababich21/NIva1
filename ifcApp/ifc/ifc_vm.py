@@ -138,8 +138,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 btn.setStyleSheet(" background-color: #666666;")
             else:
                 btn.setStyleSheet("background-color: #a0a0a0;")
-            btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
 
+            btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
+            btn.setToolTip(f"Hello i am button number {elem+1},    {self.list_all_crep[-1].sensors1_lineEdit.text()}")
+            btn.setToolTipDuration(3000)
+            btn.setWhatsThis("Whatafuck")
             btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
             layout.addWidget(btn)
             print(btn.size())

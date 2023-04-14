@@ -26,7 +26,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
             self.list_of_grid_layouts[lent].addWidget(speed.graphicsView)
             self.list_of_grid_layouts[lent].addWidget(self.list_All_lineEdit[lent])
             self.list_All_lineEdit[lent].textChanged.connect \
-            (lambda: speed.valuechange(self.list_All_lineEdit[lent]))
+            (lambda ch, s=speed: s.valuechange(self.list_All_lineEdit[lent]))
 
         # speed = CreateGraphicScene(self)
         # self.gridLayout1.addWidget(speed.graphicsView)

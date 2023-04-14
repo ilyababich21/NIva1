@@ -26,9 +26,9 @@ class ButtonForPressureSection(ClickedGraphics):
 
         painter = QPainter(self)
         painter.setBrush(self.leftHand)
-        painter.drawRect(0, 60, int(10), int(-self.h))
-        painter.setBrush(self.rightHand)
-        painter.drawRect(10, 60, int(10), int(-self.b))
+        painter.drawRect(0, 60, int(self.width()), int(-self.h))
+        # painter.setBrush(self.rightHand)
+        # painter.drawRect(int((self.width()/2)), 60, int(self.width()/2), int(-self.b))
 
     def change_rectangle_size(self, value):
         self.h = value

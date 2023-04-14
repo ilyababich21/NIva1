@@ -1,6 +1,10 @@
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
+
+from ifcApp.graphics.graphics_vm import GraphicsWindow
+
+
 class ClickedGraphics(QGraphicsView):
     clicked = pyqtSignal()
 

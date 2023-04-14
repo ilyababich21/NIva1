@@ -124,7 +124,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.sensors1_lineEdit.setText(string)
     @QtCore.pyqtSlot(str)
     def setText2(self, string):
-        self.sensoёrs2_lineEdit.setText(string)
+        self.sensors2_lineEdit.setText(string)
 
     #
     @QtCore.pyqtSlot(str)

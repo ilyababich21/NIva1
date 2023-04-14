@@ -29,15 +29,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
         uic.loadUi(UI_ifc, self)
         self.section_max_lineEdit.setText('100')
         self.list_all_crep = []
-
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
         self.AsyncTcpReciver.moveToThread(self.thread)
         self.thread.started.connect(self.AsyncTcpReciver.run)
 
         self.show_button()
-
         self.thread.start()
+
 
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action,

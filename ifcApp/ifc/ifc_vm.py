@@ -1,13 +1,12 @@
-
 from PyQt6 import uic, QtWidgets, QtCore
-from PyQt6.QtCore import  QTimer, QDateTime
+from PyQt6.QtCore import QTimer, QDateTime
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
-
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection, ButtonForSection
+from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
 
 UI_ifc = "view/ifc/ifc version1.ui"
 
@@ -21,6 +20,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
+        self.main_menu = MainMenu()
         uic.loadUi(UI_ifc, self)
         # self.section_max_lineEdit.setText('10')
         self.list_all_crep = []
@@ -31,7 +31,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         self.show_button()
         self.thread.start()
-
 
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action,
@@ -53,10 +52,13 @@ class IfcViewModel(QtWidgets.QMainWindow):
              self.shield_UGZ_thrust_label, self.extension_top_label, self.extension_top_progress_label,
              self.koz_label, self.shifting_state_label, self.height_section1_label,
              self.height_section2_label, self.height_section3_label]))
+
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
-        self.data_sensors_pushButton.clicked.connect(self.show_data_sensors)
+
+        self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
 
         self.Ok_button.clicked.connect(self.remaster_creps)
+        self.menu_pushButton.clicked.connect(lambda: self.main_menu.show())
 
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()
@@ -84,7 +86,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         sigOnal1.result.connect(self.list_all_crep[-1].setText1)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
         print(self.AsyncTcpReciver.all_signal)
-
 
     def create_but_layout_list(self, layout_list, elem):
         for layout in layout_list:
@@ -134,12 +135,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
             else:
                 btn = ButtonForSection(elem + 1)
             if elem % 2 == 0:
-                btn.setStyleSheet(" background-color: #666666;")
+                btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 btn.setStyleSheet("background-color: #a0a0a0;")
 
             btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
-            btn.setToolTip(f"Hello i am button number {elem+1},    {self.list_all_crep[-1].sensors1_lineEdit.text()}")
+            btn.setToolTip(f"Hello i am button number {elem + 1},    {self.list_all_crep[-1].sensors1_lineEdit.text()}")
             btn.setToolTipDuration(3000)
             btn.setWhatsThis("Whatafuck")
             btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
@@ -158,9 +159,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
             crepWin.hide()
         else:
             crepWin.show()
-
-    def show_data_sensors(self):
-        self.data_sensors.show()
 
     def show_settings_sensors(self):
         if self.change_setting_action.isChecked():

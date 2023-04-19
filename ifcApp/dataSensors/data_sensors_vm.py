@@ -15,3 +15,6 @@ class DataSensorsSection(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi(UI_data_sensors_section, self)
+
+
+

@@ -4,6 +4,7 @@ from PyQt6 import uic, QtWidgets
 from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
 from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
+from ifcApp.crep.all_sensors_crep import AllSensorsCrep
 
 UI_crep = "view/ifc/ifc_crep.ui"
 
@@ -11,6 +12,7 @@ UI_crep = "view/ifc/ifc_crep.ui"
 class CrepViewModel(QtWidgets.QMainWindow):
     def __init__(self, num):
         super().__init__()
+        self.all_sensors_crep = AllSensorsCrep()
         uic.loadUi(UI_crep, self)
 
         self.list_sensors_lineEdit = [self.sensors1_lineEdit, self.sensors2_lineEdit, self.sensors3_lineEdit,
@@ -46,6 +48,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.data_sensors_section = DataSensorsSection()
         self.num_crep.setText(str(num))
         self.control_pushbutton.clicked.connect(self.show_data_sensors_section)
+        self.all_sensors_pushButton.clicked.connect(lambda :self.all_sensors_crep.show() )
 
     def show_data_sensors_section(self):
         self.data_sensors_section.show()
@@ -56,18 +59,18 @@ class CrepViewModel(QtWidgets.QMainWindow):
     def show_sensor2_data(self):
         return self.sensors2_lineEdit.text()
 
-    @QtCore.pyqtSlot(str)
-    def setText1(self, string):
-        self.sensors1_lineEdit.setText(string)
-
-    @QtCore.pyqtSlot(str)
-    def setText2(self, string):
-        self.sensors2_lineEdit.setText(string)
-
+    # @QtCore.pyqtSlot(str)
+    # def setText1(self, string):
+    #     self.sensors1_lineEdit.setText(string)
     #
-    @QtCore.pyqtSlot(str)
-    def setText3(self, string):
-        self.sensors3_lineEdit.setText(string)
+    # @QtCore.pyqtSlot(str)
+    # def setText2(self, string):
+    #     self.sensors2_lineEdit.setText(string)
+    #
+    # #
+    # @QtCore.pyqtSlot(str)
+    # def setText3(self, string):
+    #     self.sensors3_lineEdit.setText(string)
 
     @QtCore.pyqtSlot(list)
     def setText1(self, lst):

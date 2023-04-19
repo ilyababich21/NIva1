@@ -13,7 +13,36 @@ class SettingsSensors(QtWidgets.QMainWindow):
         uic.loadUi(UI_settings_sensors, self)
 
         self.setting_query_all = session.query(SettingsSensorsTable).all()
+        self.list_pushButton_for_color = [self.color_error_sensors_pushButton, self.color_sensor_broken_pushButton,
+                                     self.color_sensor_CO_pushButton,
+                                     self.color_sensor_gaz_pushButton, self.color_sensor_dust_pushButton,
+                                     self.color_temperature_inside_pushButton,
+                                     self.color_wetness_pushButton, self.color_shifting_pushButton,
+                                     self.color_shifting_height_pushButton,
+                                     self.color_height__pushButton, self.color_height_coal_pushButton,
+                                     self.color_height_section1_pushButton,
+                                     self.color_height_section2_pushButton,
+                                     self.color_height_section3_pushButton,
+                                     self.color_podzh_pressure_pushButton,
+                                     self.color_podzh_position_pushButton,
+                                     self.color_extention_top_shifting_pushButton,
+                                     self.color_extention_top_sensor_appr_pushButton,
+                                     self.color_extention_top_pushButton,
+                                     self.color_shield_UGZ_pressure_pushButton,
+                                     self.color_shield_angle_pushButton,
+                                     self.color_shield_UGZ_sensor_appr_pushButton,
+                                     self.color_shield_UGZ_pushButton,
+                                     self.color_CP_pushButton,
+                                     self.color_logitudinal_floor_slope_pushButton,
+                                     self.color_transversal_slope_floor_pushButton,
+                                     self.color_log_base_slope_pushButton,
+                                     self.color_transversal_slope_base_pushButton]
 
+        for colorButton in range(len(self.list_pushButton_for_color)):
+            self.list_pushButton_for_color[colorButton].clicked.connect(
+                lambda checked, s=self.list_pushButton_for_color[colorButton]: self.show_color_dialog(s))
+
+            
         if self.setting_query_all == []:
             insert_into_setting_sensor_table1 = SettingsSensorsTable(color_button_one="#55aa00",
                                                                      color_button_two="#55aa00",
@@ -275,64 +304,6 @@ class SettingsSensors(QtWidgets.QMainWindow):
             # if one_row_in_query.id == 42:
             # if one_row_in_query.id == 43:
             # if one_row_in_query.id == 44:
-
-        self.color_error_sensors_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_error_sensors_pushButton))
-        self.color_sensor_broken_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_sensor_broken_pushButton))
-        self.color_sensor_CO_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_sensor_CO_pushButton))
-        self.color_sensor_gaz_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_sensor_gaz_pushButton))
-        self.color_sensor_dust_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_sensor_dust_pushButton))
-        self.color_temperature_inside_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_temperature_inside_pushButton))
-        self.color_wetness_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_wetness_pushButton))
-        self.color_shifting_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_shifting_pushButton))
-        self.color_shifting_height_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_shifting_height_pushButton))
-        self.color_height__pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_height__pushButton))
-        self.color_height_coal_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_height_coal_pushButton))
-        self.color_height_section1_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_height_section1_pushButton))
-        self.color_height_section2_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_height_section2_pushButton))
-        self.color_height_section3_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_height_section3_pushButton))
-        self.color_podzh_pressure_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_podzh_pressure_pushButton))
-        self.color_podzh_position_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_podzh_position_pushButton))
-        self.color_extention_top_shifting_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_extention_top_shifting_pushButton))
-        self.color_extention_top_sensor_appr_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_extention_top_sensor_appr_pushButton))
-        self.color_extention_top_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_extention_top_pushButton))
-        self.color_shield_UGZ_pressure_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_shield_UGZ_pressure_pushButton))
-        self.color_shield_angle_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_shield_angle_pushButton))
-        self.color_shield_UGZ_sensor_appr_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_shield_UGZ_sensor_appr_pushButton))
-        self.color_shield_UGZ_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_shield_UGZ_pushButton))
-        self.color_CP_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_CP_pushButton))
-        self.color_logitudinal_floor_slope_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_logitudinal_floor_slope_pushButton))
-        self.color_transversal_slope_floor_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_transversal_slope_floor_pushButton))
-        self.color_log_base_slope_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_log_base_slope_pushButton))
-        self.color_transversal_slope_base_pushButton.clicked.connect(
-            lambda: self.show_color_dialog(self.color_transversal_slope_base_pushButton))
-
     def show_color_dialog(self, button):
         color_dialog = QColorDialog.getColor()
 

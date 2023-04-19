@@ -1,5 +1,5 @@
 from PyQt6 import uic, QtWidgets
-from ifcApp.ifc.mainMenu.globalParam import GlobalParam
+from ifcApp.ifc.mainMenu.global_param import GlobalParam
 
 UI_menu = "view/ifc/general menu.ui"
 

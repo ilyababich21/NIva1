@@ -14,7 +14,7 @@ class GlobalParam(QtWidgets.QMainWindow):
         self.exit_main_pushButton.clicked.connect(lambda: self.close())
         self.save_pushButton.clicked.connect(self.save_on_clicked_information)
         self.query_one = session.query(GlobalParamTable).all()
-        self.object_database = session.get(GlobalParamTable, 1)
+        # self.object_database = session.get(GlobalParamTable, 1)
         if self.query_one == []:
             insert_into_setting_sensor_table1 = GlobalParamTable(min_value=0, max_value=600, normal_value=300)
             session.add_all([insert_into_setting_sensor_table1])
@@ -26,8 +26,8 @@ class GlobalParam(QtWidgets.QMainWindow):
                 self.all_param_tableWidget.setItem(1, 2, QTableWidgetItem(f"{one_row_in_table.normal_value}"))
 
     def save_on_clicked_information(self):
-        self.object_database.update_globalParamTable(self.all_param_tableWidget.item(1, 0).text(),
+        self.query_one[0].update_globalParamTable(self.all_param_tableWidget.item(1, 0).text(),
                                                      self.all_param_tableWidget.item(1, 1).text(),
                                                      self.all_param_tableWidget.item(1, 2).text())
 
-        session.refresh(self.object_database)
+        # session.refresh(self.object_database)

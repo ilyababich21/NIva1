@@ -59,6 +59,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
              self.shield_UGZ_thrust_label, self.extension_top_label, self.extension_top_progress_label,
              self.koz_label, self.shifting_state_label, self.height_section1_label,
              self.height_section2_label, self.height_section3_label]))
+
+
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
         self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
 
@@ -67,8 +69,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         # self.object_database = session.get(GlobalParamTable, 1)
 
-        self.min_value_pressure1_label.setText(f"{self.glodparam.object_database.min_value}")
-        self.max_value_pressure1_label.setText(f"{self.glodparam.object_database.max_value}")
+        self.min_value_pressure1_label.setText(f"{self.glodparam.query_one[0].min_value}")
+        self.max_value_pressure1_label.setText(f"{self.glodparam.query_one[0].max_value}")
 
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()
@@ -101,58 +103,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
 
     def create_but_layout_list(self, layout_list, elem):
-        # for lat in range(len(layout_list)):
-        for layout in layout_list:
-            if layout == self.layout_300:
-                btn = ButtonForPressureSection(elem + 1)
-                self.list_all_crep[-1].sensors1_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                        g.show_sensor1_data(g.sensors1_lineEdit)))
-                # self.list_all_crep[-1].sensors2_lineEdit.textChanged.connect(
-                #     lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size1(g.show_sensor2_data()))
-
-            elif layout == self.layout_400:
-                btn = ButtonForPressureSection(elem + 1)
-                self.list_all_crep[-1].sensors2_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                        g.show_sensor1_data(g.sensors2_lineEdit)))
-
-            elif layout == self.layout_100:
-                btn = ButtonForPressureSection(elem + 1)
-                self.list_all_crep[-1].CP_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                        g.show_sensor1_data(g.CP_lineEdit)))
-
-            elif layout == self.layout_200:
-                btn = ButtonForPressureSection(elem + 1)
-                self.list_all_crep[-1].sensors3_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                        g.show_sensor1_data(g.sensors3_lineEdit)))
-            elif layout == self.layout_500:
-                btn = ButtonForPressureSection(elem + 1)
-                self.list_all_crep[-1].sensors5_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                        g.show_sensor1_data(g.sensors5_lineEdit)))
-            elif layout == self.layout_600:
-                btn = ButtonForPressureSection(elem + 1)
-                self.list_all_crep[-1].pozition_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                        g.show_sensor1_data(g.pozition_lineEdit)))
-
-
-            elif layout == self.layout_700:
-                btn = ButtonForPressureSection(elem + 1)
-                self.list_all_crep[-1].sensors4_lineEdit.textChanged.connect(
-                    lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                        g.show_sensor1_data(g.sensors4_lineEdit)))
-
-            else:
-                btn = ButtonForSection(elem + 1)
-
-            # btn = ButtonForPressureSection(elem + 1)
-            # self.list_all_crep[-1].list_sensors_lineEdit[lat].textChanged.connect(
-            #     lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-            #         g.show_sensor1_data(g.list_sensors_lineEdit[lat])))
+        for lat in range(len(layout_list)):
+            btn = ButtonForPressureSection(elem + 1)
+            self.list_all_crep[-1].list_sensors_lineEdit[lat].textChanged.connect(
+                lambda checked, lt=lat,b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
 
             if elem % 2 == 0:
                 btn.setStyleSheet(" background-color: #e9e9e9;")
@@ -160,12 +115,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 btn.setStyleSheet("background-color: #a0a0a0;")
 
             btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
-            btn.setToolTip(f"Hello i am button number {elem+1}")
+            btn.setToolTip(f"Hello i am button number {elem+1},  {lat+1}")
             btn.setToolTipDuration(3000)
             btn.setWhatsThis("Whatafuck")
             btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
-            # layout_list[lat].addWidget(btn)
-            layout.addWidget(btn)
+            layout_list[lat].addWidget(btn)
+            # layout.addWidget(btn)
             # print(btn.size())
 
     def cleaner_layouts(self, layout_list):

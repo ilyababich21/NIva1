@@ -6,7 +6,7 @@ from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from ifcApp.crep.all_sensors_crep import AllSensorsCrep
 
-UI_crep = "view/ifc/ifc_crep.ui"
+UI_crep = "view/ifc/crep/ifc_crep.ui"
 
 
 class CrepViewModel(QtWidgets.QMainWindow):

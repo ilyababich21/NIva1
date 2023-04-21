@@ -8,7 +8,10 @@ from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection, ButtonForSection
+from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
+from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
+from serviceApp.service.service_model import session
 
 UI_ifc = "view/ifc/ifc version1.ui"
 
@@ -22,6 +25,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
+        self.glodparam =GlobalParam()
         self.main_menu = MainMenu()
         uic.loadUi(UI_ifc, self)
         # self.section_max_lineEdit.setText('1')
@@ -61,6 +65,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.Ok_button.clicked.connect(self.remaster_creps)
         self.menu_pushButton.clicked.connect(lambda: self.main_menu.show())
 
+        # self.object_database = session.get(GlobalParamTable, 1)
+
+        self.min_value_pressure1_label.setText(f"{self.glodparam.object_database.min_value}")
+        self.max_value_pressure1_label.setText(f"{self.glodparam.object_database.max_value}")
+
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()
 
@@ -88,7 +97,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText1)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
-        print(self.AsyncTcpReciver.all_signal)
+        # print(self.AsyncTcpReciver.all_signal)
 
 
     def create_but_layout_list(self, layout_list, elem):
@@ -157,7 +166,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
             # layout_list[lat].addWidget(btn)
             layout.addWidget(btn)
-            print(btn.size())
+            # print(btn.size())
 
     def cleaner_layouts(self, layout_list):
         self.list_all_crep.clear()

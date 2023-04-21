@@ -1,10 +1,8 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import DeclarativeBase
 
-from serviceApp.service.service_model import engine
+from serviceApp.service.service_model import engine, Base
 
 
-class Base(DeclarativeBase): pass
 
 
 class SettingsSensorsTable(Base):

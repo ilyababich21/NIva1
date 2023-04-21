@@ -1,4 +1,3 @@
-import sys
 
 from PyQt6 import uic, QtWidgets, QtCore
 from PyQt6.QtCore import  QTimer, QDateTime
@@ -9,8 +8,8 @@ from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection, ButtonForSection
+from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
 
-# UI_ifc = "view/ifc/ifc version1.ui"
 UI_ifc = "view/ifc/ifc version1.ui"
 
 
@@ -23,6 +22,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
+        self.main_menu = MainMenu()
         uic.loadUi(UI_ifc, self)
         # self.section_max_lineEdit.setText('1')
         self.list_all_crep = []
@@ -56,9 +56,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
              self.koz_label, self.shifting_state_label, self.height_section1_label,
              self.height_section2_label, self.height_section3_label]))
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
-        self.data_sensors_pushButton.clicked.connect(self.show_data_sensors)
+        self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
 
         self.Ok_button.clicked.connect(self.remaster_creps)
+        self.menu_pushButton.clicked.connect(lambda: self.main_menu.show())
 
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()
@@ -145,7 +146,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             #         g.show_sensor1_data(g.list_sensors_lineEdit[lat])))
 
             if elem % 2 == 0:
-                btn.setStyleSheet(" background-color: #666666;")
+                btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 btn.setStyleSheet("background-color: #a0a0a0;")
 
@@ -170,9 +171,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
             crepWin.hide()
         else:
             crepWin.show()
-
-    def show_data_sensors(self):
-        self.data_sensors.show()
 
     def show_settings_sensors(self):
         if self.change_setting_action.isChecked():
@@ -223,14 +221,3 @@ class IfcViewModel(QtWidgets.QMainWindow):
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)
-
-
-
-
-
-
-
-
-
-
-

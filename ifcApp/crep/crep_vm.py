@@ -1,10 +1,10 @@
-import time
-
 from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
+
 from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
-from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
+from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
+from ifcApp.crep.all_sensors_crep import AllSensorsCrep
 
 UI_crep = "view/ifc/ifc_crep.ui"
 
@@ -12,6 +12,7 @@ UI_crep = "view/ifc/ifc_crep.ui"
 class CrepViewModel(QtWidgets.QMainWindow):
     def __init__(self, num):
         super().__init__()
+        self.all_sensors_crep = AllSensorsCrep()
         uic.loadUi(UI_crep, self)
 
         self.list_sensors_lineEdit = [self.sensors1_lineEdit, self.sensors2_lineEdit, self.sensors3_lineEdit,
@@ -62,6 +63,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.data_sensors_section = DataSensorsSection()
         self.num_crep.setText(str(num))
         self.control_pushbutton.clicked.connect(self.show_data_sensors_section)
+        self.all_sensors_pushButton.clicked.connect(lambda :self.all_sensors_crep.show() )
 
     def show_data_sensors_section(self):
         self.data_sensors_section.show()

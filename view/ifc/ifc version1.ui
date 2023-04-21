@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1942</width>
+    <width>1897</width>
     <height>1244</height>
    </rect>
   </property>
@@ -46,7 +46,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>1850</width>
+        <width>1890</width>
         <height>30</height>
        </size>
       </property>
@@ -247,7 +247,7 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>1170</x>
+         <x>940</x>
          <y>0</y>
          <width>616</width>
          <height>31</height>
@@ -323,13 +323,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="date_time">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="Ok_button">
           <property name="text">
            <string>OK</string>
@@ -337,6 +330,47 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QLineEdit" name="date_time">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>1672</x>
+         <y>5</y>
+         <width>106</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+  border-radius: 8px;
+}</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="menu_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>1830</x>
+         <y>0</y>
+         <width>31</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../image/img tools/menu.png</normaloff>../../image/img tools/menu.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
       </widget>
      </widget>
     </item>
@@ -377,7 +411,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -395,7 +429,7 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1840</x>
+             <x>1860</x>
              <y>60</y>
              <width>21</width>
              <height>16</height>
@@ -507,7 +541,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -627,7 +661,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -680,7 +714,7 @@
           <widget class="QLabel" name="label_26">
            <property name="geometry">
             <rect>
-             <x>1860</x>
+             <x>1850</x>
              <y>30</y>
              <width>31</width>
              <height>21</height>
@@ -699,9 +733,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1780</x>
+             <x>1760</x>
              <y>60</y>
-             <width>141</width>
+             <width>120</width>
              <height>20</height>
             </rect>
            </property>
@@ -747,7 +781,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>80</height>
            </size>
           </property>
@@ -800,7 +834,7 @@
           <widget class="QLabel" name="label_27">
            <property name="geometry">
             <rect>
-             <x>1860</x>
+             <x>1850</x>
              <y>30</y>
              <width>31</width>
              <height>21</height>
@@ -819,9 +853,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1780</x>
+             <x>1760</x>
              <y>60</y>
-             <width>141</width>
+             <width>120</width>
              <height>20</height>
             </rect>
            </property>
@@ -861,13 +895,13 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>80</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -915,7 +949,7 @@
             <rect>
              <x>1840</x>
              <y>60</y>
-             <width>110</width>
+             <width>50</width>
              <height>16</height>
             </rect>
            </property>
@@ -926,7 +960,7 @@
           <widget class="QLabel" name="label_29">
            <property name="geometry">
             <rect>
-             <x>1860</x>
+             <x>1850</x>
              <y>30</y>
              <width>31</width>
              <height>21</height>
@@ -976,7 +1010,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1022,7 +1056,7 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1730</x>
+             <x>1720</x>
              <y>60</y>
              <width>161</width>
              <height>20</height>
@@ -1084,7 +1118,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1130,9 +1164,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1820</x>
+             <x>1810</x>
              <y>60</y>
-             <width>161</width>
+             <width>80</width>
              <height>16</height>
             </rect>
            </property>
@@ -1187,7 +1221,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1233,9 +1267,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1750</x>
+             <x>1740</x>
              <y>60</y>
-             <width>161</width>
+             <width>140</width>
              <height>16</height>
             </rect>
            </property>
@@ -1290,7 +1324,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1336,7 +1370,7 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1790</x>
+             <x>1780</x>
              <y>60</y>
              <width>101</width>
              <height>16</height>
@@ -1399,7 +1433,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1445,9 +1479,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1790</x>
+             <x>1780</x>
              <y>60</y>
-             <width>161</width>
+             <width>100</width>
              <height>16</height>
             </rect>
            </property>
@@ -1502,7 +1536,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1548,9 +1582,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1790</x>
+             <x>1780</x>
              <y>60</y>
-             <width>161</width>
+             <width>100</width>
              <height>16</height>
             </rect>
            </property>
@@ -1605,7 +1639,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1651,9 +1685,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1760</x>
+             <x>1780</x>
              <y>60</y>
-             <width>161</width>
+             <width>100</width>
              <height>16</height>
             </rect>
            </property>
@@ -1695,7 +1729,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1741,9 +1775,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1770</x>
+             <x>1760</x>
              <y>60</y>
-             <width>161</width>
+             <width>120</width>
              <height>16</height>
             </rect>
            </property>
@@ -1785,7 +1819,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1831,9 +1865,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1770</x>
+             <x>1760</x>
              <y>60</y>
-             <width>161</width>
+             <width>130</width>
              <height>16</height>
             </rect>
            </property>
@@ -1875,7 +1909,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -1921,9 +1955,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1810</x>
+             <x>1790</x>
              <y>60</y>
-             <width>161</width>
+             <width>100</width>
              <height>16</height>
             </rect>
            </property>
@@ -1965,7 +1999,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -2011,9 +2045,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1810</x>
+             <x>1790</x>
              <y>60</y>
-             <width>161</width>
+             <width>90</width>
              <height>16</height>
             </rect>
            </property>
@@ -2055,7 +2089,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>1900</width>
+            <width>1890</width>
             <height>120</height>
            </size>
           </property>
@@ -2101,9 +2135,9 @@
            </property>
            <property name="geometry">
             <rect>
-             <x>1810</x>
+             <x>1790</x>
              <y>60</y>
-             <width>161</width>
+             <width>90</width>
              <height>16</height>
             </rect>
            </property>
@@ -2143,7 +2177,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1942</width>
+     <width>1897</width>
      <height>22</height>
     </rect>
    </property>

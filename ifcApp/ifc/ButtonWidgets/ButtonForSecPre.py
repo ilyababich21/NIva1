@@ -13,10 +13,11 @@ class ClickedGraphics(QtWidgets.QFrame):
 
 class ButtonForPressureSection(ClickedGraphics):
     rate = 1
-    def __init__(self, number):
+
+    def __init__(self, number,hit):
         super().__init__()
         self.id = number
-        self.setMaximumHeight(90)
+        self.setMaximumHeight(hit)
         self.h, self.b = 7, 7
         self.leftHand=QColor(0, 0, 0)
         self.rightHand=QColor(0, 0, 0)

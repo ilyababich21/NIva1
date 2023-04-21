@@ -95,13 +95,15 @@ class IfcViewModel(QtWidgets.QMainWindow):
             ])
 
     def make_buttons(self, layout_list):
-
+        hit=10
         self.cleaner_layouts(layout_list)
         print("heeee")
         for elem in range(int(self.section_max_lineEdit.text())):
             self.list_all_crep.append(CrepViewModel(elem + 1))
             self.setting_async_reciver()
-            self.create_but_layout_list(layout_list, elem)
+
+            self.create_but_layout_list(layout_list, elem,hit)
+            hit += 10
 
     def setting_async_reciver(self):
         sigOnal1 = WorkerSignals()
@@ -109,9 +111,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
         # print(self.AsyncTcpReciver.all_signal)
 
-    def create_but_layout_list(self, layout_list, elem):
+    def create_but_layout_list(self, layout_list, elem,hit):
+
         for lat in range(len(layout_list)):
-            btn = ButtonForPressureSection(elem + 1)
+            btn = ButtonForPressureSection(elem + 1,hit)
             self.list_all_crep[-1].list_sensors_lineEdit[lat].textChanged.connect(
                 lambda checked, lt=lat,b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
@@ -129,6 +132,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             layout_list[lat].addWidget(btn)
             # layout.addWidget(btn)
             # print(btn.size())
+
 
     def cleaner_layouts(self, layout_list):
         self.list_all_crep.clear()

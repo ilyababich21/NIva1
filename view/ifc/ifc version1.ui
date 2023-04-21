@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1897</width>
+    <width>1936</width>
     <height>1244</height>
    </rect>
   </property>
@@ -386,7 +386,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-3</y>
+         <y>0</y>
          <width>1908</width>
          <height>1474</height>
         </rect>
@@ -445,7 +445,7 @@
             <string>ЦП</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="max_value_pasition_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -464,7 +464,7 @@
             <string>100</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_22">
+          <widget class="QLabel" name="min_value_position_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -553,7 +553,7 @@
           <property name="title">
            <string/>
           </property>
-          <widget class="QLabel" name="label_5">
+          <widget class="QLabel" name="max_value_clearance_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -572,7 +572,7 @@
             <string>200</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_21">
+          <widget class="QLabel" name="min_value_clearance_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -640,8 +640,8 @@
           </widget>
           <zorder>layoutWidget</zorder>
           <zorder>zaz_label</zorder>
-          <zorder>label_5</zorder>
-          <zorder>label_21</zorder>
+          <zorder>max_value_clearance_label</zorder>
+          <zorder>min_value_clearance_label</zorder>
           <zorder>label_28</zorder>
          </widget>
         </item>
@@ -793,7 +793,7 @@
           <property name="title">
            <string/>
           </property>
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="max_value_pressure2_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -812,7 +812,7 @@
             <string>400</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_24">
+          <widget class="QLabel" name="min_value_pressure2_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -880,8 +880,8 @@
           </widget>
           <zorder>layoutWidget</zorder>
           <zorder>pressure_st2_label</zorder>
-          <zorder>label_7</zorder>
-          <zorder>label_24</zorder>
+          <zorder>max_value_pressure2_label</zorder>
+          <zorder>min_value_pressure2_label</zorder>
           <zorder>label_27</zorder>
          </widget>
         </item>
@@ -928,7 +928,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_8">
+          <widget class="QLabel" name="min_value_shield_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -973,7 +973,7 @@
             <pixmap>../../image/img tools/articulated_cantilever_pos.png</pixmap>
            </property>
           </widget>
-          <widget class="QLabel" name="label_30">
+          <widget class="QLabel" name="max_value_shield_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -2177,7 +2177,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1897</width>
+     <width>1936</width>
      <height>22</height>
     </rect>
    </property>

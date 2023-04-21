@@ -39,27 +39,27 @@
     </row>
     <row>
      <property name="text">
+      <string>Цилиндр передвижки</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Зазор цилиндра передвижки</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
       <string>Давление в стойке 1</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Давление в стойке 2</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
+      <string>Щит УГЗ</string>
      </property>
     </row>
     <row>

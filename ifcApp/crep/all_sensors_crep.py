@@ -1,6 +1,6 @@
 from PyQt6 import uic, QtWidgets
 
-UI_sernsors = "view/ifc/sensors crep.ui"
+UI_sernsors = "view/ifc/crep/sensors crep.ui"
 
 
 class AllSensorsCrep(QtWidgets.QMainWindow):

@@ -1,11 +1,9 @@
-
 from PyQt6 import uic, QtWidgets, QtCore
-from PyQt6.QtCore import  QTimer, QDateTime
+from PyQt6.QtCore import QTimer, QDateTime
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
-
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection, ButtonForSection
 from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
@@ -25,7 +23,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
-        self.glodparam =GlobalParam()
+        self.glodparam = GlobalParam()
         self.main_menu = MainMenu()
         uic.loadUi(UI_ifc, self)
         # self.section_max_lineEdit.setText('1')
@@ -37,7 +35,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         self.show_button()
         self.thread.start()
-
 
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action,
@@ -60,17 +57,28 @@ class IfcViewModel(QtWidgets.QMainWindow):
              self.koz_label, self.shifting_state_label, self.height_section1_label,
              self.height_section2_label, self.height_section3_label]))
 
-
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
+
         self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
 
         self.Ok_button.clicked.connect(self.remaster_creps)
         self.menu_pushButton.clicked.connect(lambda: self.main_menu.show())
 
-        # self.object_database = session.get(GlobalParamTable, 1)
+        self.list_label_min_values = [self.min_value_position_label, self.min_value_clearance_label,
+                                      self.min_value_pressure1_label, self.min_value_pressure2_label,
+                                      self.min_value_shield_label]
+        row_in_query = 0
+        for min_value_label in range(len(self.list_label_min_values)):
+            self.list_label_min_values[min_value_label].setText(f"{self.glodparam.query_one[row_in_query].min_value}")
+            row_in_query += 1
 
-        self.min_value_pressure1_label.setText(f"{self.glodparam.query_one[0].min_value}")
-        self.max_value_pressure1_label.setText(f"{self.glodparam.query_one[0].max_value}")
+        self.list_label_max_values = [self.max_value_pasition_label, self.max_value_clearance_label,
+                                      self.max_value_pressure1_label, self.max_value_pressure2_label,
+                                      self.max_value_shield_label]
+        row_in_query = 0
+        for max_value_label in range(len(self.list_label_max_values)):
+            self.list_label_max_values[max_value_label].setText(f"{self.glodparam.query_one[row_in_query].max_value}")
+            row_in_query += 1
 
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()
@@ -100,7 +108,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         sigOnal1.result.connect(self.list_all_crep[-1].setText1)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
         # print(self.AsyncTcpReciver.all_signal)
-
 
     def create_but_layout_list(self, layout_list, elem):
         for lat in range(len(layout_list)):

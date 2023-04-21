@@ -23,4 +23,4 @@ class ClickedProgressbar(QProgressBar):
         else:
             value = int(value)
 
-        progressbar.setValue(value)
+        self.setValue(value)

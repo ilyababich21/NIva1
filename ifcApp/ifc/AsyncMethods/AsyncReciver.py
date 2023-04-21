@@ -45,11 +45,11 @@ class AsyncTcpReciver(QtCore.QObject):
 
         for elem in range(len(self.all_signal)):
             # for elem in range(len(self.newTextAndColor)):
-            result = client.read_holding_registers(address=0, count=7, slave=elem + 1)
+            result = client.read_holding_registers(address=0, count=15, slave=elem + 1)
 
             try:
                  self.all_signal[elem].result.emit(result.registers)
-
+                 print(result.registers[11:15])
             except:
                 print("ebaniy rot")
 

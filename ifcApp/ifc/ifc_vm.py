@@ -1,3 +1,4 @@
+import sys
 
 from PyQt6 import uic, QtWidgets, QtCore
 from PyQt6.QtCore import  QTimer, QDateTime
@@ -9,6 +10,7 @@ from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection, ButtonForSection
 
+# UI_ifc = "view/ifc/ifc version1.ui"
 UI_ifc = "view/ifc/ifc version1.ui"
 
 
@@ -22,7 +24,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         uic.loadUi(UI_ifc, self)
-        # self.section_max_lineEdit.setText('10')
+        # self.section_max_lineEdit.setText('1')
         self.list_all_crep = []
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
@@ -68,7 +70,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
             [
                 self.layout_100, self.layout_200, self.layout_300, self.layout_400, self.layout_500, self.layout_600,
                 self.layout_700,self.layout_800, self.layout_900, self.layout_1000, self.layout_1100, self.layout_1200, self.layout_1300,
-                self.layout_1400,self.layout_1500, self.layout_1600, self.layout_1700
+                self.layout_1400,self.layout_1500
+                # , self.layout_1600, self.layout_1700
             ])
 
     def make_buttons(self, layout_list):
@@ -88,6 +91,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
 
     def create_but_layout_list(self, layout_list, elem):
+        # for lat in range(len(layout_list)):
         for layout in layout_list:
             if layout == self.layout_300:
                 btn = ButtonForPressureSection(elem + 1)
@@ -134,16 +138,23 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
             else:
                 btn = ButtonForSection(elem + 1)
+
+            # btn = ButtonForPressureSection(elem + 1)
+            # self.list_all_crep[-1].list_sensors_lineEdit[lat].textChanged.connect(
+            #     lambda checked, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
+            #         g.show_sensor1_data(g.list_sensors_lineEdit[lat])))
+
             if elem % 2 == 0:
                 btn.setStyleSheet(" background-color: #666666;")
             else:
                 btn.setStyleSheet("background-color: #a0a0a0;")
 
             btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
-            btn.setToolTip(f"Hello i am button number {elem+1},    {self.list_all_crep[-1].sensors1_lineEdit.text()}")
+            btn.setToolTip(f"Hello i am button number {elem+1}")
             btn.setToolTipDuration(3000)
             btn.setWhatsThis("Whatafuck")
             btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
+            # layout_list[lat].addWidget(btn)
             layout.addWidget(btn)
             print(btn.size())
 
@@ -212,3 +223,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)
+
+
+
+
+
+
+
+
+
+
+

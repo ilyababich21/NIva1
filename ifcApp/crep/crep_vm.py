@@ -18,31 +18,46 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                       self.sensors4_lineEdit, self.sensors5_lineEdit, self.pozition_lineEdit,
                                       self.CP_lineEdit, self.prod_lineEdit, self.poper_lineEdit,
                                       self.end_section_lineEdit,
-                                      self.poper_hieght_lineEdit]
+                                      self.poper_hieght_lineEdit
+
+                                      ,self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
+                                      self.poz_shifting_lineEdit
+
+
+                                      ]
 
         self.list_of_sensors_layouts = [self.gridLayout1, self.gridLayout2, self.gridLayout3, self.gridLayout4,
                                         self.gridLayout5, self.pozition_layout, self.CP_layout, self.prod_layout,
-                                        self.poper_layout, self.end_section_layout, self.poper_hieght_layout]
+                                        self.poper_layout, self.end_section_layout, self.poper_hieght_layout,
 
-        self.list_bar_layouts = [self.section_one_layout, self.section_two_layout, self.section_three_layout,
-                                 self.poz_shifting_layout]
 
-        self.list_bar_lineEdits = [self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
-                                   self.poz_shifting_lineEdit]
+                                        self.section_one_layout, self.section_two_layout, self.section_three_layout,
+                                        self.poz_shifting_layout
 
-        for lent in range(len(self.list_of_sensors_layouts)):
+
+                                        ]
+
+        # self.list_bar_layouts = [self.section_one_layout, self.section_two_layout, self.section_three_layout,
+        #                          self.poz_shifting_layout]
+        #
+        # self.list_bar_lineEdits = [self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
+        #                            self.poz_shifting_lineEdit]
+
+        for lent in range(11):
+        # for lent in range(len(self.list_of_sensors_layouts)):
             speed = CreateGraphicScene(self)
             self.list_of_sensors_layouts[lent].addWidget(speed.graphicsView)
             self.list_of_sensors_layouts[lent].addWidget(self.list_sensors_lineEdit[lent])
             self.list_sensors_lineEdit[lent].textChanged.connect\
                 (lambda ch, s=speed, l=self.list_sensors_lineEdit[lent]: s.valuechange(l))
 
-        for bar in range(len(self.list_bar_layouts)):
+        for bar in range(4):
+        # for bar in range(len(self.list_bar_layouts)):
             section1_progressBar = ClickedProgressbar()
-            self.list_bar_layouts[bar].addWidget(section1_progressBar)
-            self.list_bar_layouts[bar].addWidget(self.list_bar_lineEdits[bar])
-            self.list_bar_lineEdits[bar].textChanged.connect(
-                lambda ch, s=section1_progressBar, l=self.list_bar_lineEdits[bar]: s.diff_value_progress_bar(l, s))
+            self.list_of_sensors_layouts[bar+11].addWidget(section1_progressBar)
+            self.list_of_sensors_layouts[bar+11].addWidget(self.list_sensors_lineEdit[bar+11])
+            self.list_sensors_lineEdit[bar+11].textChanged.connect(
+                lambda ch, s=section1_progressBar, l=self.list_sensors_lineEdit[bar+11]: s.diff_value_progress_bar(l, s))
 
         self.data_sensors_section = DataSensorsSection()
         self.num_crep.setText(str(num))
@@ -59,4 +74,4 @@ class CrepViewModel(QtWidgets.QMainWindow):
         # for lEd in range(len(self.list_All_lineEdit)):
         #     self.list_All_lineEdit[lEd].setText(str(lst[lEd]))
         for elem in range(len(lst)):
-            self.list_All_lineEdit[elem].setText(str(lst[elem]))
+            self.list_sensors_lineEdit[elem].setText(str(lst[elem]))

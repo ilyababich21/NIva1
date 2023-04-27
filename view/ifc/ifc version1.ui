@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1936</width>
+    <width>1923</width>
     <height>1244</height>
    </rect>
   </property>
@@ -376,6 +376,12 @@
     </item>
     <item>
      <widget class="QScrollArea" name="scrollArea">
+      <property name="maximumSize">
+       <size>
+        <width>2000</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
       </property>
@@ -519,7 +525,7 @@
              <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>6</number>
+             <number>0</number>
             </property>
            </layout>
           </widget>
@@ -1037,7 +1043,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_9">
+          <widget class="QLabel" name="max_value_shield_UGZ_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1047,7 +1053,7 @@
             </rect>
            </property>
            <property name="text">
-            <string>600</string>
+            <string>1</string>
            </property>
           </widget>
           <widget class="QLabel" name="shield_UGZ_sensor_label">
@@ -1066,7 +1072,7 @@
             <string>Щит УГЗ Датчик приближения</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_31">
+          <widget class="QLabel" name="min_value_shield_UGZ_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1096,8 +1102,8 @@
            </property>
           </widget>
           <zorder>horizontalLayoutWidget_6</zorder>
-          <zorder>label_9</zorder>
-          <zorder>label_31</zorder>
+          <zorder>max_value_shield_UGZ_label</zorder>
+          <zorder>min_value_shield_UGZ_label</zorder>
           <zorder>label_32</zorder>
           <zorder>shield_UGZ_sensor_label</zorder>
          </widget>
@@ -1145,7 +1151,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_10">
+          <widget class="QLabel" name="max_value_shield_UGZ_angle_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1174,7 +1180,7 @@
             <string>Щит УГЗ Угол</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_33">
+          <widget class="QLabel" name="min_value_shield_UGZ_angle_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1248,7 +1254,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_11">
+          <widget class="QLabel" name="max_value_shield_hod_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1277,7 +1283,7 @@
             <string>Щит УГЗ передвижка (ход)</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_35">
+          <widget class="QLabel" name="min_value_shield_hod_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1351,7 +1357,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_12">
+          <widget class="QLabel" name="max_value_shield_UGZ_pressure_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1386,7 +1392,7 @@
             <string>Щит УГЗ давление</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_37">
+          <widget class="QLabel" name="min_value_shield_UGZ_pressure_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1460,7 +1466,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_13">
+          <widget class="QLabel" name="max_value_shield_UGZ_thrust_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1505,7 +1511,7 @@
             <pixmap>../../image/img tools/articulated_cantilever3.png</pixmap>
            </property>
           </widget>
-          <widget class="QLabel" name="label_40">
+          <widget class="QLabel" name="min_value_shield_UGZ_thrust_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1563,7 +1569,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_14">
+          <widget class="QLabel" name="max_value_extension_top_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1592,7 +1598,7 @@
             <string>Выдвижка верхняк</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_41">
+          <widget class="QLabel" name="min_value_extension_top_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1654,7 +1660,7 @@
           <widget class="QWidget" name="horizontalLayoutWidget_12">
            <property name="geometry">
             <rect>
-             <x>40</x>
+             <x>50</x>
              <y>10</y>
              <width>1781</width>
              <height>61</height>
@@ -1666,7 +1672,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_15">
+          <widget class="QLabel" name="max_value_extension_top_progress_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1711,6 +1717,19 @@
             <pixmap>../../image/img tools/articulated_cantilever_way.png</pixmap>
            </property>
           </widget>
+          <widget class="QLabel" name="min_value_extension_top_progress_label">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>60</y>
+             <width>16</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </widget>
         </item>
         <item>
@@ -1744,7 +1763,7 @@
           <widget class="QWidget" name="horizontalLayoutWidget_13">
            <property name="geometry">
             <rect>
-             <x>40</x>
+             <x>50</x>
              <y>10</y>
              <width>1781</width>
              <height>61</height>
@@ -1756,7 +1775,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_16">
+          <widget class="QLabel" name="max_value_koz_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1801,6 +1820,19 @@
             <pixmap>../../image/img tools/slidebar_pos.png</pixmap>
            </property>
           </widget>
+          <widget class="QLabel" name="min_value_koz_label">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>60</y>
+             <width>21</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </widget>
         </item>
         <item>
@@ -1836,7 +1868,7 @@
             <rect>
              <x>50</x>
              <y>10</y>
-             <width>1771</width>
+             <width>1781</width>
              <height>61</height>
             </rect>
            </property>
@@ -1846,7 +1878,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_17">
+          <widget class="QLabel" name="max_value_shifting_state_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1891,6 +1923,19 @@
             <pixmap>../../image/img tools/cantilever_state.png</pixmap>
            </property>
           </widget>
+          <widget class="QLabel" name="min_value_shifting_state_label">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>60</y>
+             <width>16</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </widget>
         </item>
         <item>
@@ -1926,7 +1971,7 @@
             <rect>
              <x>50</x>
              <y>10</y>
-             <width>1771</width>
+             <width>1781</width>
              <height>61</height>
             </rect>
            </property>
@@ -1936,7 +1981,7 @@
             </property>
            </layout>
           </widget>
-          <widget class="QLabel" name="label_18">
+          <widget class="QLabel" name="max_value_height_section1_label">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1981,6 +2026,19 @@
             <pixmap>../../image/img tools/shield_height_1.png</pixmap>
            </property>
           </widget>
+          <widget class="QLabel" name="min_value_height_section1_label">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>53</y>
+             <width>21</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </widget>
         </item>
         <item>
@@ -2016,7 +2074,7 @@
             <rect>
              <x>50</x>
              <y>10</y>
-             <width>1771</width>
+             <width>1781</width>
              <height>61</height>
             </rect>
            </property>
@@ -2104,9 +2162,9 @@
           <widget class="QWidget" name="horizontalLayoutWidget_17">
            <property name="geometry">
             <rect>
-             <x>70</x>
+             <x>50</x>
              <y>10</y>
-             <width>1751</width>
+             <width>1791</width>
              <height>61</height>
             </rect>
            </property>
@@ -2177,7 +2235,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1936</width>
+     <width>1923</width>
      <height>22</height>
     </rect>
    </property>

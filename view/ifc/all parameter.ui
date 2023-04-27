@@ -64,62 +64,62 @@
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Щит УГЗ датчик приближения</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Щит УГЗ угол</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Щит УГЗ передвижка (ход)</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Щит УГЗ давление</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Щит УГЗ сокращение/распор</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Выдвижка верхняк</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Выдвижка верхняк(ход)</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Подж призаб(козырек)</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Перекрытие состояние</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Высота секции 1</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Высота секции 2</string>
      </property>
     </row>
     <row>
      <property name="text">
-      <string>New Row</string>
+      <string>Высота секции 3</string>
      </property>
     </row>
     <row>

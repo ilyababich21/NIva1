@@ -42,7 +42,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../image/img main image/shield marco.png</pixmap>
+     <pixmap>../../../image/img main image/shield marco.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -58,7 +58,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../image/img main image/crep front.png</pixmap>
+     <pixmap>../../../image/img main image/crep front.png</pixmap>
     </property>
    </widget>
    <widget class="QLineEdit" name="num_crep">
@@ -128,7 +128,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/left_end.png</normaloff>../../image/img tools/left_end.png</iconset>
+          <normaloff>../../../image/img tools/left_end.png</normaloff>../../../image/img tools/left_end.png</iconset>
         </property>
        </widget>
       </item>
@@ -139,7 +139,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/left2.png</normaloff>../../image/img tools/left2.png</iconset>
+          <normaloff>../../../image/img tools/left2.png</normaloff>../../../image/img tools/left2.png</iconset>
         </property>
        </widget>
       </item>
@@ -150,7 +150,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/left1.png</normaloff>../../image/img tools/left1.png</iconset>
+          <normaloff>../../../image/img tools/left1.png</normaloff>../../../image/img tools/left1.png</iconset>
         </property>
        </widget>
       </item>
@@ -161,7 +161,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/right1.png</normaloff>../../image/img tools/right1.png</iconset>
+          <normaloff>../../../image/img tools/right1.png</normaloff>../../../image/img tools/right1.png</iconset>
         </property>
        </widget>
       </item>
@@ -172,7 +172,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/right2.png</normaloff>../../image/img tools/right2.png</iconset>
+          <normaloff>../../../image/img tools/right2.png</normaloff>../../../image/img tools/right2.png</iconset>
         </property>
        </widget>
       </item>
@@ -183,7 +183,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/right_end.png</normaloff>../../image/img tools/right_end.png</iconset>
+          <normaloff>../../../image/img tools/right_end.png</normaloff>../../../image/img tools/right_end.png</iconset>
         </property>
        </widget>
       </item>
@@ -593,7 +593,7 @@
      <rect>
       <x>260</x>
       <y>60</y>
-      <width>61</width>
+      <width>63</width>
       <height>72</height>
      </rect>
     </property>
@@ -707,7 +707,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/m_tools.png</normaloff>../../image/img tools/m_tools.png</iconset>
+          <normaloff>../../../image/img tools/m_tools.png</normaloff>../../../image/img tools/m_tools.png</iconset>
         </property>
        </widget>
       </item>
@@ -718,7 +718,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/sensor.png</normaloff>../../image/img tools/sensor.png</iconset>
+          <normaloff>../../../image/img tools/sensor.png</normaloff>../../../image/img tools/sensor.png</iconset>
         </property>
        </widget>
       </item>
@@ -736,7 +736,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/auto_error.png</normaloff>../../image/img tools/auto_error.png</iconset>
+          <normaloff>../../../image/img tools/auto_error.png</normaloff>../../../image/img tools/auto_error.png</iconset>
         </property>
        </widget>
       </item>
@@ -747,7 +747,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../image/img tools/edit.png</normaloff>../../image/img tools/edit.png</iconset>
+          <normaloff>../../../image/img tools/edit.png</normaloff>../../../image/img tools/edit.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -799,7 +799,7 @@
   <action name="actionCrinzh">
    <property name="icon">
     <iconset>
-     <normaloff>../../image/img tools/setup.png</normaloff>../../image/img tools/setup.png</iconset>
+     <normaloff>../../../image/img tools/setup.png</normaloff>../../../image/img tools/setup.png</iconset>
    </property>
    <property name="text">
     <string>crinzh</string>

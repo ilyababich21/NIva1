@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Общие параметры</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../image/img tools/memory.png</normaloff>../../image/img tools/memory.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTableWidget" name="all_param_tableWidget">

@@ -35,7 +35,6 @@ class ButtonForPressureSection(ClickedGraphics):
         else:
             self.rectangle_height = int(self.rectangle_height)
 
-        self.change_color()
         self.rectangle_height *= self.coefficient
 
         self.update()

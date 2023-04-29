@@ -37,4 +37,4 @@ class CreateGraphicScene(QWidget):
             angel = 0
         else:
             angel = int(angel)
-        self.arrow.setRotation((angel * 2.5 - 10))
+        self.arrow.setRotation((angel * 2.6 - 10))

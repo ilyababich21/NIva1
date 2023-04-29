@@ -34,17 +34,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.thread.start()
 
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
-                                 self.pressure_stand2_action,
-                                 self.shield_UGZ_action, self.shield_UGZ_sensor_approximation_action,
+                                 self.pressure_stand2_action, self.shield_UGZ_action,
+                                 self.shield_UGZ_sensor_approximation_action, self.height_section_action3,
                                  self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
                                  self.shield_UGZ_pressure_action, self.shield_UGZ_3rasp_abbr_action,
-                                 self.top_drawer_action,
-                                 self.top_drawer_shifting_action,
-                                 self.visor_action, self.state_overlap_action, self.height_section_action1,
-                                 self.height_section_action2, self.height_section_action3]
+                                 self.top_drawer_action, self.top_drawer_shifting_action,
+                                 self.visor_action, self.state_overlap_action,
+                                 self.height_section_action1, self.height_section_action2]
 
         for action in self.list_action_show:
-            action.triggered.connect(self.checked_action111)
+            action.triggered.connect(self.checked_action_for_sensors)
 
         self.show_name_action.triggered.connect(lambda: self.show_name_sensors(
             [self.CP_label, self.zaz_label, self.pressure_st1_label, self.pressure_st2_label,
@@ -65,9 +64,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
                                       self.min_value_pressure1_label, self.min_value_pressure2_label,
                                       self.min_value_shield_label, self.min_value_shield_UGZ_label,
                                       self.min_value_shield_UGZ_angle_label, self.min_value_shield_hod_label,
-                                      self.min_value_shield_UGZ_pressure_label,self.min_value_shield_UGZ_thrust_label,
-                                      self.min_value_extension_top_label,self.min_value_extension_top_progress_label,
-                                      self.min_value_koz_label,self.min_value_shifting_state_label,self.min_value_height_section1_label]
+                                      self.min_value_shield_UGZ_pressure_label, self.min_value_shield_UGZ_thrust_label,
+                                      self.min_value_extension_top_label, self.min_value_extension_top_progress_label,
+                                      self.min_value_koz_label, self.min_value_shifting_state_label,
+                                      self.min_value_height_section1_label]
         row_in_query = 0
         for min_value_label in range(len(self.list_label_min_values)):
             self.list_label_min_values[min_value_label].setText(
@@ -78,9 +78,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
                                       self.max_value_pressure1_label, self.max_value_pressure2_label,
                                       self.max_value_shield_label, self.max_value_shield_UGZ_label,
                                       self.max_value_shield_UGZ_angle_label, self.max_value_shield_hod_label,
-                                      self.max_value_shield_UGZ_pressure_label,self.max_value_shield_UGZ_thrust_label,
-                                      self.max_value_extension_top_label,self.max_value_extension_top_progress_label,
-                                      self.max_value_koz_label,self.max_value_shifting_state_label,self.max_value_height_section1_label]
+                                      self.max_value_shield_UGZ_pressure_label, self.max_value_shield_UGZ_thrust_label,
+                                      self.max_value_extension_top_label, self.max_value_extension_top_progress_label,
+                                      self.max_value_koz_label, self.max_value_shifting_state_label,
+                                      self.max_value_height_section1_label]
         row_in_query = 0
         for max_value_label in range(len(self.list_label_max_values)):
             self.list_label_max_values[max_value_label].setText(
@@ -110,7 +111,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.setting_async_reciver()
             self.create_button_layout_list(layout_list, elem)
 
-
     def setting_async_reciver(self):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText1)
@@ -125,6 +125,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
+            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
+                lambda ch, b=btn: b.change_color())
 
             if elem % 2 == 0:
                 btn.setStyleSheet(" background-color: #e9e9e9;")
@@ -134,7 +136,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
             btn.setToolTip(f"Hello i am button number {elem + 1},{one_layout + 1}")
             btn.setWhatsThis("Whatafuck")
-            btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
+            btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.show_window_crep(b))
             layout_list[one_layout].addWidget(btn)
             # print(btn.size())
             # layout.addWidget(btn)
@@ -147,7 +149,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             for i in reversed(range(layout.count())):
                 layout.itemAt(i).widget().deleteLater()
 
-    def on_clicked(self, crepWin):
+    def show_window_crep(self, crepWin):
         if crepWin.isVisible():
             crepWin.hide()
         else:
@@ -173,7 +175,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         else:
             self.list_action_group_box[activon].hide()
 
-    def checked_action111(self):
+    def checked_action_for_sensors(self):
         list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                             self.pressure_stand2_action, self.shield_UGZ_action,
                             self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,

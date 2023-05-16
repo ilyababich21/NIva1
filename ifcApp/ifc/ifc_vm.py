@@ -93,7 +93,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def create_button_layout_list(self, layout_list, elem):
         for one_layout in range(len(layout_list)):
             self.btn = ButtonForPressureSection(elem + 1)
-            self.btn.coefficient = int(self.btn.height()) / int(self.global_param.list_max_value[one_layout])
+            self.btn.value = int(self.global_param.list_max_value[one_layout])
+            # self.btn.coefficient = int(self.btn.height()) / int(self.global_param.list_max_value[one_layout])
             print(int(self.btn.height()))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1]: b.change_rectangle_size(

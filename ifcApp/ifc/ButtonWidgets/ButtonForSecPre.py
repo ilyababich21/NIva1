@@ -4,13 +4,15 @@ from PyQt6.QtGui import QPainter, QColor
 
 
 class ButtonForPressureSection(QtWidgets.QFrame):
+    value = 1
     coefficient = 1
     clicked = pyqtSignal()
+
 
     def __init__(self, number):
         super().__init__()
         self.id = number
-        self.setMaximumHeight(45)
+        self.setMaximumHeight(85)
 
         self.rectangle_height = 0
         self.rectangle = QColor(0, 0, 0)
@@ -23,7 +25,7 @@ class ButtonForPressureSection(QtWidgets.QFrame):
         painter.drawRect(5, self.height(), int(self.width() - 10), int(-self.rectangle_height))
 
     def change_rectangle_size(self, value):
-        print(self.height())
+        self.coefficient = self.height()/self.value
         self.rectangle_height = value
         if self.rectangle_height == '':
             self.rectangle_height = 0

@@ -95,12 +95,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.btn = ButtonForPressureSection(elem + 1)
             self.btn.value = int(self.global_param.list_max_value[one_layout])
             # self.btn.coefficient = int(self.btn.height()) / int(self.global_param.list_max_value[one_layout])
-            print(int(self.btn.height()))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
-                lambda ch, b=self.btn: b.change_color())
+                lambda ch, b=self.btn,y=int(self.global_param.list_normal_value[one_layout]): b.change_color(y))
             if elem % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:

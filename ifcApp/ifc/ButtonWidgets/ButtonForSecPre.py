@@ -34,14 +34,14 @@ class ButtonForPressureSection(QtWidgets.QFrame):
 
         self.rectangle_height *= self.coefficient
 
-
         self.update()
 
-    def change_color(self):
-        if self.rectangle_height < 20:
-            self.rectangle = QColor(0, 100, 0)
-        elif 20 <= self.rectangle_height < 45:
+    def change_color(self,normal):
+        if self.rectangle_height < normal * self.coefficient:
+            print(normal * self.coefficient)
             self.rectangle = QColor(255, 140, 0)
+        elif normal * self.coefficient <= self.rectangle_height < (normal * self.coefficient)+12:
+            self.rectangle = QColor(0, 100, 0)
         else:
             self.rectangle = QColor(255, 0, 0)
 

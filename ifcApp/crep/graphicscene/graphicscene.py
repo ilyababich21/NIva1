@@ -2,6 +2,12 @@ from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
 
+
+import random
+from collections import deque
+
+import matplotlib.pyplot as plt  # $ pip install matplotlib
+import matplotlib.animation as animation
 from ifcApp.graphics.graphics_vm import GraphicsWindow
 
 
@@ -10,8 +16,33 @@ class ClickedGraphics(QGraphicsView):
 
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
-
+        self.create_grafic()
         self.clicked.emit()
+
+    def create_grafic(self):
+        npoints = 30
+        x = deque([0], maxlen=npoints)
+        y = deque([0], maxlen=npoints)
+        fig, ax = plt.subplots()
+        [line] = ax.step(x, y)
+
+        def update(dy):
+            x.append(x[-1] + 1)  # update data
+            y.append(y[-1] + dy)
+
+            line.set_xdata(x)  # update plot data
+            line.set_ydata(y)
+
+            ax.relim()  # update axes limits
+            ax.autoscale_view(True, True, True)
+            return line, ax
+
+        def data_gen():
+            while True:
+                yield 1 if random.random() < 0.5 else -1
+
+        ani = animation.FuncAnimation(fig, update, data_gen)
+        plt.show()
 
 
 class CreateGraphicScene(QWidget):

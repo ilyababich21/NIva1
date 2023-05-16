@@ -1,17 +1,26 @@
 from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
-
+import pandas as pd
+from ifcApp.crep.crep_model import Sensors_ifc
 from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
 from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from ifcApp.crep.all_sensors_crep import AllSensorsCrep
+from serviceApp.service.service_model import session
 
 UI_crep = "view/ifc/crep/ifc_crep.ui"
 
 
 class CrepViewModel(QtWidgets.QMainWindow):
+    num = 1
+    data={
+        "id_dat":[],
+    "value":[],
+    "crep_id":[],
+}
     def __init__(self, num):
         super().__init__()
+        self.num=num
         self.all_sensors_crep = AllSensorsCrep()
         uic.loadUi(UI_crep, self)
 
@@ -75,5 +84,24 @@ class CrepViewModel(QtWidgets.QMainWindow):
     def setText1(self, lst):
         # for lEd in range(len(self.list_All_lineEdit)):
         #     self.list_All_lineEdit[lEd].setText(str(lst[lEd]))
-        for elem in range(len(lst)):
+        listick = []
+        for elem in range(len(lst)): # 15 dat
             self.list_sensors_lineEdit[elem].setText(str(lst[elem]))
+            # listick.append(Sensors_ifc(id_dat=elem+1,value=lst[elem],crep_id=self.num))
+
+
+            # self.data["id_dat"].append(elem+1)
+            # self.data["value"].append(lst[elem])
+            # self.data["crep_id"].append(self.num)
+            # session.add(Sensors_ifc(id_dat=elem+1,value=lst[elem],crep_id=self.num))
+
+
+
+        # session.add_all(listick)
+
+
+
+        # session.commit()
+
+
+

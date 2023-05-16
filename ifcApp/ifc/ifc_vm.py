@@ -1,18 +1,39 @@
-from PyQt6 import uic, QtWidgets, QtCore
-from PyQt6.QtCore import QTimer, QDateTime
+import csv
+import time
+from concurrent.futures import ProcessPoolExecutor
+from multiprocessing import Process
+
+import pandas as pd
+from PyQt6 import uic, QtWidgets, QtCore, QtGui
+from PyQt6.QtCore import QTimer, QDateTime, QProcess
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
+from ifcApp.ifc.AsyncMethods.AsyncBDWriter import AsyncBDWriter
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection, ButtonForSection
 from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
-from serviceApp.service.service_model import session
+from serviceApp.service.service_model import session, engine
 
 UI_ifc = "view/ifc/ifc version1.ui"
 
+def DBwrite():
+
+    while True:
+        print("hel")
+        time.sleep(60)
+
+        try:
+            for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=10000):
+                chunk.to_sql("sensors", engine, if_exists="append", index=False)
+            with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
+                writer = csv.DictWriter(file, ["id_dat", "value", "crep_id"], restval='Unknown', extrasaction='ignore')
+                writer.writeheader()
+        except:
+            print('rig')
 
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
@@ -20,14 +41,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer = QTimer()
 
         self.timer.timeout.connect(self.show_time)
-        self.timer.start(1000)
+        self.timer.start(5000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         self.glodparam = GlobalParam()
         self.main_menu = MainMenu()
         uic.loadUi(UI_ifc, self)
-        # self.section_max_lineEdit.setText('1')
+        self.section_max_lineEdit.setText('200')
         self.list_all_crep = []
+
+
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
         self.AsyncTcpReciver.moveToThread(self.thread)
@@ -35,6 +58,26 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         self.show_button()
         self.thread.start()
+
+
+        # self.BDWork = QtCore.QThread()
+        # self.AsyncBDWriter = AsyncBDWriter()
+        # self.AsyncBDWriter.moveToThread(self.BDWork)
+        # self.BDWork.start()
+        # self.p = QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
+        # self.p.stateChanged.connect(self.handle_state)
+        # self.p.readyReadStandardOutput.connect(self.handle_stdout)
+        # self.p.start("python3", ['ProcessBDWrite.py'])
+
+        # with ProcessPoolExecutor() as executor:
+        #     executor.submit(self.DBwrite)
+
+        proc = Process(target=DBwrite, daemon=True)
+        proc.start()
+
+
+
+
 
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action,
@@ -79,6 +122,37 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for max_value_label in range(len(self.list_label_max_values)):
             self.list_label_max_values[max_value_label].setText(f"{self.glodparam.query_one[row_in_query].max_value}")
             row_in_query += 1
+
+    def handle_stdout(self):
+        data = self.p.readAllStandardOutput()
+        stdout = bytes(data).decode("utf8")
+        print(stdout)
+
+    def handle_state(self, state):
+        states = {
+            QProcess.ProcessState.NotRunning: 'Not running',
+            QProcess.ProcessState.Starting: 'Starting',
+            QProcess.ProcessState.Running: 'Running',
+        }
+        state_name = states[state]
+        print(f"State changed: {state_name}")
+
+
+# def DBwrite(self):
+#
+#     while True:
+#         print("hel")
+#         time.sleep(10)
+#
+#         try:
+#             for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=10000):
+#                 chunk.to_sql("sensors", engine, if_exists="append", index=False)
+#             with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
+#                 writer = csv.DictWriter(file, ["id_dat", "value", "crep_id"], restval='Unknown', extrasaction='ignore')
+#                 writer.writeheader()
+#         except:
+#             print('rig')
+
 
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()
@@ -196,3 +270,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)
+        # session.commit()
+
+
+
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        self.AsyncTcpReciver.prec = False
+
+        print("ИДЕТ СОХРАНЕНИЕ....")
+        # session.commit()
+        print("mission complete")
+

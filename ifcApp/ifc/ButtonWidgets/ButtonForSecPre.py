@@ -10,15 +10,11 @@ class ButtonForPressureSection(QtWidgets.QFrame):
     def __init__(self, number):
         super().__init__()
         self.id = number
-        self.setMinimumHeight(40)
-        self.setMaximumHeight(65)
+        self.setMaximumHeight(45)
 
         self.rectangle_height = 0
         self.rectangle = QColor(0, 0, 0)
 
-    def mouseReleaseEvent(self, e):
-        super().mouseReleaseEvent(e)
-        self.clicked.emit()
 
     def paintEvent(self, event):
 
@@ -27,6 +23,7 @@ class ButtonForPressureSection(QtWidgets.QFrame):
         painter.drawRect(5, self.height(), int(self.width() - 10), int(-self.rectangle_height))
 
     def change_rectangle_size(self, value):
+        print(self.height())
         self.rectangle_height = value
         if self.rectangle_height == '':
             self.rectangle_height = 0
@@ -34,6 +31,7 @@ class ButtonForPressureSection(QtWidgets.QFrame):
             self.rectangle_height = int(self.rectangle_height)
 
         self.rectangle_height *= self.coefficient
+
 
         self.update()
 
@@ -44,3 +42,10 @@ class ButtonForPressureSection(QtWidgets.QFrame):
             self.rectangle = QColor(255, 140, 0)
         else:
             self.rectangle = QColor(255, 0, 0)
+
+    def mouseReleaseEvent(self, e):
+        super().mouseReleaseEvent(e)
+        self.clicked.emit()
+
+    def sizeof(self):
+        self.height()

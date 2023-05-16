@@ -24,15 +24,18 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.global_param = GlobalParam()
         self.main_menu = MainMenu()
         uic.loadUi(UI_ifc, self)
-        self.layout_list_in_groupbox = []
+
         self.list_groupbox = []
+        self.layout_list_in_groupbox = []
+        self.list_name_layout = []
+
         self.list_all_crep = []
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
         self.AsyncTcpReciver.moveToThread(self.thread)
         self.thread.started.connect(self.AsyncTcpReciver.run)
         self.make_groupbox(self.layout_groupbox)
-        self.show_button_and_groupbox()
+        self.show_button()
         self.thread.start()
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action, self.shield_UGZ_action,
@@ -44,14 +47,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         for action in self.list_action_show:
             action.triggered.connect(self.checked_action_for_sensors)
-        # print(len(self.list_action_show))
 
-        self.show_name_action.triggered.connect(lambda: self.show_name_sensors(
-            [self.CP_label, self.zaz_label, self.pressure_st1_label, self.pressure_st2_label,
-             self.shield_UGZ_label, self.shield_UGZ_sensor_label,
-             self.shield_UGZ_angle_label, self.shield_UGZ_hod_label, self.shield_UGZ_pressure_label,
-             self.shield_UGZ_thrust_label, self.extension_top_label, self.extension_top_progress_label,
-             self.koz_label, self.shifting_state_label, self.height_section1_label]))
+        self.show_name_action.triggered.connect(self.show_name_sensors)
 
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
 
@@ -61,6 +58,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.clicked.connect(lambda: self.main_menu.show())
 
     def make_groupbox(self, layout):
+
         list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке 1",
                                   "Давление в стойке 2", "Щит УГЗ", "Щит Угз Угол",
                                   "Щит УГЗ ход", "Щит угз давление",
@@ -89,22 +87,28 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 f"{self.global_param.query_in_global_param_table[elem].max_value}")
             self.layout_list_in_groupbox.append(self.groupbox.layoutWidget)
             self.groupbox.name_label.setText(list_name_for_groupbox[elem])
+            self.list_name_layout.append(self.groupbox.name_label)
             self.groupbox.icon_label.setPixmap(QtGui.QPixmap(list_icon_for_groupbox[elem]))
 
-
-
-    def remaster_creps(self):
-        self.AsyncTcpReciver.all_signal.clear()
-        self.show_button_and_groupbox()
-
-
-
-    def show_button_and_groupbox(self):
-        self.make_buttons(self.layout_list_in_groupbox)
-        for elem in range(len(self.list_groupbox)):
-            self.list_groupbox[elem].name_label.raise_()
-
-
+    def create_button_layout_list(self, layout_list, elem):
+        for one_layout in range(len(layout_list)):
+            self.btn = ButtonForPressureSection(elem + 1)
+            self.btn.coefficient = int(self.btn.height()) / int(self.global_param.list_max_value[one_layout])
+            print(int(self.btn.height()))
+            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
+                lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
+            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
+                lambda ch, b=self.btn: b.change_color())
+            if elem % 2 == 0:
+                self.btn.setStyleSheet(" background-color: #e9e9e9;")
+            else:
+                self.btn.setStyleSheet("background-color: #a0a0a0;")
+            self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
+            self.btn.setToolTip(f"Hello i am button number {elem + 1},{one_layout + 1}")
+            self.btn.setWhatsThis("Whatafuck")
+            self.btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.show_window_crep(b))
+            layout_list[one_layout].addWidget(self.btn)
 
     def make_buttons(self, layout_list):
         self.cleaner_layouts(layout_list)
@@ -114,44 +118,20 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.setting_async_reciver()
             self.create_button_layout_list(layout_list, elem)
 
-
+    def show_button(self):
+        self.make_buttons(self.layout_list_in_groupbox)
+        for elem in range(len(self.list_groupbox)):
+            self.list_groupbox[elem].name_label.raise_()
 
     def setting_async_reciver(self):
+
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
-        # print(self.AsyncTcpReciver.all_signal)
-
-    def create_button_layout_list(self, layout_list, elem):
-
-        for one_layout in range(len(layout_list)):
-            btn = ButtonForPressureSection(elem + 1)
-            btn.coefficient = btn.height() / int(self.global_param.list_max_value[one_layout])
-            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
-                lambda checked, lt=one_layout, b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
-            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
-                lambda ch, b=btn: b.change_color())
-
-            if elem % 2 == 0:
-                btn.setStyleSheet(" background-color: #e9e9e9;")
-            else:
-                btn.setStyleSheet("background-color: #a0a0a0;")
-            # btn.change_color()
-            btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
-            btn.setToolTip(f"Hello i am button number {elem + 1},{one_layout + 1}")
-            btn.setWhatsThis("Whatafuck")
-            btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.show_window_crep(b))
-            layout_list[one_layout].addWidget(btn)
-
-            #
-            # # layout.addWidget(btn)
-            # # print(btn.size())
-
 
     def cleaner_layouts(self, layout_list):
-        self.list_all_crep.clear()
 
+        self.list_all_crep.clear()
         for layout in layout_list:
             for i in reversed(range(layout.count())):
                 layout.itemAt(i).widget().deleteLater()
@@ -168,15 +148,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         else:
             self.settings_sensors.close()
 
-    def show_name_sensors(self, list_name_sensors):
+    def show_name_sensors(self):
         if self.show_name_action.isChecked():
-            for elem in list_name_sensors:
+            for elem in self.list_name_layout:
                 elem.show()
         else:
-            for elem in list_name_sensors:
+            for elem in self.list_name_layout:
                 elem.close()
 
     def checked_action_for_sensors(self):
+
         for action in range(len(self.list_action_show)):
             if self.list_action_show[action].isChecked():
                 self.list_groupbox[action].show()
@@ -187,3 +168,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)
+
+    def remaster_creps(self):
+        self.AsyncTcpReciver.all_signal.clear()
+        self.show_button()

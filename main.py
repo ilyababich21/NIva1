@@ -15,10 +15,10 @@ def main():
 
 def main2():
     app = QtWidgets.QApplication(sys.argv)
-    window = IfcViewModel()
+    window = ServiceViewModel()
     window.show()
     app.exec()
 
 
 if __name__ == '__main__':
-    main2()
+    main()

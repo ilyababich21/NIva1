@@ -6,14 +6,16 @@ from multiprocessing import Process
 import pandas as pd
 from PyQt6 import uic, QtWidgets, QtCore, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QProcess
+from PyQt6 import uic, QtWidgets, QtCore, QtGui
+from PyQt6.QtCore import QTimer, QDateTime
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.ifc.AsyncMethods.AsyncBDWriter import AsyncBDWriter
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
-from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection, ButtonForSection
-from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
+from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection
+from ifcApp.ifc.GroupBox.groupbox_widget import GroupBox
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
 from serviceApp.service.service_model import session, engine
@@ -39,14 +41,18 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.timer = QTimer()
-
         self.timer.timeout.connect(self.show_time)
-        self.timer.start(5000)
+        self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
-        self.glodparam = GlobalParam()
+        self.global_param = GlobalParam()
         self.main_menu = MainMenu()
         uic.loadUi(UI_ifc, self)
+
+        self.list_groupbox = []
+        self.layout_list_in_groupbox = []
+        self.list_name_layout = []
+
         self.section_max_lineEdit.setText('200')
         self.list_all_crep = []
 
@@ -55,7 +61,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver = AsyncTcpReciver()
         self.AsyncTcpReciver.moveToThread(self.thread)
         self.thread.started.connect(self.AsyncTcpReciver.run)
-
+        self.make_groupbox(self.layout_groupbox)
         self.show_button()
         self.thread.start()
 
@@ -80,25 +86,17 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
 
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
-                                 self.pressure_stand2_action,
-                                 self.shield_UGZ_action, self.shield_UGZ_sensor_approximation_action,
+                                 self.pressure_stand2_action, self.shield_UGZ_action,
                                  self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
                                  self.shield_UGZ_pressure_action, self.shield_UGZ_3rasp_abbr_action,
-                                 self.top_drawer_action,
-                                 self.top_drawer_shifting_action,
-                                 self.visor_action, self.state_overlap_action, self.height_section_action1,
-                                 self.height_section_action2, self.height_section_action3]
+                                 self.top_drawer_action, self.top_drawer_shifting_action,
+                                 self.visor_action, self.state_overlap_action,
+                                 self.height_section_action1, self.height_section_action2]
 
         for action in self.list_action_show:
-            action.triggered.connect(self.checked_action111)
+            action.triggered.connect(self.checked_action_for_sensors)
 
-        self.show_name_action.triggered.connect(lambda: self.show_name_sensors(
-            [self.CP_label, self.zaz_label, self.pressure_st1_label, self.pressure_st2_label,
-             self.shield_UGZ_label, self.shield_UGZ_sensor_label,
-             self.shield_UGZ_angle_label, self.shield_UGZ_hod_label, self.shield_UGZ_pressure_label,
-             self.shield_UGZ_thrust_label, self.extension_top_label, self.extension_top_progress_label,
-             self.koz_label, self.shifting_state_label, self.height_section1_label,
-             self.height_section2_label, self.height_section3_label]))
+        self.show_name_action.triggered.connect(self.show_name_sensors)
 
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
 
@@ -107,115 +105,86 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.Ok_button.clicked.connect(self.remaster_creps)
         self.menu_pushButton.clicked.connect(lambda: self.main_menu.show())
 
-        self.list_label_min_values = [self.min_value_position_label, self.min_value_clearance_label,
-                                      self.min_value_pressure1_label, self.min_value_pressure2_label,
-                                      self.min_value_shield_label]
-        row_in_query = 0
-        for min_value_label in range(len(self.list_label_min_values)):
-            self.list_label_min_values[min_value_label].setText(f"{self.glodparam.query_one[row_in_query].min_value}")
-            row_in_query += 1
+    def make_groupbox(self, layout):
 
-        self.list_label_max_values = [self.max_value_pasition_label, self.max_value_clearance_label,
-                                      self.max_value_pressure1_label, self.max_value_pressure2_label,
-                                      self.max_value_shield_label]
-        row_in_query = 0
-        for max_value_label in range(len(self.list_label_max_values)):
-            self.list_label_max_values[max_value_label].setText(f"{self.glodparam.query_one[row_in_query].max_value}")
-            row_in_query += 1
+        list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке 1",
+                                  "Давление в стойке 2", "Щит УГЗ", "Щит Угз Угол",
+                                  "Щит УГЗ ход", "Щит угз давление",
+                                  "9", "10", "11", "12", "13", "14", "15", ]
+        list_icon_for_groupbox = ["image/img tools/conveyor_distance.png", "image/img tools/conveyor_clearance.png",
+                                  "image/img tools/prop_pressure_1.png", "image/img tools/prop_pressure_2.png",
+                                  "image/img tools/articulated_cantilever_pos.png",
+                                  "image/img tools/articulated_cantilever_pos.png",
+                                  "image/img tools/articulated_cantilever_switch.png",
+                                  "image/img tools/articulated_cantilever_way.png",
+                                  "image/img tools/articulated_cantilever_pressure.png",
+                                  "image/img tools/articulated_cantilever3.png",
+                                  "image/img tools/cantilever.png", "image/img tools/articulated_cantilever_way.png",
+                                  "image/img tools/slidebar_pos.png",
+                                  "image/img tools/cantilever_state.png", "image/img tools/shield_height_1.png",
+                                  "image/img tools/shield_height_2.png"
 
-    def handle_stdout(self):
-        data = self.p.readAllStandardOutput()
-        stdout = bytes(data).decode("utf8")
-        print(stdout)
+                                  ]
+        for elem in range(15):
+            self.groupbox = GroupBox()
+            layout.addWidget(self.groupbox)
+            self.list_groupbox.append(self.groupbox)
+            self.list_groupbox[elem].min_value.setText(
+                f"{self.global_param.query_in_global_param_table[elem].min_value}")
+            self.list_groupbox[elem].max_value.setText(
+                f"{self.global_param.query_in_global_param_table[elem].max_value}")
+            self.layout_list_in_groupbox.append(self.groupbox.layoutWidget)
+            self.groupbox.name_label.setText(list_name_for_groupbox[elem])
+            self.list_name_layout.append(self.groupbox.name_label)
+            self.groupbox.icon_label.setPixmap(QtGui.QPixmap(list_icon_for_groupbox[elem]))
 
-    def handle_state(self, state):
-        states = {
-            QProcess.ProcessState.NotRunning: 'Not running',
-            QProcess.ProcessState.Starting: 'Starting',
-            QProcess.ProcessState.Running: 'Running',
-        }
-        state_name = states[state]
-        print(f"State changed: {state_name}")
-
-
-# def DBwrite(self):
-#
-#     while True:
-#         print("hel")
-#         time.sleep(10)
-#
-#         try:
-#             for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=10000):
-#                 chunk.to_sql("sensors", engine, if_exists="append", index=False)
-#             with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
-#                 writer = csv.DictWriter(file, ["id_dat", "value", "crep_id"], restval='Unknown', extrasaction='ignore')
-#                 writer.writeheader()
-#         except:
-#             print('rig')
-
-
-    def remaster_creps(self):
-        self.AsyncTcpReciver.all_signal.clear()
-
-        self.show_button()
-
-    def show_button(self):
-        self.make_buttons(
-            [
-                self.layout_100, self.layout_200, self.layout_300, self.layout_400, self.layout_500, self.layout_600,
-                self.layout_700,self.layout_800, self.layout_900, self.layout_1000, self.layout_1100, self.layout_1200, self.layout_1300,
-                self.layout_1400,self.layout_1500
-                # , self.layout_1600, self.layout_1700
-            ])
+    def create_button_layout_list(self, layout_list, elem):
+        for one_layout in range(len(layout_list)):
+            self.btn = ButtonForPressureSection(elem + 1)
+            self.btn.value = int(self.global_param.list_max_value[one_layout])
+            # self.btn.coefficient = int(self.btn.height()) / int(self.global_param.list_max_value[one_layout])
+            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
+                lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
+            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
+                lambda ch, b=self.btn,y=int(self.global_param.list_normal_value[one_layout]): b.change_color(y))
+            if elem % 2 == 0:
+                self.btn.setStyleSheet(" background-color: #e9e9e9;")
+            else:
+                self.btn.setStyleSheet("background-color: #a0a0a0;")
+            self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
+            self.btn.setToolTip(f"Hello i am button number {elem + 1},{one_layout + 1}")
+            self.btn.setWhatsThis("Whatafuck")
+            self.btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.show_window_crep(b))
+            layout_list[one_layout].addWidget(self.btn)
 
     def make_buttons(self, layout_list):
-        hit=10
         self.cleaner_layouts(layout_list)
         print("heeee")
         for elem in range(int(self.section_max_lineEdit.text())):
             self.list_all_crep.append(CrepViewModel(elem + 1))
             self.setting_async_reciver()
+            self.create_button_layout_list(layout_list, elem)
 
-            self.create_but_layout_list(layout_list, elem,hit)
-            hit += 10
+    def show_button(self):
+        self.make_buttons(self.layout_list_in_groupbox)
+        for elem in range(len(self.list_groupbox)):
+            self.list_groupbox[elem].name_label.raise_()
 
     def setting_async_reciver(self):
+
         sigOnal1 = WorkerSignals()
-        sigOnal1.result.connect(self.list_all_crep[-1].setText1)
+        sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
-        # print(self.AsyncTcpReciver.all_signal)
-
-    def create_but_layout_list(self, layout_list, elem,hit):
-
-        for lat in range(len(layout_list)):
-            btn = ButtonForPressureSection(elem + 1,hit)
-            self.list_all_crep[-1].list_sensors_lineEdit[lat].textChanged.connect(
-                lambda checked, lt=lat,b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
-
-            if elem % 2 == 0:
-                btn.setStyleSheet(" background-color: #e9e9e9;")
-            else:
-                btn.setStyleSheet("background-color: #a0a0a0;")
-
-            btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
-            btn.setToolTip(f"Hello i am button number {elem+1},  {lat+1}")
-            btn.setToolTipDuration(3000)
-            btn.setWhatsThis("Whatafuck")
-            btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
-            layout_list[lat].addWidget(btn)
-            # layout.addWidget(btn)
-            # print(btn.size())
-
 
     def cleaner_layouts(self, layout_list):
-        self.list_all_crep.clear()
 
+        self.list_all_crep.clear()
         for layout in layout_list:
             for i in reversed(range(layout.count())):
                 layout.itemAt(i).widget().deleteLater()
 
-    def on_clicked(self, crepWin):
+    def show_window_crep(self, crepWin):
         if crepWin.isVisible():
             crepWin.hide()
         else:
@@ -227,44 +196,21 @@ class IfcViewModel(QtWidgets.QMainWindow):
         else:
             self.settings_sensors.close()
 
-    def show_name_sensors(self, list_name_sensors):
+    def show_name_sensors(self):
         if self.show_name_action.isChecked():
-            for elem in list_name_sensors:
+            for elem in self.list_name_layout:
                 elem.show()
         else:
-            for elem in list_name_sensors:
-                elem.hide()
+            for elem in self.list_name_layout:
+                elem.close()
 
-    def checked_action(self, activon):
-        if self.list_action_show[activon].isChecked():
-            self.list_action_group_box[activon].show()
-        else:
-            self.list_action_group_box[activon].hide()
+    def checked_action_for_sensors(self):
 
-    def checked_action111(self):
-        list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
-                            self.pressure_stand2_action, self.shield_UGZ_action,
-                            self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
-                            self.shield_UGZ_pressure_action, self.shield_UGZ_3rasp_abbr_action,
-                            self.top_drawer_action, self.top_drawer_shifting_action,
-                            self.visor_action, self.state_overlap_action,
-                            self.height_section_action1, self.height_section_action2,
-                            self.height_section_action3, self.shield_UGZ_sensor_approximation_action]
-
-        list_action_group_box = [self.groupBox1, self.groupBox2,
-                                 self.groupBox3, self.groupBox4,
-                                 self.groupBox5, self.groupBox6,
-                                 self.groupBox7, self.groupBox8,
-                                 self.groupBox9, self.groupBox10,
-                                 self.groupBox11, self.groupBox12,
-                                 self.groupBox13, self.groupBox14,
-                                 self.groupBox15, self.groupBox16, self.groupBox17]
-
-        for action in range(len(list_action_show)):
-            if list_action_show[action].isChecked():
-                list_action_group_box[action].show()
+        for action in range(len(self.list_action_show)):
+            if self.list_action_show[action].isChecked():
+                self.list_groupbox[action].show()
             else:
-                list_action_group_box[action].hide()
+                self.list_groupbox[action].close()
 
     def show_time(self):
         time = QDateTime.currentDateTime()
@@ -281,3 +227,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         # session.commit()
         print("mission complete")
 
+
+    def remaster_creps(self):
+        self.AsyncTcpReciver.all_signal.clear()
+        self.show_button()

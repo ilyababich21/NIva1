@@ -49,7 +49,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar">
+        <widget class="QProgressBar" name="voltage_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -101,7 +101,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_2">
+        <widget class="QProgressBar" name="current_sensors_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -153,7 +153,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_3">
+        <widget class="QProgressBar" name="current_valve_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -205,7 +205,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_4">
+        <widget class="QProgressBar" name="current_POE_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -257,7 +257,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_5">
+        <widget class="QProgressBar" name="A1_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -309,7 +309,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_6">
+        <widget class="QProgressBar" name="F1_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -361,7 +361,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_8">
+        <widget class="QProgressBar" name="amperage_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -413,7 +413,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_38">
+        <widget class="QProgressBar" name="amperage_valve_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -465,7 +465,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_37">
+        <widget class="QProgressBar" name="CP_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -517,7 +517,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_36">
+        <widget class="QProgressBar" name="zaz_CP_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>
@@ -569,7 +569,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar_45">
+        <widget class="QProgressBar" name="max_zaz_progressBar">
          <property name="maximumSize">
           <size>
            <width>108</width>

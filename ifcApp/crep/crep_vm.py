@@ -1,3 +1,4 @@
+from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
 
 from ifcApp.crep.all_sensors_crep import AllSensorsCrep
@@ -10,8 +11,15 @@ UI_crep = "view/ifc/crep/ifc_crep.ui"
 
 
 class CrepViewModel(QtWidgets.QMainWindow):
+    num = 1
+    data={
+        "id_dat":[],
+    "value":[],
+    "crep_id":[],
+}
     def __init__(self, num):
         super().__init__()
+        self.num=num
         self.all_sensors_crep = AllSensorsCrep()
         uic.loadUi(UI_crep, self)
         self.global_param = GlobalParam()
@@ -22,8 +30,9 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                       self.end_section_lineEdit,
                                       self.poper_hieght_lineEdit
 
-            , self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
+                                      ,self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
                                       self.poz_shifting_lineEdit
+
 
                                       ]
 
@@ -31,10 +40,18 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                         self.gridLayout5, self.pozition_layout, self.CP_layout, self.prod_layout,
                                         self.poper_layout, self.end_section_layout, self.poper_hieght_layout,
 
+
                                         self.section_one_layout, self.section_two_layout, self.section_three_layout,
                                         self.poz_shifting_layout
 
+
                                         ]
+
+        # self.list_bar_layouts = [self.section_one_layout, self.section_two_layout, self.section_three_layout,
+        #                          self.poz_shifting_layout]
+        #
+        # self.list_bar_lineEdits = [self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
+        #                            self.poz_shifting_lineEdit]
 
         for lent in range(11):
             # for lent in range(len(self.list_of_sensors_layouts)):

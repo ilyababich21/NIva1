@@ -1,10 +1,14 @@
 import asyncio
+import csv
 import time
 
+import pandas as pd
 from PyQt6 import QtCore
-from PyQt6.QtCore import pyqtSignal, QObject
+from PyQt6.QtCore import pyqtSignal, QObject, QTimer
 from async_modbus import AsyncTCPClient
 from pymodbus.client import ModbusTcpClient
+
+from serviceApp.service.service_model import engine
 
 
 class WorkerSignals(QObject):
@@ -13,12 +17,36 @@ class WorkerSignals(QObject):
 
 class AsyncTcpReciver(QtCore.QObject):
     running = False
-    prec=True
+    prec = True
     all_signal = []
+    state_info = []
+    data = {
+        "id_dat": None,
+        "value": None,
+        "crep_id": None,
+    }
+    columns = ["id_dat", "value", "crep_id"]
+
 
     def __init__(self, parent=None):
         super(AsyncTcpReciver, self).__init__(parent)
+        # with open("data1.csv", "w", newline="") as file:
+        #     writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
+        #     writer.writeheader()
+        # self.timer = QTimer()
+        #
+        # self.timer.timeout.connect(self.to_bd)
+        # self.timer.start(50000)
         print("start")
+
+    # def to_bd(self):
+    #
+    #     for chunk in pd.read_csv("data.csv",chunksize=10000):
+    #         chunk.to_sql("sensors",engine,if_exists="append",index=False)
+    #     with open("data.csv", "w", newline="") as file:
+    #         writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
+    #         writer.writeheader()
+
 
     # method which will execute algorithm in another thread
     def run(self):
@@ -34,9 +62,11 @@ class AsyncTcpReciver(QtCore.QObject):
 
         while self.prec:
             try:
+                time.sleep(0.5)
                 stat = time.time()
+
                 self.readSync(client)
-                print("Time 1 iter:    ", time.time() - stat)
+                # print("Time 1 iter:    ", time.time() - stat)
             except:
                 print("neverno ukaazan address")
                 break
@@ -47,11 +77,32 @@ class AsyncTcpReciver(QtCore.QObject):
             # for elem in range(len(self.newTextAndColor)):
             result = client.read_holding_registers(address=0, count=15, slave=elem + 1)
 
+            for dat in range(len(result.registers)):
+                self.data = {
+                    "id_dat": dat+1,
+                    "value": int(result.registers[dat]),
+                    "crep_id": elem+1,
+                }
+                self.state_info.append(self.data)
+
+
+
             try:
-                 self.all_signal[elem].result.emit(result.registers)
-                 print(result.registers[11:15])
+                self.all_signal[elem].result.emit(result.registers)
+
+                # try:
+                #     for reger in result.registers:
+
             except:
                 print("ebaniy rot")
+
+        with open("data1.csv", "a", newline="") as file:
+            writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
+            # writer.writeheader()
+
+            # запись нескольких строк
+            writer.writerows(self.state_info)
+        self.state_info=[]
 
     async def RunRead(self):
         try:

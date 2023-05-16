@@ -30,9 +30,9 @@ class AsyncTcpReciver(QtCore.QObject):
 
     def __init__(self, parent=None):
         super(AsyncTcpReciver, self).__init__(parent)
-        # with open("data1.csv", "w", newline="") as file:
-        #     writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
-        #     writer.writeheader()
+        with open("data1.csv", "w", newline="") as file:
+            writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
+            writer.writeheader()
         # self.timer = QTimer()
         #
         # self.timer.timeout.connect(self.to_bd)

@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QGroupBox, QLabel, QHBoxLayout, QGridLayout
 
 
-class GroupBox(QGroupBox):
+class GroupBoxWidget(QGroupBox):
 
     def __init__(self):
         super().__init__()
@@ -38,7 +38,4 @@ class GroupBox(QGroupBox):
         self.gridLayout.addLayout(self.layoutWidget, 0, 1, 4, 2)
 
 
-    def sizeoffb(self):
-        self.razmer = int(self.height())
-        print(self.razmer)
 

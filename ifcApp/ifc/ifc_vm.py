@@ -1,6 +1,5 @@
 import csv
 import time
-from concurrent.futures import ProcessPoolExecutor
 from multiprocessing import Process
 
 import pandas as pd
@@ -10,13 +9,12 @@ from PyQt6.QtCore import QTimer, QDateTime, QProcess
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
-from ifcApp.ifc.AsyncMethods.AsyncBDWriter import AsyncBDWriter
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
-from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection
-from ifcApp.ifc.GroupBox.groupbox_widget import GroupBox
+from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
+from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
-from serviceApp.service.service_model import session, engine
+from serviceApp.service.service_model import  engine
 
 UI_ifc = "view/ifc/ifc version1.ui"
 
@@ -52,7 +50,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
 
-        self.section_max_lineEdit.setText('200')
+        self.section_max_lineEdit.setText('40')
         self.list_all_crep = []
 
 
@@ -63,27 +61,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.make_groupbox(self.layout_groupbox)
         self.show_button()
         self.thread.start()
-
-
-        # self.BDWork = QtCore.QThread()
-        # self.AsyncBDWriter = AsyncBDWriter()
-        # self.AsyncBDWriter.moveToThread(self.BDWork)
-        # self.BDWork.start()
-        # self.p = QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
-        # self.p.stateChanged.connect(self.handle_state)
-        # self.p.readyReadStandardOutput.connect(self.handle_stdout)
-        # self.p.start("python3", ['ProcessBDWrite.py'])
-
-        # with ProcessPoolExecutor() as executor:
-        #     executor.submit(self.DBwrite)
-
         proc = Process(target=DBwrite, daemon=True)
         proc.start()
-
-
-
-
-
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action, self.shield_UGZ_action,
                                  self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
@@ -120,8 +99,19 @@ class IfcViewModel(QtWidgets.QMainWindow):
                                   "image/img tools/articulated_cantilever3.png",
                                   "image/img tools/cantilever.png", "image/img tools/articulated_cantilever_way.png",
                                   "image/img tools/slidebar_pos.png",
-                                  "image/img tools/cantilever_state.png", "image/img tools/shield_height_1.png",
-                                  "image/img tools/shield_height_2.png"
+                                  "image/img tools/cantilever_state.png", "image/img tools/shield_height_1.png"]
+        for elem in range(15):
+            self.groupbox = GroupBoxWidget()
+            layout.addWidget(self.groupbox)
+            self.list_groupbox.append(self.groupbox)
+            self.list_groupbox[elem].min_value.setText(
+                f"{self.global_param.query_in_global_param_table[elem].min_value}")
+            self.list_groupbox[elem].max_value.setText(
+                f"{self.global_param.query_in_global_param_table[elem].max_value}")
+            self.layout_list_in_groupbox.append(self.groupbox.layoutWidget)
+            self.groupbox.name_label.setText(list_name_for_groupbox[elem])
+            self.list_name_layout.append(self.groupbox.name_label)
+            self.groupbox.icon_label.setPixmap(QtGui.QPixmap(list_icon_for_groupbox[elem]))
 
     def handle_stdout(self):
         data = self.p.readAllStandardOutput()
@@ -136,45 +126,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
         }
         state_name = states[state]
         print(f"State changed: {state_name}")
-
-
-# def DBwrite(self):
-#
-#     while True:
-#         print("hel")
-#         time.sleep(10)
-#
-#         try:
-#             for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=10000):
-#                 chunk.to_sql("sensors", engine, if_exists="append", index=False)
-#             with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
-#                 writer = csv.DictWriter(file, ["id_dat", "value", "crep_id"], restval='Unknown', extrasaction='ignore')
-#                 writer.writeheader()
-#         except:
-#             print('rig')
-
-
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()
-                                  ]
-        for elem in range(15):
-            self.groupbox = GroupBox()
-            layout.addWidget(self.groupbox)
-            self.list_groupbox.append(self.groupbox)
-            self.list_groupbox[elem].min_value.setText(
-                f"{self.global_param.query_in_global_param_table[elem].min_value}")
-            self.list_groupbox[elem].max_value.setText(
-                f"{self.global_param.query_in_global_param_table[elem].max_value}")
-            self.layout_list_in_groupbox.append(self.groupbox.layoutWidget)
-            self.groupbox.name_label.setText(list_name_for_groupbox[elem])
-            self.list_name_layout.append(self.groupbox.name_label)
-            self.groupbox.icon_label.setPixmap(QtGui.QPixmap(list_icon_for_groupbox[elem]))
+        self.show_button()
 
     def create_button_layout_list(self, layout_list, elem):
         for one_layout in range(len(layout_list)):
-            self.btn = ButtonForPressureSection(elem + 1)
+            self.btn = ButtonForSectionWidget(elem + 1)
             self.btn.value = int(self.global_param.list_max_value[one_layout])
-            # self.btn.coefficient = int(self.btn.height()) / int(self.global_param.list_max_value[one_layout])
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
@@ -191,7 +150,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
             layout_list[one_layout].addWidget(self.btn)
 
     def make_buttons(self, layout_list):
-        hit=10
         self.cleaner_layouts(layout_list)
         print("heeee")
         for elem in range(int(self.section_max_lineEdit.text())):
@@ -209,12 +167,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
-        # print(self.AsyncTcpReciver.all_signal)
 
-    def create_but_layout_list(self, layout_list, elem,hit):
+    def create_but_layout_list(self, layout_list, elem):
 
         for lat in range(len(layout_list)):
-            btn = ButtonForPressureSection(elem + 1,hit)
+            btn = ButtonForSectionWidget(elem + 1)
             self.list_all_crep[-1].list_sensors_lineEdit[lat].textChanged.connect(
                 lambda checked, lt=lat,b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
@@ -230,8 +187,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             btn.setWhatsThis("Whatafuck")
             btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
             layout_list[lat].addWidget(btn)
-            # layout.addWidget(btn)
-            # print(btn.size())
+
 
 
     def cleaner_layouts(self, layout_list):
@@ -274,7 +230,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)
-        # session.commit()
 
 
 
@@ -282,10 +237,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.prec = False
 
         print("ИДЕТ СОХРАНЕНИЕ....")
-        # session.commit()
         print("mission complete")
 
 
-    def remaster_creps(self):
-        self.AsyncTcpReciver.all_signal.clear()
-        self.show_button()
+

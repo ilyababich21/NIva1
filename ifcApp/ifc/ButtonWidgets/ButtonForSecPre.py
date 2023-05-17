@@ -3,7 +3,7 @@ from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPainter, QColor
 
 
-class ButtonForPressureSection(QtWidgets.QFrame):
+class ButtonForSectionWidget(QtWidgets.QFrame):
     value = 1
     coefficient = 1
     clicked = pyqtSignal()
@@ -38,7 +38,6 @@ class ButtonForPressureSection(QtWidgets.QFrame):
 
     def change_color(self,normal):
         if self.rectangle_height < normal * self.coefficient:
-            print(normal * self.coefficient)
             self.rectangle = QColor(255, 140, 0)
         elif normal * self.coefficient <= self.rectangle_height < (normal * self.coefficient)+12:
             self.rectangle = QColor(0, 100, 0)

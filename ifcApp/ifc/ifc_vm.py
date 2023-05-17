@@ -1,24 +1,47 @@
+import csv
+import time
+from concurrent.futures import ProcessPoolExecutor
+from multiprocessing import Process
+
+import pandas as pd
 from PyQt6 import uic, QtWidgets, QtCore, QtGui
-from PyQt6.QtCore import QTimer, QDateTime
+from PyQt6.QtCore import QTimer, QDateTime, QProcess
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
+from ifcApp.ifc.AsyncMethods.AsyncBDWriter import AsyncBDWriter
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBox
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
+from serviceApp.service.service_model import session, engine
 
 UI_ifc = "view/ifc/ifc version1.ui"
 
+def DBwrite():
+
+    while True:
+        print("hel")
+        time.sleep(60)
+
+        try:
+            for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=10000):
+                chunk.to_sql("sensors", engine, if_exists="append", index=False)
+            with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
+                writer = csv.DictWriter(file, ["id_dat", "value", "crep_id"], restval='Unknown', extrasaction='ignore')
+                writer.writeheader()
+        except:
+            print('rig')
 
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.timer = QTimer()
+
         self.timer.timeout.connect(self.show_time)
-        self.timer.start(1000)
+        self.timer.start(5000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam()
@@ -29,7 +52,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
 
+        self.section_max_lineEdit.setText('200')
         self.list_all_crep = []
+
+
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
         self.AsyncTcpReciver.moveToThread(self.thread)
@@ -37,6 +63,27 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.make_groupbox(self.layout_groupbox)
         self.show_button()
         self.thread.start()
+
+
+        # self.BDWork = QtCore.QThread()
+        # self.AsyncBDWriter = AsyncBDWriter()
+        # self.AsyncBDWriter.moveToThread(self.BDWork)
+        # self.BDWork.start()
+        # self.p = QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
+        # self.p.stateChanged.connect(self.handle_state)
+        # self.p.readyReadStandardOutput.connect(self.handle_stdout)
+        # self.p.start("python3", ['ProcessBDWrite.py'])
+
+        # with ProcessPoolExecutor() as executor:
+        #     executor.submit(self.DBwrite)
+
+        proc = Process(target=DBwrite, daemon=True)
+        proc.start()
+
+
+
+
+
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action, self.shield_UGZ_action,
                                  self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
@@ -76,6 +123,39 @@ class IfcViewModel(QtWidgets.QMainWindow):
                                   "image/img tools/cantilever_state.png", "image/img tools/shield_height_1.png",
                                   "image/img tools/shield_height_2.png"
 
+    def handle_stdout(self):
+        data = self.p.readAllStandardOutput()
+        stdout = bytes(data).decode("utf8")
+        print(stdout)
+
+    def handle_state(self, state):
+        states = {
+            QProcess.ProcessState.NotRunning: 'Not running',
+            QProcess.ProcessState.Starting: 'Starting',
+            QProcess.ProcessState.Running: 'Running',
+        }
+        state_name = states[state]
+        print(f"State changed: {state_name}")
+
+
+# def DBwrite(self):
+#
+#     while True:
+#         print("hel")
+#         time.sleep(10)
+#
+#         try:
+#             for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=10000):
+#                 chunk.to_sql("sensors", engine, if_exists="append", index=False)
+#             with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
+#                 writer = csv.DictWriter(file, ["id_dat", "value", "crep_id"], restval='Unknown', extrasaction='ignore')
+#                 writer.writeheader()
+#         except:
+#             print('rig')
+
+
+    def remaster_creps(self):
+        self.AsyncTcpReciver.all_signal.clear()
                                   ]
         for elem in range(15):
             self.groupbox = GroupBox()
@@ -111,6 +191,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             layout_list[one_layout].addWidget(self.btn)
 
     def make_buttons(self, layout_list):
+        hit=10
         self.cleaner_layouts(layout_list)
         print("heeee")
         for elem in range(int(self.section_max_lineEdit.text())):
@@ -128,10 +209,35 @@ class IfcViewModel(QtWidgets.QMainWindow):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
+        # print(self.AsyncTcpReciver.all_signal)
+
+    def create_but_layout_list(self, layout_list, elem,hit):
+
+        for lat in range(len(layout_list)):
+            btn = ButtonForPressureSection(elem + 1,hit)
+            self.list_all_crep[-1].list_sensors_lineEdit[lat].textChanged.connect(
+                lambda checked, lt=lat,b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
+
+            if elem % 2 == 0:
+                btn.setStyleSheet(" background-color: #e9e9e9;")
+            else:
+                btn.setStyleSheet("background-color: #a0a0a0;")
+
+            btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
+            btn.setToolTip(f"Hello i am button number {elem+1},  {lat+1}")
+            btn.setToolTipDuration(3000)
+            btn.setWhatsThis("Whatafuck")
+            btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
+            layout_list[lat].addWidget(btn)
+            # layout.addWidget(btn)
+            # print(btn.size())
+
 
     def cleaner_layouts(self, layout_list):
 
         self.list_all_crep.clear()
+
         for layout in layout_list:
             for i in reversed(range(layout.count())):
                 layout.itemAt(i).widget().deleteLater()
@@ -168,6 +274,17 @@ class IfcViewModel(QtWidgets.QMainWindow):
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)
+        # session.commit()
+
+
+
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        self.AsyncTcpReciver.prec = False
+
+        print("ИДЕТ СОХРАНЕНИЕ....")
+        # session.commit()
+        print("mission complete")
+
 
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()

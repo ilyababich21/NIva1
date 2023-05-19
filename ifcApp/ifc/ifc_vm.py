@@ -29,9 +29,14 @@ def DBwrite():
         time.sleep(10)
 
         try:
-            for chunk in pd.read_csv('data1.csv', chunksize=10000):
-                chunk.to_sql("sensors", engine, if_exists="append", index=False)
-            with open('data1.csv', "w", newline="") as file:
+            try:
+                for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=10000):
+                    chunk.to_sql("sensors", engine, if_exists="append", index=False)
+            except:
+                print("shit")
+
+            print("prokatilo")
+            with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
                 writer = csv.DictWriter(file, ["id_dat", "value", "crep_id"], restval='Unknown', extrasaction='ignore')
                 writer.writeheader()
         except:

@@ -1,26 +1,23 @@
 import csv
 import time
-from concurrent.futures import ProcessPoolExecutor
 from multiprocessing import Process
-# heloo
+
 import pandas as pd
 from PyQt6 import uic, QtWidgets, QtCore, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QProcess
-from PyQt6 import uic, QtWidgets, QtCore, QtGui
-from PyQt6.QtCore import QTimer, QDateTime
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
-from ifcApp.ifc.AsyncMethods.AsyncBDWriter import AsyncBDWriter
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
-from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForPressureSection
-from ifcApp.ifc.GroupBox.groupbox_widget import GroupBox
+from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
+from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
-from serviceApp.service.service_model import session, engine
+from serviceApp.service.service_model import engine
 
 UI_ifc = "view/ifc/ifc version1.ui"
+
 
 def DBwrite():
 
@@ -42,10 +39,12 @@ def DBwrite():
         except:
             print('rig')
 
+
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.timer = QTimer()
+
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
@@ -58,7 +57,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
 
-        self.section_max_lineEdit.setText('200')
+        self.section_max_lineEdit.setText('40')
         self.list_all_crep = []
 
 
@@ -126,12 +125,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
                                   "image/img tools/articulated_cantilever3.png",
                                   "image/img tools/cantilever.png", "image/img tools/articulated_cantilever_way.png",
                                   "image/img tools/slidebar_pos.png",
-                                  "image/img tools/cantilever_state.png", "image/img tools/shield_height_1.png",
-                                  "image/img tools/shield_height_2.png"
-
-                                  ]
+                                  "image/img tools/cantilever_state.png", "image/img tools/shield_height_1.png"]
         for elem in range(15):
-            self.groupbox = GroupBox()
+            self.groupbox = GroupBoxWidget()
             layout.addWidget(self.groupbox)
             self.list_groupbox.append(self.groupbox)
             self.list_groupbox[elem].min_value.setText(
@@ -143,17 +139,37 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.list_name_layout.append(self.groupbox.name_label)
             self.groupbox.icon_label.setPixmap(QtGui.QPixmap(list_icon_for_groupbox[elem]))
 
+    def handle_stdout(self):
+        data = self.p.readAllStandardOutput()
+        stdout = bytes(data).decode("utf8")
+        print(stdout)
+
+    def handle_state(self, state):
+        states = {
+            QProcess.ProcessState.NotRunning: 'Not running',
+            QProcess.ProcessState.Starting: 'Starting',
+            QProcess.ProcessState.Running: 'Running',
+        }
+        state_name = states[state]
+        print(f"State changed: {state_name}")
+
+    def remaster_creps(self):
+        self.AsyncTcpReciver.all_signal.clear()
+        self.show_button()
+
     def create_button_layout_list(self, layout_list, elem):
         for one_layout in range(len(layout_list)):
-            self.btn = ButtonForPressureSection(elem + 1)
+            self.btn = ButtonForSectionWidget(elem + 1)
             self.btn.value = int(self.global_param.list_max_value[one_layout])
-            # self.btn.coefficient = int(self.btn.height()) / int(self.global_param.list_max_value[one_layout])
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
-                lambda ch, b=self.btn,y=int(self.global_param.list_normal_value[one_layout]): b.change_color(y))
-            if elem % 2 == 0:
+                lambda ch, b=self.btn, y=int(self.global_param.list_normal_value[one_layout]): b.change_color(y))
+            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
+                lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],: b.errors_sensors(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
+            if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
@@ -221,18 +237,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)
-        # session.commit()
-
-
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         self.AsyncTcpReciver.prec = False
 
         print("ИДЕТ СОХРАНЕНИЕ....")
-        # session.commit()
         print("mission complete")
-
-
-    def remaster_creps(self):
-        self.AsyncTcpReciver.all_signal.clear()
-        self.show_button()

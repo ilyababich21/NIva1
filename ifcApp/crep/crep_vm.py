@@ -2,6 +2,12 @@ from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
 
 from ifcApp.crep.all_sensors_crep import AllSensorsCrep
+from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
+from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
+from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
+from ifcApp.ifc.mainMenu.global_param import GlobalParam
+
+from ifcApp.crep.all_sensors_crep import AllSensorsCrep
 import pandas as pd
 from ifcApp.crep.crep_model import Sensors_ifc
 from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
@@ -34,8 +40,9 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                       self.end_section_lineEdit,
                                       self.poper_hieght_lineEdit
 
-            , self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
+                                      ,self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
                                       self.poz_shifting_lineEdit
+
 
                                       ]
 
@@ -43,10 +50,18 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                         self.gridLayout5, self.pozition_layout, self.CP_layout, self.prod_layout,
                                         self.poper_layout, self.end_section_layout, self.poper_hieght_layout,
 
+
                                         self.section_one_layout, self.section_two_layout, self.section_three_layout,
                                         self.poz_shifting_layout
 
+
                                         ]
+
+        # self.list_bar_layouts = [self.section_one_layout, self.section_two_layout, self.section_three_layout,
+        #                          self.poz_shifting_layout]
+        #
+        # self.list_bar_lineEdits = [self.section_one_lineEdit, self.section_two_lineEdit, self.section_three_lineEdit,
+        #                            self.poz_shifting_lineEdit]
 
         for lent in range(11):
             # for lent in range(len(self.list_of_sensors_layouts)):

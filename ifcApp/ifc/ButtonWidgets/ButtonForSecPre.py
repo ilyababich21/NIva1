@@ -22,7 +22,7 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
 
         painter = QPainter(self)
         painter.setBrush(self.rectangle)
-        painter.drawRect(5, self.height(), int(self.width() - 10), int(-self.rectangle_height))
+        painter.drawRect(0, self.height(), int(self.width()), int(-self.rectangle_height))
 
     def change_rectangle_size(self, value):
         self.coefficient = self.height()/self.value
@@ -35,6 +35,10 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
         self.rectangle_height *= self.coefficient
 
         self.update()
+    def errors_sensors(self,sensors):
+        if sensors == "":
+            self.rectangle_height = 150
+            self.rectangle = QColor(139, 0, 255)
 
     def change_color(self,normal):
         if self.rectangle_height < normal * self.coefficient:

@@ -14,12 +14,12 @@ from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
-from serviceApp.service.service_model import  engine
+from serviceApp.service.service_model import engine
 
 UI_ifc = "view/ifc/ifc version1.ui"
 
-def DBwrite():
 
+def DBwrite():
     while True:
         print("hel")
         time.sleep(60)
@@ -32,6 +32,7 @@ def DBwrite():
                 writer.writeheader()
         except:
             print('rig')
+
 
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
@@ -52,7 +53,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         self.section_max_lineEdit.setText('40')
         self.list_all_crep = []
-
 
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
@@ -126,6 +126,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         }
         state_name = states[state]
         print(f"State changed: {state_name}")
+
     def remaster_creps(self):
         self.AsyncTcpReciver.all_signal.clear()
         self.show_button()
@@ -138,8 +139,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
-                lambda ch, b=self.btn,y=int(self.global_param.list_normal_value[one_layout]): b.change_color(y))
-            if elem % 2 == 0:
+                lambda ch, b=self.btn, y=int(self.global_param.list_normal_value[one_layout]): b.change_color(y))
+            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
+                lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],: b.errors_sensors(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
+            if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
@@ -167,28 +171,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
-
-    def create_but_layout_list(self, layout_list, elem):
-
-        for lat in range(len(layout_list)):
-            btn = ButtonForSectionWidget(elem + 1)
-            self.list_all_crep[-1].list_sensors_lineEdit[lat].textChanged.connect(
-                lambda checked, lt=lat,b=btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
-
-            if elem % 2 == 0:
-                btn.setStyleSheet(" background-color: #e9e9e9;")
-            else:
-                btn.setStyleSheet("background-color: #a0a0a0;")
-
-            btn.setMaximumWidth(int(btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
-            btn.setToolTip(f"Hello i am button number {elem+1},  {lat+1}")
-            btn.setToolTipDuration(3000)
-            btn.setWhatsThis("Whatafuck")
-            btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.on_clicked(b))
-            layout_list[lat].addWidget(btn)
-
-
 
     def cleaner_layouts(self, layout_list):
 
@@ -231,13 +213,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         timeDisplay = time.toString('dd.MM.yyyy HH:mm:ss')
         self.date_time.setText(timeDisplay)
 
-
-
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         self.AsyncTcpReciver.prec = False
 
         print("ИДЕТ СОХРАНЕНИЕ....")
         print("mission complete")
-
-
-

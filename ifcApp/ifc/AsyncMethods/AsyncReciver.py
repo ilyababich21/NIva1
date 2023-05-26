@@ -2,13 +2,10 @@ import asyncio
 import csv
 import time
 
-import pandas as pd
 from PyQt6 import QtCore
-from PyQt6.QtCore import pyqtSignal, QObject, QTimer
+from PyQt6.QtCore import pyqtSignal, QObject
 from async_modbus import AsyncTCPClient
 from pymodbus.client import ModbusTcpClient
-
-from serviceApp.service.service_model import engine
 
 
 class WorkerSignals(QObject):
@@ -26,7 +23,6 @@ class AsyncTcpReciver(QtCore.QObject):
         "crep_id": None,
     }
     columns = ["id_dat", "value", "crep_id"]
-
 
     def __init__(self, parent=None):
         super(AsyncTcpReciver, self).__init__(parent)
@@ -46,7 +42,6 @@ class AsyncTcpReciver(QtCore.QObject):
     #     with open("data.csv", "w", newline="") as file:
     #         writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
     #         writer.writeheader()
-
 
     # method which will execute algorithm in another thread
     def run(self):
@@ -76,16 +71,15 @@ class AsyncTcpReciver(QtCore.QObject):
         for elem in range(len(self.all_signal)):
             # for elem in range(len(self.newTextAndColor)):
             result = client.read_holding_registers(address=0, count=15, slave=elem + 1)
+            # print(self.all_signal)
 
             for dat in range(len(result.registers)):
                 self.data = {
-                    "id_dat": dat+1,
+                    "id_dat": dat + 1,
                     "value": int(result.registers[dat]),
-                    "crep_id": elem+1,
+                    "crep_id": elem + 1,
                 }
                 self.state_info.append(self.data)
-
-
 
             try:
                 self.all_signal[elem].result.emit(result.registers)
@@ -102,7 +96,7 @@ class AsyncTcpReciver(QtCore.QObject):
 
             # запись нескольких строк
             writer.writerows(self.state_info)
-        self.state_info=[]
+        self.state_info = []
 
     async def RunRead(self):
         try:
@@ -136,4 +130,4 @@ class AsyncTcpReciver(QtCore.QObject):
         for elem in range(len(self.all_signal)):
             # for elem in range(len(self.all_signal)):
             result = await client.read_holding_registers(slave_id=1, starting_address=0, quantity=1)
-            print(result[0])
+            print(result)

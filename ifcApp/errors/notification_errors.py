@@ -9,3 +9,4 @@ class NotificationErrors(QtWidgets.QMainWindow):
         super().__init__()
 
         uic.loadUi(UI_errors, self)
+        self.clear_pushButton.clicked.connect(lambda:self.textEdit.clear())

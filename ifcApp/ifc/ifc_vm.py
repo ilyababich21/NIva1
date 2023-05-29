@@ -150,20 +150,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 lambda ch, b=self.btn, y=int(self.global_param.list_normal_value[one_layout]): b.change_color(y))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],: b.errors_sensors(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.lineEdit,
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
                     self.list_name_for_groupbox[lt], elem + 1, self.notification_errors_pushButton))
             if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
-            # column = 0
-            # for one in range(int(self.section_max_lineEdit.text())):
-            #     for elem in range(len(layout_list)):
-            #         self.data_sensors.tableWidget.setItem(elem, column, QTableWidgetItem(f"{one}"))
-            #     column += 1
             self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
             self.btn.setToolTip(f"Hello i am button number {elem + 1},{one_layout + 1}")
-            self.btn.setWhatsThis("Whatafuck")
             self.btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.show_window_crep(b))
             layout_list[one_layout].addWidget(self.btn)
 

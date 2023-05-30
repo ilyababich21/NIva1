@@ -52,7 +52,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
         for bar in range(4):
             section1_progressBar = ClickedProgressbar()
-            section1_progressBar.setMaximum(self.global_param.list_max_value[bar + 11])
+            section1_progressBar.setMaximum(self.global_param.query_in_global_param_table[bar + 11].max_value)
             self.list_of_sensors_layouts[bar + 11].addWidget(section1_progressBar)
             self.list_of_sensors_layouts[bar + 11].addWidget(self.list_sensors_lineEdit[bar + 11])
             self.list_sensors_lineEdit[bar + 11].textChanged.connect(

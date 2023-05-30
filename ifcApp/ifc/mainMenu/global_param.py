@@ -12,14 +12,11 @@ class GlobalParam(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi(UI_all_parameter, self)
-        self.list_max_value = []
-        self.list_normal_value = []
 
         self.exit_main_pushButton.clicked.connect(lambda: self.close())
-        self.save_pushButton.clicked.connect(self.save_on_clicked_information)
 
         self.query_in_global_param_table = session.query(GlobalParamTable).all()
-        self.add_value_in_list()
+        self.save_pushButton.clicked.connect(self.save_on_clicked_information)
 
         if self.query_in_global_param_table == []:
             insert_into_setting_sensor_table1 = GlobalParamTable(id=1, min_value=0, max_value=600, normal_value=300)
@@ -61,7 +58,7 @@ class GlobalParam(QtWidgets.QMainWindow):
                 self.all_param_tableWidget.item(row + 1, 2).text())
             row += 1
 
-    def add_value_in_list(self):
-        for one_elem in self.query_in_global_param_table:
-            self.list_max_value.append(one_elem.max_value)
-            self.list_normal_value.append(one_elem.normal_value)
+
+
+
+

@@ -9,6 +9,7 @@ from PyQt6.QtCore import QTimer, QDateTime, QProcess
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
+from ifcApp.errors.notification_errors import NotificationErrors
 from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
@@ -34,7 +35,6 @@ def DBWriterIter():
     except:
         print('rig')
 def DBwrite():
-
     while True:
         print("hel")
         time.sleep(100)
@@ -46,22 +46,21 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.timer = QTimer()
-
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam()
         self.main_menu = MainMenu()
+        self.notification_errors = NotificationErrors()
         uic.loadUi(UI_ifc, self)
-
+        self.list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"]
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
 
         self.section_max_lineEdit.setText('40')
         self.list_all_crep = []
-
 
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
@@ -70,26 +69,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.make_groupbox(self.layout_groupbox)
         self.show_button()
         self.thread.start()
-
-
-        # self.BDWork = QtCore.QThread()
-        # self.AsyncBDWriter = AsyncBDWriter()
-        # self.AsyncBDWriter.moveToThread(self.BDWork)
-        # self.BDWork.start()
-        # self.p = QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
-        # self.p.stateChanged.connect(self.handle_state)
-        # self.p.readyReadStandardOutput.connect(self.handle_stdout)
-        # self.p.start("python3", ['ProcessBDWrite.py'])
-
-        # with ProcessPoolExecutor() as executor:
-        #     executor.submit(self.DBwrite)
-
         proc = Process(target=DBwrite, daemon=True)
         proc.start()
-
-
-
-
 
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action, self.shield_UGZ_action,
@@ -107,16 +88,17 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
 
         self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
+        self.notification_errors_pushButton.clicked.connect(lambda: self.notification_errors.show())
 
         self.Ok_button.clicked.connect(self.remaster_creps)
         self.menu_pushButton.clicked.connect(lambda: self.main_menu.show())
 
     def make_groupbox(self, layout):
 
-        list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке 1",
-                                  "Давление в стойке 2", "Щит УГЗ", "Щит Угз Угол",
-                                  "Щит УГЗ ход", "Щит угз давление",
-                                  "9", "10", "11", "12", "13", "14", "15", ]
+        self.list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке 1",
+                                       "Давление в стойке 2", "Щит УГЗ", "Щит Угз Угол",
+                                       "Щит УГЗ ход", "Щит угз давление",
+                                       "9", "10", "11", "12", "13", "14", "15"]
         list_icon_for_groupbox = ["image/img tools/conveyor_distance.png", "image/img tools/conveyor_clearance.png",
                                   "image/img tools/prop_pressure_1.png", "image/img tools/prop_pressure_2.png",
                                   "image/img tools/articulated_cantilever_pos.png",
@@ -137,7 +119,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.list_groupbox[elem].max_value.setText(
                 f"{self.global_param.query_in_global_param_table[elem].max_value}")
             self.layout_list_in_groupbox.append(self.groupbox.layoutWidget)
-            self.groupbox.name_label.setText(list_name_for_groupbox[elem])
+            self.groupbox.name_label.setText(self.list_name_for_groupbox[elem])
             self.list_name_layout.append(self.groupbox.name_label)
             self.groupbox.icon_label.setPixmap(QtGui.QPixmap(list_icon_for_groupbox[elem]))
 
@@ -170,11 +152,17 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 lambda ch, b=self.btn, y=int(self.global_param.list_normal_value[one_layout]): b.change_color(y))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],: b.errors_sensors(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.lineEdit,
+                    self.list_name_for_groupbox[lt], elem + 1, self.notification_errors_pushButton))
             if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
+            # column = 0
+            # for one in range(int(self.section_max_lineEdit.text())):
+            #     for elem in range(len(layout_list)):
+            #         self.data_sensors.tableWidget.setItem(elem, column, QTableWidgetItem(f"{one}"))
+            #     column += 1
             self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
             self.btn.setToolTip(f"Hello i am button number {elem + 1},{one_layout + 1}")
             self.btn.setWhatsThis("Whatafuck")
@@ -187,10 +175,19 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for elem in range(int(self.section_max_lineEdit.text())):
             self.list_all_crep.append(CrepViewModel(elem + 1))
             self.setting_async_reciver()
+            print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
+
             self.create_button_layout_list(layout_list, elem)
 
     def show_button(self):
         self.make_buttons(self.layout_list_in_groupbox)
+        # print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
+        # column = 0
+        # for one in range(int(self.section_max_lineEdit.text())):
+        #     for elem in range(15):
+        #         self.data_sensors.tableWidget.setItem(elem, column, QTableWidgetItem(f"{self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1])}"))
+        #     column += 1
+
         for elem in range(len(self.list_groupbox)):
             self.list_groupbox[elem].name_label.raise_()
 
@@ -199,6 +196,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
+        print(sigOnal1)
 
     def cleaner_layouts(self, layout_list):
 

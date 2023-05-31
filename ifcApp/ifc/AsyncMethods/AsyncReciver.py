@@ -81,7 +81,7 @@ class AsyncTcpReciver(QtCore.QObject):
 
             for dat in range(len(result.registers)):
                 self.data = {
-                    "id_dat": dat+1,
+                    "id_dat": dat + 1,
                     "value": int(result.registers[dat]),
                     "crep_id": elem+1,
                     "create_date":datetime.datetime.now()
@@ -106,7 +106,7 @@ class AsyncTcpReciver(QtCore.QObject):
 
             # запись нескольких строк
             writer.writerows(self.state_info)
-        self.state_info=[]
+        self.state_info = []
 
     async def RunRead(self):
         try:

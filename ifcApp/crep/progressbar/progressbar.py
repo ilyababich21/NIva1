@@ -16,7 +16,7 @@ class ClickedProgressbar(QProgressBar):
 
         self.clicked.emit()
 
-    def diff_value_progress_bar(self, lineEdit, progressbar):
+    def diff_value_progress_bar(self, lineEdit):
         value = lineEdit.text()
         if value == '':
             value = 0

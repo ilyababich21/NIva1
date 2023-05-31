@@ -28,6 +28,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.ifc = IfcViewModel()
+
         self.modbusForm = ModbusForm()
         self.ping = Ping()
         self.size_of_user_button = (100, 60)

@@ -1,5 +1,6 @@
 import asyncio
 import csv
+import datetime
 import time
 
 import pandas as pd
@@ -24,8 +25,9 @@ class AsyncTcpReciver(QtCore.QObject):
         "id_dat": None,
         "value": None,
         "crep_id": None,
+        "create_date": None
     }
-    columns = ["id_dat", "value", "crep_id"]
+    columns = ["id_dat", "value", "crep_id","create_date"]
 
 
     def __init__(self, parent=None):
@@ -82,6 +84,8 @@ class AsyncTcpReciver(QtCore.QObject):
                     "id_dat": dat+1,
                     "value": int(result.registers[dat]),
                     "crep_id": elem+1,
+                    "create_date":datetime.datetime.now()
+                    # "create_date":datetime.datetime.now().replace(microsecond=0)
                 }
                 self.state_info.append(self.data)
 

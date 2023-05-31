@@ -19,31 +19,33 @@ class ClickedGraphics(QGraphicsView):
         self.create_grafic()
         self.clicked.emit()
 
+
+
     def create_grafic(self):
         npoints = 30
-        x = deque([0], maxlen=npoints)
-        y = deque([0], maxlen=npoints)
-        fig, ax = plt.subplots()
-        [line] = ax.step(x, y)
+        self.x = deque([0], maxlen=npoints)
+        self.y = deque([0], maxlen=npoints)
+        self.fig, self.ax = plt.subplots()
+        [self.line] = self.ax.step(self.x, self.y)
 
-        def update(dy):
-            x.append(x[-1] + 1)  # update data
-            y.append(y[-1] + dy)
 
-            line.set_xdata(x)  # update plot data
-            line.set_ydata(y)
 
-            ax.relim()  # update axes limits
-            ax.autoscale_view(True, True, True)
-            return line, ax
-
-        def data_gen():
-            while True:
-                yield 1 if random.random() < 0.5 else -1
-
-        ani = animation.FuncAnimation(fig, update, data_gen)
+        ani = animation.FuncAnimation(self.fig, self.update, self.data_gen)
         plt.show()
+    def update(self,dy):
+        self.x.append(self.x[-1] + 1)  # update data
+        self.y.append(self.y[-1] + dy)
 
+        self.line.set_xdata(self.x)  # update plot data
+        self.line.set_ydata(self.y)
+
+        self.ax.relim()  # update axes limits
+        self.ax.autoscale_view(True, True, True)
+        return self.line, self.ax
+
+    def data_gen(self):
+        while True:
+            yield 1 if random.random() < 0.5 else -1
 
 class CreateGraphicScene(QWidget):
     def __init__(self, parent=None):

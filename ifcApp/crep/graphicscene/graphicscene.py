@@ -57,6 +57,7 @@ class CreateGraphicScene(QWidget):
         self.graphicsView = ClickedGraphics()
         self.graphicsView.setStyleSheet("background-image:url(image/sensors/sensormarco.png);\n"
                                         "background-repeat:no-repeat;\n"
+                                        "border-radius: 1px;"
                                         "background-position: center;")
         self.graphicsView.setScene(scene)
         # self.graphicsView.clicked.connect(lambda: self.show_graphic_window.show())
@@ -64,8 +65,10 @@ class CreateGraphicScene(QWidget):
     def valuechange(self, lineEdit, max_value):
         angel = lineEdit.text()
         if angel == '':
-            angel = 0.1
+            angel = 1
         else:
             angel = int(angel)
+            if angel == 0:
+                angel = 1
         self.coeff_angle = max_value / angel
         self.arrow.setRotation(240 / self.coeff_angle)

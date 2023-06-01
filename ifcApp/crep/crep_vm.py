@@ -49,6 +49,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
             speed = CreateGraphicScene(self)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
             self.list_of_sensors_layouts[elem].addWidget(self.list_sensors_lineEdit[elem])
+            self.list_of_sensors_layouts[elem].setSpacing(0)
             self.list_sensors_lineEdit[elem].textChanged.connect \
                 (lambda ch, object_class=speed,
                     lineedit=self.list_sensors_lineEdit[elem],

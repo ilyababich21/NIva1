@@ -2,7 +2,6 @@ from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
 
-
 import random
 from collections import deque
 
@@ -66,10 +65,11 @@ class CreateGraphicScene(QWidget):
         self.graphicsView.setScene(scene)
         # self.graphicsView.clicked.connect(lambda: self.show_graphic_window.show())
 
-    def valuechange(self, lineEdit):
+    def valuechange(self, lineEdit, max_value):
         angel = lineEdit.text()
         if angel == '':
-            angel = 0
+            angel = 0.1
         else:
             angel = int(angel)
-        self.arrow.setRotation((angel * 2.6 - 10))
+        self.coeff_angle = max_value / angel
+        self.arrow.setRotation(240 / self.coeff_angle)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1003</width>
-    <height>662</height>
+    <width>944</width>
+    <height>643</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,11 +21,14 @@
    <widget class="QTableWidget" name="all_param_tableWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>94</y>
-      <width>961</width>
+      <x>0</x>
+      <y>90</y>
+      <width>941</width>
       <height>491</height>
      </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
     <property name="showGrid">
      <bool>true</bool>
@@ -34,7 +37,16 @@
      <bool>false</bool>
     </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>170</number>
+     <number>149</number>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderDefaultSectionSize">
+     <number>23</number>
+    </attribute>
+    <attribute name="verticalHeaderMinimumSectionSize">
+     <number>21</number>
     </attribute>
     <row>
      <property name="text">
@@ -163,15 +175,25 @@
     </column>
     <column>
      <property name="text">
-      <string>Норма</string>
+      <string>Нормальное значение от</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Нормальное значение до</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Единицы измерения</string>
      </property>
     </column>
    </widget>
    <widget class="QPushButton" name="save_pushButton">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>600</y>
+      <x>870</x>
+      <y>590</y>
       <width>51</width>
       <height>51</height>
      </rect>

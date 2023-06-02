@@ -44,11 +44,13 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
             t = time.strftime("%d/%m/%Y %H:%M")
             lineedit.append(f"{t},pizda datchiku {dat} v crepi {num} ")
             pushbutton.setStyleSheet("background-color: #ff0000;")
+        else:
+            pushbutton.setStyleSheet("background-color: #e9e9e9;")
 
-    def change_color(self, normal):
-        if self.rectangle_height < normal * self.coefficient:
+    def change_color(self, from_normal,to_normal):
+        if self.rectangle_height < from_normal * self.coefficient:
             self.rectangle = QColor(255, 140, 0)
-        elif normal * self.coefficient <= self.rectangle_height < (normal * self.coefficient) + 12:
+        elif from_normal * self.coefficient <= self.rectangle_height <to_normal * self.coefficient:
             self.rectangle = QColor(0, 100, 0)
         else:
             self.rectangle = QColor(255, 0, 0)

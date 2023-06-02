@@ -2,8 +2,8 @@ import sys
 
 from PyQt6 import QtWidgets
 
+from authorization.authorization_vm import Authorization
 from ifcApp.ifc.ifc_vm import IfcViewModel
-from serviceApp.service.service_vm import ServiceViewModel
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
 
 def main2():
     app = QtWidgets.QApplication(sys.argv)
-    window = ServiceViewModel()
+    window = Authorization()
     window.show()
     app.exec()
 

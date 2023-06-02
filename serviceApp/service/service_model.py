@@ -1,7 +1,8 @@
 import sqlalchemy
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, relationship
+
 
 engine = create_engine("postgresql://postgres:root@localhost/niva1")
 db_session = sqlalchemy.orm.sessionmaker(bind=engine)
@@ -19,6 +20,8 @@ class SettingNetwork(Base):
     primary_name_server = Column(String)
     secondary_name_server = Column(String)
     default_gateway = Column(String)
+    manufacture_id = Column(Integer, ForeignKey("manufacture.id"))
+    manufacture = relationship("Manufacture", back_populates="setting_network")
 
     def update_setting_network(self, host_name, domain_name, primary_name_server, secondary_name_server,
                                default_gateway):
@@ -37,6 +40,8 @@ class NetworkInterface(Base):
     addressing = Column(String)
     ip_address = Column(String)
     subnet_mask = Column(String)
+    manufacture_id = Column(Integer, ForeignKey("manufacture.id"))
+    manufacture = relationship("Manufacture", back_populates="network_interface")
 
     def update_network_interface(self, device, addressing, ip_address, subnet_mask):
         self.device = device

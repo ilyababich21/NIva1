@@ -67,9 +67,22 @@ class CreateGraphicScene(QWidget):
 
     def valuechange(self, lineEdit, max_value):
         angel = lineEdit.text()
+        gep=angel
         if angel == '':
-            angel = 0.1
+            angel = 1
+        elif angel == '0':
+            angel=1
         else:
+
             angel = int(angel)
         self.coeff_angle = max_value / angel
         self.arrow.setRotation(240 / self.coeff_angle)
+
+
+        #
+        # angel = lineEdit.text()
+        # if angel == '':
+        #     angel = 0
+        # else:
+        #     angel = int(angel)
+        # self.arrow.setRotation((angel * 2.5 - 10))

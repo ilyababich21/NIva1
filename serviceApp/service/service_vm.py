@@ -14,7 +14,7 @@ UI_service = "view/service/service_view.ui"
 class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.ifc = IfcViewModel()
+        # self.ifc = IfcViewModel()
 
         self.modbusForm = ModbusForm()
         self.ping = Ping()
@@ -54,7 +54,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
     def check_first_load(self, model_object):
         object_database = session.get(model_object, 1)
         if object_database is None:
-            session.add(model_object())
+            session.add(model_object(manufacture_id=1))
             session.commit()
             object_database = session.get(model_object, 1)
         return object_database

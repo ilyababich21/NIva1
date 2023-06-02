@@ -19,7 +19,8 @@ class Crep_ifc(Base):
     id = Column(Integer,primary_key=True, index=True)
     num = Column(Integer)
     sensors=relationship("Sensors_ifc", back_populates="crep")
-
+    manufacture_id=Column(Integer,ForeignKey("manufacture.id"))
+    manufacture=relationship("Manufacture", back_populates="creps")
 
 
 

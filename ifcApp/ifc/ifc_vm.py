@@ -38,9 +38,15 @@ def DBWriterIter():
 def DBwrite():
     while True:
         print("hel")
-        print(pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1]))
-        time.sleep(10)
+        try:
+            print(pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1]))
+            try:
 
+                time.sleep(20)
+            except:
+                print("ebanutsa")
+        except:
+            print("afvvs")
         DBWriterIter()
 
 
@@ -175,7 +181,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for elem in range(int(self.section_max_lineEdit.text())):
             self.list_all_crep.append(CrepViewModel(elem + 1))
             self.setting_async_reciver()
-            print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
+            # print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
 
             self.create_button_layout_list(layout_list, elem)
 

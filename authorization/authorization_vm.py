@@ -46,8 +46,8 @@ class Authorization(QtWidgets.QMainWindow):
         layout = self.layoutButton
         num = 0
         for user in self.users:
-            print({user.role})
-            print(f"{user.id}.{user.login} ({user.password})")
+            # print({user.role})
+            # print(f"{user.id}.{user.login} ({user.password})")
             btn = Button(f'{user.login}', self.size_of_user_button)  # !!!
             btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
             layout.addWidget(btn)

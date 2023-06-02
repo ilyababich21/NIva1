@@ -2,7 +2,7 @@ import asyncio
 import csv
 import datetime
 import time
-
+import os
 import pandas as pd
 from PyQt6 import QtCore
 from PyQt6.QtCore import pyqtSignal, QObject, QTimer
@@ -32,7 +32,10 @@ class AsyncTcpReciver(QtCore.QObject):
 
     def __init__(self, parent=None):
         super(AsyncTcpReciver, self).__init__(parent)
-        with open("data1.csv", "w", newline="") as file:
+        csv_count=len(os.listdir('CSV_History'))
+        print(os.listdir('CSV_History'))
+        print(csv_count)
+        with open("CSV_History\\data"+str(csv_count+1)+".csv", "w", newline="") as file:
             writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
             writer.writeheader()
         # self.timer = QTimer()
@@ -100,7 +103,7 @@ class AsyncTcpReciver(QtCore.QObject):
             except:
                 print("ebaniy rot")
 
-        with open("data1.csv", "a", newline="") as file:
+        with open("CSV_History\\"+os.listdir('CSV_History')[-1], "a", newline="") as file:
             writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
             # writer.writeheader()
 

@@ -48,16 +48,18 @@ class ClickedGraphics(QGraphicsView):
             yield 1 if random.random() < 0.5 else -1
 
 class CreateGraphicScene(QWidget):
+    num=0
     def __init__(self, parent=None):
         super().__init__(parent)
         scene = QGraphicsScene()
+
         # self.show_graphic_window = GraphicsWindow()
         scene.setSceneRect(-10, -12, self.width() - 41, self.height())
         self.pixmap = QPixmap("image/sensors/arrow1.png")
         self.arrow = scene.addPixmap(self.pixmap)
         self.arrow.setTransformOriginPoint(20, 9)
         self.arrow.setRotation(-3)
-        self.graphicsView = ClickedGraphics()
+        self.graphicsView = QGraphicsView()
         self.graphicsView.setStyleSheet("background-image:url(image/sensors/sensormarco.png);\n"
                                         "background-repeat:no-repeat;\n"
                                         "background-position: center;")

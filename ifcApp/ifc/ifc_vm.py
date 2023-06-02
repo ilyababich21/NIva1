@@ -1,4 +1,5 @@
 import csv
+import os
 import time
 from multiprocessing import Process
 
@@ -23,13 +24,13 @@ UI_ifc = "view/ifc/ifc version1.ui"
 def DBWriterIter():
     try:
         try:
-            for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=5000):
+            for chunk in pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1], chunksize=5000):
                 chunk.to_sql("sensors", engine, if_exists="append", index=False)
         except:
             print("shit")
 
         print("prokatilo")
-        with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
+        with open("CSV_History\\data"+str(len(os.listdir('CSV_History'))+1)+".csv", "w", newline="") as file:
             writer = csv.DictWriter(file, ["id_dat", "value", "crep_id","create_date"], restval='Unknown', extrasaction='ignore')
             writer.writeheader()
     except:
@@ -37,7 +38,8 @@ def DBWriterIter():
 def DBwrite():
     while True:
         print("hel")
-        time.sleep(100)
+        print(pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1]))
+        time.sleep(10)
 
         DBWriterIter()
 
@@ -175,7 +177,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for elem in range(int(self.section_max_lineEdit.text())):
             self.list_all_crep.append(CrepViewModel(elem + 1))
             self.setting_async_reciver()
-            print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
+            # print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
 
             self.create_button_layout_list(layout_list, elem)
 
@@ -196,7 +198,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
         self.AsyncTcpReciver.all_signal.append(sigOnal1)
-        print(sigOnal1)
+        # print(sigOnal1)
 
     def cleaner_layouts(self, layout_list):
 
@@ -242,5 +244,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.prec = False
 
         print("ИДЕТ СОХРАНЕНИЕ....")
-        DBWriterIter()
+        # DBWriterIter()
+        try:
+            for chunk in pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1], chunksize=5000):
+                chunk.to_sql("sensors", engine, if_exists="append", index=False)
+        except:
+            print("shit")
         print("mission complete")

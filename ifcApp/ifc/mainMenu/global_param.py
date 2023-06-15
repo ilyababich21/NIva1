@@ -14,7 +14,6 @@ class GlobalParam(QtWidgets.QMainWindow):
         super().__init__()
         uic.loadUi(UI_all_parameter, self)
         self.exit_main_pushButton.clicked.connect(lambda: self.close())
-        self.save_pushButton.clicked.connect(self.save_on_clicked_information)
 
         self.query_in_global_param_table = session.query(GlobalParamTable).all()
 

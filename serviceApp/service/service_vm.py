@@ -66,8 +66,8 @@ class ServiceViewModel(QtWidgets.QMainWindow):
                                                         self.adressing_combobox.currentText(),
                                                         self.ip_address_edit.text(), self.mask_edit.text())
 
-        session.refresh(self.setting_network)
-        session.refresh(self.network_interface)
+        # session.refresh(self.setting_network)
+        # session.refresh(self.network_interface)
 
     def check_timezone(self):
         if self.auto_checkBox.isChecked():

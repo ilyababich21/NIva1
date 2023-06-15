@@ -68,7 +68,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.thread.start()
         proc = Process(target=DBwrite, daemon=True)
         proc.start()
-
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action, self.shield_UGZ_action,
                                  self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
@@ -88,13 +87,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.notification_errors_pushButton.clicked.connect(lambda: self.notification_errors.show())
 
         self.Ok_button.clicked.connect(self.remaster_creps)
-        self.menu_pushButton.clicked.connect(lambda: self.main_menu.show())
+        self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
+        self.global_param.save_pushButton.clicked.connect(self.update_global_param)
 
     def create_groupbox(self, layout):
 
         self.list_groupbox = self.global_param.list_groupbox
-        self.list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке 1",
-                                       "Давление в стойке 2", "Щит УГЗ", "Щит Угз Угол",
+        self.list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке левая",
+                                       "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
                                        "Щит УГЗ ход", "Щит угз давление",
                                        "9", "10", "11", "12", "13", "14", "15"]
         list_icon_for_groupbox = ["image/img tools/conveyor_distance.png", "image/img tools/conveyor_clearance.png",
@@ -148,8 +148,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda ch, b=self.btn,
-                from_normal_value=int(self.global_param.query_in_global_param_table[one_layout].from_normal_value),
-                to_normal_value=int(self.global_param.query_in_global_param_table[one_layout].to_normal_value):
+                       from_normal_value=int(
+                           self.global_param.query_in_global_param_table[one_layout].from_normal_value),
+                       to_normal_value=int(self.global_param.query_in_global_param_table[one_layout].to_normal_value):
                 b.change_color(from_normal_value, to_normal_value))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],: b.errors_sensors(
@@ -161,7 +162,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
             self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
             self.btn.setToolTip(f"Крепь № {elem + 1}, Датчик {self.list_name_for_groupbox[one_layout]}")
-            self.btn.clicked.connect(lambda b=self.list_all_crep[-1]: self.show_window_crep(b))
+            self.btn.clicked.connect(lambda list_all_crep=self.list_all_crep[-1]: self.show_window_crep(list_all_crep))
             layout_list[one_layout].addWidget(self.btn)
 
     def make_buttons(self, layout_list):
@@ -175,6 +176,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_button(self):
         self.make_buttons(self.layout_list_in_groupbox)
+
         for elem in range(len(self.list_groupbox)):
             self.list_groupbox[elem].name_label.raise_()
 
@@ -230,3 +232,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         print("ИДЕТ СОХРАНЕНИЕ....")
         print("mission complete")
+
+    def update_global_param(self):
+        self.global_param.save_on_clicked_information()
+        self.remaster_creps()
+

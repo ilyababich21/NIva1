@@ -27,18 +27,18 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.global_param = GlobalParam()
         self.data_sensors_section = DataSensorsSection()
 
-        self.list_sensors_lineEdit = [self.CP_lineEdit, self.sensors1_lineEdit, self.sensors2_lineEdit,
+        self.list_sensors_lineEdit = [self.CP_lineEdit,self.sensors5_lineEdit, self.sensors1_lineEdit, self.sensors2_lineEdit,
                                       self.sensors3_lineEdit,
-                                      self.sensors4_lineEdit, self.sensors5_lineEdit, self.pozition_lineEdit,
+                                      self.sensors4_lineEdit,  self.pozition_lineEdit,
                                       self.prod_lineEdit, self.poper_lineEdit,
                                       self.end_section_lineEdit,
                                       self.poper_hieght_lineEdit,
                                       self.section_one_lineEdit, self.section_two_lineEdit,
                                       self.section_three_lineEdit, self.poz_shifting_lineEdit]
 
-        self.list_of_sensors_layouts = [self.CP_layout, self.gridLayout1, self.gridLayout2, self.gridLayout3,
+        self.list_of_sensors_layouts = [self.CP_layout,self.gridLayout5, self.gridLayout1, self.gridLayout2, self.gridLayout3,
                                         self.gridLayout4,
-                                        self.gridLayout5, self.pozition_layout, self.prod_layout,
+                                         self.pozition_layout, self.prod_layout,
                                         self.poper_layout, self.end_section_layout, self.poper_hieght_layout,
 
                                         self.section_one_layout, self.section_two_layout, self.section_three_layout,
@@ -49,12 +49,11 @@ class CrepViewModel(QtWidgets.QMainWindow):
             speed = CreateGraphicScene(self)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
             self.list_of_sensors_layouts[elem].addWidget(self.list_sensors_lineEdit[elem])
-            self.list_of_sensors_layouts[elem].setSpacing(0)
             self.list_sensors_lineEdit[elem].textChanged.connect \
                 (lambda ch, object_class=speed,
-                    lineedit=self.list_sensors_lineEdit[elem],
-                    max_value=self.global_param.query_in_global_param_table[elem].max_value:
-                 object_class.valuechange(lineedit, max_value))
+                        lineedit=self.list_sensors_lineEdit[elem],
+                        max_value=self.global_param.query_in_global_param_table[elem].max_value:
+                 object_class.value_change(lineedit, max_value))
 
         for bar in range(4):
             section1_progressBar = ClickedProgressbar()

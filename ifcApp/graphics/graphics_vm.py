@@ -1,5 +1,6 @@
 import sys
 from PyQt6 import uic, QtCore, QtWidgets
+from PyQt6.QtWidgets import QApplication
 from matplotlib import  pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 import matplotlib
@@ -67,9 +68,9 @@ class GraphicsWindow(QtWidgets.QMainWindow):
 
 
 
-#
+
 # if __name__ == '__main__':
 #     app = QApplication(sys.argv)
-#     w = MainWindow()
+#     w = GraphicsWindow()
 #     w.show()
 #     app.exec()

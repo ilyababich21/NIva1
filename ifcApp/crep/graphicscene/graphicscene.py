@@ -7,7 +7,6 @@ from collections import deque
 
 import matplotlib.pyplot as plt  # $ pip install matplotlib
 import matplotlib.animation as animation
-from ifcApp.graphics.graphics_vm import GraphicsWindow
 
 
 class ClickedGraphics(QGraphicsView):
@@ -48,7 +47,6 @@ class CreateGraphicScene(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         scene = QGraphicsScene()
-        # self.show_graphic_window = GraphicsWindow()
         scene.setSceneRect(-10, -12, self.width() - 41, self.height())
         self.pixmap = QPixmap("image/sensors/arrow1.png")
         self.arrow = scene.addPixmap(self.pixmap)
@@ -60,11 +58,12 @@ class CreateGraphicScene(QWidget):
                                         "border-radius: 1px;"
                                         "background-position: center;")
         self.graphicsView.setScene(scene)
-        # self.graphicsView.clicked.connect(lambda: self.show_graphic_window.show())
 
-    def valuechange(self, lineEdit, max_value):
+    def value_change(self, lineEdit, max_value):
         angel = lineEdit.text()
         if angel == '':
+            angel = 1
+        if angel == "-":
             angel = 1
         else:
             angel = int(angel)

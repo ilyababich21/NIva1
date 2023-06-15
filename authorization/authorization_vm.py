@@ -1,5 +1,4 @@
 from PyQt6 import QtWidgets, uic
-
 from authorization.authorization_model import Users
 from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.service.service_model import session
@@ -9,8 +8,7 @@ UI_authorization = "view/authorization_view.ui"
 UI_main = "view/service/service_view.ui"
 
 
-
-class Button(QtWidgets.QPushButton):
+class ButtonForUserName(QtWidgets.QPushButton):
     def __init__(self, text, size):  # !!!
         super().__init__()
 
@@ -26,10 +24,8 @@ class Authorization(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.service = ServiceViewModel()
-        self.ifc = IfcViewModel()
-
         self.size_of_user_button = (100, 60)
-
+        self.ifc = IfcViewModel()
         uic.loadUi(UI_authorization, self)
 
         self.users = session.query(Users).all()
@@ -43,23 +39,20 @@ class Authorization(QtWidgets.QMainWindow):
         self.log_in_button.clicked.connect(self.check_credential)
 
     def view_user_from_database(self):
-        layout = self.layoutButton
-        num = 0
         for user in self.users:
             print({user.role})
             print(f"{user.id}.{user.login} ({user.password})")
-            btn = Button(f'{user.login}', self.size_of_user_button)  # !!!
-            btn.clicked.connect(lambda ch, b=btn: self.on_clicked(b))
-            layout.addWidget(btn)
-            num = num + 1
+            username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
+            username_button.clicked.connect(
+                lambda ch, one_button=username_button: self.clicked_button_username(one_button))
+            self.layoutButton.addWidget(username_button)
 
-    def on_clicked(self, btn):
+    def clicked_button_username(self, btn):
         self.login_lineEdit.setText(btn.text())
         self.password_lineEdit.setText("")
         self.password_lineEdit.setFocus()
 
     def check_credential(self):
-
         check = 0
         if self.password_lineEdit.text() == '':
             self.check_label.setText("Введите пароль!!!")

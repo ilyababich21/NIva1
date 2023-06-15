@@ -29,24 +29,11 @@ class AsyncTcpReciver(QtCore.QObject):
         with open("data1.csv", "w", newline="") as file:
             writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
             writer.writeheader()
-        # self.timer = QTimer()
-        #
-        # self.timer.timeout.connect(self.to_bd)
-        # self.timer.start(50000)
+
         print("start")
 
-    # def to_bd(self):
-    #
-    #     for chunk in pd.read_csv("data.csv",chunksize=10000):
-    #         chunk.to_sql("sensors",engine,if_exists="append",index=False)
-    #     with open("data.csv", "w", newline="") as file:
-    #         writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
-    #         writer.writeheader()
-
-    # method which will execute algorithm in another thread
     def run(self):
         self.RunSync()
-        # asyncio.run(self.RunRead())
 
     def RunSync(self):
         try:
@@ -61,7 +48,6 @@ class AsyncTcpReciver(QtCore.QObject):
                 stat = time.time()
 
                 self.readSync(client)
-                # print("Time 1 iter:    ", time.time() - stat)
             except:
                 print("neverno ukaazan address")
                 break
@@ -69,9 +55,7 @@ class AsyncTcpReciver(QtCore.QObject):
     def readSync(self, client):
 
         for elem in range(len(self.all_signal)):
-            # for elem in range(len(self.newTextAndColor)):
             result = client.read_holding_registers(address=0, count=15, slave=elem + 1)
-            # print(self.all_signal)
 
             for dat in range(len(result.registers)):
                 self.data = {
@@ -84,15 +68,12 @@ class AsyncTcpReciver(QtCore.QObject):
             try:
                 self.all_signal[elem].result.emit(result.registers)
 
-                # try:
-                #     for reger in result.registers:
 
             except:
                 print("ebaniy rot")
 
         with open("data1.csv", "a", newline="") as file:
             writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
-            # writer.writeheader()
 
             # запись нескольких строк
             writer.writerows(self.state_info)
@@ -108,7 +89,6 @@ class AsyncTcpReciver(QtCore.QObject):
             self.running = False
             print("zhopa2")
         while True:
-            # await asyncio.wait([read(client,i) for i in range(1,8)])
             try:
                 stat = time.time()
 
@@ -121,13 +101,8 @@ class AsyncTcpReciver(QtCore.QObject):
 
                 break
 
-            # await asyncio.sleep(0.5)
-
-            # print(list)
-
     async def read(self, client):
 
         for elem in range(len(self.all_signal)):
-            # for elem in range(len(self.all_signal)):
             result = await client.read_holding_registers(slave_id=1, starting_address=0, quantity=1)
             print(result)

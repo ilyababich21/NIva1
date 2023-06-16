@@ -1,4 +1,5 @@
 import csv
+import os
 import time
 from multiprocessing import Process
 
@@ -20,24 +21,33 @@ from serviceApp.service.service_model import engine
 UI_ifc = "view/ifc/ifc version1.ui"
 
 
+def DBWriterIter():
+    try:
+        try:
+            for chunk in pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1], chunksize=5000):
+                chunk.to_sql("sensors", engine, if_exists="append", index=False)
+        except:
+            print("shit")
+
+        print("prokatilo")
+        with open("CSV_History\\data"+str(len(os.listdir('CSV_History'))+1)+".csv", "w", newline="") as file:
+            writer = csv.DictWriter(file, ["id_dat", "value", "crep_id","create_date"], restval='Unknown', extrasaction='ignore')
+            writer.writeheader()
+    except:
+        print('rig')
 def DBwrite():
     while True:
         print("hel")
-        time.sleep(10)
-
         try:
+            print(pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1]))
             try:
-                for chunk in pd.read_csv('D:\\PythonProjects\\NIva1\\data1.csv', chunksize=10000):
-                    chunk.to_sql("sensors", engine, if_exists="append", index=False)
-            except:
-                print("shit")
 
-            print("prokatilo")
-            with open('D:\\PythonProjects\\NIva1\\data1.csv', "w", newline="") as file:
-                writer = csv.DictWriter(file, ["id_dat", "value", "crep_id"], restval='Unknown', extrasaction='ignore')
-                writer.writeheader()
+                time.sleep(20)
+            except:
+                print("ebanutsa")
         except:
-            print('rig')
+            print("afvvs")
+        DBWriterIter()
 
 
 class IfcViewModel(QtWidgets.QMainWindow):
@@ -56,8 +66,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
 
-        self.section_max_lineEdit.setText('20')
+        self.section_max_lineEdit.setText('40')
         self.list_all_crep = []
+
+        for f in os.listdir('CSV_History'):
+            os.remove(os.path.join('CSV_History', f))
+
 
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
@@ -168,10 +182,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def make_buttons(self, layout_list):
         self.cleaner_layouts(layout_list)
         print("heeee")
-
         for elem in range(int(self.section_max_lineEdit.text())):
             self.list_all_crep.append(CrepViewModel(elem + 1))
             self.setting_async_reciver()
+            # print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
+
             self.create_button_layout_list(layout_list, elem)
 
     def show_button(self):
@@ -231,6 +246,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.prec = False
 
         print("ИДЕТ СОХРАНЕНИЕ....")
+        # DBWriterIter()
+        try:
+            for chunk in pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1], chunksize=5000):
+                chunk.to_sql("sensors", engine, if_exists="append", index=False)
+        except:
+            print("shit")
         print("mission complete")
 
     def update_global_param(self):

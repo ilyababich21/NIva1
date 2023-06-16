@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets, uic
+
 from authorization.authorization_model import Users
 from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.service.service_model import session
@@ -24,8 +25,10 @@ class Authorization(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.service = ServiceViewModel()
-        self.size_of_user_button = (100, 60)
         self.ifc = IfcViewModel()
+
+        self.size_of_user_button = (100, 60)
+
         uic.loadUi(UI_authorization, self)
 
         self.users = session.query(Users).all()
@@ -39,9 +42,11 @@ class Authorization(QtWidgets.QMainWindow):
         self.log_in_button.clicked.connect(self.check_credential)
 
     def view_user_from_database(self):
+        layout = self.layoutButton
+        num = 0
         for user in self.users:
-            print({user.role})
-            print(f"{user.id}.{user.login} ({user.password})")
+            # print({user.role})
+            # print(f"{user.id}.{user.login} ({user.password})")
             username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
             username_button.clicked.connect(
                 lambda ch, one_button=username_button: self.clicked_button_username(one_button))
@@ -53,6 +58,7 @@ class Authorization(QtWidgets.QMainWindow):
         self.password_lineEdit.setFocus()
 
     def check_credential(self):
+
         check = 0
         if self.password_lineEdit.text() == '':
             self.check_label.setText("Введите пароль!!!")
@@ -60,12 +66,12 @@ class Authorization(QtWidgets.QMainWindow):
         for user in self.users:
             if self.login_lineEdit.text() == f"{user.login}" \
                     and self.password_lineEdit.text() == f"{user.password}":
-                role = user.role
+                role = user.role.role
                 check = 1
         if check == 0:
             self.check_label.setText("Логин или пароль введен неверно")
             return
         if role == 'service':
             self.service.show()
-        if role == 'user':
+        if role == 'IFC':
             self.ifc.showMaximized()

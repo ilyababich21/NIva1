@@ -2,6 +2,8 @@ import subprocess
 
 from PyQt6 import QtWidgets, uic
 
+import serviceApp.service.service_model as model
+from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.modbus.modbusVm import ModbusForm
 from serviceApp.ping.pingVm import Ping
 from serviceApp.service.service_model import session, SettingNetwork, NetworkInterface
@@ -12,6 +14,8 @@ UI_service = "view/service/service_view.ui"
 class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        # self.ifc = IfcViewModel()
+
         self.modbusForm = ModbusForm()
         self.ping = Ping()
         uic.loadUi(UI_service, self)
@@ -48,9 +52,9 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.save_change_pushButton.clicked.connect(self.save_on_clicked_data)
 
     def check_first_load(self, model_object):
-        object_database = session.get(model_object, 1)
+        object_database = session.get(model_object,1)
         if object_database is None:
-            session.add(model_object())
+            session.add(model_object(manufacture_id=1))
             session.commit()
             object_database = session.get(model_object, 1)
         return object_database

@@ -5,15 +5,15 @@ from serviceApp.service.service_model import engine, SettingNetwork
 
 
 class Base(DeclarativeBase): pass
-class Manufacture(Base):
-    __tablename__ = "manufacture"
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String)
-    discription = Column(String)
-    creps=relationship("Crep_ifc", back_populates="manufacture")
-    setting_networks=relationship("SettingNetwork", back_populates="manufactures")
-    network_interface=relationship("NetworkInterface", back_populates="manufacturer")
-
+# class Manufacture(Base):
+#     __tablename__ = "manufacture"
+#     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+#     name = Column(String)
+#     discription = Column(String)
+#     creps=relationship("Crep_ifc", back_populates="manufacture")
+#     setting_networks=relationship("SettingNetwork", back_populates="manufacture")
+#     network_interface=relationship("NetworkInterface", back_populates="manufacture")
+#
 
 
 

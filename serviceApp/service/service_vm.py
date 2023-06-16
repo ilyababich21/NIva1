@@ -52,7 +52,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.save_change_pushButton.clicked.connect(self.save_on_clicked_data)
 
     def check_first_load(self, model_object):
-        object_database = session.get(model_object, 1)
+        object_database = session.get(model_object,1)
         if object_database is None:
             session.add(model_object(manufacture_id=1))
             session.commit()

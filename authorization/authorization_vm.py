@@ -35,8 +35,8 @@ class Authorization(QtWidgets.QMainWindow):
         self.users = session.query(Users).all()
 
         if self.users == []:
-            session.add_all([Users(login="service", password="1111", role="service"),
-                             Users(login="IFC", password="ifc", role="user")])
+            session.add_all([Users(login="service", password="1111",manufacture_id=1, role_id=1),
+                             Users(login="IFC", password="ifc",manufacture_id=1, role_id=2)])
             session.commit()
             self.users = session.query(Users).all()
         self.view_user_from_database()
@@ -67,12 +67,12 @@ class Authorization(QtWidgets.QMainWindow):
         for user in self.users:
             if self.login_lineEdit.text() == f"{user.login}" \
                     and self.password_lineEdit.text() == f"{user.password}":
-                role = user.role
+                role = user.role.role
                 check = 1
         if check == 0:
             self.check_label.setText("Логин или пароль введен неверно")
             return
         if role == 'service':
             self.service.show()
-        if role == 'user':
+        if role == 'IFC':
             self.ifc.showMaximized()

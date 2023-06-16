@@ -62,13 +62,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.main_menu = MainMenu()
         self.notification_errors = NotificationErrors()
         uic.loadUi(UI_ifc, self)
-        self.list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"]
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
 
         self.section_max_lineEdit.setText('40')
         self.list_all_crep = []
+
+        for f in os.listdir('CSV_History'):
+            os.remove(os.path.join('CSV_History', f))
+
 
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()

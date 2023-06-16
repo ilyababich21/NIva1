@@ -1,5 +1,7 @@
+from datetime import datetime
+
 import sqlalchemy
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, relationship
 
@@ -9,7 +11,21 @@ db_session = sqlalchemy.orm.sessionmaker(bind=engine)
 session = db_session()
 
 
+
 class Base(DeclarativeBase): pass
+
+
+class Manufacture(Base):
+    __tablename__ = "manufacture"
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    name = Column(String)
+    discription = Column(String)
+    setting_networks=relationship("SettingNetwork", back_populates="manufacture")
+    network_interface=relationship("NetworkInterface", back_populates="manufacture")
+    users = relationship("Users", back_populates="manufacture")
+    creps=relationship("Crep_ifc", back_populates="manufacture")
+
+
 
 
 class SettingNetwork(Base):
@@ -21,7 +37,7 @@ class SettingNetwork(Base):
     secondary_name_server = Column(String)
     default_gateway = Column(String)
     manufacture_id = Column(Integer, ForeignKey("manufacture.id"))
-    manufacture = relationship("Manufacture", back_populates="setting_network")
+    manufacture = relationship("Manufacture", back_populates="setting_networks")
 
     def update_setting_network(self, host_name, domain_name, primary_name_server, secondary_name_server,
                                default_gateway):
@@ -51,5 +67,27 @@ class NetworkInterface(Base):
         session.commit()
 
 
+class Crep_ifc(Base):
+    __tablename__ = "creps"
+    id = Column(Integer,primary_key=True, index=True)
+    num = Column(Integer)
+    sensors=relationship("Sensors_ifc", back_populates="crep")
+    manufacture_id=Column(Integer,ForeignKey(Manufacture.id))
+    manufacture=relationship("Manufacture", back_populates="creps")
+
+
+
+class Sensors_ifc(Base):
+    __tablename__ = "sensors"
+    id =Column(Integer,primary_key=True, index=True)
+    id_dat = Column(Integer)
+    value = Column(String)
+    # created_date = Column(String)
+    create_date = Column(DateTime,default=datetime.now())
+    crep_id = Column(Integer,ForeignKey("creps.id"))
+    crep = relationship("Crep_ifc", back_populates="sensors")
+
+
 Base.metadata.create_all(bind=engine)
+
 

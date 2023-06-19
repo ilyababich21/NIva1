@@ -14,13 +14,8 @@ class GlobalParamTable(Base):
     to_normal_value = Column(Integer)
     units = Column(String)
 
-    def update_globalParamTable(self, min_value, max_value, from_normal_value, to_normal_value, units):
-        self.min_value = min_value
-        self.max_value = max_value
-        self.from_normal_value = from_normal_value
-        self.to_normal_value = to_normal_value
-        self.units = units
-
+    def update_globalParamTable(self, ListParam):
+        self.min_value,self.max_value,self.from_normal_value,self.to_normal_value,self.units =ListParam
         session.commit()
 
 

@@ -47,8 +47,9 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                         ]
         for elem in range(11):
             speed = CreateGraphicScene(self)
-
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
+            speed.graphicsView.crep_id=self.num
+            speed.graphicsView.id_dat= elem+1
             self.list_of_sensors_layouts[elem].addWidget(self.list_sensors_lineEdit[elem])
             self.list_sensors_lineEdit[elem].textChanged.connect \
                 (lambda ch, object_class=speed,
@@ -58,6 +59,8 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
         for bar in range(4):
             section1_progressBar = ClickedProgressbar()
+            section1_progressBar.id_dat=bar+11
+            section1_progressBar.crep_id=self.num
             section1_progressBar.setMaximum(self.global_param.query_in_global_param_table[bar + 11].max_value)
             self.list_of_sensors_layouts[bar + 11].addWidget(section1_progressBar)
             self.list_of_sensors_layouts[bar + 11].addWidget(self.list_sensors_lineEdit[bar + 11])

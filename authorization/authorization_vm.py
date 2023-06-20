@@ -36,6 +36,7 @@ class Authorization(QtWidgets.QMainWindow):
         if self.users == []:
             session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=1),
                              Users(login="IFC", password="ifc", manufacture_id=1, role_id=2)])
+
             session.commit()
             self.users = session.query(Users).all()
         self.view_user_from_database()

@@ -15,7 +15,8 @@ from ifcApp.graphics.graphics_vm import GraphicsWindow
 
 class ClickedGraphics(QGraphicsView):
     clicked = pyqtSignal()
-
+    id_dat = 1
+    crep_id = 1
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
         self.create_grafic()
@@ -25,11 +26,9 @@ class ClickedGraphics(QGraphicsView):
         data_dir = Path("CSV_History")
         df = pd.concat([pd.read_csv(f) for f in data_dir.glob("*.csv")], ignore_index=True)
         df['create_date'] = df['create_date'].apply(lambda x: x.split(".")[0])
-        df = df[(df['id_dat'] == 1) & (df['crep_id'] == 1)]
+        df = df[(df['id_dat'] == self.id_dat) & (df['crep_id'] == self.crep_id)]
         print(df)
         df['create_date'] = pd.to_datetime(df['create_date'], format="%Y-%m-%d %H:%M:%S")
-        print(df)
-        df = df[(df['id_dat'] == 1) & (df['crep_id'] == 1)]
 
         df = df.groupby(["create_date"])['value'].mean().astype(int).reset_index()
         print(df)
@@ -59,33 +58,9 @@ class ClickedGraphics(QGraphicsView):
         plt.grid(color='green', linestyle='--', linewidth=0.5)
         plt.show()
 
-    #     npoints = 30
-    #     self.x = deque([0], maxlen=npoints)
-    #     self.y = deque([0], maxlen=npoints)
-    #     self.fig, self.ax = plt.subplots()
-    #     [self.line] = self.ax.step(self.x, self.y)
-    #
-    #
-    #
-    #     ani = animation.FuncAnimation(self.fig, self.update, self.data_gen)
-    #     plt.show()
-    # def update(self,dy):
-    #     self.x.append(self.x[-1] + 1)  # update data
-    #     self.y.append(self.y[-1] + dy)
-    #
-    #     self.line.set_xdata(self.x)  # update plot data
-    #     self.line.set_ydata(self.y)
-    #
-    #     self.ax.relim()  # update axes limits
-    #     self.ax.autoscale_view(True, True, True)
-    #     return self.line, self.ax
-    #
-    # def data_gen(self):
-    #     while True:
-    #         yield 1 if random.random() < 0.5 else -1
 
 class CreateGraphicScene(QWidget):
-    num=0
+
     def __init__(self, parent=None):
         super().__init__(parent)
         scene = QGraphicsScene()
@@ -103,6 +78,7 @@ class CreateGraphicScene(QWidget):
                                         "background-position: center;")
         self.graphicsView.setScene(scene)
         # self.graphicsView.clicked.connect(lambda: self.show_graphic_window.show())
+
 
     def value_change(self, lineEdit, max_value):
         angel = lineEdit.text()

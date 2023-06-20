@@ -52,4 +52,6 @@ class UserInIfc(QMainWindow):
                 delete_query = session.query(Users).filter(Users.login == self.list_users_login[action]).first()
                 session.delete(delete_query)
                 session.commit()
+                self.list_groupbox_radiobutton.clear()
+                self.list_users_login.clear()
                 self.load_UI()

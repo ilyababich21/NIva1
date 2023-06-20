@@ -54,10 +54,13 @@ class ModbusForm(QtWidgets.QMainWindow):
 
     def stop(self):
         self.changer.running = False
-        if client_modbus:
-            client_modbus.close()
-        else:
-            clientTCP.close()
+        try:
+            if client_modbus:
+                client_modbus.close()
+            else:
+                clientTCP.close()
+        except:
+            self.close()
 
     def start(self, shchk, com_port, baudrate, stopbits, parity, SlaveID, address, count, label7, label8):
         global clientRTU

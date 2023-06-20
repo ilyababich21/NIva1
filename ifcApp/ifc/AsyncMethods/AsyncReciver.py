@@ -66,10 +66,7 @@ class AsyncTcpReciver(QtCore.QObject):
     def readSync(self, client):
 
         for elem in range(len(self.all_signal)):
-            # for elem in range(len(self.newTextAndColor)):
             result = client.read_holding_registers(address=0, count=15, slave=elem + 1)
-            # print(self.all_signal)
-
             for dat in range(len(result.registers)):
                 self.data = {
                     "id_dat": dat + 1,

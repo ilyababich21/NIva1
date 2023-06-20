@@ -82,7 +82,6 @@ class Sensors_ifc(Base):
     id =Column(Integer,primary_key=True, index=True)
     id_dat = Column(Integer)
     value = Column(String)
-    # created_date = Column(String)
     create_date = Column(DateTime,default=datetime.now())
     crep_id = Column(Integer,ForeignKey("creps.id"))
     crep = relationship("Crep_ifc", back_populates="sensors")

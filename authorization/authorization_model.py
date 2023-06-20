@@ -13,7 +13,6 @@ class Users(Base):
     manufacture_id = Column(Integer, ForeignKey(Manufacture.id))
     manufacture=relationship("Manufacture", back_populates="users")
     role_id = Column(Integer, ForeignKey("role.id"))
-
     role = relationship("Role_ifc", back_populates="users")
 
 

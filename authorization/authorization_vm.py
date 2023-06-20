@@ -34,19 +34,15 @@ class Authorization(QtWidgets.QMainWindow):
         self.users = session.query(Users).all()
 
         if self.users == []:
-            session.add_all([Users(login="service", password="1111", role="service"),
-                             Users(login="IFC", password="ifc", role="user")])
+            session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=1),
+                             Users(login="IFC", password="ifc", manufacture_id=1, role_id=2)])
             session.commit()
             self.users = session.query(Users).all()
         self.view_user_from_database()
         self.log_in_button.clicked.connect(self.check_credential)
 
     def view_user_from_database(self):
-        layout = self.layoutButton
-        num = 0
         for user in self.users:
-            # print({user.role})
-            # print(f"{user.id}.{user.login} ({user.password})")
             username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
             username_button.clicked.connect(
                 lambda ch, one_button=username_button: self.clicked_button_username(one_button))

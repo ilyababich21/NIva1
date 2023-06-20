@@ -16,6 +16,7 @@ from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
+from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 from serviceApp.service.service_model import engine
 
 UI_ifc = "view/ifc/ifc version1.ui"
@@ -60,6 +61,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam()
         self.main_menu = MainMenu()
+        self.user_ifc = UserInIfc()
         self.notification_errors = NotificationErrors()
         uic.loadUi(UI_ifc, self)
         self.list_groupbox = []
@@ -103,7 +105,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.Ok_button.clicked.connect(self.remaster_creps)
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
-
+        self.user_pushbutton.clicked.connect(lambda :self.user_ifc.show())
     def create_groupbox(self, layout):
 
         self.list_groupbox = self.global_param.list_groupbox

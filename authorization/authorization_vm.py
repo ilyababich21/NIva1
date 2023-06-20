@@ -44,7 +44,6 @@ class Authorization(QtWidgets.QMainWindow):
 
     def view_user_from_database(self):
         for user in self.users:
-
             username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
             username_button.clicked.connect(
                 lambda ch, one_button=username_button: self.clicked_button_username(one_button))

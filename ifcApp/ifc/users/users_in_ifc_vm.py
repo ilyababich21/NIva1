@@ -25,9 +25,9 @@ class UserInIfc(QMainWindow):
                 self.list_groupbox_radiobutton.append(self.groupbox_in_users.radioButton)
                 self.list_users_login.append(user.login)
             self.groupbox_in_users.username_label.setText(user.login)
-            if user.role_id == 3:
+            if user.role_id == 1:
                 self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_admin.png"))
-            elif user.role_id == 4:
+            elif user.role_id == 2:
                 self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_control.png"))
             self.layout_user_groupbox.addWidget(self.groupbox_in_users)
         self.add_user_pushButton.clicked.connect(self.show_add_user)

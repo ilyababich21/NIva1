@@ -1,4 +1,6 @@
+from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QGroupBox, QLabel, QHBoxLayout, QGridLayout
+from PyQt6.uic.uiparser import QtGui
 
 
 class GroupBoxWidget(QGroupBox):
@@ -15,11 +17,17 @@ class GroupBoxWidget(QGroupBox):
                            "                        background-color: #fff;\n"
                            "                        }")
         self.name_label = QLabel(self)
-        self.name_label.setMinimumSize(150,15)
+
+        font=QFont()
+        font.setPointSize(9)
+        font.setBold(1)
+        self.name_label.setFont(font)
+        self.name_label.setMinimumSize(200,15)
         self.name_label.setMaximumSize(150, 40)
         self.gridLayout.addWidget(self.name_label, 0, 2)
 
         self.min_value = QLabel(self)
+        self.min_value.setMinimumSize(40,15)
         self.min_value.setMaximumSize(20, 20)
         self.gridLayout.addWidget(self.min_value, 3, 0)
 
@@ -29,7 +37,7 @@ class GroupBoxWidget(QGroupBox):
         self.gridLayout.addWidget(self.icon_label, 1, 3)
 
         self.max_value = QLabel(self)
-        self.max_value.setMinimumSize(15,15)
+        self.max_value.setMinimumSize(40,15)
         self.max_value.setMaximumSize(20, 20)
         self.gridLayout.addWidget(self.max_value, 0, 0)
 

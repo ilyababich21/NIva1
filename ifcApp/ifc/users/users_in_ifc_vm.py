@@ -1,5 +1,5 @@
 from PyQt6 import uic, QtGui
-from PyQt6.QtWidgets import QMainWindow, QMessageBox
+from PyQt6.QtWidgets import QMainWindow
 
 from authorization.authorization_model import Users
 from ifcApp.ifc.users.groupbox_for_users import GroupBoxForUser
@@ -51,7 +51,6 @@ class UserInIfc(QMainWindow):
         session.add_all([Users(login=f"{self.username.text()}", password=f"{self.password.text()}", manufacture_id=1,
                                role_id=f"{value}")])
         session.commit()
-
         self.load_UI()
 
     def delete_user(self):

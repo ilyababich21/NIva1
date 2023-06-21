@@ -29,12 +29,17 @@ class UserInIfc(QMainWindow):
                 self.list_groupbox_for_users.append(self.groupbox_in_users)
                 self.list_users_login.append(user.login)
             self.groupbox_in_users.username_label.setText(user.login)
-            if user.role_id == 3:
-                self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_admin.png"))
-                self.groupbox_in_users.admin_pushButton.setStyleSheet(" background-color: #00ff00;")
-            elif user.role_id == 4:
-                self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_control.png"))
-                self.groupbox_in_users.pitman_pushButton.setStyleSheet(" background-color: #00ff00;")
+            match user.role.role:
+                case "service":
+                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_admin.png"))
+                    self.groupbox_in_users.admin_pushButton.setStyleSheet(" background-color: #00ff00;")
+                case "IFC":
+                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_control.png"))
+                    self.groupbox_in_users.pitman_pushButton.setStyleSheet(" background-color: #00ff00;")
+                case _:
+                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/detect_person.png"))
+                    self.groupbox_in_users.pitman_pushButton.setStyleSheet(" background-color: #00ff00;")
+
             self.layout_user_groupbox.addWidget(self.groupbox_in_users)
         self.add_user_pushButton.clicked.connect(self.show_add_user)
         self.delete_user_pushButton.clicked.connect(self.delete_user)
@@ -47,10 +52,11 @@ class UserInIfc(QMainWindow):
         if self.law.currentText() == "Администратор":
             value = 3
         else:
-            value = 4
+            value = 2
         session.add_all([Users(login=f"{self.username.text()}", password=f"{self.password.text()}", manufacture_id=1,
                                role_id=f"{value}")])
         session.commit()
+
         self.load_UI()
 
     def delete_user(self):

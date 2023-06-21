@@ -15,16 +15,16 @@ class GroupBoxForUser(QGroupBox):
         self.gridLayout = QGridLayout(self)
         self.change_pushButton = QPushButton(self)
         self.change_pushButton.setMaximumSize(QtCore.QSize(30, 30))
-        self.change_pushButton.setIcon(QIcon("../Niva_M/image/img tools/addtext.png"))
+        self.change_pushButton.setIcon(QIcon("image/img tools/addtext.png"))
         self.gridLayout.addWidget(self.change_pushButton, 3, 2)
 
         self.admin_pushButton = QPushButton(self)
-        self.admin_pushButton.setIcon(QIcon("../Niva_M/image/img tools/perm_admin.png"))
+        self.admin_pushButton.setIcon(QIcon("image/img tools/perm_admin.png"))
         self.admin_pushButton.setMaximumSize(QtCore.QSize(30, 30))
         self.gridLayout.addWidget(self.admin_pushButton, 3, 4)
 
         self.pitman_pushButton = QPushButton(self)
-        self.pitman_pushButton.setIcon(QIcon("../Niva_M/image/img tools/parameter.png"))
+        self.pitman_pushButton.setIcon(QIcon("image/img tools/parameter.png"))
         self.pitman_pushButton.setMaximumSize(QtCore.QSize(30, 30))
         self.gridLayout.addWidget(self.pitman_pushButton, 3, 3)
 

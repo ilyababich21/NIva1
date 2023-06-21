@@ -31,7 +31,7 @@ class Authorization(QtWidgets.QMainWindow):
 
         uic.loadUi(UI_authorization, self)
 
-        self.users = session.query(Users).all()
+        self.users = session.query(Users).filter(Users.role_id <= 2).all()
 
         if self.users == []:
             session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=1),

@@ -21,13 +21,11 @@ class GroupBoxForUser(QGroupBox):
         self.admin_pushButton = QPushButton(self)
         self.admin_pushButton.setIcon(QIcon("image/img tools/perm_admin.png"))
         self.admin_pushButton.setMaximumSize(QtCore.QSize(30, 30))
-        self.admin_pushButton.setCheckable(True)
         self.gridLayout.addWidget(self.admin_pushButton, 3, 4)
 
         self.pitman_pushButton = QPushButton(self)
         self.pitman_pushButton.setIcon(QIcon("image/img tools/parameter.png"))
         self.pitman_pushButton.setMaximumSize(QtCore.QSize(30, 30))
-        self.pitman_pushButton.setCheckable(True)
         self.gridLayout.addWidget(self.pitman_pushButton, 3, 3)
 
         self.username_label = QLabel(self)

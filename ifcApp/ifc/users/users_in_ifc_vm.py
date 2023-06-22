@@ -50,7 +50,7 @@ class UserInIfc(QMainWindow):
 
     def add_to_database_on_clicked(self):
         if self.law.currentText() == "Администратор":
-            value = 3
+            value = 1
         else:
             value = 2
         session.add_all([Users(login=f"{self.username.text()}", password=f"{self.password.text()}", manufacture_id=1,

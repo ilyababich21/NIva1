@@ -15,7 +15,6 @@ class UserInIfc(QMainWindow):
         if self.qury_role == []:
             session.add_all([Role_ifc(role="admin", description="Администратор"),
                              Role_ifc(role="miner", description="Шахтёр")])
-
         self.users = None
         self.groupbox_in_users = None
         self.list_users_login = None

@@ -225,10 +225,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_name_sensors(self):
         if self.show_name_action.isChecked():
-            for elem in self.list_name_for_groupbox:
+            for elem in self.list_name_layout:
                 elem.show()
         else:
-            for elem in self.list_name_for_groupbox:
+            for elem in self.list_name_layout:
                 elem.close()
 
     def checked_action_for_sensors(self):
@@ -248,7 +248,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.prec = False
 
         print("ИДЕТ СОХРАНЕНИЕ....")
-        # DBWriterIter()
         try:
             for chunk in pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1], chunksize=5000):
                 chunk.to_sql("sensors", engine, if_exists="append", index=False)

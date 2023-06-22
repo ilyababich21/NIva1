@@ -1,6 +1,6 @@
 from PyQt6 import QtWidgets, uic
 
-from authorization.authorization_model import Users
+from authorization.authorization_model import Users, Role_ifc
 from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.service.service_model import session
 from serviceApp.service.service_vm import ServiceViewModel
@@ -32,6 +32,11 @@ class Authorization(QtWidgets.QMainWindow):
         uic.loadUi(UI_authorization, self)
 
         self.users = session.query(Users).filter(Users.role_id <= 2).all()
+        self.qury_role = session.query(Role_ifc).all()
+        if self.qury_role == []:
+            session.add_all([Role_ifc(role="admin", description="Администратор"),
+                             Role_ifc(role="miner", description="Шахтёр")])
+            session.commit()
 
         if self.users == []:
             session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=1),

@@ -1,10 +1,9 @@
 from PyQt6 import QtWidgets, uic
 
 from authorization.authorization_model import Users, Role_ifc
-from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.service.service_model import session
 from serviceApp.service.service_vm import ServiceViewModel
-
+from ifcApp.ifc.ifc_vm import IfcViewModel
 UI_authorization = "view/authorization_view.ui"
 UI_main = "view/service/service_view.ui"
 

@@ -1,7 +1,7 @@
 from PyQt6 import uic, QtGui
 from PyQt6.QtWidgets import QMainWindow
 
-from authorization.authorization_model import Users
+from authorization.authorization_model import Users, Role_ifc
 from ifcApp.ifc.users.groupbox_for_users import GroupBoxForUser
 from serviceApp.service.service_model import session
 
@@ -11,6 +11,10 @@ UI_user = "view/ifc/user.ui"
 class UserInIfc(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.qury_role = session.query(Role_ifc).all()
+        if self.qury_role == []:
+            session.add_all([Role_ifc(role="admin", description="Администратор"),
+                             Role_ifc(role="miner", description="Шахтёр")])
 
         self.users = None
         self.groupbox_in_users = None
@@ -22,7 +26,7 @@ class UserInIfc(QMainWindow):
         self.list_groupbox_for_users = []
         self.list_users_login = []
         uic.loadUi(UI_user, self)
-        self.users = session.query(Users).filter(Users.role_id > 2).all()
+        self.users = session.query(Users).all()
         for user in self.users:
             self.groupbox_in_users = GroupBoxForUser()
             if not len(self.users) == len(self.list_groupbox_for_users):
@@ -30,10 +34,10 @@ class UserInIfc(QMainWindow):
                 self.list_users_login.append(user.login)
             self.groupbox_in_users.username_label.setText(user.login)
             match user.role.role:
-                case "service":
+                case "admin":
                     self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_admin.png"))
                     self.groupbox_in_users.admin_pushButton.setStyleSheet(" background-color: #00ff00;")
-                case "IFC":
+                case "miner":
                     self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_control.png"))
                     self.groupbox_in_users.pitman_pushButton.setStyleSheet(" background-color: #00ff00;")
                 case _:
@@ -46,18 +50,20 @@ class UserInIfc(QMainWindow):
 
     def show_add_user(self):
         uic.loadUi("view/ifc/add user.ui", self)
+        for item in self.qury_role:
+            self.law.addItem(item.description)
         self.add.clicked.connect(self.add_to_database_on_clicked)
 
     def add_to_database_on_clicked(self):
-        if self.law.currentText() == "Администратор":
-            value = 3
-        else:
-            value = 2
-        session.add_all([Users(login=f"{self.username.text()}", password=f"{self.password.text()}", manufacture_id=1,
-                               role_id=f"{value}")])
-        session.commit()
+        for item in self.qury_role:
+            if self.law.currentText() == item.description:
+                print(item.id)
+                session.add_all(
+                    [Users(login=f"{self.username.text()}", password=f"{self.password.text()}", manufacture_id=1,
+                           role_id=f"{item.id}")])
+                session.commit()
 
-        self.load_UI()
+            self.load_UI()
 
     def delete_user(self):
         try:

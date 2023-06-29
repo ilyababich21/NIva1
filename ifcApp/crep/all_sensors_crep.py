@@ -1,11 +1,15 @@
 from PyQt6 import uic, QtWidgets, QtCore
 
+from ifcApp.ifc.mainMenu.global_param import GlobalParam
+
 UI_sernsors = "view/ifc/crep/sensors crep.ui"
 
 
 class AllSensorsCrep(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        self.label1 = None
+        self.global_param = GlobalParam()
 
         uic.loadUi(UI_sernsors, self)
         self.list_progressBar = [self.voltage_progressBar,self.current_sensors_progressBar,self.current_valve_progressBar,
@@ -13,7 +17,5 @@ class AllSensorsCrep(QtWidgets.QMainWindow):
                                  self.amperage_progressBar,self.amperage_valve_progressBar,self.CP_progressBar,
                                  self.zaz_CP_progressBar,self.max_zaz_progressBar]
 
-    @QtCore.pyqtSlot(list)
-    def setValue_progressBar(self, lst):
-        for elem in range(len(lst)):
-            self.list_progressBar[elem].setValue(lst[elem])
+        for elem in range(len(self.list_progressBar)):
+            self.list_progressBar[elem].setMaximum(self.global_param.query_in_global_param_table[elem].max_value)

@@ -25,30 +25,27 @@ class Authorization(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.service = ServiceViewModel()
-        self.ifc = IfcViewModel()
-
         self.size_of_user_button = (100, 60)
-
         uic.loadUi(UI_authorization, self)
-
-        self.users = session.query(Users).filter(Users.role_id <= 2).all()
+        self.query_from_database_users = session.query(Users).filter(Users.role_id <= 3).all()
         self.qury_role = session.query(Role_ifc).all()
+
         if self.qury_role == []:
             session.add_all([Role_ifc(role="admin", description="Администратор"),
                              Role_ifc(role="miner", description="Шахтёр")])
             session.commit()
 
-        if self.users == []:
-            session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=1),
+        if self.query_from_database_users == []:
+            session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=3),
                              Users(login="IFC", password="ifc", manufacture_id=1, role_id=1)])
 
             session.commit()
-            self.users = session.query(Users).all()
+        self.query_from_database_users = session.query(Users).all()
         self.view_user_from_database()
         self.log_in_button.clicked.connect(self.check_credential)
 
     def view_user_from_database(self):
-        for user in self.users:
+        for user in self.query_from_database_users:
             username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
             username_button.clicked.connect(
                 lambda ch, one_button=username_button: self.clicked_button_username(one_button))
@@ -60,21 +57,28 @@ class Authorization(QtWidgets.QMainWindow):
         self.password_lineEdit.setFocus()
 
     def check_credential(self):
-
+        username = self.login_lineEdit.text()
+        password = self.password_lineEdit.text()
         check = 0
-        if self.password_lineEdit.text() == '':
+        if password == '':
             self.check_label.setText("Введите пароль!!!")
             return
-        for user in self.users:
-            if self.login_lineEdit.text() == f"{user.login}" \
-                    and self.password_lineEdit.text() == f"{user.password}":
-                role = user.role.role
-                login = user.login
+        for user in self.query_from_database_users:
+            if username == f"{user.login}" and password == f"{user.password}":
+                match user.role.role:
+                    case "admin":
+                        ifc = IfcViewModel()
+                        ifc.showMaximized()
+                        del ifc
+                    case "miner":
+                        ifc = IfcViewModel()
+                        ifc.role_for_miner()
+                        ifc.showMaximized()
+                        del ifc
+                    case "service":
+                        self.service.show()
                 check = 1
         if check == 0:
             self.check_label.setText("Логин или пароль введен неверно")
-            return
-        if login == 'service':
-            self.service.show()
-        if role == 'admin':
-            self.ifc.showMaximized()
+        # self.close()
+

@@ -5,7 +5,7 @@ from multiprocessing import Process
 
 import pandas as pd
 from PyQt6 import uic, QtWidgets, QtCore, QtGui
-from PyQt6.QtCore import QTimer, QDateTime, QProcess
+from PyQt6.QtCore import QTimer, QDateTime, QProcess, QCoreApplication
 
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
@@ -25,22 +25,25 @@ UI_ifc = "view/ifc/ifc version1.ui"
 def DBWriterIter():
     try:
         try:
-            for chunk in pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1], chunksize=5000):
+            for chunk in pd.read_csv("CSV_History\\" + os.listdir('CSV_History')[-1], chunksize=5000):
                 chunk.to_sql("sensors", engine, if_exists="append", index=False)
         except:
             print("shit")
 
         print("prokatilo")
-        with open("CSV_History\\data"+str(len(os.listdir('CSV_History'))+1)+".csv", "w", newline="") as file:
-            writer = csv.DictWriter(file, ["id_dat", "value", "crep_id","create_date"], restval='Unknown', extrasaction='ignore')
+        with open("CSV_History\\data" + str(len(os.listdir('CSV_History')) + 1) + ".csv", "w", newline="") as file:
+            writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
+                                    extrasaction='ignore')
             writer.writeheader()
     except:
         print('rig')
+
+
 def DBwrite():
     while True:
         print("hel")
         try:
-            print(pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1]))
+            print(pd.read_csv("CSV_History\\" + os.listdir('CSV_History')[-1]))
             try:
 
                 time.sleep(20)
@@ -67,13 +70,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
-
         self.section_max_lineEdit.setText('40')
         self.list_all_crep = []
 
         for f in os.listdir('CSV_History'):
             os.remove(os.path.join('CSV_History', f))
-
 
         self.thread = QtCore.QThread()
         self.AsyncTcpReciver = AsyncTcpReciver()
@@ -105,7 +106,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.Ok_button.clicked.connect(self.remaster_creps)
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
-        self.user_pushbutton.clicked.connect(lambda :self.user_ifc.show())
+        self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
+        #кнопка закрытия приложения
+        # self.exit_pushButton.clicked.connect(QCoreApplication.instance().quit)
+        print(f"ljh{QCoreApplication.instance()}")
+
     def create_groupbox(self, layout):
 
         self.list_groupbox = self.global_param.list_groupbox
@@ -249,7 +254,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         print("ИДЕТ СОХРАНЕНИЕ....")
         try:
-            for chunk in pd.read_csv("CSV_History\\"+os.listdir('CSV_History')[-1], chunksize=5000):
+            for chunk in pd.read_csv("CSV_History\\" + os.listdir('CSV_History')[-1], chunksize=5000):
                 chunk.to_sql("sensors", engine, if_exists="append", index=False)
         except:
             print("shit")
@@ -258,4 +263,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def update_global_param(self):
         self.global_param.save_on_clicked_information()
         self.remaster_creps()
+
+    def role_for_miner(self):
+        self.menu_pushButton.setEnabled(False)
+        for action in self.list_action_show:
+            action.setEnabled(False)
+
+    def __del__(self):
+        print('Object destroyed')
+
+
 

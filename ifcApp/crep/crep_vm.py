@@ -27,18 +27,20 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.global_param = GlobalParam()
         self.data_sensors_section = DataSensorsSection()
 
-        self.list_sensors_lineEdit = [self.CP_lineEdit,self.sensors5_lineEdit, self.sensors1_lineEdit, self.sensors2_lineEdit,
+        self.list_sensors_lineEdit = [self.CP_lineEdit, self.sensors5_lineEdit, self.sensors1_lineEdit,
+                                      self.sensors2_lineEdit,
                                       self.sensors3_lineEdit,
-                                      self.sensors4_lineEdit,  self.pozition_lineEdit,
+                                      self.sensors4_lineEdit, self.pozition_lineEdit,
                                       self.prod_lineEdit, self.poper_lineEdit,
                                       self.end_section_lineEdit,
                                       self.poper_hieght_lineEdit,
                                       self.section_one_lineEdit, self.section_two_lineEdit,
                                       self.section_three_lineEdit, self.poz_shifting_lineEdit]
 
-        self.list_of_sensors_layouts = [self.CP_layout,self.gridLayout5, self.gridLayout1, self.gridLayout2, self.gridLayout3,
+        self.list_of_sensors_layouts = [self.CP_layout, self.gridLayout5, self.gridLayout1, self.gridLayout2,
+                                        self.gridLayout3,
                                         self.gridLayout4,
-                                         self.pozition_layout, self.prod_layout,
+                                        self.pozition_layout, self.prod_layout,
                                         self.poper_layout, self.end_section_layout, self.poper_hieght_layout,
 
                                         self.section_one_layout, self.section_two_layout, self.section_three_layout,
@@ -48,8 +50,8 @@ class CrepViewModel(QtWidgets.QMainWindow):
         for elem in range(11):
             speed = CreateGraphicScene(self)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
-            speed.graphicsView.crep_id=self.num
-            speed.graphicsView.id_dat= elem+1
+            speed.graphicsView.crep_id = self.num
+            speed.graphicsView.id_dat = elem + 1
             self.list_of_sensors_layouts[elem].addWidget(self.list_sensors_lineEdit[elem])
             self.list_sensors_lineEdit[elem].textChanged.connect \
                 (lambda ch, object_class=speed,
@@ -59,8 +61,8 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
         for bar in range(4):
             section1_progressBar = ClickedProgressbar()
-            section1_progressBar.id_dat=bar+11
-            section1_progressBar.crep_id=self.num
+            section1_progressBar.id_dat = bar + 11
+            section1_progressBar.crep_id = self.num
             section1_progressBar.setMaximum(self.global_param.query_in_global_param_table[bar + 11].max_value)
             self.list_of_sensors_layouts[bar + 11].addWidget(section1_progressBar)
             self.list_of_sensors_layouts[bar + 11].addWidget(self.list_sensors_lineEdit[bar + 11])
@@ -77,5 +79,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot(list)
     def setText_lineEdit_sensors(self, lst):
         for elem in range(len(lst)):
+            self.all_sensors_crep.label1.setText(str(lst[1]))
+            self.all_sensors_crep.list_progressBar[1].setValue(lst[1])
             self.data_sensors_section.tableWidget.setItem(elem, 0, QTableWidgetItem(str(lst[elem])))
             self.list_sensors_lineEdit[elem].setText(str(lst[elem]))

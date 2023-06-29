@@ -14,7 +14,6 @@ UI_service = "view/service/service_view.ui"
 class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        # self.ifc = IfcViewModel()
 
         self.modbusForm = ModbusForm()
         self.ping = Ping()
@@ -52,7 +51,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.save_change_pushButton.clicked.connect(self.save_on_clicked_data)
 
     def check_first_load(self, model_object):
-        object_database = session.get(model_object,1)
+        object_database = session.get(model_object, 1)
         if object_database is None:
             session.add(model_object(manufacture_id=1))
             session.commit()
@@ -69,9 +68,6 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         self.network_interface.update_network_interface(self.device_combobox.currentText(),
                                                         self.adressing_combobox.currentText(),
                                                         self.ip_address_edit.text(), self.mask_edit.text())
-
-        # session.refresh(self.setting_network)
-        # session.refresh(self.network_interface)
 
     def check_timezone(self):
         if self.auto_checkBox.isChecked():

@@ -5,6 +5,7 @@ from PyQt6 import QtWidgets
 from sqlalchemy import create_engine
 
 # import DBcreator
+from PyQt6.QtWidgets import QApplication
 from authorization.authorization_vm import Authorization
 from ifcApp.crep.crep_model import Creps
 from ifcApp.ifc.ifc_vm import IfcViewModel
@@ -12,15 +13,16 @@ from serviceApp.service.service_model import Manufacture, SettingNetwork
 
 
 def main():
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     window = IfcViewModel()
     window.showMaximized()
     app.exec()
 
 
 def main2():
+
     CheckDB()
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     window = Authorization()
     window.show()
     app.exec()

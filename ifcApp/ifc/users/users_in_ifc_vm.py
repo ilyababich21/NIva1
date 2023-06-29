@@ -11,7 +11,7 @@ UI_user = "view/ifc/user.ui"
 class UserInIfc(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.qury_role = session.query(Role_ifc).all()
+        self.qury_role = session.query(Role_ifc).filter(Role_ifc.id <= 2).all()
         self.users = None
         self.groupbox_in_users = None
         self.list_users_login = None
@@ -22,7 +22,7 @@ class UserInIfc(QMainWindow):
         self.list_groupbox_for_users = []
         self.list_users_login = []
         uic.loadUi(UI_user, self)
-        self.users = session.query(Users).all()
+        self.users = session.query(Users).filter(Users.role_id <= 2).all()
         for user in self.users:
             self.groupbox_in_users = GroupBoxForUser()
             if not len(self.users) == len(self.list_groupbox_for_users):

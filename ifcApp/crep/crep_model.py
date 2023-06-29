@@ -7,23 +7,25 @@
 import datetime
 
 import sqlalchemy
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from sqlalchemy.orm import  relationship, Session
-from serviceApp.service.service_model import  Base,engine, Manufacture
+
+from serviceApp.service.service_model import Manufacture, Base
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, create_engine
+from sqlalchemy.orm import relationship, DeclarativeBase
+
+engine = create_engine("postgresql://postgres:root@localhost/niva1")
+db_session = sqlalchemy.orm.sessionmaker(bind=engine)
+session = db_session()
 
 
 
-# class Base(DeclarativeBase): pass
 
-
-
-class Crep_ifc(Base):
+class Creps(Base):
     __tablename__ = "creps"
     id = Column(Integer,primary_key=True, index=True)
     num = Column(Integer)
     sensors=relationship("Sensors_ifc", back_populates="crep")
-    manufacture_id=Column(Integer,ForeignKey(Manufacture.id))
-    manufacture=relationship("Manufacture", back_populates="creps")
+    manufacture_id=Column(Integer,ForeignKey("manufacture.id"))
+    manufacture=relationship(Manufacture, back_populates="creps")
 
 
 
@@ -35,13 +37,20 @@ class Sensors_ifc(Base):
     # created_date = Column(String)
     create_date = Column(DateTime,default=datetime.datetime.now())
     crep_id = Column(Integer,ForeignKey("creps.id"))
-    crep = relationship("Crep_ifc", back_populates="sensors")
+    crep = relationship("Creps", back_populates="sensors")
 
 
 
 
 
 Base.metadata.create_all(bind=engine)
+# if not session.query(Creps).count():
+#     for elem in range(1, 301):
+#         microsoft = Creps(num=elem, manufacture_id=1)
+#
+#         session.add(microsoft)
+#         session.commit()
+
 # with Session(autoflush=False, bind=engine) as db:
 #     # создаем компании
 #     # manuf = Manufacture(name="Pizda", discription="Da poshlo ono vse v pizdu")

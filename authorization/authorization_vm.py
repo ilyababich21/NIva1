@@ -24,7 +24,7 @@ class Authorization(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.service = ServiceViewModel()
-        self.ifc = IfcViewModel()
+
 
         self.size_of_user_button = (100, 60)
 
@@ -75,5 +75,6 @@ class Authorization(QtWidgets.QMainWindow):
             return
         if login == 'service':
             self.service.show()
-        if role == 'admin':
+        elif role == 'admin':
+            self.ifc = IfcViewModel()
             self.ifc.showMaximized()

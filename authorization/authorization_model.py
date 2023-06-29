@@ -1,16 +1,20 @@
+import sqlalchemy
 from sqlalchemy.orm import relationship
 
-from serviceApp.service.service_model import engine, Base, Manufacture
-from sqlalchemy import Column, Integer, String, ForeignKey
+from serviceApp.service.service_model import  Base, Manufacture
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
 
+engine = create_engine("postgresql://postgres:root@localhost/niva1")
+db_session = sqlalchemy.orm.sessionmaker(bind=engine)
+session = db_session()
 
 class Users(Base):
     __tablename__ = "credential"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     login = Column(String)
     password = Column(String)
-    manufacture_id = Column(Integer, ForeignKey(Manufacture.id))
-    manufacture = relationship("Manufacture", back_populates="users")
+    manufacture_id = Column(Integer, ForeignKey("manufacture.id"))
+    manufacture = relationship(Manufacture, back_populates="users")
     role_id = Column(Integer, ForeignKey("role.id"))
     role = relationship("Role_ifc", back_populates="users")
 

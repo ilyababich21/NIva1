@@ -257,6 +257,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         except:
             print("shit")
         print("mission complete")
+        super(QtGui,self).closeEvent(a0)
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

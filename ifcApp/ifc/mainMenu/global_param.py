@@ -18,32 +18,6 @@ class GlobalParam(QtWidgets.QMainWindow):
         self.query_in_global_param_table = session.query(GlobalParamTable).all()
 
         if self.query_in_global_param_table == []:
-            # insert_into_setting_sensor_table1 = GlobalParamTable(id=1, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table2 = GlobalParamTable(id=2, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table3 = GlobalParamTable(id=3,min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table4 = GlobalParamTable(id=4, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table6 = GlobalParamTable(id=5,min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table7 = GlobalParamTable(id=6,min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table8 = GlobalParamTable(id=7, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table9 = GlobalParamTable(id=8, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table10 = GlobalParamTable(id=9, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table11 = GlobalParamTable(id=10, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table12 = GlobalParamTable(id=11, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table13 = GlobalParamTable(id=12, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table14 = GlobalParamTable(id=13, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table15 = GlobalParamTable(id=14, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # insert_into_setting_sensor_table5 = GlobalParamTable(id=15, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar")
-            # session.add_all([insert_into_setting_sensor_table1, insert_into_setting_sensor_table2,
-            #                  insert_into_setting_sensor_table3, insert_into_setting_sensor_table4,
-            #                  insert_into_setting_sensor_table6, insert_into_setting_sensor_table7,
-            #                  insert_into_setting_sensor_table8, insert_into_setting_sensor_table9,
-            #                  insert_into_setting_sensor_table10, insert_into_setting_sensor_table11,
-            #                  insert_into_setting_sensor_table12, insert_into_setting_sensor_table13,
-            #                  insert_into_setting_sensor_table14, insert_into_setting_sensor_table15,
-            #                  insert_into_setting_sensor_table5])
-
-
-
             session.add_all([GlobalParamTable(id=id, min_value=0, max_value=600, from_normal_value=300,to_normal_value = 400,units = "bar") for id in range(1,16)])
             session.commit()
 

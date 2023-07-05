@@ -8,8 +8,10 @@ import datetime
 
 import sqlalchemy
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from sqlalchemy.orm import  relationship, Session
-from serviceApp.service.service_model import  Base,engine, Manufacture
+from sqlalchemy.orm import  relationship
+
+from connection_to_db import engine, Base
+from serviceApp.service.service_model import   Manufacture
 
 
 

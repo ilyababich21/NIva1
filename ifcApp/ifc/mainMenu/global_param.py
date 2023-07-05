@@ -1,8 +1,8 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QTableWidgetItem
 
+from connection_to_db import session
 from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
-from serviceApp.service.service_model import session
 
 UI_all_parameter = "view/ifc/global parameter.ui"
 

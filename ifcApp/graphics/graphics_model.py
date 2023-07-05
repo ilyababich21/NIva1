@@ -1,9 +1,7 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import DeclarativeBase
+
+from connection_to_db import Base
 from serviceApp.service.service_model import engine
-
-
-class Base(DeclarativeBase): pass
 
 
 class Graphics(Base):

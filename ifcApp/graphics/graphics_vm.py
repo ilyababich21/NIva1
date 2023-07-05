@@ -5,8 +5,9 @@ from matplotlib import  pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 import matplotlib
 from sqlalchemy.orm import Session
+
+from connection_to_db import engine
 from ifcApp.graphics.graphics_model import Graphics
-from serviceApp.service.service_model import engine
 from matplotlib.figure import Figure
 matplotlib.use('QtAgg')
 UI = "view/sensors/graphic.ui"

@@ -7,6 +7,7 @@ import pandas as pd
 from PyQt6 import uic, QtWidgets, QtCore, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QProcess, QCoreApplication
 
+from connection_to_db import engine, session
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
@@ -18,7 +19,6 @@ from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
-from serviceApp.service.service_model import engine, session
 
 UI_ifc = "view/ifc/ifc version1.ui"
 
@@ -110,9 +110,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
         # кнопка закрытия приложения
-        # self.exit_pushButton.clicked.connect(QCoreApplication.instance().quit)
-        print(f"ljh{QCoreApplication.instance()}")
-
+        # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
+        # print(f"ljh{QCoreApplication.instance()}")
 
 
     def create_groupbox(self, layout):
@@ -272,5 +271,3 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for action in self.list_action_show:
             action.setEnabled(False)
 
-    def __del__(self):
-        print('Object destroyed')

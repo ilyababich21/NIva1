@@ -1,9 +1,9 @@
 from PyQt6 import uic, QtGui
 from PyQt6.QtWidgets import QMainWindow
 
-from authorization.authorization_model import Users, Role_ifc
+from authorization.authorization_model import Users, Role
+from connection_to_db import session
 from ifcApp.ifc.users.groupbox_for_users import GroupBoxForUser
-from serviceApp.service.service_model import session
 
 UI_user = "view/ifc/user.ui"
 
@@ -11,7 +11,7 @@ UI_user = "view/ifc/user.ui"
 class UserInIfc(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.qury_role = session.query(Role_ifc).filter(Role_ifc.id <= 2).all()
+        self.qury_role = session.query(Role).filter(Role.id <= 2).all()
         self.users = None
         self.groupbox_in_users = None
         self.list_users_login = None

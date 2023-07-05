@@ -7,6 +7,7 @@ import pandas as pd
 from PyQt6 import uic, QtWidgets, QtCore, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QProcess, QCoreApplication
 
+from connection_to_db import engine, session
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
@@ -15,9 +16,9 @@ from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
+from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
-from serviceApp.service.service_model import engine
 
 UI_ifc = "view/ifc/ifc version1.ui"
 
@@ -55,6 +56,7 @@ def DBwrite():
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        self.query_global_param_table = session.query(GlobalParamTable).all()
         self.timer = QTimer()
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
@@ -105,12 +107,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
-        #кнопка закрытия приложения
-        # self.exit_pushButton.clicked.connect(QCoreApplication.instance().quit)
-        print(f"ljh{QCoreApplication.instance()}")
+        # кнопка закрытия приложения
+        # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
+        # print(f"ljh{QCoreApplication.instance()}")
+
 
     def create_groupbox(self, layout):
-
         self.list_groupbox = self.global_param.list_groupbox
         self.list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке левая",
                                        "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
@@ -132,9 +134,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
             layout.addWidget(self.groupbox)
             self.list_groupbox.append(self.groupbox)
             self.list_groupbox[elem].min_value.setText(
-                f"{self.global_param.query_in_global_param_table[elem].min_value}")
+                f"{self.query_global_param_table[elem].min_value}")
             self.list_groupbox[elem].max_value.setText(
-                f"{self.global_param.query_in_global_param_table[elem].max_value}")
+                f"{self.query_global_param_table[elem].max_value}")
             self.layout_list_in_groupbox.append(self.groupbox.layoutWidget)
             self.groupbox.name_label.setText(self.list_name_for_groupbox[elem])
             self.list_name_layout.append(self.groupbox.name_label)
@@ -161,15 +163,15 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def create_button_layout_list(self, layout_list, elem):
         for one_layout in range(len(layout_list)):
             self.btn = ButtonForSectionWidget(elem + 1)
-            self.btn.value = int(self.global_param.query_in_global_param_table[one_layout].max_value)
+            self.btn.value = int(self.query_global_param_table[one_layout].max_value)
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1]: b.change_rectangle_size(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt])))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda ch, b=self.btn,
                        from_normal_value=int(
-                           self.global_param.query_in_global_param_table[one_layout].from_normal_value),
-                       to_normal_value=int(self.global_param.query_in_global_param_table[one_layout].to_normal_value):
+                           self.query_global_param_table[one_layout].from_normal_value),
+                       to_normal_value=int(self.query_global_param_table[one_layout].to_normal_value):
                 b.change_color(from_normal_value, to_normal_value))
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],: b.errors_sensors(
@@ -267,9 +269,4 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.setEnabled(False)
         for action in self.list_action_show:
             action.setEnabled(False)
-
-    def __del__(self):
-        print('Object destroyed')
-
-
 

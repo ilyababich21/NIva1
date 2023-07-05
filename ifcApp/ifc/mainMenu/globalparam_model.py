@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String
 
-from serviceApp.service.service_model import engine, Base
-from serviceApp.service.service_model import session
+from connection_to_db import session, engine, Base
 
 
 class GlobalParamTable(Base):

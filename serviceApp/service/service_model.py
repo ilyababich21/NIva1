@@ -1,21 +1,8 @@
 from datetime import datetime
 
-import sqlalchemy
+from connection_to_db import session, engine, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, relationship
-
-
-
-
-
-engine = create_engine("postgresql://postgres:root@localhost/niva1")
-db_session = sqlalchemy.orm.sessionmaker(bind=engine)
-session = db_session()
-
-
-
-class Base(DeclarativeBase): pass
+from sqlalchemy.orm import relationship
 
 
 class Manufacture(Base):
@@ -23,12 +10,12 @@ class Manufacture(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
     discription = Column(String)
-    setting_networks=relationship("SettingNetwork", back_populates="manufacture")
-    network_interface=relationship("NetworkInterface", back_populates="manufacture")
+    setting_networks = relationship("SettingNetwork", back_populates="manufacture")
+    network_interface = relationship("NetworkInterface", back_populates="manufacture")
     users = relationship("Users", back_populates="manufacture")
-    creps=relationship("Creps", back_populates="manufacture")
+    creps = relationship("Crep_ifc", back_populates="manufacture")
 
-# from ifcApp.crep.crep_model import Creps
+
 
 
 class SettingNetwork(Base):
@@ -69,9 +56,9 @@ class NetworkInterface(Base):
         self.subnet_mask = subnet_mask
         session.commit()
 
-from ifcApp.crep.crep_model import Creps
+from ifcApp.crep.crep_model import Crep_ifc
 
-# class Creps(Base):
+# class Crep_ifc(Base):
 #     __tablename__ = "creps"
 #     id = Column(Integer,primary_key=True, index=True)
 #     num = Column(Integer)
@@ -94,10 +81,3 @@ from ifcApp.crep.crep_model import Creps
 Base.metadata.create_all(bind=engine)
 
 
-# if not session.query(Manufacture).count():
-#     session.add(Manufacture(name='niva',discription='null'))
-#     session.commit()
-#
-# if not session.query(SettingNetwork).count():
-#     session.add(SettingNetwork( host_name="124", domain_name="453", manufacture_id=1))
-#     session.commit()

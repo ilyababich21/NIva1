@@ -1,25 +1,57 @@
-import sqlalchemy
+from PyQt6.QtCore import QObject, pyqtSignal
 from sqlalchemy.orm import relationship
 
-from serviceApp.service.service_model import  Base, Manufacture
-from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
+from connection_to_db import session, engine, Base
+from serviceApp.service.service_model import Manufacture
+from sqlalchemy import Column, Integer, String, ForeignKey
 
-engine = create_engine("postgresql://postgres:root@localhost/niva1")
-db_session = sqlalchemy.orm.sessionmaker(bind=engine)
-session = db_session()
+
+class AuthorizationModel(QObject):
+    login_successful = pyqtSignal(str)
+    login_failed = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+        self.query_from_database_users = session.query(Users).all()
+        self.qury_role = session.query(Role).all()
+
+        if self.qury_role == []:
+            session.add_all([Role(role="admin", description="Администратор"),
+                             Role(role="miner", description="Шахтёр")])
+            session.commit()
+
+        if self.query_from_database_users == []:
+            session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=3),
+                             Users(login="IFC", password="ifc", manufacture_id=1, role_id=1)])
+
+        session.commit()
+
+        self.login_from_database()
+    def login_from_database(self):
+        query_login = session.query(Users.login).all()
+        return query_login
+
+    def login(self, username, password):
+        user = session.query(Users).filter_by(login=username, password=password).first()
+
+        if user:
+            self.login_successful.emit(user.role.role)
+        else:
+            self.login_failed.emit()
+
 
 class Users(Base):
     __tablename__ = "credential"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     login = Column(String)
     password = Column(String)
-    manufacture_id = Column(Integer, ForeignKey("manufacture.id"))
-    manufacture = relationship(Manufacture, back_populates="users")
+    manufacture_id = Column(Integer, ForeignKey(Manufacture.id))
+    manufacture = relationship("Manufacture", back_populates="users")
     role_id = Column(Integer, ForeignKey("role.id"))
-    role = relationship("Role_ifc", back_populates="users")
+    role = relationship("Role", back_populates="users")
 
 
-class Role_ifc(Base):
+class Role(Base):
     __tablename__ = "role"
     id = Column(Integer, primary_key=True, index=True)
     role = Column(String)

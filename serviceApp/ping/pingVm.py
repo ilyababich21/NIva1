@@ -3,8 +3,8 @@ import subprocess
 from PyQt6 import QtWidgets, uic
 
 import serviceApp.ping.pingModel as ping
+from connection_to_db import session
 from serviceApp.ping.pingModel import PingTable
-from serviceApp.service.service_model import session
 
 UI_ping = "view/service/ping_requst_view.ui"
 

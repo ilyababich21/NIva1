@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 # import DBcreator
 from PyQt6.QtWidgets import QApplication
 from authorization.authorization_vm import Authorization
-from ifcApp.crep.crep_model import Creps
+from ifcApp.crep.crep_model import Crep_ifc
 from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.service.service_model import Manufacture, SettingNetwork
 
@@ -32,7 +32,7 @@ def main2():
 
 def CheckDB():
     from serviceApp.service.service_model import Manufacture, SettingNetwork
-    from ifcApp.crep.crep_model import Creps
+    from ifcApp.crep.crep_model import Crep_ifc
     engine = create_engine("postgresql://postgres:root@localhost/niva1")
     db_session = sqlalchemy.orm.sessionmaker(bind=engine)
     session = db_session()
@@ -44,9 +44,9 @@ def CheckDB():
         session.add(SettingNetwork( host_name="124", domain_name="453", manufacture_id=1))
         session.commit()
 
-    if not session.query(Creps).count():
+    if not session.query(Crep_ifc).count():
         for elem in range(1, 301):
-            microsoft = Creps(num=elem, manufacture_id=1)
+            microsoft = Crep_ifc(num=elem, manufacture_id=1)
 
             session.add(microsoft)
             session.commit()

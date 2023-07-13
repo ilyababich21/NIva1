@@ -27,7 +27,7 @@ class AuthorizationModel(QObject):
             session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=session.query(Role).filter(Role.role=="service").first().id),
                              Users(login="IFC", password="ifc", manufacture_id=1, role_id=session.query(Role).filter(Role.role=="admin").first().id)])
 
-        session.commit()
+            session.commit()
 
         # self.login_from_database()
     def login_from_database(self):

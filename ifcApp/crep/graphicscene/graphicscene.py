@@ -22,6 +22,37 @@ class ClickedGraphics(QGraphicsView):
         self.create_grafic()
         self.clicked.emit()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def create_grafic(self):
         data_dir = Path("CSV_History")
         df = pd.concat([pd.read_csv(f) for f in data_dir.glob("*.csv")], ignore_index=True)
@@ -83,6 +114,8 @@ class CreateGraphicScene(QWidget):
     def value_change(self, lineEdit, max_value):
         angel = lineEdit.text()
         if angel == '':
+            angel = 1
+        if angel == ' ':
             angel = 1
         if angel == "-":
             angel = 1

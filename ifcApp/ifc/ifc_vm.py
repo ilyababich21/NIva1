@@ -70,7 +70,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
-        self.section_max_lineEdit.setText('2')
+        self.section_max_lineEdit.setText('20')
         self.list_all_crep = []
 
         for f in os.listdir('CSV_History'):

@@ -1,5 +1,9 @@
-from PyQt6 import QtWidgets, uic
+from PyQt6 import QtWidgets, QtCore, uic
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap, QMovie
+from PyQt6.QtWidgets import QSplashScreen
 
+from authorization.SplashScreen import QexSplashScreen
 from authorization.authorization_model import AuthorizationModel
 from authorization.button_username import ButtonForUserName
 from ifcApp.ifc.ifc_vm import IfcViewModel
@@ -41,11 +45,19 @@ class Authorization(QtWidgets.QMainWindow):
             self.check_label.setText("Логин или пароль введен неверно")
 
     def open_service_ui(self):
+        splash = QSplashScreen(QPixmap("image/d1.gif"))
+        splash.show()
         self.service = ServiceViewModel()
+        splash.finish(self.service)
         self.service.show()
 
     def open_admin_ui(self):
+        splash = QSplashScreen(QPixmap("image/logotip-niva-pochti-bez-fona.png"))
+        splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
+        splash.show()
         self.admin_ui = IfcViewModel()
+
+        splash.finish(self.admin_ui)
         self.admin_ui.showMaximized()
 
 
@@ -66,5 +78,7 @@ class Authorization(QtWidgets.QMainWindow):
         self.login_lineEdit.setText(btn.text())
         self.password_lineEdit.setText("")
         self.password_lineEdit.setFocus()
+
+
 
 

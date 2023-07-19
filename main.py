@@ -1,11 +1,12 @@
 import sys
 
 import sqlalchemy
-from PyQt6 import QtWidgets
+from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtGui import QPixmap
 from sqlalchemy import create_engine
 
 # import DBcreator
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QSplashScreen
 from authorization.authorization_vm import Authorization
 from ifcApp.crep.crep_model import Crep_ifc
 from ifcApp.ifc.ifc_vm import IfcViewModel
@@ -20,10 +21,13 @@ def main():
 
 
 def main2():
-
     CheckDB()
     app = QApplication(sys.argv)
+    splash = QSplashScreen(QPixmap("image/logotip-niva-pochti-bez-fona.png"))
+    splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
+    splash.show()
     window = Authorization()
+    splash.finish(window)
     window.show()
     app.exec()
 

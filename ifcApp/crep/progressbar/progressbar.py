@@ -1,11 +1,14 @@
+import random
 from pathlib import Path
 import statsmodels.api as sm
 
 import pandas as pd
 from PyQt6 import QtCore
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import pyqtSignal, QTimer
 from PyQt6.QtWidgets import QProgressBar
+from PySide6.QtCharts import QLineSeries, QChart, QChartView
 from matplotlib import pyplot as plt
+import pyqtgraph as pg
 
 
 class ClickedProgressbar(QProgressBar):
@@ -19,8 +22,29 @@ class ClickedProgressbar(QProgressBar):
 
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
-        self.create_grafic()
+        # self.create_grafic()
+        self.plot = pg.PlotWidget()
+        self.start_plotting()
         self.clicked.emit()
+
+    def start_plotting(self):
+        # Очищаем график перед началом построения
+        self.plot.clear()
+
+        # Запускаем таймер, который будет обновлять график каждую секунду
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_plot)
+        self.timer.start(1000)
+
+    def update_plot(self):
+        # Генерируем случайные данные для графика
+        data = [random.randint(0, 100) for _ in range(10)]
+
+        # Обновляем график
+        self.plot.plot(data)
+
+
+
 
     def create_grafic(self):
         data_dir = Path("CSV_History")
@@ -59,7 +83,7 @@ class ClickedProgressbar(QProgressBar):
         plt.show()
     def diff_value_progress_bar(self, lineEdit):
         value = lineEdit.text()
-        if value == '':
+        if value == ' ' or value=='':
             value = 0
         else:
             value = int(value)

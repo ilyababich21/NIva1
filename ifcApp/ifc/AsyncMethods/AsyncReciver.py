@@ -5,9 +5,10 @@ import time
 import os
 import pandas as pd
 from PyQt6 import QtCore
-from PyQt6.QtCore import pyqtSignal, QObject, QTimer
+from PyQt6.QtCore import pyqtSignal, QObject
 from async_modbus import AsyncTCPClient
 from pymodbus.client import ModbusTcpClient
+from pymodbus.exceptions import ModbusIOException
 
 from serviceApp.service.service_model import engine
 
@@ -17,8 +18,10 @@ class WorkerSignals(QObject):
 
 
 class AsyncTcpReciver(QtCore.QObject):
+    brokeSignalsId=[]
     running = False
     prec = True
+    emitValue = []
     all_signal = []
     state_info = []
     data = {
@@ -48,7 +51,6 @@ class AsyncTcpReciver(QtCore.QObject):
     def RunSync(self):
         try:
             client = ModbusTcpClient("127.0.0.1", port=502)
-
         except:
             print("Net podklychenia")
 
@@ -56,40 +58,51 @@ class AsyncTcpReciver(QtCore.QObject):
             try:
                 time.sleep(0.5)
                 stat = time.time()
-
+                print('poexali')
                 self.readSync(client)
-                # print("Time 1 iter:    ", time.time() - stat)
             except:
                 print("neverno ukaazan address")
-                break
+                # break
 
     def readSync(self, client):
-
+        # ЧТЕНИЕ КАЖДОГО ДАТЧИКА КАЖДОЙ КРЕПИ
         for elem in range(len(self.all_signal)):
+            print("НОМЕР ТЕКУЩЕЙ ИТЕРАЦИИ")
+            self.emitValue=[]
+            if elem in self.brokeSignalsId: continue
             try:
-                result = client.read_holding_registers(address=0, count=15, slave=elem + 1)
+                for addr in range(15):
+                    result = client.read_holding_registers(address=addr, count=1, slave=elem + 1)
+                    print(type(result))
+                    if type(result) is ModbusIOException:
+                        print("emae")
+                        self.emitValue=[" " for i in range(15)]
+                        self.brokeSignalsId.append(elem)
+                        break
+                    elif result.isError():
+                        print('Ошибка чтения регистров:', result,"\n"+str(elem))
+                        self.emitValue.append(" ")
+                        print("nO DATCHIK")
+                    else:
+                        print("ock")
+                        self.emitValue.append(result.registers[0])
+                        print(self.emitValue)
+                else:
+                    print("ПРОХОД ПО ВНУТРЕННЕМУ ЦИКЛУ ЗАКОНЧЕН")
+
             except:
+                print("hello mir manera krutit mir")
                 break
-            for dat in range(len(result.registers)):
-                self.data = {
-                    "id_dat": dat + 1,
-                    "value": int(result.registers[dat]),
-                    "crep_id": elem+1,
-                    "create_date":datetime.datetime.now()
-                    # "create_date":datetime.datetime.now().replace(microsecond=0)
-                }
-                self.state_info.append(self.data)
-
-
-
+            # self.EntryValueForCSV(elem)
             try:
-                self.all_signal[elem].result.emit(result.registers)
-
-                # try:
-                #     for reger in result.registers:
-
+                # ОТПРАВИТЬ ЛИСТ НА ОТРИСОВКУ
+                print(self.emitValue)
+                self.all_signal[elem].result.emit(self.emitValue)
             except:
                 print("ebaniy rot")
+
+            self.EntryValueForCSV(elem)
+
 
         with open("CSV_History\\"+os.listdir('CSV_History')[-1], "a", newline="") as file:
             writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
@@ -98,6 +111,17 @@ class AsyncTcpReciver(QtCore.QObject):
             # запись нескольких строк
             writer.writerows(self.state_info)
         self.state_info = []
+
+    def EntryValueForCSV(self,elem):
+
+        for dat in range(len(self.emitValue)):
+            self.data = {
+                "id_dat": dat + 1,
+                "value": int(self.emitValue[dat]),
+                "crep_id": elem+1,
+                "create_date":datetime.datetime.now()
+            }
+            self.state_info.append(self.data)
 
     async def RunRead(self):
         try:

@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 import statsmodels.api as sm
 import pandas as pd
@@ -22,7 +23,39 @@ class ClickedGraphics(QGraphicsView):
         self.create_grafic()
         self.clicked.emit()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def create_grafic(self):
+        start_time= time.time()
         data_dir = Path("CSV_History")
         df = pd.concat([pd.read_csv(f) for f in data_dir.glob("*.csv")], ignore_index=True)
         df['create_date'] = df['create_date'].apply(lambda x: x.split(".")[0])
@@ -37,25 +70,31 @@ class ClickedGraphics(QGraphicsView):
         df = pd.DataFrame(df).set_index(['create_date'])
 
         print(df)
-
-        mod = sm.tsa.statespace.SARIMAX(df,
-                                        order=(1, 0, 1),
-                                        seasonal_order=(1, 1, 0, 30)
-                                        )
-        results = mod.fit()
-        try:
-
-            results.plot_diagnostics(figsize=(18, 8))
-        except:
-            print("MALO DANNIX")
-        predict = results.get_forecast(steps=20)
+        print("Vremya operacii preobrazovania   ", time.time()-start_time)
+        # mod = sm.tsa.statespace.SARIMAX(df,
+        #                                 order=(1, 0, 1),
+        #                                 seasonal_order=(1, 1, 0, 30)
+        #                                 )
+        # results = mod.fit()
+        # try:
+        #     pass
+        #     # results.plot_diagnostics(figsize=(18, 8))
+        # except:
+        #
+        #     print("MALO DANNIX")
+        # predict = results.get_forecast(steps=20)
 
         ax = df.plot(label='Текущие данные', figsize=(15, 12), title="Прогноз методом SARIMA")
         # results.fittedvalues.plot(ax=ax, style='--', color='red',label='Прогewfsvdbbdbноз')
-        predict.predicted_mean.plot(ax=ax, style='--', color='green', label='Прогноз')
+
+        # predict.predicted_mean.plot(ax=ax, style='--', color='green', label='Прогноз') emae
+
+
         ax.set_xlabel('Время')
-        plt.legend()
-        plt.grid(color='green', linestyle='--', linewidth=0.5)
+
+        # plt.legend() emae
+
+        # plt.grid(color='green', linestyle='--', linewidth=0.5)
         plt.show()
 
 
@@ -83,6 +122,8 @@ class CreateGraphicScene(QWidget):
     def value_change(self, lineEdit, max_value):
         angel = lineEdit.text()
         if angel == '':
+            angel = 1
+        if angel == ' ':
             angel = 1
         if angel == "-":
             angel = 1

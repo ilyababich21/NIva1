@@ -1,11 +1,15 @@
 import sys
 
 import sqlalchemy
+from PyQt6 import QtWidgets
 from sqlalchemy import create_engine
 
+# import DBcreator
 from PyQt6.QtWidgets import QApplication
 from authorization.authorization_vm import Authorization
+from ifcApp.crep.crep_model import Crep_ifc
 from ifcApp.ifc.ifc_vm import IfcViewModel
+from serviceApp.service.service_model import Manufacture, SettingNetwork
 
 
 def main():
@@ -16,11 +20,18 @@ def main():
 
 
 def main2():
+
     CheckDB()
     app = QApplication(sys.argv)
+    splash = QSplashScreen(QPixmap("image/logotip-niva-pochti-bez-fona.png"))
+    splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
+    splash.show()
     window = Authorization()
+    splash.finish(window)
     window.show()
     app.exec()
+
+
 
 
 def CheckDB():
@@ -43,6 +54,10 @@ def CheckDB():
 
             session.add(number)
             session.commit()
+
+
+
+
 
 
 if __name__ == '__main__':

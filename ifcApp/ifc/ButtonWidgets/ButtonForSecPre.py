@@ -44,7 +44,7 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
             self.rectangle = QColor(139, 0, 255)
             time = datetime.datetime.now()
             t = time.strftime("%d/%m/%Y %H:%M")
-            lineedit.append(f"{t},pizda datchiku {dat} v crepi {num} ")
+            lineedit.append(f"{t},не работает  {dat} в крепи {num} ")
             pushbutton.setStyleSheet("background-color: #ff0000;")
         else:
             pushbutton.setStyleSheet("background-color: #e9e9e9;")

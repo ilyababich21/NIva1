@@ -56,7 +56,6 @@ def DBwrite():
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.query_global_param_table = session.query(GlobalParamTable).all()
         self.timer = QTimer()
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
@@ -67,7 +66,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.user_ifc = UserInIfc()
         self.notification_errors = NotificationErrors()
         uic.loadUi(UI_ifc, self)
-        self.list_groupbox = []
+        # self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
         self.section_max_lineEdit.setText('40')
@@ -107,12 +106,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
-        # кнопка закрытия приложения
-        # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
-        # print(f"ljh{QCoreApplication.instance()}")
+
 
 
     def create_groupbox(self, layout):
+        self.query_global_param_table = session.query(GlobalParamTable).all()
         self.list_groupbox = self.global_param.list_groupbox
         self.list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке левая",
                                        "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
@@ -192,8 +190,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for elem in range(int(self.section_max_lineEdit.text())):
             self.list_all_crep.append(CrepViewModel(elem + 1))
             self.setting_async_reciver()
-            # print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
-
             self.create_button_layout_list(layout_list, elem)
 
     def show_button(self):
@@ -259,7 +255,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         except:
             print("shit")
         print("mission complete")
-        super(QtGui,self).closeEvent(a0)
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

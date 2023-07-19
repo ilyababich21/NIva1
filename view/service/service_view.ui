@@ -75,7 +75,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -92,7 +92,7 @@
       <property name="movable">
        <bool>false</bool>
       </property>
-      <property name="tabBarAutoHide" stdset="0">
+      <property name="tabBarAutoHide">
        <bool>false</bool>
       </property>
       <widget class="QWidget" name="tab">
@@ -438,8 +438,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>300</width>
-             <height>502</height>
+             <width>732</width>
+             <height>512</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_24">
@@ -1877,7 +1877,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>715</width>
+             <width>660</width>
              <height>794</height>
             </rect>
            </property>
@@ -2094,6 +2094,9 @@
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="tabletTracking">
+                      <bool>false</bool>
+                     </property>
                      <property name="acceptDrops">
                       <bool>false</bool>
                      </property>
@@ -2108,9 +2111,6 @@
                      </property>
                      <property name="wordWrap">
                       <bool>true</bool>
-                     </property>
-                     <property name="tabletTracking" stdset="0">
-                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>

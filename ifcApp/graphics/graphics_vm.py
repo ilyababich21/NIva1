@@ -1,7 +1,6 @@
 import sys
 from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication
-from matplotlib import  pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 import matplotlib
 from sqlalchemy.orm import Session
@@ -9,9 +8,9 @@ from sqlalchemy.orm import Session
 from connection_to_db import engine
 from ifcApp.graphics.graphics_model import Graphics
 from matplotlib.figure import Figure
+
 matplotlib.use('QtAgg')
 UI = "view/sensors/graphic.ui"
-
 
 
 class MplCanvas(FigureCanvasQTAgg):
@@ -29,25 +28,24 @@ class GraphicsWindow(QtWidgets.QMainWindow):
 
         uic.loadUi(UI, self)
         self.sc = MplCanvas()
-        self.x =[]
+        self.x = []
         self.y = []
         toolbar = NavigationToolbar(self.sc, self)
         self.vLayout.addWidget(toolbar)
         self.vLayout.addWidget(self.sc)
-
 
         # Setup a timer to trigger the redraw by calling update_plot.
         self.timer = QtCore.QTimer()
         self.timer.setInterval(1000)
         self.timer.timeout.connect(self.update_plot)
         self.timer.start()
+
     def update_plot(self):
         with Session(autoflush=False, bind=engine) as db:
             oneRow = db.query(Graphics).all()
             for p in oneRow:
                 self.y.append(p.sensors)
                 self.x.append(p.datetime)
-
 
         self.x = self.x[-4:]
 
@@ -61,17 +59,12 @@ class GraphicsWindow(QtWidgets.QMainWindow):
         # plt.ylabel('random')
         self.sc.ax.grid()
 
-
         # Trigger the canvas to update and redraw.
         self.sc.draw()
 
 
-
-
-
-
-# if __name__ == '__main__':
-#     app = QApplication(sys.argv)
-#     w = GraphicsWindow()
-#     w.show()
-#     app.exec()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    w = GraphicsWindow()
+    w.show()
+    app.exec()

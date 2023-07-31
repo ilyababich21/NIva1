@@ -3,14 +3,13 @@ import csv
 import datetime
 import time
 import os
-import pandas as pd
 from PyQt6 import QtCore
 from PyQt6.QtCore import pyqtSignal, QObject
 from async_modbus import AsyncTCPClient
 from pymodbus.client import ModbusTcpClient
 from pymodbus.exceptions import ModbusIOException
 
-from serviceApp.service.service_model import engine
+
 
 
 class WorkerSignals(QObject):
@@ -18,7 +17,7 @@ class WorkerSignals(QObject):
 
 
 class AsyncTcpReciver(QtCore.QObject):
-    brokeSignalsId=[]
+    brokeSignalsId = []
     running = False
     prec = True
     emitValue = []
@@ -30,15 +29,11 @@ class AsyncTcpReciver(QtCore.QObject):
         "crep_id": None,
         "create_date": None
     }
-    columns = ["id_dat", "value", "crep_id","create_date"]
-
+    columns = ["id_dat", "value", "crep_id", "create_date"]
 
     def __init__(self, parent=None):
         super(AsyncTcpReciver, self).__init__(parent)
-        csv_count=len(os.listdir('CSV_History'))
-        print(os.listdir('CSV_History'))
-        print(csv_count)
-        with open("CSV_History\\data"+str(csv_count+1)+".csv", "w", newline="") as file:
+        with open("CSV_History\\data" + str(len(os.listdir('CSV_History')) + 1) + ".csv", "w", newline="") as file:
             writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
             writer.writeheader()
 
@@ -60,27 +55,27 @@ class AsyncTcpReciver(QtCore.QObject):
                 stat = time.time()
                 print('poexali')
                 self.readSync(client)
-            except:
-                print("neverno ukaazan address")
+            except Exception as e:
+                print("neverno ukaazan address ",e)
                 # break
 
     def readSync(self, client):
         # ЧТЕНИЕ КАЖДОГО ДАТЧИКА КАЖДОЙ КРЕПИ
         for elem in range(len(self.all_signal)):
             print("НОМЕР ТЕКУЩЕЙ ИТЕРАЦИИ")
-            self.emitValue=[]
+            self.emitValue = []
             if elem in self.brokeSignalsId: continue
             try:
-                for addr in range(15):
+                for addr in range(10):
                     result = client.read_holding_registers(address=addr, count=1, slave=elem + 1)
                     print(type(result))
                     if type(result) is ModbusIOException:
                         print("emae")
-                        self.emitValue=[" " for i in range(15)]
+                        self.emitValue = [" " for i in range(15)]
                         self.brokeSignalsId.append(elem)
                         break
                     elif result.isError():
-                        print('Ошибка чтения регистров:', result,"\n"+str(elem))
+                        print('Ошибка чтения регистров:', result, "\n" + str(elem))
                         self.emitValue.append(" ")
                         print("nO DATCHIK")
                     else:
@@ -103,8 +98,7 @@ class AsyncTcpReciver(QtCore.QObject):
 
             self.EntryValueForCSV(elem)
 
-
-        with open("CSV_History\\"+os.listdir('CSV_History')[-1], "a", newline="") as file:
+        with open("CSV_History\\data" + str(len(os.listdir('CSV_History'))) + ".csv", "a", newline="") as file:
             writer = csv.DictWriter(file, self.columns, restval='Unknown', extrasaction='ignore')
             # writer.writeheader()
 
@@ -112,14 +106,14 @@ class AsyncTcpReciver(QtCore.QObject):
             writer.writerows(self.state_info)
         self.state_info = []
 
-    def EntryValueForCSV(self,elem):
+    def EntryValueForCSV(self, elem):
 
         for dat in range(len(self.emitValue)):
             self.data = {
                 "id_dat": dat + 1,
                 "value": int(self.emitValue[dat]),
-                "crep_id": elem+1,
-                "create_date":datetime.datetime.now()
+                "crep_id": elem + 1,
+                "create_date": datetime.datetime.now()
             }
             self.state_info.append(self.data)
 

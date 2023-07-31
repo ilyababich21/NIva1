@@ -1,17 +1,13 @@
 import time
 from pathlib import Path
-import statsmodels.api as sm
 import pandas as pd
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
 
-import random
-from collections import deque
-
 import matplotlib.pyplot as plt  # $ pip install matplotlib
-import matplotlib.animation as animation
-from ifcApp.graphics.graphics_vm import GraphicsWindow
+
+from ifcApp.crep.graphicscene.Bard import GraphicsWindow
 
 
 class ClickedGraphics(QGraphicsView):
@@ -20,9 +16,15 @@ class ClickedGraphics(QGraphicsView):
     crep_id = 1
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
-        self.create_grafic()
+        self.create_grafics()
         self.clicked.emit()
 
+
+
+
+    def create_grafics(self):
+        self.graf = GraphicsWindow()
+        self.graf.show()
 
 
 
@@ -85,6 +87,7 @@ class ClickedGraphics(QGraphicsView):
         # predict = results.get_forecast(steps=20)
 
         ax = df.plot(label='Текущие данные', figsize=(15, 12), title="Прогноз методом SARIMA")
+
         # results.fittedvalues.plot(ax=ax, style='--', color='red',label='Прогewfsvdbbdbноз')
 
         # predict.predicted_mean.plot(ax=ax, style='--', color='green', label='Прогноз') emae
@@ -117,6 +120,13 @@ class CreateGraphicScene(QWidget):
                                         "background-position: center;")
         self.graphicsView.setScene(scene)
         # self.graphicsView.clicked.connect(lambda: self.show_graphic_window.show())
+        # self.graphicsView.clicked.connect(self.create_graf)
+
+
+
+    def create_graf(self):
+        self.show_graphic_window = GraphicsWindow()
+        self.show_graphic_window.show()
 
 
     def value_change(self, lineEdit, max_value):

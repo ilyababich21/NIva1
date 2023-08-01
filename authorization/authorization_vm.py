@@ -59,7 +59,7 @@ class Authorization(QtWidgets.QMainWindow):
 
         splash.finish(self.admin_ui)
         self.admin_ui.showMaximized()
-
+        # self.admin_ui.showFullScreen()
 
     def open_miner_ui(self):
         self.miner_ui = IfcViewModel()

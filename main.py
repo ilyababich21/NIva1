@@ -1,11 +1,12 @@
 import sys
 
 import sqlalchemy
-from PyQt6 import QtWidgets
+from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtGui import QPixmap
 from sqlalchemy import create_engine
 
 # import DBcreator
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QSplashScreen
 from authorization.authorization_vm import Authorization
 from ifcApp.crep.crep_model import Crep_ifc
 from ifcApp.ifc.ifc_vm import IfcViewModel
@@ -20,7 +21,6 @@ def main():
 
 
 def main2():
-
     CheckDB()
     app = QApplication(sys.argv)
     splash = QSplashScreen(QPixmap("image/logotip-niva-pochti-bez-fona.png"))
@@ -30,9 +30,6 @@ def main2():
     splash.finish(window)
     window.show()
     app.exec()
-
-
-
 
 def CheckDB():
     from serviceApp.service.service_model import Manufacture, SettingNetwork
@@ -44,6 +41,7 @@ def CheckDB():
         session.add(Manufacture(name='niva', discription='null'))
         session.commit()
 
+
     if not session.query(SettingNetwork).count():
         session.add(SettingNetwork(host_name="124", domain_name="453", manufacture_id=1))
         session.commit()
@@ -54,10 +52,6 @@ def CheckDB():
 
             session.add(number)
             session.commit()
-
-
-
-
 
 
 if __name__ == '__main__':

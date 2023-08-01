@@ -38,6 +38,8 @@ def DBWriterIter():
             writer.writeheader()
     except:
         print('rig')
+
+
 def DBwrite():
     while True:
         print("hel")
@@ -56,7 +58,6 @@ def DBwrite():
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.query_global_param_table = session.query(GlobalParamTable).all()
         self.timer = QTimer()
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
@@ -111,9 +112,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
         # print(f"ljh{QCoreApplication.instance()}")
 
-
     def create_groupbox(self, layout):
+        self.query_global_param_table = session.query(GlobalParamTable).all()
         self.list_groupbox = self.global_param.list_groupbox
+
         self.list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке левая",
                                        "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
                                        "Щит УГЗ ход", "Щит угз давление",
@@ -141,7 +143,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.groupbox.name_label.setText(self.list_name_for_groupbox[elem])
             self.list_name_layout.append(self.groupbox.name_label)
             self.groupbox.icon_label.setPixmap(QtGui.QPixmap(list_icon_for_groupbox[elem]))
-
 
     def show_button(self):
         self.make_buttons(self.layout_list_in_groupbox)
@@ -177,9 +178,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],
                        from_normal_value=int(self.query_global_param_table[one_layout].from_normal_value),
-                       to_normal_value=int(self.query_global_param_table[one_layout].to_normal_value):b.ubdateColorAndHeight(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit, from_normal_value,to_normal_value, self.list_name_for_groupbox[lt], elem + 1, self.notification_errors_pushButton)
-                )
+                       to_normal_value=int(
+                           self.query_global_param_table[one_layout].to_normal_value): b.update_color_and_height(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
+                    from_normal_value, to_normal_value, self.list_name_for_groupbox[lt], elem + 1,
+                    self.notification_errors_pushButton)
+            )
             if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
@@ -196,7 +200,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         #
         # # Ожидание завершения потока
         # self.thread.wait(1000)
-
 
         print("IZMENA")
         # print(self.AsyncTcpReciver.prec)
@@ -243,6 +246,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         self.AsyncTcpReciver.prec = False
+        self.list_groupbox.clear()
 
         print("ИДЕТ СОХРАНЕНИЕ....")
         try:
@@ -251,7 +255,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         except:
             print("shit")
         print("mission complete")
-        super(QtGui,self).closeEvent(a0)
+        super(QtGui, self).closeEvent(a0)
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()
@@ -261,4 +265,3 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.setEnabled(False)
         for action in self.list_action_show:
             action.setEnabled(False)
-

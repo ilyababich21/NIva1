@@ -63,7 +63,6 @@ class GraphicsWindow(QMainWindow):
         self.df =self.df.combine_first(self.preobrazovanie())
         # Обновление данных линии графика
         self.line.set_data(self.df.index, self.df['value'])
-
         # Автоматическое масштабирование осей графика
         self.ax.relim()
         self.ax.autoscale_view()

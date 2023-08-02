@@ -11,6 +11,7 @@ from PyQt6.QtCore import QTimer, QDateTime
 from PyQt6.QtWidgets import QApplication
 
 from connection_to_db import engine, session
+from ifcApp.countShield.count_shield_vm import CountShieldVM
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
@@ -25,7 +26,7 @@ from ifcApp.ifc.mainMenu.main_menu_vm import MainMenu
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 
 UI_ifc = "view/ifc/ifc version1.ui"
-CSV_History='CSV_History'
+CSV_History = 'CSV_History'
 
 def DBWriterIter():
     try:
@@ -72,6 +73,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.global_param = GlobalParam()
         self.main_menu = MainMenu()
         self.user_ifc = UserInIfc()
+        self.count_shield = CountShieldVM()
         self.notification_errors = NotificationErrors()
         uic.loadUi(UI_ifc, self)
         self.list_groupbox = []
@@ -139,6 +141,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         # кнопка закрытия приложения
         # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
         # print(f"ljh{QCoreApplication.instance()}")
+        self.quantity_shield_pushButton.clicked.connect(self.show_count)
+
+    def show_count(self):
+        self.count_shield.OK_pushButton.clicked.connect(self.remaster_creps)
+        self.count_shield.show()
 
     def start_all_thread(self):
         for elem in self.list_all_thread:
@@ -186,7 +193,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def make_buttons(self, layout_list):
         self.cleaner_layouts(layout_list)
-        for elem in range(int(self.section_max_lineEdit.text())):
+        for elem in range(self.count_shield.model.get_count_shield()):
             self.list_all_crep.append(CrepViewModel(elem + 1))
             self.setting_async_reciver()
             # print(self.list_all_crep[-1].show_sensor1_data(self.list_all_crep[-1].list_sensors_lineEdit[1]))
@@ -218,25 +225,23 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],
                        from_normal_value=int(self.query_global_param_table[one_layout].from_normal_value),
-                       to_normal_value=int(self.query_global_param_table[one_layout].to_normal_value):b.update_color_and_height(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit, from_normal_value,to_normal_value, self.list_name_for_groupbox[lt], elem + 1, self.notification_errors_pushButton)
-                )
+                       to_normal_value=int(
+                           self.query_global_param_table[one_layout].to_normal_value): b.update_color_and_height(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
+                    from_normal_value, to_normal_value, self.list_name_for_groupbox[lt], elem + 1,
+                    self.notification_errors_pushButton)
+            )
             if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
-            self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * int(self.section_max_lineEdit.text()))))
+            self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * self.count_shield.model.get_count_shield())))
             self.btn.setToolTip(f"Крепь № {elem + 1}, Датчик {self.list_name_for_groupbox[one_layout]}")
             self.btn.clicked.connect(lambda list_all_crep=self.list_all_crep[-1]: self.show_window_crep(list_all_crep))
             layout_list[one_layout].addWidget(self.btn)
 
     def remaster_creps(self):
-        # self.AsyncTcpReciver.prec=False
-        # # Остановка потока
-        # self.thread.quit()
-        #
-        # # Ожидание завершения потока
-        # self.thread.wait(1000)
+        self.count_shield.get_and_save_number_from_lineedit()
         threads = threading.enumerate()
         print("Active threads:")
         for thread in threads:
@@ -276,8 +281,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 elem.close()
 
     def checked_action_for_sensors(self):
-
-        for action in range(len(self.list_action_show)):
+        for action in enumerate(self.list_action_show):
             if self.list_action_show[action].isChecked():
                 self.global_param.list_groupbox[action].show()
             else:

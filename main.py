@@ -21,13 +21,6 @@ def main():
 
 
 def main2():
-    # import logging
-    # FORMAT = ('%(asctime)-15s %(threadName)-15s'
-    #           ' %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s')
-    # logging.basicConfig(format=FORMAT)
-    # log = logging.getLogger()
-    # log.setLevel(logging.DEBUG)
-
     CheckDB()
     app = QApplication(sys.argv)
     splash = QSplashScreen(QPixmap("image/logotip-niva-pochti-bez-fona.png"))
@@ -45,7 +38,7 @@ def CheckDB():
     db_session = sqlalchemy.orm.sessionmaker(bind=engine)
     session = db_session()
     if not session.query(Manufacture).count():
-        session.add(Manufacture(name='niva', discription='null'))
+        session.add(Manufacture(name='niva', discription='null',count_shield = 20))
         session.commit()
 
 
@@ -62,4 +55,4 @@ def CheckDB():
 
 
 if __name__ == '__main__':
-    main2()
+    main()

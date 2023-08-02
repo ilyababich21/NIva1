@@ -135,7 +135,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
-        self.exit_pushButton.clicked.connect(QApplication.instance().quit)
+        self.exit_pushButton.clicked.connect(lambda ch :self.close())
         # кнопка закрытия приложения
         # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
         # print(f"ljh{QCoreApplication.instance()}")
@@ -218,7 +218,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
                 lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],
                        from_normal_value=int(self.query_global_param_table[one_layout].from_normal_value),
-                       to_normal_value=int(self.query_global_param_table[one_layout].to_normal_value):b.ubdateColorAndHeight(
+                       to_normal_value=int(self.query_global_param_table[one_layout].to_normal_value):b.update_color_and_height(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit, from_normal_value,to_normal_value, self.list_name_for_groupbox[lt], elem + 1, self.notification_errors_pushButton)
                 )
             if len(self.list_all_crep) % 2 == 0:

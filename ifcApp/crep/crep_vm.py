@@ -79,7 +79,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot(list)
     def setText_lineEdit_sensors(self, lst):
         for elem in range(len(lst)):
-            # self.all_sensors_crep.label1.setText(str(lst[1]))
-            # self.all_sensors_crep.list_progressBar[1].setValue(int(lst[1]))
+            self.all_sensors_crep.label1.setText(str(lst[0]))
+            self.all_sensors_crep.list_progressBar[0].setValue(lst[0])
             self.data_sensors_section.tableWidget.setItem(elem, 0, QTableWidgetItem(str(lst[elem])))
             self.list_sensors_lineEdit[elem].setText(str(lst[elem]))

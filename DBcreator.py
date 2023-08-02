@@ -9,20 +9,18 @@ db_session = sqlalchemy.orm.sessionmaker(bind=engine)
 session = db_session()
 
 
-
 class Base(DeclarativeBase): pass
+
 
 class Manufacture(Base):
     __tablename__ = "manufacture"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
     discription = Column(String)
-    setting_networks=relationship("SettingNetwork", back_populates="manufacture")
-    network_interface=relationship("NetworkInterface", back_populates="manufacture")
+    setting_networks = relationship("SettingNetwork", back_populates="manufacture")
+    network_interface = relationship("NetworkInterface", back_populates="manufacture")
     users = relationship("Users", back_populates="manufacture")
-    creps=relationship("Crep_ifc", back_populates="manufacture")
-
-
+    creps = relationship("Crep_ifc", back_populates="manufacture")
 
 
 class SettingNetwork(Base):
@@ -63,29 +61,28 @@ class NetworkInterface(Base):
         self.subnet_mask = subnet_mask
         session.commit()
 
+
 class Crep_ifc(Base):
     __tablename__ = "creps"
-    id = Column(Integer,primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     num = Column(Integer)
-    sensors=relationship("Sensors_ifc", back_populates="crep")
-    manufacture_id=Column(Integer,ForeignKey(Manufacture.id))
-    manufacture=relationship("Manufacture", back_populates="creps")
-
+    sensors = relationship("Sensors_ifc", back_populates="crep")
+    manufacture_id = Column(Integer, ForeignKey(Manufacture.id))
+    manufacture = relationship("Manufacture", back_populates="creps")
 
 
 class Sensors_ifc(Base):
     __tablename__ = "sensors"
-    id =Column(Integer,primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     id_dat = Column(Integer)
     value = Column(String)
-    # created_date = Column(String)
-    create_date = Column(DateTime,default=datetime.datetime.now())
-    crep_id = Column(Integer,ForeignKey("creps.id"))
+    create_date = Column(DateTime, default=datetime.datetime.now())
+    crep_id = Column(Integer, ForeignKey("creps.id"))
     crep = relationship("Crep_ifc", back_populates="sensors")
 
 
 class Users(Base):
-    __tablename__  = "credential"
+    __tablename__ = "credential"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     login = Column(String)
     password = Column(String)
@@ -104,16 +101,14 @@ class Role_ifc(Base):
     users = relationship("Users", back_populates="role")
 
 
-
 Base.metadata.create_all(bind=engine)
 
-
 if not session.query(Manufacture).count():
-    session.add(Manufacture(name='niva',discription='null'))
+    session.add(Manufacture(name='niva', discription='null'))
     session.commit()
 
 if not session.query(SettingNetwork).count():
-    session.add(SettingNetwork( host_name="124", domain_name="453", manufacture_id=1))
+    session.add(SettingNetwork(host_name="124", domain_name="453", manufacture_id=1))
     session.commit()
 if not session.query(Crep_ifc).count():
     for elem in range(1, 301):
@@ -121,4 +116,3 @@ if not session.query(Crep_ifc).count():
 
         session.add(microsoft)
         session.commit()
-

@@ -12,7 +12,7 @@ from connection_to_db import engine
 from ifcApp.graphics.graphics_model import Graphics
 from matplotlib.figure import Figure
 matplotlib.use('QtAgg')
-UI = "graphic.ui"
+UI = "view/sensors/graphic.ui"
 
 
 

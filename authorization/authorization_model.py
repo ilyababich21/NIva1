@@ -21,15 +21,16 @@ class AuthorizationModel(QObject):
                              Role(role="service", description="Сервис")])
             session.commit()
 
-
-
         if self.query_from_database_users == []:
-            session.add_all([Users(login="service", password="1111", manufacture_id=1, role_id=session.query(Role).filter(Role.role=="service").first().id),
-                             Users(login="IFC", password="ifc", manufacture_id=1, role_id=session.query(Role).filter(Role.role=="admin").first().id)])
+            session.add_all([Users(login="service", password="1111", manufacture_id=1,
+                                   role_id=session.query(Role).filter(Role.role == "service").first().id),
+                             Users(login="IFC", password="ifc", manufacture_id=1,
+                                   role_id=session.query(Role).filter(Role.role == "admin").first().id)])
 
             session.commit()
 
         # self.login_from_database()
+
     def login_from_database(self):
         query_login = session.query(Users.login).all()
         return query_login

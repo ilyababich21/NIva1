@@ -32,7 +32,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>90</x>
       <y>130</y>
       <width>491</width>
       <height>381</height>
@@ -48,17 +48,17 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>150</y>
+      <x>580</x>
+      <y>90</y>
       <width>291</width>
-      <height>401</height>
+      <height>421</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../image/img main image/crep front.png</pixmap>
+     <pixmap>../../../image/img main image/shield front.png</pixmap>
     </property>
    </widget>
    <widget class="QLineEdit" name="num_crep">
@@ -193,8 +193,8 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>340</y>
+      <x>640</x>
+      <y>350</y>
       <width>61</width>
       <height>71</height>
      </rect>
@@ -211,8 +211,8 @@
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>340</y>
+      <x>730</x>
+      <y>350</y>
       <width>61</width>
       <height>71</height>
      </rect>
@@ -470,7 +470,7 @@
    <widget class="QWidget" name="layoutWidget_6">
     <property name="geometry">
      <rect>
-      <x>780</x>
+      <x>800</x>
       <y>430</y>
       <width>61</width>
       <height>73</height>
@@ -540,7 +540,7 @@
    <widget class="QWidget" name="layoutWidget_7">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>680</x>
       <y>100</y>
       <width>63</width>
       <height>73</height>
@@ -571,8 +571,8 @@
    <widget class="QWidget" name="gridLayoutWidget_6">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>270</y>
+      <x>580</x>
+      <y>260</y>
       <width>61</width>
       <height>71</height>
      </rect>

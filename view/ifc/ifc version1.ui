@@ -20,13 +20,20 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Niva-M</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../image/logo-svg.svg</normaloff>../../image/logo-svg.svg</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMenu{
-                qproperty-iconSize:16px 16px;
-                }
-            </string>
+   <string notr="true">QMenuBar {
+    background-color: #FFFFFF;
+}
+QMenuBar::item {
+    padding: 10px 10px;
+
+}</string>
   </property>
   <property name="iconSize">
    <size>
@@ -52,7 +59,8 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QGroupBox{
-                        background-color: #515152;
+                        background-color: #808080;
+						border-radius: 8px;
                         }
                     </string>
       </property>
@@ -291,8 +299,8 @@
         <widget class="QPushButton" name="exit_pushButton">
          <property name="maximumSize">
           <size>
-           <width>30</width>
-           <height>30</height>
+           <width>25</width>
+           <height>25</height>
           </size>
          </property>
          <property name="text">
@@ -476,7 +484,7 @@
             <x>0</x>
             <y>0</y>
             <width>1609</width>
-            <height>786</height>
+            <height>771</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -539,7 +547,7 @@
      <x>0</x>
      <y>0</y>
      <width>1647</width>
-     <height>22</height>
+     <height>37</height>
     </rect>
    </property>
    <property name="tabletTracking">

@@ -38,9 +38,6 @@ def main2():
     window.show()
     app.exec()
 
-
-
-
 def CheckDB():
     from serviceApp.service.service_model import Manufacture, SettingNetwork
     from ifcApp.crep.crep_model import Crep_ifc
@@ -48,23 +45,20 @@ def CheckDB():
     db_session = sqlalchemy.orm.sessionmaker(bind=engine)
     session = db_session()
     if not session.query(Manufacture).count():
-        session.add(Manufacture(name='niva',discription='null'))
+        session.add(Manufacture(name='niva', discription='null'))
         session.commit()
 
+
     if not session.query(SettingNetwork).count():
-        session.add(SettingNetwork( host_name="124", domain_name="453", manufacture_id=1))
+        session.add(SettingNetwork(host_name="124", domain_name="453", manufacture_id=1))
         session.commit()
 
     if not session.query(Crep_ifc).count():
         for elem in range(1, 301):
-            microsoft = Crep_ifc(num=elem, manufacture_id=1)
+            number = Crep_ifc(num=elem, manufacture_id=1)
 
-            session.add(microsoft)
+            session.add(number)
             session.commit()
-
-
-
-
 
 
 if __name__ == '__main__':

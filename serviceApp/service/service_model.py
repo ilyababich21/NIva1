@@ -1,8 +1,21 @@
 from datetime import datetime
-
+from PyQt6.QtCore import QObject
 from connection_to_db import session, engine, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
+
+
+class ServiceModel(QObject):
+    def __init__(self):
+        super().__init__()
+
+    def check_first_load(self, model_object):
+        object_database = session.get(model_object, 1)
+        if object_database is None:
+            session.add(model_object(manufacture_id=1))
+            session.commit()
+            object_database = session.get(model_object, 1)
+        return object_database
 
 
 class Manufacture(Base):
@@ -14,8 +27,6 @@ class Manufacture(Base):
     network_interface = relationship("NetworkInterface", back_populates="manufacture")
     users = relationship("Users", back_populates="manufacture")
     creps = relationship("Crep_ifc", back_populates="manufacture")
-
-
 
 
 class SettingNetwork(Base):
@@ -56,28 +67,5 @@ class NetworkInterface(Base):
         self.subnet_mask = subnet_mask
         session.commit()
 
-from ifcApp.crep.crep_model import Crep_ifc
-
-# class Crep_ifc(Base):
-#     __tablename__ = "creps"
-#     id = Column(Integer,primary_key=True, index=True)
-#     num = Column(Integer)
-#     sensors=relationship("Sensors_ifc", back_populates="crep")
-#     manufacture_id=Column(Integer,ForeignKey(Manufacture.id))
-#     manufacture=relationship("Manufacture", back_populates="creps")
-#
-#
-#
-# class Sensors_ifc(Base):
-#     __tablename__ = "sensors"
-#     id =Column(Integer,primary_key=True, index=True)
-#     id_dat = Column(Integer)
-#     value = Column(String)
-#     create_date = Column(DateTime,default=datetime.now())
-#     crep_id = Column(Integer,ForeignKey("creps.id"))
-#     crep = relationship("Creps", back_populates="sensors")
-
 
 Base.metadata.create_all(bind=engine)
-
-

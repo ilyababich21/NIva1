@@ -45,10 +45,7 @@ class Authorization(QtWidgets.QMainWindow):
             self.check_label.setText("Логин или пароль введен неверно")
 
     def open_service_ui(self):
-        splash = QSplashScreen(QPixmap("image/d1.gif"))
-        splash.show()
         self.service = ServiceViewModel()
-        splash.finish(self.service)
         self.service.show()
 
     def open_admin_ui(self):

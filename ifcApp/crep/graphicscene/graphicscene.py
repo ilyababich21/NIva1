@@ -24,45 +24,12 @@ class ClickedGraphics(QGraphicsView):
         self.create_grafics()
         self.clicked.emit()
 
-
-
-
     def create_grafics(self):
         self.graf = GraphicsWindow()
         self.graf.show()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def create_grafic(self):
-        start_time= time.time()
+        start_time = time.time()
         data_dir = Path("CSV_History")
         df = pd.concat([pd.read_csv(f) for f in data_dir.glob("*.csv")], ignore_index=True)
         df['create_date'] = df['create_date'].apply(lambda x: x.split(".")[0])
@@ -77,7 +44,7 @@ class ClickedGraphics(QGraphicsView):
         df = pd.DataFrame(df).set_index(['create_date'])
 
         print(df)
-        print("Vremya operacii preobrazovania   ", time.time()-start_time)
+        print("Vremya operacii preobrazovania   ", time.time() - start_time)
         # mod = sm.tsa.statespace.SARIMAX(df,
         #                                 order=(1, 0, 1),
         #                                 seasonal_order=(1, 1, 0, 30)
@@ -96,7 +63,6 @@ class ClickedGraphics(QGraphicsView):
         # results.fittedvalues.plot(ax=ax, style='--', color='red',label='Прогewfsvdbbdbноз')
 
         # predict.predicted_mean.plot(ax=ax, style='--', color='green', label='Прогноз') emae
-
 
         ax.set_xlabel('Время')
 
@@ -127,12 +93,9 @@ class CreateGraphicScene(QWidget):
         # self.graphicsView.clicked.connect(lambda: self.show_graphic_window.show())
         # self.graphicsView.clicked.connect(self.create_graf)
 
-
-
     def create_graf(self):
         self.show_graphic_window = GraphicsWindow()
         self.show_graphic_window.show()
-
 
     def value_change(self, lineEdit, max_value):
         angel = lineEdit.text()

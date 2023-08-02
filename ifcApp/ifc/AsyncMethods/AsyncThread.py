@@ -32,7 +32,7 @@ class AsyncTCPThread(QThread):
             # print("СЕЙЧАС РАБОТАЕТ ПОТОК НОМЕР: ", {self.slaveID})
             self.emitValue = []
             try:
-                for addr in range(10):
+                for addr in range(15):
                     result = client.read_holding_registers(address=addr, count=1, slave=self.slaveID)
                     # print(type(result))
 
@@ -74,7 +74,7 @@ class AsyncTCPThread(QThread):
             # self.state_info = []
             # print(f"ЗАПИСЬ ПОТОКА НОМЕР {self.slaveID} \n:  ",  self.state_info, "\n" )
             # self.state_info=[]
-            self.msleep(200)
+            self.msleep(1000)
 
 
 

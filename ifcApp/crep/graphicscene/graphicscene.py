@@ -1,31 +1,26 @@
 import time
 from pathlib import Path
-import statsmodels.api as sm
 import pandas as pd
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
 
-import random
-from collections import deque
-
 import matplotlib.pyplot as plt  # $ pip install matplotlib
-import matplotlib.animation as animation
-from ifcApp.graphics.graphics_vm import GraphicsWindow
+
+from ifcApp.crep.graphicscene.Bard import GraphicsWindow
 
 
 class ClickedGraphics(QGraphicsView):
     clicked = pyqtSignal()
-    id_dat = 1
     crep_id = 1
-
+    id_dat = 1
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
         self.create_grafics()
         self.clicked.emit()
 
     def create_grafics(self):
-        self.graf = GraphicsWindow()
+        self.graf = GraphicsWindow(self.crep_id,self.id_dat)
         self.graf.show()
 
     def create_grafic(self):

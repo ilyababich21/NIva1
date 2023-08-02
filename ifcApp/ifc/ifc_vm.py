@@ -55,7 +55,7 @@ def DBwrite():
         print("hel")
         try:
 
-            time.sleep(120)
+            time.sleep(20)
         except:
             print("ebanutsa")
         DBWriterIter()

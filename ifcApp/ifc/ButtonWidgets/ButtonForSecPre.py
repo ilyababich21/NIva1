@@ -30,7 +30,7 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
             self.coefficient = self.height() / self.value
             self.rectangle_height *= self.coefficient
             if self.rectangle_height < min_normal * self.coefficient:
-                self.rectangle = QColor(255, 140, 0)
+                self.rectangle = QColor(100, 230, 200)  # Orange ?no, its beaurisoviy
             elif min_normal * self.coefficient <= self.rectangle_height < max_normal * self.coefficient:
                 self.rectangle = QColor(0, 100, 0)  # Green
             else:

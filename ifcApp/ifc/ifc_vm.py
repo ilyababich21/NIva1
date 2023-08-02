@@ -135,7 +135,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
-        self.exit_pushButton.clicked.connect(lambda ch :self.close())
+        self.exit_pushButton.clicked.connect(QApplication.instance().quit)
         # кнопка закрытия приложения
         # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
         # print(f"ljh{QCoreApplication.instance()}")
@@ -289,7 +289,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.date_time.setText(timeDisplay)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
-        self.AsyncTcpReciver.prec = False
+        threads = threading.enumerate()
+        print("Active threads:")
+        for thread in threads:
+            print(thread)
+        for thred in self.list_all_thread:
+            thred.running = False
+        threads = threading.enumerate()
+        print("Active threads:")
+        for thread in threads:
+            print(thread)
 
         print("ИДЕТ СОХРАНЕНИЕ....")
         try:

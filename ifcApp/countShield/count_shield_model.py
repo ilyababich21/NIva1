@@ -3,7 +3,7 @@ from PyQt6.QtCore import QObject
 from connection_to_db import session
 from serviceApp.service.service_model import Manufacture
 
-UI_count_shield = "view/ifc/count shield.ui"
+UI_count_shield = "resources/view/ifc/count shield.ui"
 
 
 class CountShieldModel(QObject):

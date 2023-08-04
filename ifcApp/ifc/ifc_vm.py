@@ -23,7 +23,7 @@ from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 
-UI_ifc = "view/ifc/ifc version1.ui"
+UI_ifc = "resources/view/ifc/ifc version1.ui"
 CSV_History = 'CSV_History'
 
 
@@ -147,17 +147,17 @@ class IfcViewModel(QtWidgets.QMainWindow):
                                        "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
                                        "Щит УГЗ ход", "Щит угз давление",
                                        "9", "10", "11", "12", "13", "14", "15"]
-        list_icon_for_groupbox = ["image/img tools/conveyor_distance.png", "image/img tools/conveyor_clearance.png",
-                                  "image/img tools/prop_pressure_1.png", "image/img tools/prop_pressure_2.png",
-                                  "image/img tools/articulated_cantilever_pos.png",
-                                  "image/img tools/articulated_cantilever_pos.png",
-                                  "image/img tools/articulated_cantilever_switch.png",
-                                  "image/img tools/articulated_cantilever_way.png",
-                                  "image/img tools/articulated_cantilever_pressure.png",
-                                  "image/img tools/articulated_cantilever3.png",
-                                  "image/img tools/cantilever.png", "image/img tools/articulated_cantilever_way.png",
-                                  "image/img tools/slidebar_pos.png",
-                                  "image/img tools/cantilever_state.png", "image/img tools/shield_height_1.png"]
+        list_icon_for_groupbox = ["resources/image/img tools/conveyor_distance.png", "resources/image/img tools/conveyor_clearance.png",
+                                  "resources/image/img tools/prop_pressure_1.png", "resources/image/img tools/prop_pressure_2.png",
+                                  "resources/image/img tools/articulated_cantilever_pos.png",
+                                  "resources/image/img tools/articulated_cantilever_pos.png",
+                                  "resources/image/img tools/articulated_cantilever_switch.png",
+                                  "resources/image/img tools/articulated_cantilever_way.png",
+                                  "resources/image/img tools/articulated_cantilever_pressure.png",
+                                  "resources/image/img tools/articulated_cantilever3.png",
+                                  "resources/image/img tools/cantilever.png", "resources/image/img tools/articulated_cantilever_way.png",
+                                  "resources/image/img tools/slidebar_pos.png",
+                                  "resources/image/img tools/cantilever_state.png", "resources/image/img tools/shield_height_1.png"]
         for elem in range(15):
             self.groupbox = GroupBoxWidget()
             layout.addWidget(self.groupbox)
@@ -262,7 +262,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 elem.close()
 
     def checked_action_for_sensors(self):
-        for action in enumerate(self.list_action_show):
+        for action in range(len(self.list_action_show)):
             if self.list_action_show[action].isChecked():
                 self.global_param.list_groupbox[action].show()
             else:
@@ -274,9 +274,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.date_time.setText(timeDisplay)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
-        self.AsyncTcpReciver.prec = False
-
-        print("ИДЕТ СОХРАНЕНИЕ....")
+        for thread in self.list_all_thread:
+            thread.running = False
         try:
             print("ИДЕТ СОХРАНЕНИЕ....")
             for dir in range(1, len(os.listdir(CSV_History)) + 1):

@@ -75,12 +75,12 @@ class CreateGraphicScene(QWidget):
 
         # self.show_graphic_window = GraphicsWindow()
         scene.setSceneRect(-10, -12, self.width() - 41, self.height())
-        self.pixmap = QPixmap("image/sensors/arrow1.png")
+        self.pixmap = QPixmap("resources/image/sensors/arrow1.png")
         self.arrow = scene.addPixmap(self.pixmap)
         self.arrow.setTransformOriginPoint(20, 9)
         self.arrow.setRotation(-3)
         self.graphicsView = ClickedGraphics()
-        self.graphicsView.setStyleSheet("background-image:url(image/sensors/sensormarco.png);\n"
+        self.graphicsView.setStyleSheet("background-image:url(resources/image/sensors/sensormarco.png);\n"
                                         "background-repeat:no-repeat;\n"
                                         "border-radius: 1px;"
                                         "background-position: center;")

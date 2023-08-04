@@ -7,7 +7,7 @@ from serviceApp.modbus.modbusVm import ModbusForm
 from serviceApp.ping.pingVm import Ping
 from serviceApp.service.service_model import SettingNetwork, NetworkInterface
 
-UI_service = "view/service/service_view.ui"
+UI_service = "resources/view/service/service_view.ui"
 
 
 class ServiceViewModel(QtWidgets.QMainWindow):

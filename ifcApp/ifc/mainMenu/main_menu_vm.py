@@ -1,7 +1,7 @@
 from PyQt6 import uic, QtWidgets
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 
-UI_menu = "view/ifc/general menu.ui"
+UI_menu = "resources/view/ifc/general menu.ui"
 
 
 class MainMenu(QtWidgets.QMainWindow):

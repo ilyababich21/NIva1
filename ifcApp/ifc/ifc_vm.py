@@ -6,7 +6,7 @@ import time
 from multiprocessing import Process
 
 import pandas as pd
-from PyQt6 import uic, QtWidgets, QtCore, QtGui
+from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime
 
 from connection_to_db import engine, session
@@ -19,8 +19,8 @@ from ifcApp.ifc.AsyncMethods.AsyncReciver import WorkerSignals
 from ifcApp.ifc.AsyncMethods.AsyncThread import AsyncTCPThread
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
+from ifcApp.ifc.ifc_model import IfcModel
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
-from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 
 UI_ifc = "resources/view/ifc/ifc version1.ui"
@@ -72,12 +72,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam()
         self.user_ifc = UserInIfc()
+        self.model = IfcModel()
         self.count_shield = CountShieldVM()
         self.notification_errors = NotificationErrors()
         uic.loadUi(UI_ifc, self)
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
-        self.list_name_layout = []
         self.list_all_crep = []
         self.list_all_thread = []
 
@@ -140,36 +140,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
             elem.msleep(100)
 
     def create_groupbox(self, layout):
-
-        self.query_global_param_table = session.query(GlobalParamTable).all()
         self.global_param.list_groupbox.clear()
-        self.list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке левая",
-                                       "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
-                                       "Щит УГЗ ход", "Щит угз давление",
-                                       "9", "10", "11", "12", "13", "14", "15"]
-        list_icon_for_groupbox = ["resources/image/img tools/conveyor_distance.png", "resources/image/img tools/conveyor_clearance.png",
-                                  "resources/image/img tools/prop_pressure_1.png", "resources/image/img tools/prop_pressure_2.png",
-                                  "resources/image/img tools/articulated_cantilever_pos.png",
-                                  "resources/image/img tools/articulated_cantilever_pos.png",
-                                  "resources/image/img tools/articulated_cantilever_switch.png",
-                                  "resources/image/img tools/articulated_cantilever_way.png",
-                                  "resources/image/img tools/articulated_cantilever_pressure.png",
-                                  "resources/image/img tools/articulated_cantilever3.png",
-                                  "resources/image/img tools/cantilever.png", "resources/image/img tools/articulated_cantilever_way.png",
-                                  "resources/image/img tools/slidebar_pos.png",
-                                  "resources/image/img tools/cantilever_state.png", "resources/image/img tools/shield_height_1.png"]
-        for elem in range(15):
+        for index, row in enumerate(self.model.get_global_param()):
             self.groupbox = GroupBoxWidget()
             layout.addWidget(self.groupbox)
             self.global_param.list_groupbox.append(self.groupbox)
-            self.global_param.list_groupbox[elem].min_value.setText(
-                f"{self.query_global_param_table[elem].min_value}")
-            self.global_param.list_groupbox[elem].max_value.setText(
-                f"{self.query_global_param_table[elem].max_value}")
+            self.global_param.list_groupbox[index].min_value.setText(f"{row.min_value}")
+            self.global_param.list_groupbox[index].max_value.setText(f"{row.max_value}")
             self.layout_list_in_groupbox.append(self.groupbox.layoutWidget)
-            self.groupbox.name_label.setText(self.list_name_for_groupbox[elem])
-            self.list_name_layout.append(self.groupbox.name_label)
-            self.groupbox.icon_label.setPixmap(QtGui.QPixmap(list_icon_for_groupbox[elem]))
+            self.groupbox.name_label.setText(self.groupbox.list_name_for_groupbox[index])
+            self.groupbox.icon_label.setPixmap(QtGui.QPixmap(self.groupbox.icon_paths[index]))
 
     def show_button(self):
         self.make_buttons(self.layout_list_in_groupbox)
@@ -199,19 +179,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         t.slaveID = self.list_all_crep[-1].num
         self.list_all_thread.append(t)
 
-
     def create_button_layout_list(self, layout_list, elem):
-        for one_layout in range(len(layout_list)):
+        for index, row in enumerate(self.model.get_global_param()):
             self.btn = ButtonForSectionWidget(elem + 1)
-            self.btn.value = int(self.query_global_param_table[one_layout].max_value)
-
-            self.list_all_crep[-1].list_sensors_lineEdit[one_layout].textChanged.connect(
-                lambda checked, lt=one_layout, b=self.btn, g=self.list_all_crep[-1],
-                       from_normal_value=int(self.query_global_param_table[one_layout].from_normal_value),
-                       to_normal_value=int(
-                           self.query_global_param_table[one_layout].to_normal_value): b.update_color_and_height(
+            self.btn.value = int(row.max_value)
+            self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
+                lambda checked, lt=index, b=self.btn, g=self.list_all_crep[-1],
+                       from_normal_value=int(row.from_normal_value),
+                       to_normal_value=int(row.to_normal_value): b.update_color_and_height(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
-                    from_normal_value, to_normal_value, self.list_name_for_groupbox[lt], elem + 1,
+                    from_normal_value, to_normal_value, self.groupbox.list_name_for_groupbox[lt], elem + 1,
                     self.notification_errors_pushButton)
             )
             if len(self.list_all_crep) % 2 == 0:
@@ -219,9 +196,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
             else:
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
             self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * self.count_shield.model.get_count_shield())))
-            self.btn.setToolTip(f"Крепь № {elem + 1}, Датчик {self.list_name_for_groupbox[one_layout]}")
+            self.btn.setToolTip(f"Крепь № {elem + 1}, Датчик {self.groupbox.list_name_for_groupbox[index]}")
             self.btn.clicked.connect(lambda list_all_crep=self.list_all_crep[-1]: self.show_window_crep(list_all_crep))
-            layout_list[one_layout].addWidget(self.btn)
+            layout_list[index].addWidget(self.btn)
 
     def remaster_creps(self):
         self.count_shield.get_and_save_number_from_lineedit()
@@ -255,11 +232,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_name_sensors(self):
         if self.show_name_action.isChecked():
-            for elem in self.list_name_layout:
-                elem.show()
+            for i, row in enumerate(self.global_param.list_groupbox):
+                row.name_label.show()
         else:
-            for elem in self.list_name_layout:
-                elem.close()
+            for i, row in enumerate(self.global_param.list_groupbox):
+                row.name_label.close()
 
     def checked_action_for_sensors(self):
         for action in range(len(self.list_action_show)):

@@ -4,7 +4,18 @@ from PyQt6.uic.uiparser import QtGui
 
 
 class GroupBoxWidget(QGroupBox):
-
+    list_icon = ["conveyor_distance.png", "conveyor_clearance.png",
+                      "prop_pressure_1.png", "prop_pressure_2.png",
+                      "articulated_cantilever_pos.png", "articulated_cantilever_pos.png",
+                      "articulated_cantilever_switch.png", "articulated_cantilever_way.png",
+                      "articulated_cantilever_pressure.png", "articulated_cantilever3.png",
+                      "cantilever.png", "articulated_cantilever_way.png", "slidebar_pos.png",
+                      "cantilever_state.png", "shield_height_1.png"]
+    icon_paths = [f"resources/image/img tools/{i}" for i in list_icon]
+    list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке левая",
+                                   "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
+                                   "Щит УГЗ ход", "Щит угз давление",
+                                   "9", "10", "11", "12", "13", "14", "15"]
     def __init__(self):
         super().__init__()
 

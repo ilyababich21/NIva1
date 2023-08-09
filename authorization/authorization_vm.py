@@ -3,7 +3,6 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QMovie
 from PyQt6.QtWidgets import QSplashScreen
 
-from authorization.SplashScreen import QexSplashScreen
 from authorization.authorization_model import AuthorizationModel
 from authorization.button_username import ButtonForUserName
 from ifcApp.ifc.ifc_vm import IfcViewModel

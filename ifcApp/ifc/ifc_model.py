@@ -13,8 +13,9 @@ class IfcModel(QObject):
     def __init__(self):
         super().__init__()
 
-    @classmethod
-    def get_global_param(cls):
+    # @classmethod
+    @staticmethod
+    def get_global_param():
         return session.query(GlobalParamTable).all()
 
         # self.list_icon = ["conveyor_distance.png", "conveyor_clearance.png",
@@ -30,6 +31,7 @@ class IfcModel(QObject):
         #                           "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
         #                           "Щит УГЗ ход", "Щит угз давление",
         #                           "9", "10", "11", "12", "13", "14", "15"]
+
 
 # class Base(DeclarativeBase): pass
 # # class Manufacture(Base):

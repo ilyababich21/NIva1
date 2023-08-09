@@ -86,5 +86,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>count_shield_lineEdit</sender>
+   <signal>editingFinished()</signal>
+   <receiver>OK_pushButton</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>184</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>176</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

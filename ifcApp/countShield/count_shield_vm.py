@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets, uic
-from PyQt6.QtGui import QIntValidator
+from PyQt6.QtCore import QRegularExpression,QRegularExpressionMatch
+from PyQt6.QtGui import QIntValidator, QRegularExpressionValidator
 
 from connection_to_db import session
 from ifcApp.countShield.count_shield_model import CountShieldModel
@@ -14,7 +15,9 @@ class CountShieldVM(QtWidgets.QMainWindow):
         self.model = CountShieldModel()
         uic.loadUi(UI_count_shield, self)
         self.count_shield_lineEdit.setText(str(self.model.get_count_shield()))
-        self.count_shield_lineEdit.setValidator(QIntValidator())
+        regex = QRegularExpression("[1-9]|[1-9][0-9]|1[0-9]{2}|200")
+        validator = QRegularExpressionValidator(regex, self.count_shield_lineEdit)
+        self.count_shield_lineEdit.setValidator(validator)
 
     def get_and_save_number_from_lineedit(self):
         self.model.count_shield.update_manufacture(self.count_shield_lineEdit.text())

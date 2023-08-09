@@ -1,8 +1,8 @@
 from PyQt6 import uic, QtWidgets
 
 
-UI_data_sensors = "view/sensors/data_sensors.ui"
-UI_data_sensors_section = "view/ifc/crep/data_sensors_section.ui"
+UI_data_sensors = "resources/view/sensors/data_sensors.ui"
+UI_data_sensors_section = "resources/view/ifc/crep/data_sensors_section.ui"
 
 
 class DataSensorsMainWindow(QtWidgets.QMainWindow):

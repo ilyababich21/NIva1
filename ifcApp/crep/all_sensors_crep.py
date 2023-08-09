@@ -2,7 +2,7 @@ from PyQt6 import uic, QtWidgets
 
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 
-UI_sernsors = "view/ifc/crep/sensors crep.ui"
+UI_sernsors = "resources/view/ifc/crep/sensors crep.ui"
 
 
 class AllSensorsCrep(QtWidgets.QMainWindow):

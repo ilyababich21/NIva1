@@ -34,8 +34,6 @@ class AsyncTCPThread(QThread):
             try:
                 for addr in range(15):
                     result = client.read_holding_registers(address=addr, count=1, slave=self.slaveID)
-                    # print(type(result))
-
                     if type(result) is ModbusIOException:
                         print("emae")
                         self.emitValue = [" " for i in range(15)]

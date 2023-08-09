@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Credential</string>
+   <string>Niva-M</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../image/logotip-niva-pochti-bez-fona.png</normaloff>../image/logotip-niva-pochti-bez-fona.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget {

@@ -5,7 +5,7 @@ from authorization.authorization_model import Users, Role
 from connection_to_db import session
 from ifcApp.ifc.users.groupbox_for_users import GroupBoxForUser
 
-UI_user = "view/ifc/user.ui"
+UI_user = "resources/view/ifc/user.ui"
 
 
 class UserInIfc(QMainWindow):
@@ -31,13 +31,13 @@ class UserInIfc(QMainWindow):
             self.groupbox_in_users.username_label.setText(user.login)
             match user.role.role:
                 case "admin":
-                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_admin.png"))
+                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("resources/image/user/user_admin.png"))
                     self.groupbox_in_users.admin_pushButton.setStyleSheet(" background-color: #00ff00;")
                 case "miner":
-                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/user_control.png"))
+                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("resources/image/user/user_control.png"))
                     self.groupbox_in_users.pitman_pushButton.setStyleSheet(" background-color: #00ff00;")
                 case _:
-                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("image/user/detect_person.png"))
+                    self.groupbox_in_users.pixmap.setPixmap(QtGui.QPixmap("resources/image/user/detect_person.png"))
                     self.groupbox_in_users.pitman_pushButton.setStyleSheet(" background-color: #00ff00;")
 
             self.layout_user_groupbox.addWidget(self.groupbox_in_users)

@@ -6,7 +6,7 @@ import serviceApp.ping.pingModel as ping
 from connection_to_db import session
 from serviceApp.ping.pingModel import PingTable
 
-UI_ping = "view/service/ping_requst_view.ui"
+UI_ping = "resources/view/service/ping_requst_view.ui"
 
 
 class Ping(QtWidgets.QMainWindow):

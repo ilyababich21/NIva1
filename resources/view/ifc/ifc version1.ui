@@ -490,8 +490,8 @@ QMenuBar::item {
    <widget class="QMenu" name="tools_menu">
     <property name="geometry">
      <rect>
-      <x>269</x>
-      <y>126</y>
+      <x>353</x>
+      <y>155</y>
       <width>247</width>
       <height>267</height>
      </rect>
@@ -570,7 +570,7 @@ QMenuBar::item {
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../image/img tools/mesto.png</normaloff>../../image/img tools/mesto.png</iconset>
+      <normaloff>../../image/img tools/tailgate.png</normaloff>../../image/img tools/tailgate.png</iconset>
     </property>
     <addaction name="on_lava_action"/>
     <addaction name="off_lava_action"/>
@@ -652,7 +652,7 @@ QMenuBar::item {
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../image/img tools/znach naklon.png</normaloff>../../image/img tools/znach naklon.png</iconset>
+      <normaloff>../../image/img tools/inclination.png</normaloff>../../image/img tools/inclination.png</iconset>
     </property>
     <addaction name="transverse_slope_grounds_action"/>
     <addaction name="longitudinal_slope_overlap_a"/>
@@ -801,7 +801,7 @@ QMenuBar::item {
    </widget>
    <widget class="QMenu" name="menu_10">
     <property name="title">
-     <string>энергопоезд</string>
+     <string/>
     </property>
    </widget>
    <widget class="QMenu" name="pressuremenu">

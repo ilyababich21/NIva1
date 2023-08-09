@@ -9,13 +9,14 @@ from sqlalchemy import create_engine
 from PyQt6.QtWidgets import QApplication, QSplashScreen
 from authorization.authorization_vm import Authorization
 from ifcApp.crep.crep_model import Crep_ifc
+from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.service.service_model import Manufacture, SettingNetwork
 
 
 def main():
     app = QApplication(sys.argv)
-    window = IfcViewModel()
+    window = CrepViewModel()
     window.showMaximized()
     app.exec()
 
@@ -29,7 +30,7 @@ def main2():
     # log.setLevel(logging.DEBUG)
     CheckDB()
     app = QApplication(sys.argv)
-    splash = QSplashScreen(QPixmap("image/logotip-niva-pochti-bez-fona.png"))
+    splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
     splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
     splash.show()
     window = Authorization()

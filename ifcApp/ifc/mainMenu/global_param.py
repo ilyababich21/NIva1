@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QTableWidgetItem
 from connection_to_db import session
 from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 
-UI_all_parameter = "view/ifc/global parameter.ui"
+UI_all_parameter = "resources/view/ifc/global parameter.ui"
 
 
 class GlobalParam(QtWidgets.QMainWindow):

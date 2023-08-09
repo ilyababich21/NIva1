@@ -9,8 +9,8 @@ from authorization.button_username import ButtonForUserName
 from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.service.service_vm import ServiceViewModel
 
-UI_authorization = "view/authorization_view.ui"
-UI_main = "view/service/service_view.ui"
+UI_authorization = "resources/view/authorization_view.ui"
+UI_main = "resources/view/service/service_view.ui"
 
 
 class Authorization(QtWidgets.QMainWindow):
@@ -23,7 +23,6 @@ class Authorization(QtWidgets.QMainWindow):
         self.view_user_from_database()
         self.authorization_model.login_successful.connect(self.on_login_successful)
         self.authorization_model.login_failed.connect(lambda: self.on_login_failed(self.password_lineEdit.text()))
-
 
     def login(self):
         login = self.login_lineEdit.text()
@@ -49,20 +48,19 @@ class Authorization(QtWidgets.QMainWindow):
         self.service.show()
 
     def open_admin_ui(self):
-        splash = QSplashScreen(QPixmap("image/logotip-niva-pochti-bez-fona.png"))
+        splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
         splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         splash.show()
         self.admin_ui = IfcViewModel()
-
+        self.admin_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
         splash.finish(self.admin_ui)
         self.admin_ui.showMaximized()
-        # self.admin_ui.showFullScreen()
 
     def open_miner_ui(self):
         self.miner_ui = IfcViewModel()
+        self.miner_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
         self.miner_ui.role_for_miner()
         self.miner_ui.showMaximized()
-
 
     def view_user_from_database(self):
         for user in self.authorization_model.login_from_database():
@@ -75,7 +73,3 @@ class Authorization(QtWidgets.QMainWindow):
         self.login_lineEdit.setText(btn.text())
         self.password_lineEdit.setText("")
         self.password_lineEdit.setFocus()
-
-
-
-

@@ -5,7 +5,7 @@ from connection_to_db import session
 from ifcApp.dataSensors.setting_data_sensors_model import SettingsSensorsTable
 
 
-UI_settings_sensors = "view/sensors/settings_sensors.ui"
+UI_settings_sensors = "resources/view/sensors/settings_sensors.ui"
 
 
 class SettingsSensors(QtWidgets.QMainWindow):

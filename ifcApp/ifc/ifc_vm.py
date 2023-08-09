@@ -8,6 +8,7 @@ from multiprocessing import Process
 import pandas as pd
 from PyQt6 import uic, QtWidgets, QtCore, QtGui
 from PyQt6.QtCore import QTimer, QDateTime
+from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 
 from connection_to_db import engine, session
 from ifcApp.countShield.count_shield_vm import CountShieldVM
@@ -19,27 +20,31 @@ from ifcApp.ifc.AsyncMethods.AsyncReciver import WorkerSignals
 from ifcApp.ifc.AsyncMethods.AsyncThread import AsyncTCPThread
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
+from ifcApp.ifc.ifc_model import IfcModel
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 
-UI_ifc = "view/ifc/ifc version1.ui"
+UI_ifc = "resources/view/ifc/ifc version1.ui"
 CSV_History = 'CSV_History'
+
+
+def traversing_directories():
+    for folder in range(1, len(os.listdir(CSV_History)) + 1):
+        crep_dir = CSV_History + "\\" + str(folder)
+        for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=5000):
+            chunk.to_sql("sensors", engine, if_exists="append", index=False)
 
 
 def DBWriterIter():
     try:
         try:
-            # ПРОХОД ПО ДИРЕКТОРИЯМ CSV_HISTORY
-            for dir in range(1, len(os.listdir(CSV_History)) + 1):
-                crep_dir = CSV_History + "\\" + str(dir)
-                for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=5000):
-                    chunk.to_sql("sensors", engine, if_exists="append", index=False)
+            traversing_directories()
+
         except:
             print("shit")
 
         print("prokatilo")
-        count = len(os.listdir(CSV_History)) + 1
         for dir in range(1, len(os.listdir(CSV_History)) + 1):
             crep_dir = CSV_History + "\\" + str(dir)
             with open(crep_dir + "\\" + str(len(os.listdir(crep_dir)) + 1) + ".csv", "w", newline="") as file:
@@ -55,7 +60,7 @@ def DBwrite():
         print("hel")
         try:
 
-            time.sleep(20)
+            time.sleep(120)
         except:
             print("ebanutsa")
         DBWriterIter()
@@ -127,11 +132,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
-        self.exit_pushButton.clicked.connect(QApplication.instance().quit)
-        # кнопка закрытия приложения
-        # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
-        # print(f"ljh{QCoreApplication.instance()}")
+        self.exit_pushButton.clicked.connect(self.exit_program)
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
+
+    def exit_program(self):
+        self.closing_ifc()
+        QApplication.instance().quit()
 
     def show_count(self):
         self.count_shield.OK_pushButton.clicked.connect(self.remaster_creps)
@@ -177,11 +183,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def setting_async_reciver(self):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
-        t= AsyncTCPThread()
-        t.all_signal=sigOnal1
-        t.slaveID=self.list_all_crep[-1].num
+        t = AsyncTCPThread()
+        t.all_signal = sigOnal1
+        t.slaveID = self.list_all_crep[-1].num
         self.list_all_thread.append(t)
-
 
     def create_button_layout_list(self, layout_list, elem):
         for index, row in enumerate(self.model.get_global_param()):
@@ -190,11 +195,18 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
                 lambda checked, lt=index, b=self.btn, g=self.list_all_crep[-1],
                        from_normal_value=int(row.from_normal_value),
-                       to_normal_value=int(row.to_normal_value): b.update_color_and_height(
+                       to_normal_value=int(row.to_normal_value):
+                b.update_color_and_height(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
                     from_normal_value, to_normal_value, self.groupbox.list_name_for_groupbox[lt], elem + 1,
                     self.notification_errors_pushButton)
             )
+            self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
+                lambda checked, e=elem, i=index, g=self.list_all_crep[-1]:
+                self.data_sensors.all_values.setItem(i, e, QTableWidgetItem(
+                    g.show_sensor1_data(g.list_sensors_lineEdit[i])))
+            )
+
             if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
@@ -242,10 +254,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
             for i, row in enumerate(self.global_param.list_groupbox):
                 row.name_label.close()
 
-
-# gnjmbk,jbh,mf
     def checked_action_for_sensors(self):
-        for action in enumerate(self.list_action_show):
+        for action, _ in enumerate(self.list_action_show):
             if self.list_action_show[action].isChecked():
                 self.global_param.list_groupbox[action].show()
             else:
@@ -257,6 +267,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.date_time.setText(timeDisplay)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        self.closing_ifc()
+        self.close()
+
+    def closing_ifc(self):
         threads = threading.enumerate()
         print("Active threads:")
         for thread in threads:
@@ -271,14 +285,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         print("ИДЕТ СОХРАНЕНИЕ....")
         try:
             print("ИДЕТ СОХРАНЕНИЕ....")
-            for dir in range(1, len(os.listdir(CSV_History)) + 1):
-                crep_dir = CSV_History + "\\" + str(dir)
-                for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=5000):
-                    chunk.to_sql("sensors", engine, if_exists="append", index=False)
+            traversing_directories()
         except:
             print("shit")
         print("mission complete")
-        self.close()
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

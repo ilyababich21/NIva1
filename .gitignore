@@ -1,6 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Example user template template
-### Example user template
+
 
 # IntelliJ project files
 .idea
@@ -19,3 +17,7 @@ gen
 .venv
 venv/
 ENV/
+## csv
+.csv
+*.csv
+CSV_History/

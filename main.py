@@ -16,7 +16,7 @@ from serviceApp.service.service_model import Manufacture, SettingNetwork
 
 def main():
     app = QApplication(sys.argv)
-    window = CrepViewModel()
+    window = CrepViewModel(1)
     window.showMaximized()
     app.exec()
 

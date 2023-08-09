@@ -10,6 +10,8 @@ from PySide6.QtCharts import QLineSeries, QChart, QChartView
 from matplotlib import pyplot as plt
 import pyqtgraph as pg
 
+from ifcApp.crep.graphicscene.Bard import GraphicsWindow
+
 
 class ClickedProgressbar(QProgressBar):
     clicked = pyqtSignal()
@@ -22,69 +24,17 @@ class ClickedProgressbar(QProgressBar):
 
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
-        # self.create_grafic()
-        self.plot = pg.PlotWidget()
-        self.start_plotting()
+        self.graf = GraphicsWindow(self.crep_id, self.id_dat)
+        self.graf.show()
         self.clicked.emit()
 
-    def start_plotting(self):
-        # Очищаем график перед началом построения
-        self.plot.clear()
 
-        # Запускаем таймер, который будет обновлять график каждую секунду
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_plot)
-        self.timer.start(1000)
-
-    def update_plot(self):
-        # Генерируем случайные данные для графика
-        data = [random.randint(0, 100) for _ in range(10)]
-
-        # Обновляем график
-        self.plot.plot(data)
-
-
-
-
-    def create_grafic(self):
-        data_dir = Path("CSV_History")
-        df = pd.concat([pd.read_csv(f) for f in data_dir.glob("*.csv")], ignore_index=True)
-        df['create_date'] = df['create_date'].apply(lambda x: x.split(".")[0])
-        df = df[(df['id_dat'] == self.id_dat) & (df['crep_id'] == self.crep_id)]
-        print(df)
-        df['create_date'] = pd.to_datetime(df['create_date'], format="%Y-%m-%d %H:%M:%S")
-
-        df = df.groupby(["create_date"])['value'].mean().astype(int).reset_index()
-        print(df)
-        print("EBAL VAS V ROT")
-        print(df.index, df.columns)
-        df = pd.DataFrame(df).set_index(['create_date'])
-
-        print(df)
-
-        mod = sm.tsa.statespace.SARIMAX(df,
-                                        order=(1, 0, 1),
-                                        seasonal_order=(1, 1, 0, 30)
-                                        )
-        results = mod.fit()
-        try:
-
-            results.plot_diagnostics(figsize=(18, 8))
-        except:
-            print("MALO DANNIX")
-        predict = results.get_forecast(steps=20)
-
-        ax = df.plot(label='Текущие данные', figsize=(15, 12), title="Прогноз методом SARIMA")
-        # results.fittedvalues.plot(ax=ax, style='--', color='red',label='Прогewfsvdbbdbноз')
-        predict.predicted_mean.plot(ax=ax, style='--', color='green', label='Прогноз')
-        ax.set_xlabel('Время')
-        plt.legend()
-        plt.grid(color='green', linestyle='--', linewidth=0.5)
-        plt.show()
     def diff_value_progress_bar(self, lineEdit):
         value = lineEdit.text()
         if value == ' ' or value=='':
             value = 0
+        elif int(value)>self.maximum():
+            value=self.maximum()
         else:
             value = int(value)
 

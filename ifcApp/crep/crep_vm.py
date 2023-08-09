@@ -53,11 +53,11 @@ class CrepViewModel(QtWidgets.QMainWindow):
             speed.graphicsView.crep_id = self.num
             speed.graphicsView.id_dat = elem + 1
             self.list_of_sensors_layouts[elem].addWidget(self.list_sensors_lineEdit[elem])
-            self.list_sensors_lineEdit[elem].textChanged.connect \
-                (lambda ch, object_class=speed,
-                        lineedit=self.list_sensors_lineEdit[elem],
-                        max_value=self.global_param.query_in_global_param_table[elem].max_value:
-                 object_class.value_change(lineedit, max_value))
+            self.list_sensors_lineEdit[elem].textChanged.connect(
+                lambda ch, object_class=speed,
+                       lineedit=self.list_sensors_lineEdit[elem],
+                       max_value=self.global_param.query_in_global_param_table[elem].max_value:
+                object_class.value_change(lineedit, max_value))
 
         for bar in range(4):
             section1_progressBar = ClickedProgressbar()
@@ -79,7 +79,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot(list)
     def setText_lineEdit_sensors(self, lst):
         for elem in range(len(lst)):
-            self.all_sensors_crep.label1.setText(str(lst[0]))
-            self.all_sensors_crep.list_progressBar[0].setValue(lst[0])
+            # self.all_sensors_crep.label1.setText(str(lst[0]))
+            # self.all_sensors_crep.list_progressBar[0].setValue(lst[0])
             self.data_sensors_section.tableWidget.setItem(elem, 0, QTableWidgetItem(str(lst[elem])))
             self.list_sensors_lineEdit[elem].setText(str(lst[elem]))

@@ -6,7 +6,7 @@ import time
 from multiprocessing import Process
 
 import pandas as pd
-from PyQt6 import uic, QtWidgets, QtCore, QtGui
+from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime
 from PyQt6.QtWidgets import QApplication
 
@@ -16,7 +16,7 @@ from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
-from ifcApp.ifc.AsyncMethods.AsyncReciver import AsyncTcpReciver, WorkerSignals
+from ifcApp.ifc.AsyncMethods.AsyncReciver import WorkerSignals
 from ifcApp.ifc.AsyncMethods.AsyncThread import AsyncTCPThread
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
@@ -54,7 +54,7 @@ def DBwrite():
         print("hel")
         try:
 
-            time.sleep(20)
+            time.sleep(10)
         except:
             print("ebanutsa")
         DBWriterIter()
@@ -63,7 +63,6 @@ def DBwrite():
 class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.query_global_param_table = session.query(GlobalParamTable).all()
         self.timer = QTimer()
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
@@ -79,7 +78,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_name_layout = []
-        self.section_max_lineEdit.setText('25')
         self.list_all_crep = []
         self.list_all_thread=[]
 
@@ -133,7 +131,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
         self.notification_errors_pushButton.clicked.connect(lambda: self.show_window_crep(self.notification_errors))
 
-        self.Ok_button.clicked.connect(self.remaster_creps)
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())

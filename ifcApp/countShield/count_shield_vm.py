@@ -13,10 +13,9 @@ class CountShieldVM(QtWidgets.QMainWindow):
         super().__init__()
         self.model = CountShieldModel()
         uic.loadUi(UI_count_shield, self)
-        self.count_shield_lineEdit.setText(F"{self.model.get_count_shield()}")
+        self.count_shield_lineEdit.setText(str(self.model.get_count_shield()))
         self.count_shield_lineEdit.setValidator(QIntValidator())
 
     def get_and_save_number_from_lineedit(self):
-        print(self.model.get_count_shield())
         self.model.count_shield.update_manufacture(self.count_shield_lineEdit.text())
         self.close()

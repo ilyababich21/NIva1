@@ -1,11 +1,11 @@
 import sys
 
 import sqlalchemy
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtCore
 from PyQt6.QtGui import QPixmap
 from sqlalchemy import create_engine
 
-# import DBcreator
+
 from PyQt6.QtWidgets import QApplication, QSplashScreen
 from authorization.authorization_vm import Authorization
 from ifcApp.crep.crep_model import Crep_ifc
@@ -21,6 +21,12 @@ def main():
 
 
 def main2():
+    # import logging
+    # FORMAT = ('%(asctime)-15s %(threadName)-15s'
+    #           ' %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s')
+    # logging.basicConfig(format=FORMAT)
+    # log = logging.getLogger()
+    # log.setLevel(logging.DEBUG)
     CheckDB()
     app = QApplication(sys.argv)
     splash = QSplashScreen(QPixmap("image/logotip-niva-pochti-bez-fona.png"))
@@ -55,4 +61,4 @@ def CheckDB():
 
 
 if __name__ == '__main__':
-    main()
+    main2()

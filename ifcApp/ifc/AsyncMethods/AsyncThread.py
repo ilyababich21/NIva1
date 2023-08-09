@@ -13,8 +13,8 @@ class WorkerSignals(QObject):
 
 
 class AsyncTCPThread(QThread):
-    all_signal=None # На самом деле 1 сигнал
-    slaveID=None
+    all_signal = None  # На самом деле 1 сигнал
+    slaveID = None
     state_info = []
 
     def __init__(self, parent=None):
@@ -22,13 +22,13 @@ class AsyncTCPThread(QThread):
         self.running = False  # Флаг выполнения
 
     def run(self) -> None:
-        self.running=True
+        self.running = True
         try:
             client = ModbusTcpClient("127.0.0.1", port=502)
         except:
             print("Net podklychenia")
         while self.running:
-            num=self.slaveID
+            num = self.slaveID
             # print("СЕЙЧАС РАБОТАЕТ ПОТОК НОМЕР: ", {self.slaveID})
             self.emitValue = []
             try:
@@ -51,7 +51,7 @@ class AsyncTCPThread(QThread):
 
                     # print(self.emitValue)
             except Exception as e:
-                print("vs` huina  ",{e})
+                print("vs` huina  ", {e})
 
             try:
                 # ОТПРАВИТЬ ЛИСТ НА ОТРИСОВКУ
@@ -64,9 +64,10 @@ class AsyncTCPThread(QThread):
                 print("ebaniy rot")
 
             self.EntryValueForCSV(num)
-            addr="CSV_History\\"+str(self.slaveID)
-            with open(addr +"\\" + str(len(os.listdir(addr))) + ".csv", "a", newline="") as file:
-                writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown', extrasaction='ignore')
+            addr = "CSV_History\\" + str(self.slaveID)
+            with open(addr + "\\" + str(len(os.listdir(addr))) + ".csv", "a", newline="") as file:
+                writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
+                                        extrasaction='ignore')
                 # writer.writeheader()
 
                 # запись нескольких строк
@@ -74,19 +75,15 @@ class AsyncTCPThread(QThread):
             # self.state_info = []
             # print(f"ЗАПИСЬ ПОТОКА НОМЕР {self.slaveID} \n:  ",  self.state_info, "\n" )
             # self.state_info=[]
-            self.msleep(1000)
+            self.msleep(200)
 
-
-
-    def EntryValueForCSV(self,num):
+    def EntryValueForCSV(self, num):
 
         for dat in range(len(self.emitValue)):
             self.data = {
                 "id_dat": dat + 1,
-                "value": int(self.emitValue[dat]),
+                "value": self.emitValue[dat],
                 "crep_id": self.slaveID,
                 "create_date": datetime.datetime.now()
             }
             self.state_info.append(self.data)
-
-

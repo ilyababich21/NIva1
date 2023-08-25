@@ -1,4 +1,5 @@
 import threading
+
 from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
@@ -131,14 +132,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
                        from_normal_value=int(row.from_normal_value),
                        to_normal_value=int(row.to_normal_value):
                 b.update_color_and_height(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
+                    g.show_sensor_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
                     from_normal_value, to_normal_value, self.groupbox.list_name_for_groupbox[lt], elem + 1,
                     self.notification_errors_pushButton))
 
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
                 lambda checked, e=elem, i=index, g=self.list_all_crep[-1]:
                 self.data_sensors.all_values.setItem(i, e, QTableWidgetItem(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[i]))))
+                    g.show_sensor_data(g.list_sensors_lineEdit[i]))))
 
             if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
@@ -146,8 +147,27 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
             self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * self.count_shield.model.get_count_shield())))
             self.btn.setToolTip(f"Крепь № {elem + 1}, Датчик {self.groupbox.list_name_for_groupbox[index]}")
-            self.btn.clicked.connect(lambda list_all_crep=self.list_all_crep[-1]: self.show_window_crep(list_all_crep))
+            self.btn.clicked.connect(lambda current_crep=self.list_all_crep[-1]: self.show_window_crep(current_crep))
             layout_list[index].addWidget(self.btn)
+        self.working_with_button_crep(elem)
+
+    def working_with_button_crep(self, elem):
+        self.list_all_crep[-1].right_pushButton.clicked.connect(
+            lambda: self.open_next_crep(self.list_all_crep[elem + 1]))
+        self.list_all_crep[-1].right_x10_pushButton.clicked.connect(
+            lambda: self.open_next_crep(self.list_all_crep[elem + 10]))
+        self.list_all_crep[-1].left_x10_pushButton.clicked.connect(
+            lambda: self.open_next_crep(self.list_all_crep[elem - 10]))
+        self.list_all_crep[-1].left_pushButton.clicked.connect(
+            lambda: self.open_next_crep(self.list_all_crep[elem - 1]))
+        self.list_all_crep[-1].start_pushButton.clicked.connect(
+            lambda: self.open_next_crep(self.list_all_crep[0]))
+        self.list_all_crep[-1].finish_pushButton.clicked.connect(
+            lambda: self.open_next_crep(self.list_all_crep[-1]))
+
+    def open_next_crep(self, elem):
+        # self.list_all_crep[elem].close_event()
+        self.show_window_crep(elem)
 
     def remaster_creps(self):
         self.count_shield.get_and_save_number_from_lineedit()

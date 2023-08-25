@@ -122,7 +122,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton_12">
+       <widget class="QPushButton" name="start_pushButton">
         <property name="text">
          <string/>
         </property>
@@ -133,7 +133,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_7">
+       <widget class="QPushButton" name="left_x10_pushButton">
         <property name="text">
          <string/>
         </property>
@@ -144,7 +144,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_8">
+       <widget class="QPushButton" name="left_pushButton">
         <property name="text">
          <string/>
         </property>
@@ -155,7 +155,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_9">
+       <widget class="QPushButton" name="right_pushButton">
         <property name="text">
          <string/>
         </property>
@@ -166,7 +166,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_10">
+       <widget class="QPushButton" name="right_x10_pushButton">
         <property name="text">
          <string/>
         </property>
@@ -177,7 +177,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_11">
+       <widget class="QPushButton" name="finish_pushButton">
         <property name="text">
          <string/>
         </property>

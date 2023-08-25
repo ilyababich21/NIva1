@@ -216,7 +216,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
             self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * self.count_shield.model.get_count_shield())))
             self.btn.setToolTip(f"Крепь № {elem + 1}, Датчик {self.groupbox.list_name_for_groupbox[index]}")
-            self.btn.clicked.connect(lambda list_all_crep=self.list_all_crep[-1]: self.show_window_crep(list_all_crep))
+            self.btn.clicked.connect(lambda current_crep=self.list_all_crep[-1]: self.show_window_crep(current_crep))
             layout_list[index].addWidget(self.btn)
 
     def remaster_creps(self):

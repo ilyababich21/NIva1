@@ -1,16 +1,8 @@
-import csv
-import os
-import shutil
 import threading
-import time
-from multiprocessing import Process
-
-import pandas as pd
-from PyQt6 import uic, QtWidgets, QtCore, QtGui
+from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 
-from connection_to_db import engine, session
 from ifcApp.countShield.count_shield_vm import CountShieldVM
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
@@ -20,46 +12,11 @@ from ifcApp.ifc.AsyncMethods.AsyncReciver import WorkerSignals
 from ifcApp.ifc.AsyncMethods.AsyncThread import AsyncTCPThread
 from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
 from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
-from ifcApp.ifc.ifc_model import IfcModel
+from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
-from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 
 UI_ifc = "resources/view/ifc/ifc version1.ui"
-CSV_History = 'CSV_History'
-
-
-def DBWriterIter():
-    try:
-        try:
-            # ПРОХОД ПО ДИРЕКТОРИЯМ CSV_HISTORY
-            for dir in range(1, len(os.listdir(CSV_History)) + 1):
-                crep_dir = CSV_History + "\\" + str(dir)
-                for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=5000):
-                    chunk.to_sql("sensors", engine, if_exists="append", index=False)
-        except:
-            print("shit")
-
-        print("prokatilo")
-        for dir in range(1, len(os.listdir(CSV_History)) + 1):
-            crep_dir = CSV_History + "\\" + str(dir)
-            with open(crep_dir + "\\" + str(len(os.listdir(crep_dir)) + 1) + ".csv", "w", newline="") as file:
-                writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
-                                        extrasaction='ignore')
-                writer.writeheader()
-    except:
-        print('rig')
-
-
-def DBwrite():
-    while True:
-        print("hel")
-        try:
-
-            time.sleep(120)
-        except:
-            print("ebanutsa")
-        DBWriterIter()
 
 
 class IfcViewModel(QtWidgets.QMainWindow):
@@ -69,6 +26,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         print("ALE GARAG NAHOI")
+
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam()
@@ -76,28 +34,13 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.model = IfcModel()
         self.count_shield = CountShieldVM()
         self.notification_errors = NotificationErrors()
+
         uic.loadUi(UI_ifc, self)
+
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_all_crep = []
         self.list_all_thread = []
-
-        for files in os.listdir("CSV_History"):
-            path = os.path.join("CSV_History", files)
-            try:
-                shutil.rmtree(path)
-            except OSError:
-                os.remove(path)
-
-        for count in range(1, 201):
-            folder_addr = "CSV_History\\" + str(count)
-            if not os.path.exists(folder_addr):
-                os.makedirs(folder_addr)
-                with open("CSV_History\\" + str(count) + "\\" + "1.csv", "w",
-                          newline="") as file:
-                    writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
-                                            extrasaction='ignore')
-                    writer.writeheader()
 
         self.create_groupbox(self.layout_groupbox)
         self.show_button()
@@ -105,9 +48,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         for elem in self.list_all_thread:
             elem.start()
             elem.msleep(100)
-
-        proc = Process(target=DBwrite, daemon=True)
-        proc.start()
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action, self.shield_UGZ_action,
                                  self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
@@ -115,12 +55,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
                                  self.top_drawer_action, self.top_drawer_shifting_action,
                                  self.visor_action, self.state_overlap_action,
                                  self.height_section_action1, self.height_section_action2]
-
         for action in self.list_action_show:
             action.triggered.connect(self.checked_action_for_sensors)
 
         self.show_name_action.triggered.connect(self.show_name_sensors)
-
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
 
         self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
@@ -129,16 +67,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.global_param.save_pushButton.clicked.connect(self.update_global_param)
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
         self.exit_pushButton.clicked.connect(self.exit_program)
-        # кнопка закрытия приложения
-        # self.admin_ui.exit_pushButton.clicked.connect(lambda ch :self.close())
-        # print(f"ljh{QCoreApplication.instance()}")
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
-
 
     def exit_program(self):
         self.closing_ifc()
         QApplication.instance().quit()
-
 
     def show_count(self):
         self.count_shield.OK_pushButton.clicked.connect(self.remaster_creps)
@@ -184,11 +117,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def setting_async_reciver(self):
         sigOnal1 = WorkerSignals()
         sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
-        t= AsyncTCPThread()
-        t.all_signal=sigOnal1
-        t.slaveID=self.list_all_crep[-1].num
+        t = AsyncTCPThread()
+        t.all_signal = sigOnal1
+        t.slaveID = self.list_all_crep[-1].num
         self.list_all_thread.append(t)
-
 
     def create_button_layout_list(self, layout_list, elem):
         for index, row in enumerate(self.model.get_global_param()):
@@ -201,14 +133,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 b.update_color_and_height(
                     g.show_sensor1_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
                     from_normal_value, to_normal_value, self.groupbox.list_name_for_groupbox[lt], elem + 1,
-                    self.notification_errors_pushButton)
-            )
+                    self.notification_errors_pushButton))
 
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
-                lambda checked, e = elem, i = index, g=self.list_all_crep[-1]:
+                lambda checked, e=elem, i=index, g=self.list_all_crep[-1]:
                 self.data_sensors.all_values.setItem(i, e, QTableWidgetItem(
-                    g.show_sensor1_data(g.list_sensors_lineEdit[i])))
-            )
+                    g.show_sensor1_data(g.list_sensors_lineEdit[i]))))
 
             if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
@@ -228,7 +158,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
         for threadd in self.list_all_thread:
             threadd.running = False
-            # threadd.join()
 
         threads = threading.enumerate()
         print("Active threads:")
@@ -256,7 +185,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         else:
             for i, row in enumerate(self.global_param.list_groupbox):
                 row.name_label.close()
-
 
     def checked_action_for_sensors(self):
         for action, _ in enumerate(self.list_action_show):
@@ -289,13 +217,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         print("ИДЕТ СОХРАНЕНИЕ....")
         try:
             print("ИДЕТ СОХРАНЕНИЕ....")
-            for dir in range(1, len(os.listdir(CSV_History)) + 1):
-                crep_dir = CSV_History + "\\" + str(dir)
-                for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=5000):
-                    chunk.to_sql("sensors", engine, if_exists="append", index=False)
+            traversing_directories()
         except:
             print("shit")
         print("mission complete")
+        self.close()
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

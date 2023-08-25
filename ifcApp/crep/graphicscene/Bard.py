@@ -1,7 +1,7 @@
 import os
 import sys
 import pandas as pd
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -18,11 +18,15 @@ class GraphicsWindow(QMainWindow):
         self.figure = Figure(figsize=(16, 9), dpi=100)
         self.canvas = FigureCanvas(self.figure)
         self.toolbar = NavigationToolbar(self.canvas, self)
+        self.button_stop = QPushButton("stop")
+        self.button_start = QPushButton("start")
 
         # Создание вертикального layout и добавление в него графика и toolbar
         layout = QVBoxLayout()
         layout.addWidget(self.toolbar)
         layout.addWidget(self.canvas)
+        layout.addWidget(self.button_stop)
+        layout.addWidget(self.button_start)
 
         # Создание виджета и установка layout
         widget = QWidget()
@@ -45,6 +49,8 @@ class GraphicsWindow(QMainWindow):
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_plot)
         self.timer.start(1000)
+        self.button_stop.clicked.connect(lambda :self.timer.stop())
+        self.button_start.clicked.connect(lambda :self.timer.start(1000))
 
         # Создание линии графика
         self.ax = self.figure.add_subplot(111)

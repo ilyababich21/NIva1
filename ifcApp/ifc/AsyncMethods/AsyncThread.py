@@ -82,6 +82,6 @@ class AsyncTCPThread(QThread):
                 "id_dat": dat + 1,
                 "value": self.emitValue[dat],
                 "crep_id": self.slaveID,
-                "create_date": datetime.datetime.now()
+                "create_date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             self.state_info.append(self.data)

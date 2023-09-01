@@ -1,13 +1,8 @@
-import time
-from pathlib import Path
-import pandas as pd
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
 
-import matplotlib.pyplot as plt  # $ pip install matplotlib
-
-from ifcApp.crep.graphicscene.Bard import GraphicsWindow
+from ifcApp.crep.graphics.graphic_for_sensors import GraphicsWindow
 
 
 class ClickedGraphics(QGraphicsView):
@@ -16,16 +11,15 @@ class ClickedGraphics(QGraphicsView):
     id_dat = 1
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
-        self.create_grafics()
+        self.create_graphics()
         self.clicked.emit()
 
-    def create_grafics(self):
+    def create_graphics(self):
         self.graf = GraphicsWindow(self.crep_id,self.id_dat)
         self.graf.show()
 
 
 class CreateGraphicScene(QWidget):
-
     def __init__(self, parent=None):
         super().__init__(parent)
         scene = QGraphicsScene()

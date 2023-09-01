@@ -1,16 +1,8 @@
-import random
-from pathlib import Path
-import statsmodels.api as sm
-
-import pandas as pd
 from PyQt6 import QtCore
-from PyQt6.QtCore import pyqtSignal, QTimer
+from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QProgressBar
-from PySide6.QtCharts import QLineSeries, QChart, QChartView
-from matplotlib import pyplot as plt
-import pyqtgraph as pg
 
-from ifcApp.crep.graphicscene.Bard import GraphicsWindow
+from ifcApp.crep.graphics.graphic_for_sensors import GraphicsWindow
 
 
 class ClickedProgressbar(QProgressBar):

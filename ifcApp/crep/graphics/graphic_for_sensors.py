@@ -10,7 +10,7 @@ from PyQt6.QtCore import QTimer
 
 from ifcApp.crep.graphics.select_date import SelectDate
 
-UI_graphic = "resources/view/ifc/crep/graphics.ui"
+UI_graphic = "resources/view/ifc/crep/graphics_view/graphics.ui"
 
 
 class GraphicsWindow(QMainWindow):
@@ -89,8 +89,4 @@ class GraphicsWindow(QMainWindow):
         self.select_date_for_graphics.show()
 
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = GraphicsWindow(1, 1)
-    window.showMaximized()
-    app.exec()
+

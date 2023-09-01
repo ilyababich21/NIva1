@@ -9,7 +9,7 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 
 from connection_to_db import engine
 
-UI_selected_graphic = "resources/view/ifc/crep/selected graphic.ui"
+UI_selected_graphic = "resources/view/ifc/crep/graphics_view/selected graphic.ui"
 
 
 class SelectedGraphic(QMainWindow):

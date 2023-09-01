@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../image/logotip-niva-pochti-bez-fona.png</normaloff>../../../image/logotip-niva-pochti-bez-fona.png</iconset>
+    <normaloff>../../../../image/logotip-niva-pochti-bez-fona.png</normaloff>../../../../image/logotip-niva-pochti-bez-fona.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -63,7 +63,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../../../image/img tools/auto_disable.png</normaloff>../../../image/img tools/auto_disable.png</iconset>
+           <normaloff>../../../../image/img tools/auto_disable.png</normaloff>../../../../image/img tools/auto_disable.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -92,7 +92,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../../../image/img tools/auto_run.png</normaloff>../../../image/img tools/auto_run.png</iconset>
+           <normaloff>../../../../image/img tools/auto_run.png</normaloff>../../../../image/img tools/auto_run.png</iconset>
          </property>
          <property name="iconSize">
           <size>

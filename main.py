@@ -16,7 +16,7 @@ from serviceApp.service.service_model import Manufacture, SettingNetwork
 
 def main():
     app = QApplication(sys.argv)
-    window = CrepViewModel(1)
+    window = IfcViewModel()
     window.showMaximized()
     app.exec()
 
@@ -62,4 +62,4 @@ def CheckDB():
 
 
 if __name__ == '__main__':
-    main2()
+    main()

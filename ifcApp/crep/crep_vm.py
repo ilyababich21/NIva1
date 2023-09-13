@@ -19,7 +19,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         "crep_id": [],
     }
 
-    def __init__(self,num ):
+    def __init__(self, num):
         super().__init__()
         self.num = num
         self.all_sensors_crep = AllSensorsCrep()
@@ -27,7 +27,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.global_param = GlobalParam()
         self.data_sensors_section = DataSensorsSection()
 
-        self.list_sensors_lineEdit = [self.CP_lineEdit, self.sensors5_lineEdit, self.sensors1_lineEdit,
+        self.list_sensors_lineEdit = (self.CP_lineEdit, self.sensors5_lineEdit, self.sensors1_lineEdit,
                                       self.sensors2_lineEdit,
                                       self.sensors3_lineEdit,
                                       self.sensors4_lineEdit, self.pozition_lineEdit,
@@ -35,18 +35,20 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                       self.end_section_lineEdit,
                                       self.poper_hieght_lineEdit,
                                       self.section_one_lineEdit, self.section_two_lineEdit,
-                                      self.section_three_lineEdit, self.poz_shifting_lineEdit]
+                                      self.section_three_lineEdit, self.poz_shifting_lineEdit)
 
-        self.list_of_sensors_layouts = [self.CP_layout, self.gridLayout5, self.gridLayout1, self.gridLayout2,
+        self.list_of_sensors_layouts = (self.CP_layout, self.gridLayout5, self.gridLayout1, self.gridLayout2,
                                         self.gridLayout3,
                                         self.gridLayout4,
                                         self.pozition_layout, self.prod_layout,
                                         self.poper_layout, self.end_section_layout, self.poper_hieght_layout,
 
                                         self.section_one_layout, self.section_two_layout, self.section_three_layout,
-                                        self.poz_shifting_layout
+                                        self.poz_shifting_layout)
 
-                                        ]
+        self.list_button_route = (self.right_pushButton, self.left_pushButton,
+                                  self.left_x10_pushButton, self.right_x10_pushButton,
+                                  self.start_pushButton, self.finish_pushButton)
         for elem in range(11):
             speed = CreateGraphicScene(self)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
@@ -73,8 +75,14 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.control_pushbutton.clicked.connect(lambda: self.data_sensors_section.show())
         self.all_sensors_pushButton.clicked.connect(lambda: self.all_sensors_crep.show())
 
-    def show_sensor1_data(self, lineEde):
-        return lineEde.text()
+        for button in self.list_button_route:
+            button.clicked.connect(self.close_event)
+
+    def close_event(self):
+        self.close()
+
+    def show_sensor_data(self, lineEdit):
+        return lineEdit.text()
 
     @QtCore.pyqtSlot(list)
     def setText_lineEdit_sensors(self, lst):

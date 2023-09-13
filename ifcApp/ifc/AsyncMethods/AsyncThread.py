@@ -48,8 +48,8 @@ class AsyncTCPThread(QThread):
                         # print(self.emitValue)
 
                     # print(self.emitValue)
-            except Exception as e:
-                print("vs` huina  ", {e})
+            except Exception :
+                print("vs` huina  ")
 
             try:
                 # ОТПРАВИТЬ ЛИСТ НА ОТРИСОВКУ

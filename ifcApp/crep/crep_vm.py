@@ -42,13 +42,10 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                         self.gridLayout4,
                                         self.pozition_layout, self.prod_layout,
                                         self.poper_layout, self.end_section_layout, self.poper_hieght_layout,
-
                                         self.section_one_layout, self.section_two_layout, self.section_three_layout,
                                         self.poz_shifting_layout)
 
-        self.list_button_route = (self.right_pushButton, self.left_pushButton,
-                                  self.left_x10_pushButton, self.right_x10_pushButton,
-                                  self.start_pushButton, self.finish_pushButton)
+
         for elem in range(11):
             speed = CreateGraphicScene(self)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
@@ -75,13 +72,8 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.control_pushbutton.clicked.connect(lambda: self.data_sensors_section.show())
         self.all_sensors_pushButton.clicked.connect(lambda: self.all_sensors_crep.show())
 
-        for button in self.list_button_route:
-            button.clicked.connect(self.close_event)
-
-    def close_event(self):
-        self.close()
-
-    def show_sensor_data(self, lineEdit):
+    @staticmethod
+    def show_sensor_data(lineEdit):
         return lineEdit.text()
 
     @QtCore.pyqtSlot(list)

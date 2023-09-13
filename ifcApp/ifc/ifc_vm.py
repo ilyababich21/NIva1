@@ -153,20 +153,21 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def working_with_button_crep(self, elem):
         self.list_all_crep[-1].right_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[elem + 1]))
-        self.list_all_crep[-1].right_x10_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[elem + 10]))
-        self.list_all_crep[-1].left_x10_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[elem - 10]))
+            lambda: self.open_next_crep(self.list_all_crep[elem if elem == len(self.list_all_crep) - 1 else elem + 1]))
         self.list_all_crep[-1].left_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[elem - 1]))
+            lambda: self.open_next_crep(self.list_all_crep[len(self.list_all_crep)-2 if elem == len(self.list_all_crep)-1 else elem - 1]))
+        self.list_all_crep[-1].right_x10_pushButton.clicked.connect(
+            lambda: self.open_next_crep(self.list_all_crep[elem if elem == len(self.list_all_crep) - 1 else elem + 10]))
+        self.list_all_crep[-1].left_x10_pushButton.clicked.connect(
+            lambda: self.open_next_crep(self.list_all_crep[elem if elem == len(self.list_all_crep) - 1 else elem - 10]))
         self.list_all_crep[-1].start_pushButton.clicked.connect(
             lambda: self.open_next_crep(self.list_all_crep[0]))
         self.list_all_crep[-1].finish_pushButton.clicked.connect(
             lambda: self.open_next_crep(self.list_all_crep[-1]))
 
     def open_next_crep(self, elem):
-        # self.list_all_crep[elem].close_event()
+        for i in range(len(self.list_all_crep)):
+            self.list_all_crep[i].close()
         self.show_window_crep(elem)
 
     def remaster_creps(self):

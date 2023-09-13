@@ -129,8 +129,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.btn.value = int(row.max_value)
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
                 lambda checked, lt=index, b=self.btn, g=self.list_all_crep[-1],
-                       from_normal_value=int(row.from_normal_value),
-                       to_normal_value=int(row.to_normal_value):
+                from_normal_value=int(row.from_normal_value),
+                to_normal_value=int(row.to_normal_value):
                 b.update_color_and_height(
                     g.show_sensor_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
                     from_normal_value, to_normal_value, self.groupbox.list_name_for_groupbox[lt], elem + 1,
@@ -155,7 +155,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.list_all_crep[-1].right_pushButton.clicked.connect(
             lambda: self.open_next_crep(self.list_all_crep[elem if elem == len(self.list_all_crep) - 1 else elem + 1]))
         self.list_all_crep[-1].left_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[len(self.list_all_crep)-2 if elem == len(self.list_all_crep)-1 else elem - 1]))
+            lambda: self.open_next_crep(
+                self.list_all_crep[len(self.list_all_crep) - 2 if elem == len(self.list_all_crep) - 1 else elem - 1]))
         self.list_all_crep[-1].right_x10_pushButton.clicked.connect(
             lambda: self.open_next_crep(self.list_all_crep[elem if elem == len(self.list_all_crep) - 1 else elem + 10]))
         self.list_all_crep[-1].left_x10_pushButton.clicked.connect(

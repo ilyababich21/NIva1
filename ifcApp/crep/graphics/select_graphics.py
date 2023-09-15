@@ -2,16 +2,13 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
-
-from ifcApp.crep.graphics.selected_graphic_model import SelectedGraphicModel
 
 UI_selected_graphic = "resources/view/ifc/crep/graphics_view/selected graphic.ui"
 
 
 class SelectedGraphic(QMainWindow):
-    def __init__(self, num_crep, num_sensors,model):
+    def __init__(self, num_crep, num_sensors, model):
         self.num_crep = num_crep
         self.num_sensors = num_sensors
         self.model = model

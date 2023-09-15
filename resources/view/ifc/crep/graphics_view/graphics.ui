@@ -42,6 +42,10 @@
          <property name="text">
           <string/>
          </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../../../image/img tools/curve.png</normaloff>../../../../image/img tools/curve.png</iconset>
+         </property>
         </widget>
        </item>
        <item>

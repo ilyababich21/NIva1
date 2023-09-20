@@ -13,7 +13,8 @@ class SelectedGraphicModel(QObject):
     def get_data(self, from_datetime, before_datetime):
         query_sql = session.query(Sensors_ifc).filter(Sensors_ifc.id_dat == self.num_sensors,
                                                       Sensors_ifc.crep_id == self.num_crep).all()
-        df = pd.DataFrame([(one.create_date, one.value) for one in query_sql], columns=['create_date', 'value'])
+        df = pd.DataFrame([(one.create_date, one.value) for one in query_sql])
+        df.columns = ['create_date', 'value']
         df.sort_values(by=['create_date'], inplace=True)
         df['value'] = df['value'].astype("int64")
         df = df.groupby(["create_date"])['value'].mean().astype(int).reset_index()

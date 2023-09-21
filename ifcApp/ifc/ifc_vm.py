@@ -1,7 +1,7 @@
 import threading
-
+from PyQt6.QtCore import Qt
 from PyQt6 import uic, QtWidgets, QtGui
-from PyQt6.QtCore import QTimer, QDateTime
+from PyQt6.QtCore import QTimer, QDateTime, QThread
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 
 from ifcApp.countShield.count_shield_vm import CountShieldVM
@@ -9,10 +9,10 @@ from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
-from ifcApp.ifc.AsyncMethods.AsyncReciver import WorkerSignals
-from ifcApp.ifc.AsyncMethods.AsyncThread import AsyncTCPThread
-from ifcApp.ifc.ButtonWidgets.ButtonForSecPre import ButtonForSectionWidget
-from ifcApp.ifc.GroupBox.groupbox_widget import GroupBoxWidget
+from ifcApp.ifc.asyncMethods.async_receiver import WorkerSignals, AsyncTcpReciver
+from ifcApp.ifc.asyncMethods.async_thread import AsyncTCPThread
+from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
+from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
 from ifcApp.ifc.mainMenu.global_param import GlobalParam
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
@@ -32,23 +32,23 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam()
         self.user_ifc = UserInIfc()
+        self.thread = QThread()
         self.model = IfcModel()
         self.count_shield = CountShieldVM()
         self.notification_errors = NotificationErrors()
+        self.AsyncTcpReciver = AsyncTcpReciver()
 
         uic.loadUi(UI_ifc, self)
 
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_all_crep = []
-        self.list_all_thread = []
 
+        self.AsyncTcpReciver.moveToThread(self.thread)
+        self.thread.started.connect(self.AsyncTcpReciver.run)
         self.create_groupbox(self.layout_groupbox)
         self.show_button()
-
-        for elem in self.list_all_thread:
-            elem.start()
-            elem.msleep(100)
+        self.thread.start()
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action, self.shield_UGZ_action,
                                  self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
@@ -71,17 +71,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
 
     def exit_program(self):
-        self.closing_ifc()
+        self.thread.quit()
         QApplication.instance().quit()
 
     def show_count(self):
         self.count_shield.OK_pushButton.clicked.connect(self.remaster_creps)
         self.count_shield.show()
-
-    def start_all_thread(self):
-        for elem in self.list_all_thread:
-            elem.start()
-            elem.msleep(100)
 
     def create_groupbox(self, layout):
         self.global_param.list_groupbox.clear()
@@ -105,23 +100,19 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.cleaner_layouts(layout_list)
         for elem in range(self.count_shield.model.get_count_shield()):
             self.list_all_crep.append(CrepViewModel(elem + 1))
-            self.setting_async_reciver()
+            self.setting_async_receiver()
             self.create_button_layout_list(layout_list, elem)
 
     def cleaner_layouts(self, layout_list):
         self.list_all_crep.clear()
-        self.list_all_thread.clear()
         for layout in layout_list:
             for i in reversed(range(layout.count())):
                 layout.itemAt(i).widget().deleteLater()
 
-    def setting_async_reciver(self):
-        sigOnal1 = WorkerSignals()
-        sigOnal1.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
-        t = AsyncTCPThread()
-        t.all_signal = sigOnal1
-        t.slaveID = self.list_all_crep[-1].num
-        self.list_all_thread.append(t)
+    def setting_async_receiver(self):
+        py_signal = WorkerSignals()
+        py_signal.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
+        self.AsyncTcpReciver.all_signal.append(py_signal)
 
     def create_button_layout_list(self, layout_list, elem):
         for index, row in enumerate(self.model.get_global_param()):
@@ -129,8 +120,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.btn.value = int(row.max_value)
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
                 lambda checked, lt=index, b=self.btn, g=self.list_all_crep[-1],
-                from_normal_value=int(row.from_normal_value),
-                to_normal_value=int(row.to_normal_value):
+                       from_normal_value=int(row.from_normal_value),
+                       to_normal_value=int(row.to_normal_value):
                 b.update_color_and_height(
                     g.show_sensor_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
                     from_normal_value, to_normal_value, self.groupbox.list_name_for_groupbox[lt], elem + 1,
@@ -173,20 +164,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def remaster_creps(self):
         self.count_shield.get_and_save_number_from_lineedit()
-        threads = threading.enumerate()
-        print("Active threads:")
-        for thread in threads:
-            print(thread)
-
-        for threadd in self.list_all_thread:
-            threadd.running = False
-
-        threads = threading.enumerate()
-        print("Active threads:")
-        for thread in threads:
-            print(thread)
+        self.AsyncTcpReciver.all_signal.clear()
+        self.AsyncTcpReciver.brokeSignalsId.clear()
         self.show_button()
-        self.start_all_thread()
 
     def show_window_crep(self, crepWin):
         if crepWin.isVisible():
@@ -221,28 +201,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.date_time.setText(timeDisplay)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
-        self.closing_ifc()
-        self.close()
-
-    def closing_ifc(self):
-        threads = threading.enumerate()
-        print("Active threads:")
-        for thread in threads:
-            print(thread)
-        for thred in self.list_all_thread:
-            thred.running = False
-        threads = threading.enumerate()
-        print("Active threads:")
-        for thread in threads:
-            print(thread)
-
-        print("ИДЕТ СОХРАНЕНИЕ....")
-        try:
-            print("ИДЕТ СОХРАНЕНИЕ....")
-            traversing_directories()
-        except:
-            print("shit")
-        print("mission complete")
+        self.thread.quit()
         self.close()
 
     def update_global_param(self):

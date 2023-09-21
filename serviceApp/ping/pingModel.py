@@ -4,8 +4,6 @@ from connection_to_db import Base
 from serviceApp.service.service_model import engine
 
 
-
-
 class PingTable(Base):
     __tablename__ = "ping"
 

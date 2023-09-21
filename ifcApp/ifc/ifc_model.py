@@ -5,6 +5,7 @@ import time
 import pandas as pd
 from PyQt6.QtCore import QObject
 from connection_to_db import session
+from ifcApp.ifc.asyncMethods.async_receiver import AsyncTcpReciver
 from ifcApp.ifc.mainMenu.globalparam_model import GlobalParamTable
 from serviceApp.service.service_model import engine
 from multiprocessing import Process
@@ -70,6 +71,7 @@ class IfcModel(QObject):
                     writer.writeheader()
         proc = Process(target=DBwrite, daemon=True)
         proc.start()
+
 
     @staticmethod
     def get_global_param():

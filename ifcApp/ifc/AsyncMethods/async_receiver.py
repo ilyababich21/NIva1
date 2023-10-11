@@ -29,7 +29,7 @@ class AsyncTcpReciver(QtCore.QObject):
         self.client = ModbusTcpClient("127.0.0.1", port=502)
         while True:
             try:
-                time.sleep(1)
+                # time.sleep(1)
                 self.readSync()
             except Exception as e:
                 print("neverno ukaazan address ", e)
@@ -46,6 +46,7 @@ class AsyncTcpReciver(QtCore.QObject):
                     if type(result) is ModbusIOException:
                         print("emae")
                         self.emitValue = [" " for i in range(15)]
+
                         self.brokeSignalsId.append(elem)
                         break
                     elif result.isError():
@@ -53,14 +54,15 @@ class AsyncTcpReciver(QtCore.QObject):
                         self.emitValue.append(" ")
                         print("nO DATCHIK")
                     else:
-                        print("ock")
+                        # print("ock")
                         self.emitValue.append(result.registers[0])
-                        print(self.emitValue)
-                else:
-                    print("ПРОХОД ПО ВНУТРЕННЕМУ ЦИКЛУ ЗАКОНЧЕН")
+                        print(result.registers[0])
+                        # print(self.emitValue)
+                # else:
+                #     # print("ПРОХОД ПО ВНУТРЕННЕМУ ЦИКЛУ ЗАКОНЧЕН")
 
             except Exception as e:
-                print("neverno ukaazan address ", e)
+                print("pizda rulu ", e)
                 break
             try:
                 # ОТПРАВИТЬ ЛИСТ НА ОТРИСОВКУ

@@ -14,7 +14,7 @@ from ifcApp.ifc.asyncMethods.async_thread import AsyncTCPThread
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
 from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
-from ifcApp.ifc.mainMenu.global_param import GlobalParam
+from ifcApp.ifc.globalParam.global_param import GlobalParam
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 
 UI_ifc = "resources/view/ifc/ifc version1.ui"
@@ -69,9 +69,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
         self.exit_pushButton.clicked.connect(self.exit_program)
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
+        self.driver_pushButton.clicked.connect(lambda :print("Привет!"))
 
     def exit_program(self):
-        self.thread.quit()
+        self.thread.running = False
         QApplication.instance().quit()
 
     def show_count(self):
@@ -201,7 +202,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.date_time.setText(timeDisplay)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
-        self.thread.quit()
+        self.thread.running = False
+        self.AsyncTcpReciver.client.close()
         self.close()
 
     def update_global_param(self):

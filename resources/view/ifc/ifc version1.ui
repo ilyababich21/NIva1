@@ -154,7 +154,7 @@ QMenuBar::item {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="monitoring_gidravlic">
+        <widget class="QPushButton" name="driver_pushButton">
          <property name="minimumSize">
           <size>
            <width>25</width>
@@ -175,7 +175,7 @@ QMenuBar::item {
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../../image/img tools/sensor_list.png</normaloff>../../image/img tools/sensor_list.png</iconset>
+           <normaloff>../../image/img tools/driver.png</normaloff>../../image/img tools/driver.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -340,6 +340,9 @@ QMenuBar::item {
           <string notr="true">QLineEdit {
   border-radius: 8px;
 }</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>

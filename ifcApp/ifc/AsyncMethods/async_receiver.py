@@ -5,8 +5,7 @@ import time
 import os
 from PyQt6 import QtCore
 from PyQt6.QtCore import pyqtSignal, QObject
-from async_modbus import AsyncTCPClient
-from pymodbus.client import ModbusTcpClient
+from pymodbus.client import ModbusTcpClient, AsyncModbusTcpClient
 from pymodbus.exceptions import ModbusIOException
 
 
@@ -35,18 +34,17 @@ class AsyncTcpReciver(QtCore.QObject):
                 print("neverno ukaazan address ", e)
 
     def readSync(self):
-        # ЧТЕНИЕ КАЖДОГО ДАТЧИКА КАЖДОЙ КРЕПИ
+        address = 0
+        count = 15
         for elem in range(len(self.all_signal)):
             self.emitValue = []
             if elem in self.brokeSignalsId: continue
             try:
-                for addr in range(15):
-                    result = self.client.read_holding_registers(address=addr, count=1, slave=elem + 1)
-                    # print(type(result))
+                result = self.client.read_holding_registers(address=address, count=count, slave=1)
+                for i, value in enumerate(result.registers):
                     if type(result) is ModbusIOException:
                         print("emae")
                         self.emitValue = [" " for i in range(15)]
-
                         self.brokeSignalsId.append(elem)
                         break
                     elif result.isError():
@@ -54,20 +52,16 @@ class AsyncTcpReciver(QtCore.QObject):
                         self.emitValue.append(" ")
                         print("nO DATCHIK")
                     else:
-                        # print("ock")
-                        self.emitValue.append(result.registers[0])
-                        print(result.registers[0])
-                        # print(self.emitValue)
-                # else:
-                #     # print("ПРОХОД ПО ВНУТРЕННЕМУ ЦИКЛУ ЗАКОНЧЕН")
-
+                        self.emitValue.append(value)
+                address += count
             except Exception as e:
                 print("pizda rulu ", e)
                 break
             try:
-                # ОТПРАВИТЬ ЛИСТ НА ОТРИСОВКУ
                 self.state_info = []
+                print(self.emitValue)
                 self.all_signal[elem].result.emit(self.emitValue)
+                print(f"отправляем на крепь {elem}")
             except:
                 print("ebaniy rot")
 
@@ -78,7 +72,6 @@ class AsyncTcpReciver(QtCore.QObject):
                                         extrasaction='ignore')
                 # запись нескольких строк
                 writer.writerows(self.state_info)
-
 
     def EntryValueForCSV(self, elem):
 

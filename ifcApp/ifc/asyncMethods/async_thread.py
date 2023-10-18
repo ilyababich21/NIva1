@@ -66,8 +66,6 @@ class AsyncTCPThread(QThread):
             with open(addr + "\\" + str(len(os.listdir(addr))) + ".csv", "a", newline="") as file:
                 writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
                                         extrasaction='ignore')
-                # writer.writeheader()
-
                 # запись нескольких строк
                 writer.writerows(self.state_info)
             # self.state_info = []
@@ -81,7 +79,7 @@ class AsyncTCPThread(QThread):
             self.data = {
                 "id_dat": dat + 1,
                 "value": self.emitValue[dat],
-                "crep_id": self.slaveID,
+                "crep_id": num,
                 "create_date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             self.state_info.append(self.data)

@@ -5,7 +5,7 @@ from authorization.authorization_model import Users, Role
 from connection_to_db import session
 from ifcApp.ifc.users.groupbox_for_users import GroupBoxForUser
 
-UI_user = "resources/view/ifc/user.ui"
+UI_user = "resources/view/ifc/user/user.ui"
 
 
 class UserInIfc(QMainWindow):
@@ -45,7 +45,7 @@ class UserInIfc(QMainWindow):
         self.delete_user_pushButton.clicked.connect(self.delete_user)
 
     def show_add_user(self):
-        uic.loadUi("view/ifc/add user.ui", self)
+        uic.loadUi("view/ifc/user/add user.ui", self)
         for item in self.qury_role:
             self.law.addItem(item.description)
         self.add.clicked.connect(self.add_to_database_on_clicked)

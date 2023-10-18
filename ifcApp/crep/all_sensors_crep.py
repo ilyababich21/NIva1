@@ -1,6 +1,6 @@
 from PyQt6 import uic, QtWidgets
 
-from ifcApp.ifc.mainMenu.global_param import GlobalParam
+from ifcApp.ifc.globalParam.global_param import GlobalParam
 
 UI_sernsors = "resources/view/ifc/crep/sensors crep.ui"
 

@@ -6,7 +6,7 @@ from ifcApp.crep.all_sensors_crep import AllSensorsCrep
 from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
 from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
-from ifcApp.ifc.mainMenu.global_param import GlobalParam
+from ifcApp.ifc.globalParam.global_param import GlobalParam
 
 UI_crep = "resources/view/ifc/crep/ifc_crep.ui"
 

@@ -1,7 +1,7 @@
 from PyQt6 import uic, QtWidgets
 
 
-UI_errors = "resources/view/ifc/notification errors.ui"
+UI_errors = "resources/view/ifc/toolbar/notification errors.ui"
 
 
 class NotificationErrors(QtWidgets.QMainWindow):

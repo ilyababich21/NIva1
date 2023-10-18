@@ -58,7 +58,9 @@ class ModbusForm(QtWidgets.QMainWindow):
             if client_modbus:
                 client_modbus.close()
             else:
+                self.status_label.setText("Остановка чтения")
                 clientTCP.close()
+                print("close")
         except:
             self.close()
 
@@ -95,12 +97,12 @@ class ModbusForm(QtWidgets.QMainWindow):
             else:
 
                 clientTCP = ModbusTcpClient(host=label7, port=label8)
-                try:
-                    clientTCP.connect()
-                    print('norm')
+                clientTCP.connect()
+                if clientTCP.is_socket_open():
+                    self.status_label.setText("Подключено")
                     self.changer.start()
-                except:
-                    print('hueta')
+                if not clientTCP.is_socket_open():
+                    self.status_label.setText("Нет Подключения")
 
     @QtCore.pyqtSlot(str)
     def setText(self, string):

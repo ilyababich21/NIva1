@@ -9,8 +9,8 @@ from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
-from ifcApp.ifc.asyncMethods.async_receiver import WorkerSignals, AsyncTcpReciver
-from ifcApp.ifc.asyncMethods.async_thread import AsyncTCPThread
+from ifcApp.ifc.AsyncMethods.async_receiver import WorkerSignals, AsyncTcpReciver
+from ifcApp.ifc.AsyncMethods.async_thread import AsyncTCPThread
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
 from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.ifc_model import IfcModel, traversing_directories

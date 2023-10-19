@@ -1,11 +1,10 @@
-import subprocess
-
 from PyQt6 import QtWidgets, uic
+from PyQt6.QtCore import QRegularExpression
+from PyQt6.QtGui import QRegularExpressionValidator, QIntValidator
+from pymodbus.client import ModbusTcpClient
 
 import serviceApp.service.service_model as model
-from serviceApp.modbus.modbusVm import ModbusForm
 from serviceApp.ping.pingVm import Ping
-from serviceApp.service.service_model import SettingNetwork, NetworkInterface
 
 UI_service = "resources/view/service/service_view.ui"
 
@@ -13,52 +12,57 @@ UI_service = "resources/view/service/service_view.ui"
 class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.service_model = model.ServiceModel()
-        self.modbusForm = ModbusForm()
-        self.ping = Ping()
         uic.loadUi(UI_service, self)
-        self.setting_network = self.service_model.check_first_load(SettingNetwork)
-        self.network_interface = self.service_model.check_first_load(NetworkInterface)
-        self.host_name_edit.setText(self.setting_network.host_name)
-        self.domain_name_edit.setText(self.setting_network.domain_name)
-        self.primary_server_edit.setText(self.setting_network.primary_name_server)
-        self.secondary_server_edit.setText(self.setting_network.secondary_name_server)
-        self.default_gateway_edit.setText(self.setting_network.default_gateway)
+        self.service_model = model.ServiceModel()
 
-        for elem in range(self.device_combobox.count()):
-            if self.network_interface.device == self.device_combobox.itemText(elem):
-                self.device_combobox.setCurrentIndex(elem)
+        self.modbus_query = self.service_model.check_first_load(model.Modbus)
 
-        for elem in range(self.adressing_combobox.count()):
-            if self.network_interface.addressing == self.adressing_combobox.itemText(elem):
-                self.adressing_combobox.setCurrentIndex(elem)
+        self.list_value = [self.modbus_query.ip_address, self.modbus_query.port,
+                           self.modbus_query.slave_id, self.modbus_query.start_register,
+                           self.modbus_query.count_register]
+        self.list_lineedit = [self.ip_modbus_lineEdit, self.port_lineEdit, self.slave_id_lineEdit,
+                              self.start_reg_lineEdit, self.end_reg_lineEdit]
 
-        self.ip_address_edit.setText(self.network_interface.ip_address)
-        self.mask_edit.setText(self.network_interface.subnet_mask)
+        for one_lineedit, value in zip(self.list_lineedit, self.list_value):
+            if one_lineedit == self.ip_modbus_lineEdit:
+                regex = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])"
+                self.ip_modbus_lineEdit.setValidator(QRegularExpressionValidator(
+                    QRegularExpression("^" + regex + "\\." + regex + "\\." + regex + "\\." + regex + "$")))
+            else:
+                one_lineedit.setValidator(QIntValidator())
+            one_lineedit.setText(str(value))
+
+        self.ping = Ping()
 
         self.ping_query_pushButton.clicked.connect(lambda: self.ping.show())
-        self.scan_modbus_pushButton.clicked.connect(lambda: self.modbusForm.show())
-        self.test_alz_pushButton.clicked.connect(
-            lambda: self.ping_test_for_button(self.test_alz_pushButton, self.ip_comp_lineEdit))
-        self.main_drive_pushButton.clicked.connect(
-            lambda: self.ping_test_for_button(self.main_drive_pushButton, self.ip_main_comp_lineEdit))
-        self.second_drive_pushButton.clicked.connect(
-            lambda: self.ping_test_for_button(self.second_drive_pushButton, self.second_drive_lineEdit))
         self.auto_checkBox.clicked.connect(self.check_timezone)
         self.manually_checkBox.clicked.connect(self.check_timezone)
         self.exit_pushButton.clicked.connect(lambda: self.close())
-        self.save_change_pushButton.clicked.connect(self.save_on_clicked_data)
+        self.clientTCP = None
+        self.start_pushButton.clicked.connect(
+            lambda: self.start_modbus(self.ip_modbus_lineEdit.text(), self.port_lineEdit.text(),
+                                      self.start_reg_lineEdit.text(), self.end_reg_lineEdit.text(),
+                                      self.slave_id_lineEdit.text()))
 
     def save_on_clicked_data(self):
-        self.setting_network.update_setting_network(self.host_name_edit.text(),
-                                                    self.domain_name_edit.text(),
-                                                    self.primary_server_edit.text(),
-                                                    self.secondary_server_edit.text(),
-                                                    self.default_gateway_edit.text())
+        self.modbus_query.update_modbus_table(self.ip_modbus_lineEdit.text(), self.port_lineEdit.text(),
+                                              self.slave_id_lineEdit.text(), self.start_reg_lineEdit.text(),
+                                              self.end_reg_lineEdit.text(), )
 
-        self.network_interface.update_network_interface(self.device_combobox.currentText(),
-                                                        self.adressing_combobox.currentText(),
-                                                        self.ip_address_edit.text(), self.mask_edit.text())
+    def start_modbus(self, ip_address, port, start_register, end_register, slave_id):
+        if self.start_reg_lineEdit.text() == '':
+            self.textEdit.setText("Старт-регистр обязателен для заполнения")
+        else:
+            self.clientTCP = ModbusTcpClient(host=ip_address, port=port)
+            self.clientTCP.connect()
+            if self.clientTCP.is_socket_open():
+                self.status_label.setText("Подключено")
+                result = self.clientTCP.read_holding_registers(int(start_register), int(end_register),
+                                                               int(slave_id))
+                self.textEdit.setText(str(result.registers))
+                self.save_on_clicked_data()
+            if not self.clientTCP.is_socket_open():
+                self.status_label.setText("Нет Подключения")
 
     def check_timezone(self):
         if self.auto_checkBox.isChecked():
@@ -87,14 +91,3 @@ class ServiceViewModel(QtWidgets.QMainWindow):
             self.comboBox_8.setEnabled(True)
             self.comboBox_9.setEnabled(True)
             self.comboBox_10.setEnabled(True)
-
-    def ping_test_for_button(self, btn, line):
-        ip = line.text()
-        if ip == '':
-            btn.setStyleSheet('background-color: rgb(255,0,0);')
-            return
-        retcode = subprocess.call("ping -n 1 " + str(ip))
-        if retcode != 0:
-            btn.setStyleSheet('background-color: rgb(255,0,0);')
-        else:
-            btn.setStyleSheet('background-color: rgb(0,255,0);')

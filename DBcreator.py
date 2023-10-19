@@ -17,7 +17,6 @@ class Manufacture(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
     discription = Column(String)
-    setting_networks = relationship("SettingNetwork", back_populates="manufacture")
     network_interface = relationship("NetworkInterface", back_populates="manufacture")
     users = relationship("Users", back_populates="manufacture")
     creps = relationship("Crep_ifc", back_populates="manufacture")

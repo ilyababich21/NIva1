@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 
-from connection_to_db import Base
+from connection_to_db import Base, session
 from serviceApp.service.service_model import engine
 
 
@@ -12,6 +12,7 @@ class PingTable(Base):
 
     def update_pingTable(self, ping):
         self.ping = ping
+        session.commit()
 
 
 Base.metadata.create_all(bind=engine)

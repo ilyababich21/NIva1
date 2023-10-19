@@ -1,3 +1,5 @@
+
+
 from PyQt6 import uic, QtGui
 from PyQt6.QtWidgets import QMainWindow
 
@@ -45,7 +47,7 @@ class UserInIfc(QMainWindow):
         self.delete_user_pushButton.clicked.connect(self.delete_user)
 
     def show_add_user(self):
-        uic.loadUi("view/ifc/user/add user.ui", self)
+        uic.loadUi("resources/view/ifc/user/add user.ui", self)
         for item in self.qury_role:
             self.law.addItem(item.description)
         self.add.clicked.connect(self.add_to_database_on_clicked)

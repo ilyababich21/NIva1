@@ -59,9 +59,9 @@ class AsyncTcpReciver(QtCore.QObject):
                 break
             try:
                 self.state_info = []
-                print(self.emitValue)
+                # print(self.emitValue)
                 self.all_signal[elem].result.emit(self.emitValue)
-                print(f"отправляем на крепь {elem}")
+                # print(f"отправляем на крепь {elem}")
             except:
                 print("ebaniy rot")
 

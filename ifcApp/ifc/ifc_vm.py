@@ -9,6 +9,7 @@ from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
+from ifcApp.ifc.AsyncMethods.async_ilya import AsyncThread
 from ifcApp.ifc.AsyncMethods.async_receiver import WorkerSignals, AsyncTcpReciver
 from ifcApp.ifc.AsyncMethods.async_thread import AsyncTCPThread
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
@@ -36,7 +37,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.model = IfcModel()
         self.count_shield = CountShieldVM()
         self.notification_errors = NotificationErrors()
-        self.AsyncTcpReciver = AsyncTcpReciver()
+        self.AsyncTcpReciver = AsyncThread()
 
         uic.loadUi(UI_ifc, self)
 
@@ -93,6 +94,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_button(self):
         self.make_buttons(self.layout_list_in_groupbox)
+        self.AsyncTcpReciver.play_pause =True
 
         for elem in range(len(self.global_param.list_groupbox)):
             self.global_param.list_groupbox[elem].name_label.raise_()
@@ -165,6 +167,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def remaster_creps(self):
         self.count_shield.get_and_save_number_from_lineedit()
+        self.AsyncTcpReciver.play_pause =False
         self.AsyncTcpReciver.all_signal.clear()
         self.AsyncTcpReciver.brokeSignalsId.clear()
         self.show_button()

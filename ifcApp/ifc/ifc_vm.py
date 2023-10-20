@@ -207,6 +207,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         self.thread.running = False
         self.AsyncTcpReciver.client.close()
+        traversing_directories()
         self.close()
 
     def update_global_param(self):

@@ -40,6 +40,7 @@ class AsyncThread(QtCore.QObject):
 
     def read_sync(self):
         self.emitValue = []
+        self.result_trap=[]
         num_of_creps = len(self.all_signal)
         puf =num_of_creps//8
         ostatok = num_of_creps%8
@@ -65,8 +66,8 @@ class AsyncThread(QtCore.QObject):
         # print(self.emitValue)
         self.result_trap = [self.emitValue[i:i+15] for i in range(0,len(self.emitValue),15)]
         # print(self.result_trap)
-        self.state_info=[]
         for elem in range(len(self.all_signal)):
+            self.state_info=[]
             self.all_signal[elem].result.emit(self.result_trap[elem])
             self.EntryValueForCSV(elem)
 

@@ -16,6 +16,7 @@ CSV_History = 'CSV_History'
 def traversing_directories():
     for folder in range(1, len(os.listdir(CSV_History)) + 1):
         crep_dir = CSV_History + "\\" + str(folder)
+        print(crep_dir)
         for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=5000):
             chunk.to_sql("sensors", engine, if_exists="append", index=False)
 

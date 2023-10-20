@@ -1,7 +1,5 @@
 import subprocess
-
 from PyQt6 import QtWidgets, uic
-
 import serviceApp.ping.pingModel as ping
 from connection_to_db import session
 from serviceApp.ping.pingModel import PingTable
@@ -37,5 +35,4 @@ class Ping(QtWidgets.QMainWindow):
             self.check_pushButton.setStyleSheet('background-color: rgb(0,255,0);')
 
         self.ping_table.update_pingTable(self.ip_lineEdit.text())
-        session.commit()
-        session.refresh(self.ping_table)
+

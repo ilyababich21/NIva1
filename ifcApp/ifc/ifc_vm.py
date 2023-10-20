@@ -1,5 +1,3 @@
-import threading
-from PyQt6.QtCore import Qt
 from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QThread
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
@@ -10,11 +8,10 @@ from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
 from ifcApp.ifc.AsyncMethods.async_ilya import AsyncThread
-from ifcApp.ifc.AsyncMethods.async_receiver import WorkerSignals, AsyncTcpReciver
-from ifcApp.ifc.AsyncMethods.async_thread import AsyncTCPThread
+from ifcApp.ifc.AsyncMethods.async_receiver import WorkerSignals
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
 from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
-from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
+from ifcApp.ifc.ifc_model import IfcModel
 from ifcApp.ifc.globalParam.global_param import GlobalParam
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 

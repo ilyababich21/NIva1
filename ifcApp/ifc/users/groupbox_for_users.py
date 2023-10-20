@@ -1,4 +1,4 @@
-from PyQt6 import QtCore, QtGui
+from PyQt6 import QtCore
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QGroupBox, QGridLayout, QPushButton, QLabel, QRadioButton
 

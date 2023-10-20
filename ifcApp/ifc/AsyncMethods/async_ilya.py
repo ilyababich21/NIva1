@@ -2,7 +2,6 @@ import csv
 import datetime
 import os
 import time
-
 from PyQt6 import QtCore
 from PyQt6.QtCore import QObject, pyqtSignal
 from pymodbus.client import ModbusTcpClient
@@ -18,7 +17,7 @@ class AsyncThread(QtCore.QObject):
     emitValue = []
     all_signal = []
     state_info = []
-    play_pause= False
+    play_pause = False
 
     def __init__(self, parent=None):
         super(AsyncThread, self).__init__(parent)
@@ -41,31 +40,30 @@ class AsyncThread(QtCore.QObject):
     def read_sync(self):
         self.emitValue = []
         num_of_creps = len(self.all_signal)
-        puf =num_of_creps//8
-        ostatok = num_of_creps%8
+        puf = num_of_creps // 8
+        ostatok = num_of_creps % 8
         try:
-            if puf == 0 and ostatok!=0:
-                result = self.client.read_holding_registers(address=0, count=ostatok*15, slave=1)
-                self.emitValue+=result.registers
-            elif puf!=0 and ostatok==0:
+            if puf == 0 and ostatok != 0:
+                result = self.client.read_holding_registers(address=0, count=ostatok * 15, slave=1)
+                self.emitValue += result.registers
+            elif puf != 0 and ostatok == 0:
                 for addr in range(puf):
-                    result = self.client.read_holding_registers(address=addr*120, count=120, slave=1)
+                    result = self.client.read_holding_registers(address=addr * 120, count=120, slave=1)
                     self.emitValue += result.registers
-            elif puf!=0 and ostatok!=0:
+            elif puf != 0 and ostatok != 0:
                 for addr in range(puf):
-                    result = self.client.read_holding_registers(address=addr*120, count=120, slave=1)
+                    result = self.client.read_holding_registers(address=addr * 120, count=120, slave=1)
                     self.emitValue += result.registers
                 else:
-                    result = self.client.read_holding_registers(address=(addr+1)*120, count=ostatok * 15, slave=1)
+                    result = self.client.read_holding_registers(address=(addr + 1) * 120, count=ostatok * 15, slave=1)
                     self.emitValue += result.registers
         except Exception as e:
             print(e)
 
-
         # print(self.emitValue)
-        self.result_trap = [self.emitValue[i:i+15] for i in range(0,len(self.emitValue),15)]
+        self.result_trap = [self.emitValue[i:i + 15] for i in range(0, len(self.emitValue), 15)]
         # print(self.result_trap)
-        self.state_info=[]
+        self.state_info = []
         for elem in range(len(self.all_signal)):
             self.all_signal[elem].result.emit(self.result_trap[elem])
             self.EntryValueForCSV(elem)

@@ -1,7 +1,6 @@
 import csv
 import datetime
 import os
-import time
 
 from PyQt6.QtCore import QObject, pyqtSignal, QThread
 from pymodbus.client import ModbusTcpClient

@@ -1,10 +1,8 @@
 from PyQt6 import QtWidgets, uic
-from PyQt6.QtCore import QRegularExpression,QRegularExpressionMatch
-from PyQt6.QtGui import QIntValidator, QRegularExpressionValidator
+from PyQt6.QtCore import QRegularExpression
+from PyQt6.QtGui import QRegularExpressionValidator
 
-from connection_to_db import session
 from ifcApp.countShield.count_shield_model import CountShieldModel
-from serviceApp.service.service_model import Manufacture
 
 UI_count_shield = "resources/view/ifc/toolbar/count shield.ui"
 

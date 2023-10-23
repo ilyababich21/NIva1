@@ -7,8 +7,8 @@ from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
-from ifcApp.ifc.AsyncMethods.async_ilya import AsyncThread
-from ifcApp.ifc.AsyncMethods.async_receiver import WorkerSignals
+from ifcApp.ifc.asyncMethods.async_ilya import AsyncThread
+from ifcApp.ifc.asyncMethods.async_receiver import WorkerSignals
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
 from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.ifc_model import IfcModel
@@ -24,7 +24,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer = QTimer()
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
-        print("ALE GARAG NAHOI")
+        print("Load ifc")
 
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()

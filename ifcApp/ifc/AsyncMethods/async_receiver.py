@@ -1,11 +1,9 @@
-import asyncio
 import csv
 import datetime
-import time
 import os
 from PyQt6 import QtCore
 from PyQt6.QtCore import pyqtSignal, QObject
-from pymodbus.client import ModbusTcpClient, AsyncModbusTcpClient
+from pymodbus.client import ModbusTcpClient
 from pymodbus.exceptions import ModbusIOException
 
 

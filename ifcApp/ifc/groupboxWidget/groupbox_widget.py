@@ -1,6 +1,5 @@
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QGroupBox, QLabel, QHBoxLayout, QGridLayout
-from PyQt6.uic.uiparser import QtGui
 
 
 class GroupBoxWidget(QGroupBox):

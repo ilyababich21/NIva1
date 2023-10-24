@@ -13,7 +13,7 @@ UI_user = "resources/view/ifc/user/user.ui"
 class UserInIfc(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.qury_role = session.query(Role).filter(Role.id <= 2).all()
+        self.query_role = session.query(Role).filter(Role.id <= 2).all()
         self.users = None
         self.groupbox_in_users = None
         self.list_users_login = None
@@ -48,12 +48,12 @@ class UserInIfc(QMainWindow):
 
     def show_add_user(self):
         uic.loadUi("resources/view/ifc/user/add user.ui", self)
-        for item in self.qury_role:
+        for item in self.query_role:
             self.law.addItem(item.description)
-        self.add.clicked.connect(self.add_to_database_on_clicked)
+        self.add.clicked.connect(self.add_to_database)
 
-    def add_to_database_on_clicked(self):
-        for item in self.qury_role:
+    def add_to_database(self):
+        for item in self.query_role:
             if self.law.currentText() == item.description:
                 print(item.id)
                 session.add_all(

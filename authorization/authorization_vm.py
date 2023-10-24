@@ -1,5 +1,3 @@
-import time
-
 from PyQt6 import QtWidgets, QtCore, uic
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QMovie
@@ -53,8 +51,8 @@ class Authorization(QtWidgets.QMainWindow):
         splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         splash.show()
         self.admin_ui = IfcViewModel()
-        splash.finish(self.admin_ui)
         self.admin_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
+        splash.finish(self.admin_ui)
         self.admin_ui.showMaximized()
 
     def open_miner_ui(self):

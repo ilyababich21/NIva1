@@ -39,6 +39,7 @@ class AsyncThread(QtCore.QObject):
 
     def read_sync(self):
         self.emitValue = []
+        self.result_trap=[]
         num_of_creps = len(self.all_signal)
         puf = num_of_creps // 8
         ostatok = num_of_creps % 8

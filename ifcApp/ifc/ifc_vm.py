@@ -1,3 +1,5 @@
+import threading
+
 from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QThread
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
@@ -11,7 +13,7 @@ from ifcApp.ifc.asyncMethods.async_ilya import AsyncThread
 from ifcApp.ifc.asyncMethods.async_receiver import WorkerSignals
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
 from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
-from ifcApp.ifc.ifc_model import IfcModel
+from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
 from ifcApp.ifc.globalParam.global_param import GlobalParam
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 from ifcApp.ifc.ifc_model import traversing_directories
@@ -213,7 +215,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.play_pause = False
         self.AsyncTcpReciver.client.close()
         traversing_directories()
+        threads = threading.enumerate()
+        print("Active threads:",threads)
         self.close()
+
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

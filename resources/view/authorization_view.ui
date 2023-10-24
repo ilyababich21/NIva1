@@ -175,15 +175,15 @@
    <sender>password_lineEdit</sender>
    <signal>editingFinished()</signal>
    <receiver>log_in_button</receiver>
-   <slot>animateClick()</slot>
+   <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>547</x>
-     <y>315</y>
+     <x>527</x>
+     <y>314</y>
     </hint>
     <hint type="destinationlabel">
-     <x>530</x>
-     <y>399</y>
+     <x>523</x>
+     <y>368</y>
     </hint>
    </hints>
   </connection>

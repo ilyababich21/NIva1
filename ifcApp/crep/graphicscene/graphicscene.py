@@ -9,14 +9,21 @@ class ClickedGraphics(QGraphicsView):
     clicked = pyqtSignal()
     crep_id = 1
     id_dat = 1
+    graf=None
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
         self.create_graphics()
         self.clicked.emit()
 
     def create_graphics(self):
-        self.graf = GraphicsWindow(self.crep_id,self.id_dat)
-        self.graf.show()
+        if self.graf:
+            if self.graf.isVisible():
+                self.graf.hide()
+            else:
+                self.graf.show()
+        else:
+            self.graf = GraphicsWindow(self.crep_id,self.id_dat)
+            self.graf.show()
 
 
 class CreateGraphicScene(QWidget):

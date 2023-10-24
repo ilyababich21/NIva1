@@ -206,9 +206,13 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         self.thread.running = False
+        self.AsyncTcpReciver.play_pause = False
         self.AsyncTcpReciver.client.close()
         traversing_directories()
+        threads = threading.enumerate()
+        print("Active threads:",threads)
         self.close()
+
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

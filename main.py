@@ -1,4 +1,5 @@
 import sys
+import time
 
 import sqlalchemy
 from PyQt6 import QtCore
@@ -27,9 +28,13 @@ def main2():
     # log.setLevel(logging.DEBUG)
     CheckDB()
     app = QApplication(sys.argv)
+    start=time.time()
     splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
     splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
     splash.show()
+    while time.time() - start < 1:
+        time.sleep(0.001)
+        app.processEvents()
     window = Authorization()
     splash.finish(window)
     window.show()

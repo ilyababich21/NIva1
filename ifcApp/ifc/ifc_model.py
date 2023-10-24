@@ -69,8 +69,9 @@ class IfcModel(QObject):
                     writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
                                             extrasaction='ignore')
                     writer.writeheader()
-        proc = Process(target=DBwrite, daemon=True)
-        proc.start()
+        self.proc = Process(target=DBwrite, daemon=True)
+        self.proc.start()
+
 
 
     @staticmethod

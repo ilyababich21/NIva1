@@ -9,13 +9,14 @@ class ClickedGraphics(QGraphicsView):
     clicked = pyqtSignal()
     crep_id = 1
     id_dat = 1
+
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
         self.create_graphics()
         self.clicked.emit()
 
     def create_graphics(self):
-        self.graf = GraphicsWindow(self.crep_id,self.id_dat)
+        self.graf = GraphicsWindow(self.crep_id, self.id_dat)
         self.graf.show()
 
 
@@ -37,11 +38,7 @@ class CreateGraphicScene(QWidget):
 
     def value_change(self, lineEdit, max_value):
         angel = lineEdit.text()
-        if angel == '':
-            angel = 1
-        if angel == ' ':
-            angel = 1
-        if angel == "-":
+        if angel == '' or angel == ' ' or angel == "-":
             angel = 1
         else:
             angel = int(angel)

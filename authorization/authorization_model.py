@@ -12,24 +12,22 @@ class AuthorizationModel(QObject):
 
     def __init__(self):
         super().__init__()
-        self.query_from_database_users = session.query(Users).all()
-        self.qury_role = session.query(Role).all()
+        # self.query_from_database_users = session.query(Users).all()
+        # self.qury_role = session.query(Role).all()
+        #
+        # if self.qury_role == []:
+        #     session.add_all([Role(role="admin", description="Администратор"),
+        #                      Role(role="miner", description="Шахтёр"),
+        #                      Role(role="service", description="Сервис")])
+        #     session.commit()
+        #
+        # if self.query_from_database_users == []:
+        #     session.add_all([Users(login="service", password="1111", manufacture_id=1,
+        #                            role_id=session.query(Role).filter(Role.role == "service").first().id),
+        #                      Users(login="IFC", password="ifc", manufacture_id=1,
+        #                            role_id=session.query(Role).filter(Role.role == "admin").first().id)])
 
-        if self.qury_role == []:
-            session.add_all([Role(role="admin", description="Администратор"),
-                             Role(role="miner", description="Шахтёр"),
-                             Role(role="service", description="Сервис")])
-            session.commit()
-
-        if self.query_from_database_users == []:
-            session.add_all([Users(login="service", password="1111", manufacture_id=1,
-                                   role_id=session.query(Role).filter(Role.role == "service").first().id),
-                             Users(login="IFC", password="ifc", manufacture_id=1,
-                                   role_id=session.query(Role).filter(Role.role == "admin").first().id)])
-
-            session.commit()
-
-        # self.login_from_database()
+        # session.commit()
 
     def login_from_database(self):
         query_login = session.query(Users.login).all()
@@ -42,6 +40,9 @@ class AuthorizationModel(QObject):
             self.login_successful.emit(user.role.role)
         else:
             self.login_failed.emit()
+
+    def func(self1, a, b, c):
+        session.query(a).all()
 
 
 class Users(Base):

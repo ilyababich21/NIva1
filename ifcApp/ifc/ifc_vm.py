@@ -14,8 +14,15 @@ from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.ifc_model import IfcModel
 from ifcApp.ifc.globalParam.global_param import GlobalParam
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
+from ifcApp.ifc.ifc_model import traversing_directories
 
 UI_ifc = "resources/view/ifc/ifc version1.ui"
+
+
+class User:
+    def __init__(self, log):
+        super().__init__()
+        self.login = log
 
 
 class IfcViewModel(QtWidgets.QMainWindow):
@@ -25,7 +32,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         print("Load ifc")
-
         self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam()
@@ -67,11 +73,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
         self.exit_pushButton.clicked.connect(self.exit_program)
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
-        self.driver_pushButton.clicked.connect(lambda :print("Привет!"))
+        self.driver_pushButton.clicked.connect(lambda: print("Привет!"))
 
     def exit_program(self):
-        self.thread.running = False
-        QApplication.instance().quit()
+        self.pan_ui.add_user_in_layout( User("ig"))
+        # self.thread.running = False
+        # QApplication.instance().quit()
 
     def show_count(self):
         self.count_shield.OK_pushButton.clicked.connect(self.remaster_creps)
@@ -91,7 +98,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_button(self):
         self.make_buttons(self.layout_list_in_groupbox)
-        self.AsyncTcpReciver.play_pause =True
+        self.AsyncTcpReciver.play_pause = True
 
         for elem in range(len(self.global_param.list_groupbox)):
             self.global_param.list_groupbox[elem].name_label.raise_()
@@ -164,7 +171,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def remaster_creps(self):
         self.count_shield.get_and_save_number_from_lineedit()
-        self.AsyncTcpReciver.play_pause =False
+        self.AsyncTcpReciver.play_pause = False
         self.AsyncTcpReciver.all_signal.clear()
         self.AsyncTcpReciver.brokeSignalsId.clear()
         self.show_button()
@@ -203,6 +210,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         self.thread.running = False
+        self.AsyncTcpReciver.play_pause = False
         self.AsyncTcpReciver.client.close()
         traversing_directories()
         self.close()

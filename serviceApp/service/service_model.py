@@ -20,24 +20,22 @@ class ServiceModel(QObject):
         return object_database
 
 
-
 class Modbus(Base):
-        __tablename__ = "modbus"
-        id = Column(Integer, primary_key=True, autoincrement=True)
-        ip_address = Column(String)
-        port = Column(Integer)
-        slave_id = Column(Integer)
-        start_register = Column(Integer)
-        count_register = Column(Integer)
+    __tablename__ = "modbus"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    ip_address = Column(String)
+    port = Column(Integer)
+    slave_id = Column(Integer)
+    start_register = Column(Integer)
+    count_register = Column(Integer)
 
-        def update_modbus_table(self, ip_address, port, slave_id, start_register,count_register):
-            self.ip_address = ip_address
-            self.port = port
-            self.slave_id = slave_id
-            self.start_register = start_register
-            self.count_register = count_register
-            session.commit()
-
+    def update_modbus_table(self, ip_address, port, slave_id, start_register, count_register):
+        self.ip_address = ip_address
+        self.port = port
+        self.slave_id = slave_id
+        self.start_register = start_register
+        self.count_register = count_register
+        session.commit()
 
 
 class Manufacture(Base):

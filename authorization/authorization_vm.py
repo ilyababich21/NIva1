@@ -18,6 +18,7 @@ class Authorization(QtWidgets.QMainWindow):
         uic.loadUi(UI_authorization, self)
         self.log_in_button.clicked.connect(self.login)
         self.authorization_model = AuthorizationModel()
+
         self.view_user_from_database()
         self.authorization_model.login_successful.connect(self.on_login_successful)
         self.authorization_model.login_failed.connect(lambda: self.on_login_failed(self.password_lineEdit.text()))
@@ -58,14 +59,15 @@ class Authorization(QtWidgets.QMainWindow):
 
     def view_user_from_database(self):
         for user in self.authorization_model.login_from_database():
-            username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
-            username_button.clicked.connect(
-                lambda ch, one_button=username_button: self.clicked_button_username(one_button))
-            self.layoutButton.addWidget(username_button)
+            self.add_user_in_layout(user)
+
+    def add_user_in_layout(self, user):
+        username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
+        username_button.clicked.connect(
+            lambda ch, one_button=username_button: self.clicked_button_username(one_button))
+        self.layoutButton.addWidget(username_button)
 
     def clicked_button_username(self, btn):
         self.login_lineEdit.setText(btn.text())
         self.password_lineEdit.setText("")
         self.password_lineEdit.setFocus()
-
-

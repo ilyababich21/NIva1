@@ -19,12 +19,6 @@ def main():
 
 
 def main2():
-    # import logging
-    # FORMAT = ('%(asctime)-15s %(threadName)-15s'
-    #           ' %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s')
-    # logging.basicConfig(format=FORMAT)
-    # log = logging.getLogger()
-    # log.setLevel(logging.DEBUG)
     CheckDB()
     app = QApplication(sys.argv)
     splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))

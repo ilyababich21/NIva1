@@ -10,6 +10,9 @@ class ClickedGraphics(QGraphicsView):
     crep_id = 1
     id_dat = 1
     graf=None
+    def __init__(self,database):
+        super(ClickedGraphics, self).__init__()
+        self.database=database
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
         self.create_graphics()
@@ -22,20 +25,21 @@ class ClickedGraphics(QGraphicsView):
             else:
                 self.graf.show()
         else:
-            self.graf = GraphicsWindow(self.crep_id,self.id_dat)
+            self.graf = GraphicsWindow(self.crep_id,self.id_dat,self.database)
             self.graf.show()
 
 
 class CreateGraphicScene(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, database):
+        super().__init__()
+        self.database=database
         scene = QGraphicsScene()
         scene.setSceneRect(-10, -12, self.width() - 41, self.height())
         self.pixmap = QPixmap("resources/image/sensors/arrow1.png")
         self.arrow = scene.addPixmap(self.pixmap)
         self.arrow.setTransformOriginPoint(20, 9)
         self.arrow.setRotation(-3)
-        self.graphicsView = ClickedGraphics()
+        self.graphicsView = ClickedGraphics(self.database)
         self.graphicsView.setStyleSheet("background-image:url(resources/image/sensors/sensormarco.png);\n"
                                         "background-repeat:no-repeat;\n"
                                         "border-radius: 1px;"

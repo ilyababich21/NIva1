@@ -10,7 +10,8 @@ UI_select_date = "resources/view/ifc/crep/graphics_view/select_date.ui"
 
 
 class SelectDate(QMainWindow):
-    def __init__(self, num_crep, num_sensors):
+    def __init__(self, num_crep, num_sensors,database):
+        self.database = database
         self.num_crep = num_crep
         self.num_sensors = num_sensors
         super().__init__()
@@ -20,7 +21,7 @@ class SelectDate(QMainWindow):
         self.before_dateTimeEdit.setDateTime(datetime.now())
 
     def create_graphic(self):
-        model = SelectedGraphicModel(self.num_crep, self.num_sensors)
+        model = SelectedGraphicModel(self.num_crep, self.num_sensors,self.database)
         from_datetime = self.from_dateTimeEdit.dateTime().toString("yyyy-MM-dd HH:mm:ss")
         before_datetime = self.before_dateTimeEdit.dateTime().toString("yyyy-MM-dd HH:mm:ss")
         self.select_graphic = SelectedGraphic(self.num_crep, self.num_sensors, model)

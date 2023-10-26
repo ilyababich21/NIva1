@@ -2,46 +2,40 @@ import threading
 
 from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QThread
-from PyQt6.QtWidgets import QTableWidgetItem
+from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 
 from ifcApp.countShield.count_shield_vm import CountShieldVM
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
-from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
+# from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
+from ifcApp.ifc.asyncMethods.async_ilya import AsyncThread
+from ifcApp.ifc.asyncMethods.async_receiver import WorkerSignals
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
-from ifcApp.ifc.globalParam.global_param import GlobalParam
 from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
-from ifcApp.ifc.ifc_model import IfcModel
-from ifcApp.ifc.ifc_model import traversing_directories
-from ifcApp.ifc.modbus.asyncMethods.async_ilya import AsyncThread
-from ifcApp.ifc.modbus.asyncMethods.async_ilya import WorkerSignals
+from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
+from ifcApp.ifc.globalParam.global_param import GlobalParam
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
-from ifcApp.ifc.modbus.modbus_connect_vm import ModbusConnectViewModel
 
 UI_ifc = "resources/view/ifc/ifc version1.ui"
 
 
-class User:
-    def __init__(self, log):
-        super().__init__()
-        self.login = log
-
-
 class IfcViewModel(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,database):
         super().__init__()
+        self.database = database
         self.timer = QTimer()
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         print("Load ifc")
-        self.settings_sensors = SettingsSensors()
+
+        # self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
-        self.global_param = GlobalParam()
-        self.user_ifc = UserInIfc()
+        self.global_param = GlobalParam(self.database)
+        self.user_ifc = UserInIfc(self.database)
         self.thread = QThread()
         self.model = IfcModel()
-        self.count_shield = CountShieldVM()
+        self.count_shield = CountShieldVM(self.database)
         self.notification_errors = NotificationErrors()
         self.AsyncTcpReciver = AsyncThread()
 
@@ -67,7 +61,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             action.triggered.connect(self.checked_action_for_sensors)
 
         self.show_name_action.triggered.connect(self.show_name_sensors)
-        self.change_setting_action.triggered.connect(self.show_settings_sensors)
+        # self.change_setting_action.triggered.connect(self.show_settings_sensors)
 
         self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
         self.notification_errors_pushButton.clicked.connect(lambda: self.show_window_crep(self.notification_errors))
@@ -76,13 +70,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
         self.exit_pushButton.clicked.connect(self.exit_program)
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
-        self.connect_modbus_pushButton.clicked.connect(self.show_modbus_ui)
-
-    def show_modbus_ui(self):
-        self.modbus_connect = ModbusConnectViewModel()
-        self.modbus_connect.show()
+        self.driver_pushButton.clicked.connect(lambda :print("Привет!"))
 
     def exit_program(self):
+        self.thread.running = False
         QApplication.instance().quit()
 
     def show_count(self):
@@ -91,7 +82,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def create_groupbox(self, layout):
         self.global_param.list_groupbox.clear()
-        for index, row in enumerate(self.model.get_global_param()):
+        for index, row in enumerate(self.database.global_params()):
             self.groupbox = GroupBoxWidget()
             layout.addWidget(self.groupbox)
             self.global_param.list_groupbox.append(self.groupbox)
@@ -103,15 +94,15 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_button(self):
         self.make_buttons(self.layout_list_in_groupbox)
-        self.AsyncTcpReciver.play_pause = True
+        self.AsyncTcpReciver.play_pause =True
 
         for elem in range(len(self.global_param.list_groupbox)):
             self.global_param.list_groupbox[elem].name_label.raise_()
 
     def make_buttons(self, layout_list):
         self.cleaner_layouts(layout_list)
-        for elem in range(self.count_shield.model.get_count_shield()):
-            self.list_all_crep.append(CrepViewModel(elem + 1))
+        for elem in range(self.database.get_count_shield()):
+            self.list_all_crep.append(CrepViewModel(elem + 1,self.database))
             self.setting_async_receiver()
             self.create_button_layout_list(layout_list, elem)
 
@@ -127,7 +118,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.all_signal.append(py_signal)
 
     def create_button_layout_list(self, layout_list, elem):
-        for index, row in enumerate(self.model.get_global_param()):
+        for index, row in enumerate(self.database.global_params()):
             self.btn = ButtonForSectionWidget(elem + 1)
             self.btn.value = int(row.max_value)
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
@@ -148,7 +139,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
-            self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * self.count_shield.model.get_count_shield())))
+            self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * self.database.get_count_shield())))
             self.btn.setToolTip(f"Крепь № {elem + 1}, Датчик {self.groupbox.list_name_for_groupbox[index]}")
             self.btn.clicked.connect(lambda current_crep=self.list_all_crep[-1]: self.show_window_crep(current_crep))
             layout_list[index].addWidget(self.btn)
@@ -176,7 +167,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def remaster_creps(self):
         self.count_shield.get_and_save_number_from_lineedit()
-        self.AsyncTcpReciver.play_pause = False
+        self.AsyncTcpReciver.play_pause =False
         self.AsyncTcpReciver.all_signal.clear()
         self.AsyncTcpReciver.brokeSignalsId.clear()
         self.show_button()
@@ -187,11 +178,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         else:
             crepWin.show()
 
-    def show_settings_sensors(self):
-        if self.change_setting_action.isChecked():
-            self.settings_sensors.show()
-        else:
-            self.settings_sensors.close()
+    # def show_settings_sensors(self):
+    #     if self.change_setting_action.isChecked():
+    #         self.settings_sensors.show()
+    #     else:
+    #         self.settings_sensors.close()
 
     def show_name_sensors(self):
         if self.show_name_action.isChecked():
@@ -218,9 +209,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.play_pause = False
         self.AsyncTcpReciver.client.close()
         traversing_directories()
+        self.model.proc.terminate()
         threads = threading.enumerate()
-        print("Active threads:", threads)
+        print("Active threads:",threads)
         self.close()
+
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

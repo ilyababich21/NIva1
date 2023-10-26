@@ -25,6 +25,9 @@ class SelectedGraphic(QMainWindow):
 
     def draw_graphic(self, from_datetime, before_datetime):
         df = self.model.get_data(from_datetime, before_datetime)
+        if not df:
+            # НАПИСАТЬ ЧТО НЕТ ДАННЫХ
+            return
         self.ax = self.figure.add_subplot(111)
         self.ax.clear()
         self.ax.plot(df, linewidth=0.8, color='red')

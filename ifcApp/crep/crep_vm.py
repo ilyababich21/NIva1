@@ -20,12 +20,13 @@ class CrepViewModel(QtWidgets.QMainWindow):
         "crep_id": [],
     }
 
-    def __init__(self, num):
+    def __init__(self, num,database):
         super().__init__()
         self.num = num
-        self.all_sensors_crep = AllSensorsCrep()
+        self.database = database
+        self.all_sensors_crep = AllSensorsCrep(self.database)
         uic.loadUi(UI_crep, self)
-        self.global_param = GlobalParam()
+        self.global_param = GlobalParam(self.database)
         self.data_sensors_section = DataSensorsSection()
 
         self.list_sensors_lineEdit = (self.CP_lineEdit, self.sensors5_lineEdit, self.sensors1_lineEdit,
@@ -48,7 +49,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
 
         for elem in range(11):
-            speed = CreateGraphicScene(self)
+            speed = CreateGraphicScene(self.database)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
             self.list_sensors_lineEdit[elem].setValidator(QIntValidator())
             speed.graphicsView.crep_id = self.num
@@ -61,7 +62,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
                 object_class.value_change(lineedit, max_value))
 
         for bar in range(4):
-            section1_progressBar = ClickedProgressbar()
+            section1_progressBar = ClickedProgressbar(self.database)
             section1_progressBar.id_dat = bar + 11
             section1_progressBar.crep_id = self.num
             section1_progressBar.setMaximum(self.global_param.query_in_global_param_table[bar + 11].max_value)

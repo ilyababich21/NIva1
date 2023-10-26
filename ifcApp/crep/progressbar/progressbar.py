@@ -9,14 +9,15 @@ class ClickedProgressbar(QProgressBar):
     clicked = pyqtSignal()
     id_dat = 1
     crep_id = 1
-    def __init__(self):
+    def __init__(self,database):
         super().__init__()
+        self.database=database
         self.setOrientation(QtCore.Qt.Orientation.Vertical)
         self.setFixedSize(61, 50)
 
     def mouseReleaseEvent(self, e):
         super().mouseReleaseEvent(e)
-        self.graf = GraphicsWindow(self.crep_id, self.id_dat)
+        self.graf = GraphicsWindow(self.crep_id, self.id_dat,self.database)
         self.graf.show()
         self.clicked.emit()
 

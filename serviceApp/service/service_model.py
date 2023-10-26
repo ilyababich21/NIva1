@@ -11,7 +11,7 @@ class ServiceModel(QObject):
         super().__init__()
 
     @staticmethod
-    def load_information_from_db(model_object):
+    def check_first_load(model_object):
         object_database = session.get(model_object, 1)
         if object_database is None:
             session.add(model_object(manufacture_id=1))
@@ -20,36 +20,38 @@ class ServiceModel(QObject):
         return object_database
 
 
-class Modbus(Base):
-    __tablename__ = "modbus"
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    ip_address = Column(String)
-    port = Column(Integer)
-    slave_id = Column(Integer)
-    start_register = Column(Integer)
-    count_register = Column(Integer)
 
-    def update_modbus_table(self, ip_address, port, slave_id, start_register, count_register):
-        self.ip_address = ip_address
-        self.port = port
-        self.slave_id = slave_id
-        self.start_register = start_register
-        self.count_register = count_register
-        session.commit()
-
-
-class Manufacture(Base):
-    __tablename__ = "manufacture"
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String)
-    discription = Column(String)
-    count_shield = Column(Integer)
-    users = relationship("Users", back_populates="manufacture")
-    creps = relationship("Crep_ifc", back_populates="manufacture")
-
-    def update_manufacture(self, count_shield):
-        self.count_shield = count_shield
-        session.commit()
+# class Modbus(Base):
+#         __tablename__ = "modbus"
+#         id = Column(Integer, primary_key=True, autoincrement=True)
+#         ip_address = Column(String)
+#         port = Column(Integer)
+#         slave_id = Column(Integer)
+#         start_register = Column(Integer)
+#         count_register = Column(Integer)
+#
+#         def update_modbus_table(self, ip_address, port, slave_id, start_register,count_register):
+#             self.ip_address = ip_address
+#             self.port = port
+#             self.slave_id = slave_id
+#             self.start_register = start_register
+#             self.count_register = count_register
+#             session.commit()
+#
+#
+#
+# class Manufacture(Base):
+#     __tablename__ = "manufacture"
+#     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+#     name = Column(String)
+#     discription = Column(String)
+#     count_shield = Column(Integer)
+#     users = relationship("Users", back_populates="manufacture")
+#     creps = relationship("Crep_ifc", back_populates="manufacture")
+#
+#     def update_manufacture(self, count_shield):
+#         self.count_shield = count_shield
+#         session.commit()
 
 
 # class SettingNetwork(Base):

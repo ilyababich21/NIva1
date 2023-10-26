@@ -13,21 +13,28 @@ UI_main = "resources/view/service/service_view.ui"
 
 
 class Authorization(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,database):
         super().__init__()
+        self.database = database
         self.size_of_user_button = (100, 60)
         uic.loadUi(UI_authorization, self)
         self.log_in_button.clicked.connect(self.login)
         self.authorization_model = AuthorizationModel()
 
         self.view_user_from_database()
-        self.authorization_model.login_successful.connect(self.on_login_successful)
-        self.authorization_model.login_failed.connect(lambda: self.on_login_failed(self.password_lineEdit.text()))
+        # self.authorization_model.login_successful.connect(self.on_login_successful)
+        # self.authorization_model.login_failed.connect(lambda: self.on_login_failed(self.password_lineEdit.text()))
 
     def login(self):
         login = self.login_lineEdit.text()
         password = self.password_lineEdit.text()
-        self.authorization_model.login(login, password)
+        # self.authorization_model.login(login, password)
+        role = self.database.check_user(login, password)
+        if role:
+            self.on_login_successful(role)
+        else:
+            self.on_login_failed(password)
+
 
     def on_login_successful(self, role):
         if role == 'admin':
@@ -42,6 +49,8 @@ class Authorization(QtWidgets.QMainWindow):
             self.check_label.setText("Введите пароль!")
         else:
             self.check_label.setText("Логин или пароль введен неверно")
+        self.password_lineEdit.setFocus()
+
 
     def open_service_ui(self):
         self.service = ServiceViewModel()
@@ -51,26 +60,23 @@ class Authorization(QtWidgets.QMainWindow):
         splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
         splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         splash.show()
-        self.admin_ui = IfcViewModel()
+        self.admin_ui = IfcViewModel(self.database)
         self.admin_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
         splash.finish(self.admin_ui)
         self.admin_ui.showMaximized()
 
     def open_miner_ui(self):
-        self.miner_ui = IfcViewModel()
+        self.miner_ui = IfcViewModel(self.database)
         self.miner_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
         self.miner_ui.role_for_miner()
         self.miner_ui.showMaximized()
 
     def view_user_from_database(self):
-        for user in self.authorization_model.login_from_database():
-            self.add_user_in_layout(user)
-
-    def add_user_in_layout(self, user):
-        username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
-        username_button.clicked.connect(
-            lambda ch, one_button=username_button: self.clicked_button_username(one_button))
-        self.layoutButton.addWidget(username_button)
+        for user in self.database.users_list():
+            username_button = ButtonForUserName(f'{user.login}', self.size_of_user_button)  # !!!
+            username_button.clicked.connect(
+                lambda ch, one_button=username_button: self.clicked_button_username(one_button))
+            self.layoutButton.addWidget(username_button)
 
     def clicked_button_username(self, btn):
         self.login_lineEdit.setText(btn.text())

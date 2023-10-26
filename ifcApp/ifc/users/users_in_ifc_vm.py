@@ -3,18 +3,16 @@
 from PyQt6 import uic, QtGui
 from PyQt6.QtWidgets import QMainWindow
 
-from authorization.authorization_model import Users, Role
-from connection_to_db import session
 from ifcApp.ifc.users.groupbox_for_users import GroupBoxForUser
 
 UI_user = "resources/view/ifc/user/user.ui"
 
 
 class UserInIfc(QMainWindow):
-    def __init__(self):
+    def __init__(self,database):
         super().__init__()
-        self.query_role = session.query(Role).filter(Role.id <= 2).all()
-        self.users = None
+        self.database = database
+        self.query_role = self.database.roles_in_ifc()
         self.groupbox_in_users = None
         self.list_users_login = None
         self.list_groupbox_for_users = None
@@ -24,7 +22,7 @@ class UserInIfc(QMainWindow):
         self.list_groupbox_for_users = []
         self.list_users_login = []
         uic.loadUi(UI_user, self)
-        self.users = session.query(Users).filter(Users.role_id <= 2).all()
+        self.users = self.database.users_in_ifc()
         for user in self.users:
             self.groupbox_in_users = GroupBoxForUser()
             if not len(self.users) == len(self.list_groupbox_for_users):
@@ -56,10 +54,7 @@ class UserInIfc(QMainWindow):
         for item in self.query_role:
             if self.law.currentText() == item.description:
                 print(item.id)
-                session.add_all(
-                    [Users(login=f"{self.username.text()}", password=f"{self.password.text()}", manufacture_id=1,
-                           role_id=f"{item.id}")])
-                session.commit()
+                self.database.add_user(username=self.username.text(),password= self.password.text(),role_id= item.id)
 
             self.load_UI()
 
@@ -67,9 +62,7 @@ class UserInIfc(QMainWindow):
         try:
             for action in range(len(self.list_groupbox_for_users)):
                 if self.list_groupbox_for_users[action].radioButton.isChecked():
-                    delete_query = session.query(Users).filter(Users.login == self.list_users_login[action]).first()
-                    session.delete(delete_query)
-                    session.commit()
+                    self.database.remove_user(self.list_users_login[action])
                     self.load_UI()
         except:
             print("you delete two users")

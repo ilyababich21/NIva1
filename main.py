@@ -20,7 +20,14 @@ def main():
 
 
 def main2():
-    CheckDB()
+    # import logging
+    # FORMAT = ('%(asctime)-15s %(threadName)-15s'
+    #           ' %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s')
+    # logging.basicConfig(format=FORMAT)
+    # log = logging.getLogger()
+    # log.setLevel(logging.DEBUG)
+    # CheckDB()
+    database = NivaStorage()
     app = QApplication(sys.argv)
     start=time.time()
     splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))

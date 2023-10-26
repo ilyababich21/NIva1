@@ -1,5 +1,6 @@
 from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
+from PyQt6.QtGui import QDoubleValidator, QIntValidator
 from PyQt6.QtWidgets import QTableWidgetItem
 
 from ifcApp.crep.all_sensors_crep import AllSensorsCrep
@@ -49,6 +50,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         for elem in range(11):
             speed = CreateGraphicScene(self)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
+            self.list_sensors_lineEdit[elem].setValidator(QIntValidator())
             speed.graphicsView.crep_id = self.num
             speed.graphicsView.id_dat = elem + 1
             self.list_of_sensors_layouts[elem].addWidget(self.list_sensors_lineEdit[elem])

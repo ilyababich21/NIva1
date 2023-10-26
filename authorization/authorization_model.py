@@ -41,9 +41,6 @@ class AuthorizationModel(QObject):
         else:
             self.login_failed.emit()
 
-    def func(self1, a, b, c):
-        session.query(a).all()
-
 
 class Users(Base):
     __tablename__ = "credential"

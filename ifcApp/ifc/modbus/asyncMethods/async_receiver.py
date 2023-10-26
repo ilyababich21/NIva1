@@ -11,7 +11,7 @@ class WorkerSignals(QObject):
     result = pyqtSignal(list)
 
 
-class AsyncTcpReciver(QtCore.QObject):
+class AsyncTcpReciver(QObject):
     brokeSignalsId = []
     running = False
     emitValue = []

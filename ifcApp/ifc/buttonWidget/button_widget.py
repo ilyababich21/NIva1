@@ -24,7 +24,7 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
         painter.setBrush(self.rectangle)
         painter.drawRect(0, self.height(), int(self.width()), int(-self.rectangle_height))
 
-    def update_color_and_height(self, value, notificationLineEdit, min_normal, max_normal, dat_name, num_crep, errorButton):
+    def update_color_and_height(self, value, text_edit, min_normal, max_normal, dat_name, num_crep, errorButton):
         try:
             self.rectangle_height = int(value)
             self.coefficient = self.height() / self.value
@@ -40,7 +40,7 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
             self.rectangle = QColor(139, 0, 255)  # Purple
             time = datetime.datetime.now()
             t = time.strftime("%d/%m/%Y %H:%M")
-            notificationLineEdit.append(f"{t},Cломан датчик  {dat_name} в крепи {num_crep} ")
+            text_edit.append(f"{t},Cломан датчик  {dat_name} в крепи {num_crep} ")
             errorButton.setStyleSheet("background-color: #ff0000;")
 
         except Exception as e:

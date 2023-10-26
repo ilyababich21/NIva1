@@ -2,21 +2,22 @@ import threading
 
 from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QThread
-from PyQt6.QtWidgets import QApplication, QTableWidgetItem
+from PyQt6.QtWidgets import QTableWidgetItem
 
 from ifcApp.countShield.count_shield_vm import CountShieldVM
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
-from ifcApp.ifc.asyncMethods.async_ilya import AsyncThread
-from ifcApp.ifc.asyncMethods.async_receiver import WorkerSignals
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
-from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
-from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
 from ifcApp.ifc.globalParam.global_param import GlobalParam
-from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
+from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
+from ifcApp.ifc.ifc_model import IfcModel
 from ifcApp.ifc.ifc_model import traversing_directories
+from ifcApp.ifc.modbus.asyncMethods.async_ilya import AsyncThread
+from ifcApp.ifc.modbus.asyncMethods.async_ilya import WorkerSignals
+from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
+from ifcApp.ifc.modbus.modbus_connect_vm import ModbusConnectViewModel
 
 UI_ifc = "resources/view/ifc/ifc version1.ui"
 
@@ -75,12 +76,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
         self.exit_pushButton.clicked.connect(self.exit_program)
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
-        self.driver_pushButton.clicked.connect(lambda: print("Привет!"))
+        self.connect_modbus_pushButton.clicked.connect(self.show_modbus_ui)
+
+    def show_modbus_ui(self):
+        self.modbus_connect = ModbusConnectViewModel()
+        self.modbus_connect.show()
 
     def exit_program(self):
-        self.pan_ui.add_user_in_layout( User("ig"))
-        # self.thread.running = False
-        # QApplication.instance().quit()
+        QApplication.instance().quit()
 
     def show_count(self):
         self.count_shield.OK_pushButton.clicked.connect(self.remaster_creps)
@@ -216,9 +219,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.client.close()
         traversing_directories()
         threads = threading.enumerate()
-        print("Active threads:",threads)
+        print("Active threads:", threads)
         self.close()
-
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

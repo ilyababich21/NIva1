@@ -11,7 +11,7 @@ class ServiceModel(QObject):
         super().__init__()
 
     @staticmethod
-    def check_first_load(model_object):
+    def load_information_from_db(model_object):
         object_database = session.get(model_object, 1)
         if object_database is None:
             session.add(model_object(manufacture_id=1))

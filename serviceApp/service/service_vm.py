@@ -15,7 +15,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
         uic.loadUi(UI_service, self)
         self.service_model = model.ServiceModel()
 
-        self.modbus_query = self.service_model.check_first_load(model.Modbus)
+        self.modbus_query = self.service_model.load_information_from_db(model.Modbus)
 
         self.list_value = [self.modbus_query.ip_address, self.modbus_query.port,
                            self.modbus_query.slave_id, self.modbus_query.start_register,

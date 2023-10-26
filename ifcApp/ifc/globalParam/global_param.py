@@ -1,8 +1,8 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QTableWidgetItem
 
-from connection_to_db import session
-from ifcApp.ifc.globalParam.globalparam_model import GlobalParamTable
+# from connection_to_db import session
+# from ifcApp.ifc.globalParam.globalparam_model import GlobalParamTable
 
 UI_all_parameter = "resources/view/ifc/toolbar/global parameter.ui"
 
@@ -10,17 +10,13 @@ UI_all_parameter = "resources/view/ifc/toolbar/global parameter.ui"
 class GlobalParam(QtWidgets.QMainWindow):
     list_groupbox = []
 
-    def __init__(self):
+    def __init__(self,database):
         super().__init__()
+        self.database=database
         uic.loadUi(UI_all_parameter, self)
         self.exit_main_pushButton.clicked.connect(lambda: self.close())
 
-        self.query_in_global_param_table = session.query(GlobalParamTable).all()
-
-        if self.query_in_global_param_table == []:
-            session.add_all([GlobalParamTable(id=id, min_value=0, max_value=600, from_normal_value=300,
-                                              to_normal_value=400, units="bar") for id in range(1, 16)])
-            session.commit()
+        self.query_in_global_param_table = self.database.global_params()
 
         for row in range(len(self.query_in_global_param_table)):
             self.all_param_tableWidget.setItem(row + 1, 0,
@@ -36,7 +32,7 @@ class GlobalParam(QtWidgets.QMainWindow):
 
     def save_on_clicked_information(self):
         for row in range(len(self.query_in_global_param_table)):
-            self.query_in_global_param_table[row].update_globalParamTable(
+            self.database.update_global_params(self.query_in_global_param_table[row],
                 [self.all_param_tableWidget.item(row + 1, num).text() for num in range(5)])
             self.list_groupbox[row].min_value.setText(
                 f"{self.query_in_global_param_table[row].min_value}")

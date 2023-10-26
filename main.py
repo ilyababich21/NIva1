@@ -8,8 +8,8 @@ from PyQt6.QtWidgets import QApplication, QSplashScreen
 from sqlalchemy import create_engine
 
 from authorization.authorization_vm import Authorization
+from database import NivaStorage
 from ifcApp.ifc.ifc_vm import IfcViewModel
-from serviceApp.service.service_model import Modbus
 
 
 def main():
@@ -26,7 +26,8 @@ def main2():
     # logging.basicConfig(format=FORMAT)
     # log = logging.getLogger()
     # log.setLevel(logging.DEBUG)
-    CheckDB()
+    # CheckDB()
+    database = NivaStorage()
     app = QApplication(sys.argv)
     start=time.time()
     splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
@@ -35,7 +36,7 @@ def main2():
     while time.time() - start < 1:
         time.sleep(0.001)
         app.processEvents()
-    window = Authorization()
+    window = Authorization(database)
     splash.finish(window)
     window.show()
     app.exec()

@@ -13,7 +13,8 @@ UI_graphic = "resources/view/ifc/crep/graphics_view/graphics.ui"
 
 
 class GraphicsWindow(QMainWindow):
-    def __init__(self, num_crep, id_dat):
+    def __init__(self, num_crep, id_dat,database):
+        self.database=database
         self.num_crep = num_crep
         self.num_sensors = id_dat
         super().__init__()
@@ -84,7 +85,7 @@ class GraphicsWindow(QMainWindow):
         df = pd.DataFrame(df).set_index(['create_date'])
         return df
     def open_date_window(self):
-        self.select_date_for_graphics = SelectDate(self.num_crep, self.num_sensors)
+        self.select_date_for_graphics = SelectDate(self.num_crep, self.num_sensors,self.database)
         self.select_date_for_graphics.show()
 
 

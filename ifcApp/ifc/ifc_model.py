@@ -5,7 +5,6 @@ import time
 import pandas as pd
 from PyQt6.QtCore import QObject
 from connection_to_db import session
-from ifcApp.ifc.globalParam.globalparam_model import GlobalParamTable
 from serviceApp.service.service_model import engine
 from multiprocessing import Process
 
@@ -69,13 +68,11 @@ class IfcModel(QObject):
                     writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
                                             extrasaction='ignore')
                     writer.writeheader()
-        proc = Process(target=DBwrite, daemon=True)
-        proc.start()
+        self.proc = Process(target=DBwrite, daemon=True)
+        self.proc.start()
 
 
-    @staticmethod
-    def get_global_param():
-        return session.query(GlobalParamTable).all()
+
 
         # self.list_icon = ["conveyor_distance.png", "conveyor_clearance.png",
         #                   "prop_pressure_1.png", "prop_pressure_2.png",

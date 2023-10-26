@@ -6,10 +6,11 @@ UI_sernsors = "resources/view/ifc/crep/sensors crep.ui"
 
 
 class AllSensorsCrep(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,database):
         super().__init__()
+        self.database = database
         self.label1 = None
-        self.global_param = GlobalParam()
+        self.global_param = GlobalParam(self.database)
 
         uic.loadUi(UI_sernsors, self)
         self.list_progressBar = [self.voltage_progressBar, self.current_sensors_progressBar, self.current_valve_progressBar,

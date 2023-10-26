@@ -7,10 +7,10 @@ from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 from ifcApp.countShield.count_shield_vm import CountShieldVM
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
-# from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
+from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
-from ifcApp.ifc.asyncMethods.async_ilya import AsyncThread
-from ifcApp.ifc.asyncMethods.async_receiver import WorkerSignals
+from ifcApp.ifc.modbus.asyncMethods.async_ilya import AsyncThread
+from ifcApp.ifc.modbus.asyncMethods.async_receiver import WorkerSignals
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
 from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
@@ -29,7 +29,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.start(1000)
         print("Load ifc")
 
-        # self.settings_sensors = SettingsSensors()
+        self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam(self.database)
         self.user_ifc = UserInIfc(self.database)
@@ -61,8 +61,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             action.triggered.connect(self.checked_action_for_sensors)
 
         self.show_name_action.triggered.connect(self.show_name_sensors)
-        # self.change_setting_action.triggered.connect(self.show_settings_sensors)
-
+        self.change_setting_action.triggered.connect(self.show_settings_sensors)
         self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
         self.notification_errors_pushButton.clicked.connect(lambda: self.show_window_crep(self.notification_errors))
         self.menu_pushButton.clicked.connect(lambda: self.global_param.show())
@@ -70,7 +69,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
         self.exit_pushButton.clicked.connect(self.exit_program)
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
-        self.driver_pushButton.clicked.connect(lambda :print("Привет!"))
 
     def exit_program(self):
         self.thread.running = False
@@ -178,11 +176,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         else:
             crepWin.show()
 
-    # def show_settings_sensors(self):
-    #     if self.change_setting_action.isChecked():
-    #         self.settings_sensors.show()
-    #     else:
-    #         self.settings_sensors.close()
+    def show_settings_sensors(self):
+        if self.change_setting_action.isChecked():
+            self.settings_sensors.show()
+        else:
+            self.settings_sensors.close()
 
     def show_name_sensors(self):
         if self.show_name_action.isChecked():

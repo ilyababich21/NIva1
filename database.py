@@ -203,6 +203,8 @@ class NivaStorage:
                                                             self.Sensors_ifc.crep_id == crep_id).all()
         return query
 
-
+    def query_modbus(self):
+        query = self.session.get(self.Modbus, 1)
+        return query
 if __name__ == "__main__":
     test_db = NivaStorage()

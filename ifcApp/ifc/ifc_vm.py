@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 from ifcApp.countShield.count_shield_vm import CountShieldVM
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
-from ifcApp.dataSensors.settings_data_sensors_vm import SettingsSensors
+from ifcApp.settingsSensors.settings_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
 from ifcApp.ifc.modbus.asyncMethods.async_ilya import AsyncThread
 from ifcApp.ifc.modbus.asyncMethods.async_receiver import WorkerSignals

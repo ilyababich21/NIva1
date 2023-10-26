@@ -4,7 +4,6 @@ import shutil
 import time
 import pandas as pd
 from PyQt6.QtCore import QObject
-from connection_to_db import session
 from serviceApp.service.service_model import engine
 from multiprocessing import Process
 

@@ -18,10 +18,7 @@ class Authorization(QtWidgets.QMainWindow):
         self.size_of_user_button = (100, 60)
         uic.loadUi(UI_authorization, self)
         self.log_in_button.clicked.connect(self.login)
-        # self.authorization_model = AuthorizationModel()
         self.view_user_from_database()
-        # self.authorization_model.login_successful.connect(self.on_login_successful)
-        # self.authorization_model.login_failed.connect(lambda: self.on_login_failed(self.password_lineEdit.text()))
 
     def login(self):
         login = self.login_lineEdit.text()

@@ -3,7 +3,6 @@ from PyQt6.QtCore import QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator, QIntValidator
 from pymodbus.client import ModbusTcpClient
 
-import serviceApp.service.service_model as model
 from serviceApp.ping.pingVm import Ping
 
 UI_service = "resources/view/service/service_view.ui"
@@ -13,7 +12,6 @@ class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self,database):
         super().__init__()
         uic.loadUi(UI_service, self)
-        self.service_model = model.ServiceModel()
 
         self.modbus_query = database.query_modbus()
 
@@ -32,7 +30,7 @@ class ServiceViewModel(QtWidgets.QMainWindow):
                 one_lineedit.setValidator(QIntValidator())
             one_lineedit.setText(str(value))
 
-        self.ping = Ping()
+        self.ping = Ping(database)
 
         self.ping_query_pushButton.clicked.connect(lambda: self.ping.show())
         self.auto_checkBox.clicked.connect(self.check_timezone)

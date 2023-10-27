@@ -1,9 +1,6 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QTableWidgetItem
 
-# from connection_to_db import session
-# from ifcApp.ifc.globalParam.globalparam_model import GlobalParamTable
-
 UI_all_parameter = "resources/view/ifc/toolbar/global parameter.ui"
 
 

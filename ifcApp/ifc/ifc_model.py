@@ -4,18 +4,20 @@ import shutil
 import time
 import pandas as pd
 from PyQt6.QtCore import QObject
-from serviceApp.service.service_model import engine
+from database import NivaStorage
 from multiprocessing import Process
 
 CSV_History = 'CSV_History'
 
 
 def traversing_directories():
+    niva_storage = NivaStorage()
+    database_engine = niva_storage.engine
     for folder in range(1, len(os.listdir(CSV_History)) + 1):
         crep_dir = CSV_History + "\\" + str(folder)
         print(crep_dir)
         for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=5000):
-            chunk.to_sql("sensors", engine, if_exists="append", index=False)
+            chunk.to_sql("sensors", database_engine, if_exists="append", index=False)
 
 
 def DBWriterIter():

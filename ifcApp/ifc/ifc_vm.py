@@ -10,7 +10,8 @@ from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
 from ifcApp.settingsSensors.settings_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
 from ifcApp.ifc.modbus.asyncMethods.async_ilya import AsyncThread
-from ifcApp.ifc.modbus.asyncMethods.async_receiver import WorkerSignals
+from ifcApp.ifc.modbus.asyncMethods.async_ilya import WorkerSignals
+from ifcApp.ifc.modbus.modbus_connect_vm import ModbusConnectViewModel
 from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
 from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
 from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
@@ -69,7 +70,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.user_pushbutton.clicked.connect(lambda: self.user_ifc.show())
         self.exit_pushButton.clicked.connect(self.exit_program)
         self.quantity_shield_pushButton.clicked.connect(self.show_count)
+        self.connect_modbus_pushButton.clicked.connect(self.show_modbus_ui)
 
+    def show_modbus_ui(self):
+        self.modbus_connect = ModbusConnectViewModel(self.database)
+        self.modbus_connect.show()
     def exit_program(self):
         self.thread.running = False
         QApplication.instance().quit()

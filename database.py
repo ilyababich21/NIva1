@@ -206,5 +206,7 @@ class NivaStorage:
     def query_modbus(self):
         query = self.session.get(self.Modbus, 1)
         return query
+
+
 if __name__ == "__main__":
     test_db = NivaStorage()

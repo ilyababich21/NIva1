@@ -7,24 +7,25 @@ from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 from ifcApp.countShield.count_shield_vm import CountShieldVM
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
-from ifcApp.settingsSensors.settings_sensors_vm import SettingsSensors
 from ifcApp.errors.notification_errors import NotificationErrors
+from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
+from ifcApp.ifc.globalParam.global_param import GlobalParam
+from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
+from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
 from ifcApp.ifc.modbus.asyncMethods.async_ilya import AsyncThread
 from ifcApp.ifc.modbus.asyncMethods.async_ilya import WorkerSignals
 from ifcApp.ifc.modbus.modbus_connect_vm import ModbusConnectViewModel
-from ifcApp.ifc.buttonWidget.button_widget import ButtonForSectionWidget
-from ifcApp.ifc.groupboxWidget.groupbox_widget import GroupBoxWidget
-from ifcApp.ifc.ifc_model import IfcModel, traversing_directories
-from ifcApp.ifc.globalParam.global_param import GlobalParam
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
+from ifcApp.settingsSensors.settings_sensors_vm import SettingsSensors
 
 UI_ifc = "resources/view/ifc/ifc version1.ui"
 
 
 class IfcViewModel(QtWidgets.QMainWindow):
-    def __init__(self,database):
+    def __init__(self,load,database):
         super().__init__()
         self.database = database
+        self.load_ui = load
         self.timer = QTimer()
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
@@ -75,6 +76,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def show_modbus_ui(self):
         self.modbus_connect = ModbusConnectViewModel(self.database)
         self.modbus_connect.show()
+
     def exit_program(self):
         self.thread.running = False
         QApplication.instance().quit()
@@ -97,7 +99,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_button(self):
         self.make_buttons(self.layout_list_in_groupbox)
-        self.AsyncTcpReciver.play_pause =True
+        self.AsyncTcpReciver.play_pause = True
 
         for elem in range(len(self.global_param.list_groupbox)):
             self.global_param.list_groupbox[elem].name_label.raise_()
@@ -105,7 +107,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def make_buttons(self, layout_list):
         self.cleaner_layouts(layout_list)
         for elem in range(self.database.get_count_shield()):
-            self.list_all_crep.append(CrepViewModel(elem + 1,self.database))
+            self.list_all_crep.append(CrepViewModel(elem + 1, self.database))
             self.setting_async_receiver()
             self.create_button_layout_list(layout_list, elem)
 
@@ -170,7 +172,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def remaster_creps(self):
         self.count_shield.get_and_save_number_from_lineedit()
-        self.AsyncTcpReciver.play_pause =False
+        self.AsyncTcpReciver.play_pause = False
         self.AsyncTcpReciver.all_signal.clear()
         self.AsyncTcpReciver.brokeSignalsId.clear()
         self.show_button()
@@ -214,9 +216,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         traversing_directories()
         self.model.proc.terminate()
         threads = threading.enumerate()
-        print("Active threads:",threads)
+        print("Active threads:", threads)
         self.close()
-
+        self.load_ui.load_ui_auth()
+        self.load_ui.show()
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

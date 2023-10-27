@@ -11,14 +11,17 @@ UI_main = "resources/view/service/service_view.ui"
 
 
 class Authorization(QtWidgets.QMainWindow):
-    def __init__(self,database):
+    def __init__(self, database):
         super().__init__()
         self.database = database
+        self.load_ui_auth()
+
+    def load_ui_auth(self):
+        print("suka")
         self.size_of_user_button = (100, 60)
         uic.loadUi(UI_authorization, self)
         self.log_in_button.clicked.connect(self.login)
         self.view_user_from_database()
-
 
     def login(self):
         login = self.login_lineEdit.text()
@@ -28,7 +31,6 @@ class Authorization(QtWidgets.QMainWindow):
             self.on_login_successful(role)
         else:
             self.on_login_failed(password)
-
 
     def on_login_successful(self, role):
         if role == 'admin':
@@ -45,7 +47,6 @@ class Authorization(QtWidgets.QMainWindow):
             self.check_label.setText("Логин или пароль введен неверно")
         self.password_lineEdit.setFocus()
 
-
     def open_service_ui(self):
         self.service = ServiceViewModel(self.database)
         self.service.show()
@@ -54,16 +55,18 @@ class Authorization(QtWidgets.QMainWindow):
         splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
         splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         splash.show()
-        self.admin_ui = IfcViewModel(self.database)
+        self.admin_ui = IfcViewModel(self, self.database)
         self.admin_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
         splash.finish(self.admin_ui)
         self.admin_ui.showMaximized()
+        self.close()
 
     def open_miner_ui(self):
-        self.miner_ui = IfcViewModel(self.database)
+        self.miner_ui = IfcViewModel(self, self.database)
         self.miner_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
         self.miner_ui.role_for_miner()
         self.miner_ui.showMaximized()
+        self.close()
 
     def view_user_from_database(self):
         for user in self.database.users_list():

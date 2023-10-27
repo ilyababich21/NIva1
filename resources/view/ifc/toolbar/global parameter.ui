@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>944</width>
-    <height>643</height>
+    <width>999</width>
+    <height>675</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,10 +21,10 @@
    <widget class="QTableWidget" name="all_param_tableWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>20</x>
       <y>90</y>
-      <width>941</width>
-      <height>491</height>
+      <width>931</width>
+      <height>471</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -48,121 +48,11 @@
     <attribute name="verticalHeaderMinimumSectionSize">
      <number>21</number>
     </attribute>
-    <row>
+    <column>
      <property name="text">
-      <string/>
+      <string>Название датчика</string>
      </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Цилиндр передвижки</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Зазор цилиндра передвижки</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Давление в стойке 1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Давление в стойке 2</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Щит УГЗ</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Щит УГЗ датчик приближения</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Щит УГЗ угол</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Щит УГЗ передвижка (ход)</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Щит УГЗ давление</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Щит УГЗ сокращение/распор</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Выдвижка верхняк</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Выдвижка верхняк(ход)</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Подж призаб(козырек)</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Перекрытие состояние</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Высота секции 1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Высота секции 2</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Высота секции 3</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
+    </column>
     <column>
      <property name="text">
       <string>Мнимум </string>
@@ -192,7 +82,7 @@
    <widget class="QPushButton" name="save_pushButton">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>900</x>
       <y>590</y>
       <width>51</width>
       <height>51</height>

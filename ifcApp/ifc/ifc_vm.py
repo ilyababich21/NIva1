@@ -86,10 +86,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
             self.groupbox = GroupBoxWidget()
             layout.addWidget(self.groupbox)
             self.global_param.list_groupbox.append(self.groupbox)
-            self.global_param.list_groupbox[index].min_value.setText(f"{row.min_value}")
-            self.global_param.list_groupbox[index].max_value.setText(f"{row.max_value}")
+            self.global_param.list_groupbox[index].min_value.setText(str(row.min_value))
+            self.global_param.list_groupbox[index].max_value.setText(str(row.max_value))
             self.layout_list_in_groupbox.append(self.groupbox.layoutWidget)
-            self.groupbox.name_label.setText(self.groupbox.list_name_for_groupbox[index])
+            self.groupbox.name_label.setText(row.name)
             self.groupbox.icon_label.setPixmap(QtGui.QPixmap(self.groupbox.icon_paths[index]))
 
     def show_button(self):

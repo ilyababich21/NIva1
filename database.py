@@ -184,7 +184,7 @@ class NivaStorage:
         return query
 
     def update_global_params(self, params, list_param):
-        params.min_value, params.max_value, params.from_normal_value, params.to_normal_value, params.units = list_param
+        params.name,params.min_value, params.max_value, params.from_normal_value, params.to_normal_value, params.units = list_param
         self.session.commit()
 
     # MANUFACTURE

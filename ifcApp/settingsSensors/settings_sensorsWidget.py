@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QLineEdit, QLabel, QColorDialog
 
-
 class SettingsSensorsWidget(QWidget):
 
     def __init__(self, name):

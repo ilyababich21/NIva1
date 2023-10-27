@@ -2,7 +2,6 @@ import csv
 import datetime
 import os
 import time
-from PyQt6 import QtCore
 from PyQt6.QtCore import QObject, pyqtSignal
 from pymodbus.client import ModbusTcpClient
 
@@ -11,9 +10,8 @@ class WorkerSignals(QObject):
     result = pyqtSignal(list)
 
 
-class AsyncThread(QtCore.QObject):
+class AsyncThread(QObject):
     brokeSignalsId = []
-    running = False
     emitValue = []
     all_signal = []
     state_info = []
@@ -30,7 +28,6 @@ class AsyncThread(QtCore.QObject):
         while True:
             if self.play_pause:
                 try:
-                    # time.sleep(1)
                     self.read_sync()
                 except Exception as e:
                     print("neverno ukaazan address ", e)
@@ -39,9 +36,9 @@ class AsyncThread(QtCore.QObject):
 
     def read_sync(self):
         self.emitValue = []
-        self.result_trap=[]
+        self.result_trap = []
         num_of_creps = len(self.all_signal)
-        puf = num_of_creps // 8
+        puf = num_of_creps // 8  # 8- max count read registers/ count sensor
         ostatok = num_of_creps % 8
         try:
             if puf == 0 and ostatok != 0:
@@ -51,6 +48,7 @@ class AsyncThread(QtCore.QObject):
                 for addr in range(puf):
                     result = self.client.read_holding_registers(address=addr * 120, count=120, slave=1)
                     self.emitValue += result.registers
+                    print(self.emitValue)
             elif puf != 0 and ostatok != 0:
                 for addr in range(puf):
                     result = self.client.read_holding_registers(address=addr * 120, count=120, slave=1)
@@ -78,10 +76,10 @@ class AsyncThread(QtCore.QObject):
 
     def EntryValueForCSV(self, elem):
 
-        for dat in range(len(self.result_trap[elem])):
+        for register in range(len(self.result_trap[elem])):
             self.data = {
-                "id_dat": dat + 1,
-                "value": int(self.result_trap[elem][dat]),
+                "id_dat": register + 1,
+                "value": int(self.result_trap[elem][register]),
                 "crep_id": elem + 1,
                 "create_date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }

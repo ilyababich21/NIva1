@@ -1,6 +1,5 @@
 from PyQt6 import QtWidgets, QtCore, uic
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap, QMovie
+from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QSplashScreen
 
 from authorization.button_username import ButtonForUserName
@@ -20,10 +19,10 @@ class Authorization(QtWidgets.QMainWindow):
         self.log_in_button.clicked.connect(self.login)
         self.view_user_from_database()
 
+
     def login(self):
         login = self.login_lineEdit.text()
         password = self.password_lineEdit.text()
-        # self.authorization_model.login(login, password)
         role = self.database.check_user(login, password)
         if role:
             self.on_login_successful(role)
@@ -48,7 +47,7 @@ class Authorization(QtWidgets.QMainWindow):
 
 
     def open_service_ui(self):
-        self.service = ServiceViewModel()
+        self.service = ServiceViewModel(self.database)
         self.service.show()
 
     def open_admin_ui(self):

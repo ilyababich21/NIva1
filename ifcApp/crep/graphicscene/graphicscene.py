@@ -48,11 +48,7 @@ class CreateGraphicScene(QWidget):
 
     def value_change(self, lineEdit, max_value):
         angel = lineEdit.text()
-        if angel == '':
-            angel = 1
-        if angel == ' ':
-            angel = 1
-        if angel == "-":
+        if angel == '' or angel == ' ' or angel == "-":
             angel = 1
         else:
             angel = int(angel)

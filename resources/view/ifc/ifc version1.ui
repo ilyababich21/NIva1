@@ -154,7 +154,7 @@ QMenuBar::item {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="driver_pushButton">
+        <widget class="QPushButton" name="connect_modbus_pushButton">
          <property name="minimumSize">
           <size>
            <width>25</width>

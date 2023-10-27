@@ -1,6 +1,4 @@
 from PyQt6 import uic, QtWidgets
-
-
 UI_sernsors = "resources/view/ifc/crep/sensors crep.ui"
 
 
@@ -15,4 +13,5 @@ class AllSensorsCrep(QtWidgets.QMainWindow):
                                  self.current_POE_progressBar, self.A1_progressBar, self.F1_progressBar,
                                  self.amperage_progressBar, self.amperage_valve_progressBar, self.CP_progressBar,
                                  self.zaz_CP_progressBar, self.max_zaz_progressBar]
+
 

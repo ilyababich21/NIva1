@@ -35,8 +35,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam(self.database)
         self.user_ifc = UserInIfc(self.database)
-        self.thread = QThread()
+        # self.thread = QThread()
+
         self.model = IfcModel()
+        self.model.start()
         self.count_shield = CountShieldVM(self.database)
         self.notification_errors = NotificationErrors()
         self.AsyncTcpReciver = AsyncThread()
@@ -47,11 +49,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.layout_list_in_groupbox = []
         self.list_all_crep = []
 
-        self.AsyncTcpReciver.moveToThread(self.thread)
-        self.thread.started.connect(self.AsyncTcpReciver.run)
+        # self.AsyncTcpReciver.moveToThread(self.thread)
+        # self.thread.started.connect(self.AsyncTcpReciver.run)
         self.create_groupbox(self.layout_groupbox)
         self.show_button()
-        self.thread.start()
+        self.AsyncTcpReciver.start()
         self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
                                  self.pressure_stand2_action, self.shield_UGZ_action,
                                  self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
@@ -210,11 +212,12 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.date_time.setText(timeDisplay)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
-        self.thread.running = False
-        self.AsyncTcpReciver.play_pause = False
-        self.AsyncTcpReciver.client.close()
+        self.AsyncTcpReciver.running = False
+        self.model.running = False
+        self.AsyncTcpReciver.join()
+        self.model.join()
+
         traversing_directories()
-        self.model.proc.terminate()
         threads = threading.enumerate()
         print("Active threads:", threads)
         self.close()

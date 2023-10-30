@@ -1,9 +1,10 @@
 import csv
 import os
 import shutil
+import threading
 import time
 import pandas as pd
-from PyQt6.QtCore import QObject
+from PyQt6.QtCore import QObject, QThread
 from database import NivaStorage
 from multiprocessing import Process
 
@@ -38,19 +39,7 @@ def DBWriterIter():
     except:
         print('rig')
 
-
-def DBwrite():
-    while True:
-        print("hel")
-        try:
-
-            time.sleep(120)
-        except:
-            print("ebanutsa")
-        DBWriterIter()
-
-
-class IfcModel(QObject):
+class IfcModel(threading.Thread):
     def __init__(self):
         super().__init__()
         for files in os.listdir("CSV_History"):
@@ -69,8 +58,29 @@ class IfcModel(QObject):
                     writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
                                             extrasaction='ignore')
                     writer.writeheader()
-        self.proc = Process(target=DBwrite, daemon=True)
-        self.proc.start()
+        self.running=False
+        self.play = True
+
+
+    def run(self):
+        self.running =True
+        threads = threading.enumerate()
+        print("Active threads:", threads)
+        pTime=time.time()
+        while self.running:
+            if time.time()-pTime>120:
+
+                proc = Process(target=DBWriterIter, daemon=True)
+                proc.start()
+                threads = threading.enumerate()
+                print("Active threads:", threads)
+                pTime=time.time()
+            else:
+                time.sleep(3)
+        print("Goodbye")
+        threads = threading.enumerate()
+        print("Active threads:", threads)
+
 
 
 

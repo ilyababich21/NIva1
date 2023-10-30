@@ -62,9 +62,14 @@ class Authorization(QtWidgets.QMainWindow):
         self.close()
 
     def open_miner_ui(self):
+        splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
+        splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
+        splash.show()
         self.miner_ui = IfcViewModel(self, self.database)
         self.miner_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
         self.miner_ui.role_for_miner()
+        splash.finish(self.miner_ui)
+
         self.miner_ui.showMaximized()
         self.close()
 

@@ -9,9 +9,9 @@ class Ping(QtWidgets.QMainWindow):
     def __init__(self,database):
 
         super().__init__()
-
+        self.database=database
         uic.loadUi(UI_ping, self)
-        self.ip_lineEdit.setText(database.query_modbus().ip_address)
+        self.ip_lineEdit.setText(self.database.query_modbus().ip_address)
         self.check_pushButton.clicked.connect(self.ping_test)
 
     def ping_test(self):

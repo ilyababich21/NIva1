@@ -21,3 +21,4 @@ ENV/
 .csv
 *.csv
 CSV_History/
+.CSV_History

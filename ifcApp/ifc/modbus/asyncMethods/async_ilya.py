@@ -2,7 +2,9 @@ import csv
 import datetime
 import os
 import time
-from PyQt6.QtCore import QObject, pyqtSignal
+from threading import Thread
+
+from PyQt6.QtCore import QObject, pyqtSignal, QThread
 from pymodbus.client import ModbusTcpClient
 
 
@@ -10,7 +12,7 @@ class WorkerSignals(QObject):
     result = pyqtSignal(list)
 
 
-class AsyncThread(QObject):
+class AsyncThread(Thread):
     brokeSignalsId = []
     emitValue = []
     all_signal = []
@@ -19,13 +21,17 @@ class AsyncThread(QObject):
 
     def __init__(self, parent=None):
         super(AsyncThread, self).__init__(parent)
+        self.running = False  # Флаг выполнения
         print("start")
 
-    def run(self):
-        # Переписать!!!
-        self.client = ModbusTcpClient("127.0.0.1", port=502)
+    def run(self) -> None:
+        self.running = True
+        try:
+            self.client = ModbusTcpClient("127.0.0.1", port=502)
+        except Exception as e:
+            print(e)
 
-        while True:
+        while self.running:
             if self.play_pause:
                 try:
                     self.read_sync()
@@ -62,8 +68,8 @@ class AsyncThread(QObject):
         # print(self.emitValue)
         self.result_trap = [self.emitValue[i:i + 15] for i in range(0, len(self.emitValue), 15)]
         # print(self.result_trap)
-        self.state_info = []
         for elem in range(len(self.all_signal)):
+            self.state_info = []
             self.all_signal[elem].result.emit(self.result_trap[elem])
             self.EntryValueForCSV(elem)
 

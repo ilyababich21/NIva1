@@ -16,6 +16,8 @@ class GlobalParam(QtWidgets.QMainWindow):
         self.query_in_global_param_table = self.database.global_params()
         self.all_param_tableWidget.setRowCount(len(self.query_in_global_param_table))
         self.all_param_tableWidget.setVerticalHeaderLabels([str(param.id) for param in self.query_in_global_param_table])
+        self.add_button.clicked.connect(self.add_row)
+        self.del_button.clicked.connect(self.del_row)
 
 
 
@@ -32,6 +34,13 @@ class GlobalParam(QtWidgets.QMainWindow):
                 f"{self.query_in_global_param_table[row].to_normal_value}"))
             self.all_param_tableWidget.setItem(row , 5,
                                                QTableWidgetItem(f"{self.query_in_global_param_table[row].units}"))
+
+    def add_row(self):
+        pass
+
+    def del_row(self):
+        # print(self.all_param_tableWidget.selectedItems())
+        print(self.all_param_tableWidget.currentRow())
 
     def save_on_clicked_information(self):
         for row in range(len(self.query_in_global_param_table)):

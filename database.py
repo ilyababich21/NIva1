@@ -87,7 +87,6 @@ class NivaStorage:
         color_button_one = Column(String)
         color_button_two = Column(String)
         color_button_three = Column(String)
-        color_button_four = Column(String)
         min_value = Column(Integer)
         max_value = Column(Integer)
         coefficient_value = Column(Integer)

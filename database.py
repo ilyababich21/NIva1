@@ -87,10 +87,8 @@ class NivaStorage:
         color_button_one = Column(String)
         color_button_two = Column(String)
         color_button_three = Column(String)
-        color_button_four = Column(String)
         min_value = Column(Integer)
         max_value = Column(Integer)
-        coefficient_value = Column(Integer)
         users = relationship("Users", back_populates="settings")
         sensor = relationship("GlobalParamTable", back_populates="settings")
 

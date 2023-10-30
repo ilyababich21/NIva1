@@ -49,7 +49,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
 
         for elem in range(11):
-            speed = CreateGraphicScene(self.database)
+            speed = CreateGraphicScene(self.database,self)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
             self.list_sensors_lineEdit[elem].setValidator(QIntValidator())
             speed.graphicsView.crep_id = self.num

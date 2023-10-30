@@ -23,7 +23,10 @@ class NivaStorage:
         id = Column(Integer, primary_key=True, index=True, autoincrement=True)
         name = Column(String)
         discription = Column(String)
+        ip_address = Column(String)
+        port = Column(Integer)
         count_shield = Column(Integer)
+        count_dat = Column(Integer)
         users = relationship("Users", back_populates="manufacture")
         creps = relationship("Crep_ifc", back_populates="manufacture")
 
@@ -102,12 +105,12 @@ class NivaStorage:
         self.session = db_session()
         # ЗАПОЛНЯЕМ БАЗУ В СЛУЧАЕ ОТСУТСТВИЯ ПОЛЕЙ
         if not self.session.query(self.Manufacture).count():
-            self.session.add(self.Manufacture(name='niva', discription='null', count_shield=20))
+            self.session.add(self.Manufacture(name='niva',ip_address="127.0.0.1",port=502,count_dat = 15, discription='null', count_shield=20))
             # self.session.commit()
 
         if not self.session.query(self.Modbus).count():
             self.session.add(
-                self.Modbus(ip_address="192.168.1.1", port=502, slave_id=1, start_register=1, count_register=15))
+                self.Modbus(ip_address="127.0.0.1", port=502, slave_id=1, start_register=1, count_register=15))
             # self.session.commit()
 
         if not self.session.query(self.Crep_ifc).count():
@@ -183,7 +186,7 @@ class NivaStorage:
         return query
 
     def update_global_params(self, params, list_param):
-        params.name,params.min_value, params.max_value, params.from_normal_value, params.to_normal_value, params.units = list_param
+        params.name, params.min_value, params.max_value, params.from_normal_value, params.to_normal_value, params.units = list_param
         self.session.commit()
 
     # MANUFACTURE
@@ -205,6 +208,19 @@ class NivaStorage:
     def query_modbus(self):
         query = self.session.get(self.Modbus, 1)
         return query
+
+    def update_modbus_table(self, params, list_param):
+        params.ip_address, params.port, params.slave_id, params.start_register, params.count_register = list_param
+        self.session.commit()
+
+    def query_manufacture(self):
+        query = self.session.get(self.Manufacture, 1)
+        return query
+
+    def update_manufacture_table(self, params, list_param):
+        params.ip_address,params.port,params.count_shield,params.count_dat, = list_param
+        self.session.commit()
+
 
 
 if __name__ == "__main__":

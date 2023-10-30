@@ -13,7 +13,7 @@ class GlobalParam(QtWidgets.QMainWindow):
         uic.loadUi(UI_all_parameter, self)
         self.exit_main_pushButton.clicked.connect(lambda: self.close())
 
-        self.query_in_global_param_table = self.database.global_params()
+        self.query_in_global_param_table = self.database.get_global_params()
         self.all_param_tableWidget.setRowCount(len(self.query_in_global_param_table))
         self.all_param_tableWidget.setVerticalHeaderLabels([str(param.id) for param in self.query_in_global_param_table])
 

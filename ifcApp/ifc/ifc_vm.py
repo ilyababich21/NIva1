@@ -25,17 +25,14 @@ class IfcViewModel(QtWidgets.QMainWindow):
     def __init__(self,load,database):
         super().__init__()
         self.database = database
-        self.load_ui = load
+        self.load_auth = load
         self.timer = QTimer()
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         print("Load ifc")
-
-        self.settings_sensors = SettingsSensors()
         self.data_sensors = DataSensorsMainWindow()
         self.global_param = GlobalParam(self.database)
         self.user_ifc = UserInIfc(self.database)
-        # self.thread = QThread()
 
         self.model = IfcModel()
         self.model.start()
@@ -49,8 +46,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.layout_list_in_groupbox = []
         self.list_all_crep = []
 
-        # self.AsyncTcpReciver.moveToThread(self.thread)
-        # self.thread.started.connect(self.AsyncTcpReciver.run)
         self.create_groupbox(self.layout_groupbox)
         self.show_button()
         self.AsyncTcpReciver.start()
@@ -89,7 +84,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def create_groupbox(self, layout):
         self.global_param.list_groupbox.clear()
-        for index, row in enumerate(self.database.global_params()):
+        for index, row in enumerate(self.database.get_global_params()):
             self.groupbox = GroupBoxWidget()
             layout.addWidget(self.groupbox)
             self.global_param.list_groupbox.append(self.groupbox)
@@ -125,7 +120,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.AsyncTcpReciver.all_signal.append(py_signal)
 
     def create_button_layout_list(self, layout_list, elem):
-        for index, row in enumerate(self.database.global_params()):
+        for index, row in enumerate(self.database.get_global_params()):
             self.btn = ButtonForSectionWidget(elem + 1)
             self.btn.value = int(row.max_value)
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
@@ -186,6 +181,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
             crepWin.show()
 
     def show_settings_sensors(self):
+        user_id = self.load_auth.id_user
+        self.settings_sensors = SettingsSensors(user_id,self.database)
         if self.change_setting_action.isChecked():
             self.settings_sensors.show()
         else:
@@ -222,8 +219,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         threads = threading.enumerate()
         print("Active threads:", threads)
         self.close()
-        self.load_ui.load_ui_auth()
-        self.load_ui.show()
+        self.load_auth.load_ui_auth()
+        self.load_auth.show()
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

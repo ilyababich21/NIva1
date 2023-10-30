@@ -150,7 +150,7 @@ class NivaStorage:
     def check_user(self, username, password):
         query = self.session.query(self.Users).filter_by(login=username, password=password).first()
         if query:
-            return query.role.role
+            return query.role.role,query.id
         else:
             return None
 
@@ -177,12 +177,12 @@ class NivaStorage:
 
     # !!!     ПЕРЕДЕЛАТЬ ГЛОБАЛ ПАРАМ
     #     GLOBAL PARAMS
-    def global_params(self):
+    def get_global_params(self):
         query = self.session.query(self.GlobalParamTable).all()
         return query
 
     def update_global_params(self, params, list_param):
-        params.name,params.min_value, params.max_value, params.from_normal_value, params.to_normal_value, params.units = list_param
+        params.name, params.min_value, params.max_value, params.from_normal_value, params.to_normal_value, params.units = list_param
         self.session.commit()
 
     # MANUFACTURE

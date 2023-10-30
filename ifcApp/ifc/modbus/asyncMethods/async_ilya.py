@@ -43,30 +43,35 @@ class AsyncThread(Thread):
     def read_sync(self):
         self.emitValue = []
         self.result_trap = []
+        max_reg = 120
+        cur_dat=15
         num_of_creps = len(self.all_signal)
-        puf = num_of_creps // 8  # 8- max count read registers/ count sensor
-        ostatok = num_of_creps % 8
+        # print(num_of_creps)
+        crep_iter=max_reg//cur_dat
+        reg_iter=crep_iter*cur_dat
+        puf = num_of_creps // crep_iter  # 8- max count read registers/ count sensor
+        ostatok = num_of_creps % crep_iter
         try:
             if puf == 0 and ostatok != 0:
-                result = self.client.read_holding_registers(address=0, count=ostatok * 15, slave=1)
+                result = self.client.read_holding_registers(address=0, count=ostatok * cur_dat, slave=1)
                 self.emitValue += result.registers
             elif puf != 0 and ostatok == 0:
                 for addr in range(puf):
-                    result = self.client.read_holding_registers(address=addr * 120, count=120, slave=1)
+                    result = self.client.read_holding_registers(address=addr * reg_iter, count=reg_iter, slave=1)
                     self.emitValue += result.registers
                     print(self.emitValue)
             elif puf != 0 and ostatok != 0:
                 for addr in range(puf):
-                    result = self.client.read_holding_registers(address=addr * 120, count=120, slave=1)
+                    result = self.client.read_holding_registers(address=addr * reg_iter, count=reg_iter, slave=1)
                     self.emitValue += result.registers
                 else:
-                    result = self.client.read_holding_registers(address=(addr + 1) * 120, count=ostatok * 15, slave=1)
+                    result = self.client.read_holding_registers(address=(addr + 1) * reg_iter, count=ostatok * cur_dat, slave=1)
                     self.emitValue += result.registers
         except Exception as e:
             print(e)
 
         # print(self.emitValue)
-        self.result_trap = [self.emitValue[i:i + 15] for i in range(0, len(self.emitValue), 15)]
+        self.result_trap = [self.emitValue[i:i + cur_dat] for i in range(0, len(self.emitValue), cur_dat)]
         # print(self.result_trap)
         for elem in range(len(self.all_signal)):
             self.state_info = []

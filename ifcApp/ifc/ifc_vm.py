@@ -212,6 +212,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.date_time.setText(timeDisplay)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        self.AsyncTcpReciver.all_signal.clear()
         self.AsyncTcpReciver.running = False
         self.model.running = False
         self.AsyncTcpReciver.join()

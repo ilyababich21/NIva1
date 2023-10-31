@@ -212,13 +212,14 @@ class NivaStorage:
         query = self.session.get(self.Modbus, 1)
         return query
 
-    def get_setting_sensors(self):
-        query = self.session.query(self.SettingsSensorsTable).all()
-        return query
-
     def get_setting_sensors(self, user):
         query = self.session.query(self.SettingsSensorsTable).filter(self.SettingsSensorsTable.user_id == user).all()
         return query
+
+    def update_settings_sensors(self, user_id,sensor_id,button, color):
+        update = self.session.query(self.SettingsSensorsTable).filter_by(user_id=user_id, sensor_id=sensor_id).first()
+        update.button = color
+        self.session.commit()
 
 
 if __name__ == "__main__":

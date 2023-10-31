@@ -2,23 +2,24 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QLineEdit, QLabel
 
 
 class SettingsSensorsWidget(QWidget):
-    def __init__(self,vm, name):
+    def __init__(self, num,name):
         super().__init__()
+
         self.layout = QHBoxLayout(self)
         self.name_label = QLabel(self)
         self.name_label.setText(
             f"<html><head/><body><p><span style=\" font-size:10pt; font-weight:600; font-style:italic;\">{name}</span></p></body></html>")
 
         self.color_increased_pushButton = QPushButton(self)
-        self.color_increased_pushButton.clicked.connect(lambda: vm.show_color_dialog(self.color_increased_pushButton))
+        self.color_increased_pushButton.setObjectName(f"color_increased_pushButton {num}")
         self.color_increased_pushButton.setMaximumSize(30, 25)
 
         self.color_reduced_pushButton = QPushButton(self)
-        self.color_reduced_pushButton.clicked.connect(lambda: vm.show_color_dialog(self.color_reduced_pushButton))
+        self.color_reduced_pushButton.setObjectName(f"color_reduced_pushButton {num}")
         self.color_reduced_pushButton.setMaximumSize(30, 25)
 
         self.color_normal_pushButton = QPushButton(self)
-        self.color_normal_pushButton.clicked.connect(lambda: vm.show_color_dialog(self.color_normal_pushButton))
+        self.color_normal_pushButton.setObjectName(f"color_normal_pushButton {num}")
         self.color_normal_pushButton.setMaximumSize(30, 25)
 
         self.min_size_lineEdit = QLineEdit(self)
@@ -32,5 +33,3 @@ class SettingsSensorsWidget(QWidget):
         self.layout.addWidget(self.color_normal_pushButton)
         self.layout.addWidget(self.min_size_lineEdit)
         self.layout.addWidget(self.max_size_lineEdit)
-
-

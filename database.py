@@ -216,9 +216,12 @@ class NivaStorage:
         query = self.session.query(self.SettingsSensorsTable).filter(self.SettingsSensorsTable.user_id == user).all()
         return query
 
-    def update_settings_sensors(self, user_id,sensor_id,button, color):
-        update = self.session.query(self.SettingsSensorsTable).filter_by(user_id=user_id, sensor_id=sensor_id).first()
-        update.button = color
+    def update_settings_sensors(self, sensor_id,user_id, color_normal_pushButton, color_reduced_pushButton,
+                                color_increased_pushButton):
+        update = self.session.query(self.SettingsSensorsTable).filter_by(user_id = user_id,sensor_id = sensor_id).first()
+        update.color_normal_pushButton = color_normal_pushButton
+        update.color_reduced_pushButton = color_reduced_pushButton
+        update.color_increased_pushButton = color_increased_pushButton
         self.session.commit()
 
 

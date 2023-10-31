@@ -31,11 +31,11 @@ class SettingsSensors(QtWidgets.QMainWindow):
             self.widget.min_size_lineEdit.setText(str(value.min_value))
             self.widget.max_size_lineEdit.setText(str(value.max_value))
             self.widget.color_normal_pushButton.released.connect(
-                lambda ch, sensor_id=elem + 1: self.show_color_dialog(sensor_id))
+                lambda sensor_id=elem + 1: self.show_color_dialog(sensor_id))
             self.widget.color_reduced_pushButton.clicked.connect(
-                lambda ch, sensor_id=elem + 1: self.show_color_dialog(sensor_id))
+                lambda sensor_id=elem + 1: self.show_color_dialog(sensor_id))
             self.widget.color_increased_pushButton.clicked.connect(
-                lambda ch, sensor_id=elem + 1: self.show_color_dialog(sensor_id))
+                lambda sensor_id=elem + 1: self.show_color_dialog(sensor_id))
 
     def show_color_dialog(self, sensor_id):
         color_dialog = QColorDialog.getColor()
@@ -46,4 +46,4 @@ class SettingsSensors(QtWidgets.QMainWindow):
             sending_button = self.sender()
             print('%s Clicked!' % str(sending_button.objectName()), f"number {sensor_id}")
             # print(color_dialog.name(), number,self.sender())
-            self.database.update_settings_sensors(self.user_id, sensor_id, color_dialog.name())
+            # self.database.update_settings_sensors(self.user_id, sensor_id, color_dialog.name())

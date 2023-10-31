@@ -87,10 +87,9 @@ class NivaStorage:
         id = Column(Integer, primary_key=True, index=True, autoincrement=True)
         user_id = Column(Integer, ForeignKey("credential.id"))
         sensor_id = Column(Integer, ForeignKey("global_param.id"))
-        color_button_one = Column(String)
-        color_button_two = Column(String)
-        color_button_three = Column(String)
-        color_button_four = Column(String)
+        color_normal_pushButton = Column(String)
+        color_reduced_pushButton = Column(String)
+        color_increased_pushButton = Column(String)
         min_value = Column(Integer)
         max_value = Column(Integer)
 

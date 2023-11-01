@@ -1,4 +1,5 @@
 import threading
+import time
 
 from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QThread
@@ -88,6 +89,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.count_shield.show()
 
     def create_groupbox(self, layout):
+        # self.layout_list_in_groupbox.clear()
         self.global_param.list_groupbox.clear()
         for index, row in enumerate(self.database.global_params()):
             self.groupbox = GroupBoxWidget()

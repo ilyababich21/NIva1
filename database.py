@@ -71,7 +71,7 @@ class NivaStorage:
     class GlobalParamTable(Base):
         __tablename__ = "global_param"
 
-        id = Column(Integer, primary_key=True, index=True)
+        id = Column(Integer, primary_key=True, index=True, autoincrement=True)
         name = Column(String)
         min_value = Column(Integer)
         max_value = Column(Integer)
@@ -92,7 +92,7 @@ class NivaStorage:
         color_button_three = Column(String)
         min_value = Column(Integer)
         max_value = Column(Integer)
-        coefficient_value = Column(Integer)
+
         users = relationship("Users", back_populates="settings")
         sensor = relationship("GlobalParamTable", back_populates="settings")
 
@@ -121,7 +121,7 @@ class NivaStorage:
 
         if not self.session.query(self.GlobalParamTable).count():
             self.session.add_all(
-                [self.GlobalParamTable(id=id, name="NULL", min_value=0, max_value=600, from_normal_value=300,
+                [self.GlobalParamTable( name="NULL", min_value=0, max_value=600, from_normal_value=300,
                                        to_normal_value=400, units="bar") for id in range(1, 16)])
 
         if not self.session.query(self.Role).count():
@@ -142,7 +142,7 @@ class NivaStorage:
                                                             color_button_one="#55aa00",
                                                             color_button_two="#55aa00",
                                                             color_button_three="#55aa00", min_value=1,
-                                                            max_value=2, coefficient_value=1) for id in range(1, 16)])
+                                                            max_value=2) for id in range(1, 16)])
         self.session.commit()
 
     # РАБОТА С USERS
@@ -185,6 +185,15 @@ class NivaStorage:
         query = self.session.query(self.GlobalParamTable).all()
         return query
 
+    def add_param(self):
+        self.session.add(self.GlobalParamTable( name="NULL", min_value=0, max_value=700, from_normal_value=300,
+                              to_normal_value=400, units="bar")
+)
+        self.session.commit()
+    def remove_param(self,param):
+        self.session.delete(param)
+        self.session.commit()
+
     def update_global_params(self, params, list_param):
         params.name, params.min_value, params.max_value, params.from_normal_value, params.to_normal_value, params.units = list_param
         self.session.commit()
@@ -225,3 +234,4 @@ class NivaStorage:
 
 if __name__ == "__main__":
     test_db = NivaStorage()
+    # test_db.add_param()

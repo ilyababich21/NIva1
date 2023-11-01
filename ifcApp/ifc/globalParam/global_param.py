@@ -12,35 +12,39 @@ class GlobalParam(QtWidgets.QMainWindow):
         self.database=database
         uic.loadUi(UI_all_parameter, self)
         self.exit_main_pushButton.clicked.connect(lambda: self.close())
+        # self.all_param_tableWidget.setVerticalHeaderLabels([str(param.id) for param in self.query_in_global_param_table])
 
+        self.all_param_tableWidget.cellChanged.connect(self.validator)
+        self.show_base()
+
+
+    def validator(self,row:int,column:int):
+        if column in range(1,5):
+
+            try:
+                kek = int(self.all_param_tableWidget.item(row, column).text())
+
+            except:
+                self.all_param_tableWidget.setItem(row, column,QTableWidgetItem('0'))
+
+
+    def show_base(self):
         self.query_in_global_param_table = self.database.global_params()
         self.all_param_tableWidget.setRowCount(len(self.query_in_global_param_table))
-        self.all_param_tableWidget.setVerticalHeaderLabels([str(param.id) for param in self.query_in_global_param_table])
-        self.add_button.clicked.connect(self.add_row)
-        self.del_button.clicked.connect(self.del_row)
-
-
-
         for row in range(len(self.query_in_global_param_table)):
-            self.all_param_tableWidget.setItem(row , 0,
+            self.all_param_tableWidget.setItem(row, 0,
                                                QTableWidgetItem(self.query_in_global_param_table[row].name))
-            self.all_param_tableWidget.setItem(row , 1,
+            self.all_param_tableWidget.setItem(row, 1,
                                                QTableWidgetItem(f"{self.query_in_global_param_table[row].min_value}"))
-            self.all_param_tableWidget.setItem(row , 2,
+            self.all_param_tableWidget.setItem(row, 2,
                                                QTableWidgetItem(f"{self.query_in_global_param_table[row].max_value}"))
-            self.all_param_tableWidget.setItem(row , 3, QTableWidgetItem(
+            self.all_param_tableWidget.setItem(row, 3, QTableWidgetItem(
                 f"{self.query_in_global_param_table[row].from_normal_value}"))
-            self.all_param_tableWidget.setItem(row , 4, QTableWidgetItem(
+            self.all_param_tableWidget.setItem(row, 4, QTableWidgetItem(
                 f"{self.query_in_global_param_table[row].to_normal_value}"))
-            self.all_param_tableWidget.setItem(row , 5,
+            self.all_param_tableWidget.setItem(row, 5,
                                                QTableWidgetItem(f"{self.query_in_global_param_table[row].units}"))
 
-    def add_row(self):
-        pass
-
-    def del_row(self):
-        # print(self.all_param_tableWidget.selectedItems())
-        print(self.all_param_tableWidget.currentRow())
 
     def save_on_clicked_information(self):
         for row in range(len(self.query_in_global_param_table)):

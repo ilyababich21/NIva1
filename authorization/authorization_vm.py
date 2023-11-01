@@ -26,7 +26,7 @@ class Authorization(QtWidgets.QMainWindow):
     def login(self):
         login = self.login_lineEdit.text()
         password = self.password_lineEdit.text()
-        role = self.database.check_user(login, password)
+        role,self.id_user = self.database.check_user(login, password)
         if role:
             self.on_login_successful(role)
         else:

@@ -20,13 +20,13 @@ class CrepViewModel(QtWidgets.QMainWindow):
         "crep_id": [],
     }
 
-    def __init__(self, num,database):
+    def __init__(self, num, database):
         super().__init__()
         self.num = num
         self.database = database
         self.all_sensors_crep = AllSensorsCrep(self.database)
         uic.loadUi(UI_crep, self)
-        self.global_param = self.database.global_params()
+        self.global_param = self.database.get_global_params()
         self.data_sensors_section = DataSensorsSection()
 
         self.list_sensors_lineEdit = (self.CP_lineEdit, self.sensors5_lineEdit, self.sensors1_lineEdit,
@@ -47,9 +47,8 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                         self.section_one_layout, self.section_two_layout, self.section_three_layout,
                                         self.poz_shifting_layout)
 
-
         for elem in range(11):
-            speed = CreateGraphicScene(self.database)
+            speed = CreateGraphicScene(self.database, self)
             self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
             self.list_sensors_lineEdit[elem].setValidator(QIntValidator())
             speed.graphicsView.crep_id = self.num

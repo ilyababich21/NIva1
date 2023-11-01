@@ -131,12 +131,10 @@ class IfcViewModel(QtWidgets.QMainWindow):
                     g.show_sensor_data(g.list_sensors_lineEdit[lt]), self.notification_errors.textEdit,
                     from_normal_value, to_normal_value, self.groupbox.list_name_for_groupbox[lt], elem + 1,
                     self.notification_errors_pushButton))
-
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
                 lambda checked, e=elem, i=index, g=self.list_all_crep[-1]:
                 self.data_sensors.all_values.setItem(i, e, QTableWidgetItem(
                     g.show_sensor_data(g.list_sensors_lineEdit[i]))))
-
             if len(self.list_all_crep) % 2 == 0:
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
@@ -185,6 +183,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.settings_sensors = SettingsSensors(user_id,self.database)
         if self.change_setting_action.isChecked():
             self.settings_sensors.show()
+            self.change_setting_action.setChecked(False)
+
         else:
             self.settings_sensors.close()
 

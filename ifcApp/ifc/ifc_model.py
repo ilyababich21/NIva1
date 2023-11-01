@@ -4,7 +4,6 @@ import shutil
 import threading
 import time
 import pandas as pd
-from PyQt6.QtCore import QObject, QThread
 from database import NivaStorage
 from multiprocessing import Process
 
@@ -68,7 +67,7 @@ class IfcModel(threading.Thread):
         print("Active threads:", threads)
         pTime=time.time()
         while self.running:
-            if time.time()-pTime>120:
+            if time.time()-pTime>240:
 
                 proc = Process(target=DBWriterIter, daemon=True)
                 proc.start()

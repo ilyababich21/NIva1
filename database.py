@@ -87,12 +87,11 @@ class NivaStorage:
         id = Column(Integer, primary_key=True, index=True, autoincrement=True)
         user_id = Column(Integer, ForeignKey("credential.id"))
         sensor_id = Column(Integer, ForeignKey("global_param.id"))
-        color_normal_pushButton = Column(String)
-        color_reduced_pushButton = Column(String)
-        color_increased_pushButton = Column(String)
+        color_increased = Column(String)
+        color_reduced = Column(String)
+        color_normal = Column(String)
         min_value = Column(Integer)
         max_value = Column(Integer)
-
         users = relationship("Users", back_populates="settings")
         sensor = relationship("GlobalParamTable", back_populates="settings")
 
@@ -105,7 +104,9 @@ class NivaStorage:
         self.session = db_session()
         # ЗАПОЛНЯЕМ БАЗУ В СЛУЧАЕ ОТСУТСТВИЯ ПОЛЕЙ
         if not self.session.query(self.Manufacture).count():
-            self.session.add(self.Manufacture(name='niva',ip_address="127.0.0.1",port=502,count_dat = 15, discription='null', count_shield=20))
+            self.session.add(
+                self.Manufacture(name='niva', ip_address="127.0.0.1", port=502, count_dat=15, discription='null',
+                                 count_shield=20))
             # self.session.commit()
 
         if not self.session.query(self.Modbus).count():
@@ -139,15 +140,15 @@ class NivaStorage:
 
         if not self.session.query(self.SettingsSensorsTable).count():
             self.session.add_all([self.SettingsSensorsTable(user_id=1, sensor_id=id,
-                                                            color_normal_pushButton="#24a319",
-                                                            color_reduced_pushButton="#ff6b00",
-                                                            color_increased_pushButton="#ff0000", min_value=1,
+                                                            color_increased="#ff0000",
+                                                            color_reduced="#ff6b00",
+                                                            color_normal="#24a319",
+                                                            min_value=1,
                                                             max_value=2) for id in range(1, 16)])
         self.session.commit()
 
     # РАБОТА С USERS
     def users_list(self):
-        """Метод возвращающий список известных пользователей"""
         query = self.session.query(self.Users).all()
         return query
 
@@ -166,11 +167,12 @@ class NivaStorage:
 
     def add_settings_sensors_of_user(self, user_id):
         self.session.add_all([self.SettingsSensorsTable(user_id=user_id, sensor_id=id,
-                                                        color_normal_pushButton="#24a319",
-                                                        color_reduced_pushButton="#ff6b00",
-                                                        color_increased_pushButton="#ff0000", min_value=1,
+                                                        color_reduced="#ff6b00",
+                                                        color_increased="#ff0000",
+                                                        color_normal="#24a319",
+                                                        min_value=1,
                                                         max_value=2) for id in range(1, 16)])
-        # self.session.commit()
+        self.session.commit()
 
     def remove_user(self, username):
         """Метод удаляющий пользователя из базы."""
@@ -205,7 +207,6 @@ class NivaStorage:
         manufacture.count_shield = count
         self.session.commit()
 
-    # SENSORS
     def query_sensors(self, id_dat, crep_id):
         query = self.session.query(self.Sensors_ifc).filter(self.Sensors_ifc.id_dat == id_dat,
                                                             self.Sensors_ifc.crep_id == crep_id).all()
@@ -216,16 +217,8 @@ class NivaStorage:
         return query
 
     def get_setting_sensors(self, user):
-        query = self.session.query(self.SettingsSensorsTable).filter(self.SettingsSensorsTable.user_id == user).all()
+        query = self.session.query(self.SettingsSensorsTable).filter(self.SettingsSensorsTable.user_id == user).order_by(self.SettingsSensorsTable.sensor_id).all()
         return query
-
-    def update_settings_sensors(self, sensor_id,user_id, color_normal_pushButton, color_reduced_pushButton,
-                                color_increased_pushButton):
-        update = self.session.query(self.SettingsSensorsTable).filter_by(user_id = user_id,sensor_id = sensor_id).first()
-        update.color_normal_pushButton = color_normal_pushButton
-        update.color_reduced_pushButton = color_reduced_pushButton
-        update.color_increased_pushButton = color_increased_pushButton
-        self.session.commit()
 
     def update_modbus_table(self, params, list_param):
         params.ip_address, params.port, params.slave_id, params.start_register, params.count_register = list_param
@@ -236,10 +229,19 @@ class NivaStorage:
         return query
 
     def update_manufacture_table(self, params, list_param):
-        params.ip_address,params.port,params.count_shield,params.count_dat, = list_param
+        params.ip_address, params.port, params.count_shield, params.count_dat, = list_param
         self.session.commit()
 
+    def get_one_row_settings_sensors(self, user_id, sensor_id):
+        query = self.session.query(self.SettingsSensorsTable).filter_by(user_id=user_id, sensor_id=sensor_id).first()
+        return query
 
-
-if __name__ == "__main__":
-    test_db = NivaStorage()
+    def update_setting_sensors(self, params, column, color):
+        match column:
+            case 1:
+                params.color_normal = color
+            case 2:
+                params.color_reduced = color
+            case 3:
+                params.color_increased = color
+        self.session.commit()

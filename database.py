@@ -245,3 +245,8 @@ class NivaStorage:
             case 3:
                 params.color_increased = color
         self.session.commit()
+
+
+
+if __name__ =="__main__":
+    test_db = NivaStorage()

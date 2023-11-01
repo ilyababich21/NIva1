@@ -29,7 +29,7 @@ class GlobalParam(QtWidgets.QMainWindow):
 
 
     def show_base(self):
-        self.query_in_global_param_table = self.database.global_params()
+        self.query_in_global_param_table = self.database.get_global_params()
         self.all_param_tableWidget.setRowCount(len(self.query_in_global_param_table))
         for row in range(len(self.query_in_global_param_table)):
             self.all_param_tableWidget.setItem(row, 0,

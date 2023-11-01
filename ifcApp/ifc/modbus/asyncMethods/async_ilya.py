@@ -59,7 +59,6 @@ class AsyncThread(Thread):
                 for addr in range(puf):
                     result = self.client.read_holding_registers(address=addr * reg_iter, count=reg_iter, slave=1)
                     self.emitValue += result.registers
-                    print(self.emitValue)
             elif puf != 0 and ostatok != 0:
                 for addr in range(puf):
                     result = self.client.read_holding_registers(address=addr * reg_iter, count=reg_iter, slave=1)

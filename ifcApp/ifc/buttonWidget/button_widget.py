@@ -10,8 +10,9 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
     coefficient = 1
     clicked = pyqtSignal()
 
-    def __init__(self, number):
+    def __init__(self, number,list):
         super().__init__()
+        self.list = list
         self.id = number
         self.setMaximumHeight(85)
 
@@ -30,11 +31,11 @@ class ButtonForSectionWidget(QtWidgets.QFrame):
             self.coefficient = self.height() / self.value
             self.rectangle_height *= self.coefficient
             if self.rectangle_height < min_normal * self.coefficient:
-                self.rectangle = QColor(100, 230, 200)  # Orange ?no, its beaurisoviy
+                self.rectangle = QColor(self.list[1])  # Orange ?no, its beaurisoviy
             elif min_normal * self.coefficient <= self.rectangle_height < max_normal * self.coefficient:
-                self.rectangle = QColor(0, 100, 0)  # Green
+                self.rectangle = QColor(self.list[0])  # Green
             else:
-                self.rectangle = QColor(255, 0, 0)  # Red
+                self.rectangle = QColor(self.list[2])  # Red
         except ValueError:
             self.rectangle_height = 150
             self.rectangle = QColor(139, 0, 255)  # Purple

@@ -39,7 +39,7 @@ class NivaStorage:
         manufacture = relationship("Manufacture", back_populates="users")
         role_id = Column(Integer, ForeignKey("role.id"))
         role = relationship("Role", back_populates="users")
-        settings = relationship("SettingsSensorsTable", back_populates="users")
+        settings = relationship("SettingsSensorsTable", back_populates="users", cascade="all, delete-orphan")
 
     class Modbus(Base):
         __tablename__ = "modbus"
@@ -123,7 +123,7 @@ class NivaStorage:
         if not self.session.query(self.GlobalParamTable).count():
             self.session.add_all(
                 [self.GlobalParamTable( name="NULL", min_value=0, max_value=600, from_normal_value=300,
-                                       to_normal_value=400, units="bar") for id in range(1, 16)])
+                                        to_normal_value=400, units="bar") for id in range(1, 16)])
 
         if not self.session.query(self.Role).count():
             self.session.add_all([self.Role(role="admin", description="Администратор"),
@@ -138,14 +138,18 @@ class NivaStorage:
                                              role_id=self.session.query(self.Role).filter(
                                                  self.Role.role == "admin").first().id)])
 
+        self.session.commit()
         if not self.session.query(self.SettingsSensorsTable).count():
-            self.session.add_all([self.SettingsSensorsTable(user_id=1, sensor_id=id,
+            for user in self.users_list():
+
+                self.session.add_all([self.SettingsSensorsTable(user_id=user.id, sensor_id=param.id,
                                                             color_increased="#ff0000",
                                                             color_reduced="#ff6b00",
                                                             color_normal="#24a319",
                                                             min_value=1,
-                                                            max_value=2) for id in range(1, 16)])
+                                                            max_value=2) for param in self.get_global_params()])
         self.session.commit()
+
 
     # РАБОТА С USERS
     def users_list(self):
@@ -164,6 +168,11 @@ class NivaStorage:
             [self.Users(login=username, password=password, manufacture_id=1,
                         role_id=role_id)])
         self.session.commit()
+
+    def check_color_in_database(self, user_id):
+
+        if not self.get_setting_sensors(user_id):
+            self.add_settings_sensors_of_user(user_id)
 
     def add_settings_sensors_of_user(self, user_id):
         self.session.add_all([self.SettingsSensorsTable(user_id=user_id, sensor_id=id,

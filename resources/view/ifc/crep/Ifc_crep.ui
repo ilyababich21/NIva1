@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>875</width>
+    <width>871</width>
     <height>581</height>
    </rect>
   </property>
@@ -194,9 +194,9 @@
     <property name="geometry">
      <rect>
       <x>640</x>
-      <y>350</y>
+      <y>330</y>
       <width>61</width>
-      <height>71</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout1">
@@ -212,9 +212,9 @@
     <property name="geometry">
      <rect>
       <x>730</x>
-      <y>350</y>
+      <y>330</y>
       <width>61</width>
-      <height>71</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout2">
@@ -230,9 +230,9 @@
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>50</y>
+      <y>60</y>
       <width>61</width>
-      <height>71</height>
+      <height>81</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout3">
@@ -247,10 +247,10 @@
    <widget class="QWidget" name="gridLayoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>180</y>
+      <x>440</x>
+      <y>170</y>
       <width>61</width>
-      <height>71</height>
+      <height>81</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout4">
@@ -265,10 +265,10 @@
    <widget class="QWidget" name="gridLayoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>50</y>
+      <x>180</x>
+      <y>70</y>
       <width>61</width>
-      <height>71</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout5">
@@ -280,52 +280,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>140</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Высота секции 1</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>130</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Высота секции 2</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>140</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Высота секции 3</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget_2">
     <property name="geometry">
      <rect>
       <x>100</x>
       <y>70</y>
       <width>63</width>
-      <height>73</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="poz_shifting_layout">
@@ -354,9 +315,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>130</y>
+      <y>112</y>
       <width>63</width>
-      <height>73</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="pozition_layout">
@@ -385,9 +346,9 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>430</y>
+      <y>412</y>
       <width>63</width>
-      <height>73</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="CP_layout">
@@ -437,9 +398,9 @@
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>430</y>
+      <y>412</y>
       <width>65</width>
-      <height>73</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="prod_layout">
@@ -471,9 +432,9 @@
     <property name="geometry">
      <rect>
       <x>800</x>
-      <y>430</y>
+      <y>412</y>
       <width>61</width>
-      <height>73</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="poper_layout">
@@ -498,52 +459,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>500</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ЦП</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>500</y>
-      <width>121</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Прод наклон основания</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>500</y>
-      <width>141</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Попер наклон основания</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget_7">
     <property name="geometry">
      <rect>
       <x>680</x>
-      <y>100</y>
+      <y>82</y>
       <width>63</width>
-      <height>73</height>
+      <height>81</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="poper_hieght_layout">
@@ -572,9 +494,9 @@
     <property name="geometry">
      <rect>
       <x>580</x>
-      <y>260</y>
+      <y>240</y>
       <width>61</width>
-      <height>71</height>
+      <height>81</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="end_section_layout">
@@ -586,39 +508,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>120</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Датчик газа</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_10">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>200</y>
-      <width>71</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Позиция УГЗ</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>60</y>
+      <y>40</y>
       <width>63</width>
-      <height>72</height>
+      <height>101</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="section_one_layout">
@@ -647,9 +543,9 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>60</y>
+      <y>40</y>
       <width>63</width>
-      <height>73</height>
+      <height>101</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="section_two_layout">
@@ -672,9 +568,9 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>60</y>
+      <y>40</y>
       <width>63</width>
-      <height>73</height>
+      <height>101</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="section_three_layout">
@@ -791,12 +687,13 @@
      </layout>
     </widget>
    </widget>
+   <zorder>frame</zorder>
    <zorder>label</zorder>
+   <zorder>label_2</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>groupBox_2</zorder>
-   <zorder>label_2</zorder>
    <zorder>num_crep</zorder>
    <zorder>gridLayoutWidget</zorder>
    <zorder>gridLayoutWidget_2</zorder>
@@ -808,17 +705,8 @@
    <zorder>layoutWidget_4</zorder>
    <zorder>layoutWidget_5</zorder>
    <zorder>layoutWidget_6</zorder>
-   <zorder>label_6</zorder>
-   <zorder>label_7</zorder>
-   <zorder>label_8</zorder>
    <zorder>layoutWidget_7</zorder>
    <zorder>gridLayoutWidget_6</zorder>
-   <zorder>label_9</zorder>
-   <zorder>label_10</zorder>
-   <zorder>frame</zorder>
-   <zorder>label_3</zorder>
-   <zorder>label_5</zorder>
-   <zorder>label_4</zorder>
   </widget>
   <action name="actionCrinzh">
    <property name="icon">

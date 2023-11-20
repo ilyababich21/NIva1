@@ -97,7 +97,7 @@ class NivaStorage:
 
     def __init__(self):
         # Создаём движок базы данных
-        self.engine = create_engine("postgresql://postgres:root@localhost/niva1")
+        self.engine = create_engine("postgresql://admin:root@localhost:5436/postgres")
         self.Base.metadata.create_all(bind=self.engine)
 
         db_session = sqlalchemy.orm.sessionmaker(bind=self.engine)
@@ -161,7 +161,7 @@ class NivaStorage:
         if query:
             return query.role.role, query.id
         else:
-            return None
+            return None,None
 
     def add_user(self, username, password, role_id):
         self.session.add_all(

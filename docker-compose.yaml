@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+    postgres:
+      image: postgres:15
+      environment:
+        POSTGRES_DB: "test_db"
+        POSTGRES_USER: "admin"
+        POSTGRES_PASSWORD: "root"
+        PGDATA: "/var/lib/postgresql/data/pgdata"
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+      ports:
+        - "5436:5432"
+
+volumes:
+    postgres_data:

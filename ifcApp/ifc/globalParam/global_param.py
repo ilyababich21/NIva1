@@ -1,7 +1,11 @@
+import os
+
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QTableWidgetItem
 
-UI_all_parameter = "resources/view/ifc/toolbar/global parameter.ui"
+from address import resource_path
+
+UI_all_parameter = "resources\\view\\ifc\\toolbar\\global parameter.ui"
 
 
 class GlobalParam(QtWidgets.QMainWindow):
@@ -10,7 +14,7 @@ class GlobalParam(QtWidgets.QMainWindow):
     def __init__(self,database):
         super().__init__()
         self.database=database
-        uic.loadUi(UI_all_parameter, self)
+        uic.loadUi(resource_path(UI_all_parameter), self)
         self.exit_main_pushButton.clicked.connect(lambda: self.close())
         # self.all_param_tableWidget.setVerticalHeaderLabels([str(param.id) for param in self.query_in_global_param_table])
 

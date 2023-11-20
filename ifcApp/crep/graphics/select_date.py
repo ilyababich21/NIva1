@@ -1,12 +1,14 @@
+import os
 from datetime import datetime, timedelta
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow
 
+from address import resource_path
 from ifcApp.crep.graphics.select_graphics import SelectedGraphic
 from ifcApp.crep.graphics.selected_graphic_model import SelectedGraphicModel
 
-UI_select_date = "resources/view/ifc/crep/graphics_view/select_date.ui"
+UI_select_date = "resources\\view\\ifc\\crep\\graphics_view\\select_date.ui"
 
 
 class SelectDate(QMainWindow):
@@ -15,7 +17,7 @@ class SelectDate(QMainWindow):
         self.num_crep = num_crep
         self.num_sensors = num_sensors
         super().__init__()
-        uic.loadUi(UI_select_date, self)
+        uic.loadUi(resource_path(UI_select_date), self)
         self.draw_pushButton.clicked.connect(self.create_graphic)
         self.from_dateTimeEdit.setDateTime(datetime.now() - timedelta(days=1))
         self.before_dateTimeEdit.setDateTime(datetime.now())

@@ -7,6 +7,8 @@ from threading import Thread
 from PyQt6.QtCore import QObject, pyqtSignal, QThread
 from pymodbus.client import ModbusTcpClient
 
+from address import resource_path
+
 
 class WorkerSignals(QObject):
     result = pyqtSignal(list)
@@ -77,7 +79,7 @@ class AsyncThread(Thread):
             self.all_signal[elem].result.emit(self.result_trap[elem])
             self.EntryValueForCSV(elem)
 
-            folder = "CSV_History\\" + str(elem + 1)
+            folder = resource_path("CSV_History\\" + str(elem + 1))
             with open(folder + "\\" + str(len(os.listdir(folder))) + ".csv", "a", newline="") as file:
                 writer = csv.DictWriter(file, ["id_dat", "value", "crep_id", "create_date"], restval='Unknown',
                                         extrasaction='ignore')

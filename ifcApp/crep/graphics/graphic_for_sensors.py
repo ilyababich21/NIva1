@@ -7,9 +7,10 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from PyQt6.QtCore import QTimer
 
+from address import resource_path
 from ifcApp.crep.graphics.select_date import SelectDate
 
-UI_graphic = "resources/view/ifc/crep/graphics_view/graphics.ui"
+UI_graphic = "resources\\view\\ifc\\crep\\graphics_view\\graphics.ui"
 
 
 class GraphicsWindow(QMainWindow):
@@ -18,7 +19,7 @@ class GraphicsWindow(QMainWindow):
         self.num_crep = num_crep
         self.num_sensors = id_dat
         super().__init__()
-        uic.loadUi(UI_graphic, self)
+        uic.loadUi(resource_path(UI_graphic), self)
         self.open_pushButton.clicked.connect(self.open_date_window)
         # Создание фигуры и осей графика
         self.figure = Figure(figsize=(16, 9), dpi=100)
@@ -29,7 +30,7 @@ class GraphicsWindow(QMainWindow):
         self.canvas_layout.addWidget(self.toolbar)
         self.canvas_layout.addWidget(self.canvas)
 
-        directory_crep = 'CSV_History' + "\\" + str(self.num_crep)
+        directory_crep = resource_path('CSV_History' + "\\" + str(self.num_crep))
 
         # Добавление данных из csv-файлов
         path = []
@@ -67,7 +68,7 @@ class GraphicsWindow(QMainWindow):
 
     def preobrazovanie(self):
         path = []
-        directory_crep = 'CSV_History' + "\\" + str(self.num_crep)
+        directory_crep = resource_path('CSV_History' + "\\" + str(self.num_crep))
 
         for files in os.listdir(directory_crep):
             path.append(os.path.join(directory_crep, files))

@@ -1,17 +1,20 @@
+import os
+
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtCore import QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator, QIntValidator
 from pymodbus.client import ModbusTcpClient
 
+from address import resource_path
 from serviceApp.ping.pingVm import Ping
 
-UI_service = "resources/view/service/service_view.ui"
+UI_service = "resources\\view\\service\\service_view.ui"
 
 
 class ServiceViewModel(QtWidgets.QMainWindow):
     def __init__(self, database):
         super().__init__()
-        uic.loadUi(UI_service, self)
+        uic.loadUi(resource_path(UI_service), self)
         self.database = database
         self.modbus_query = self.database.query_modbus()
         self.manuf_query = self.database.query_manufacture()

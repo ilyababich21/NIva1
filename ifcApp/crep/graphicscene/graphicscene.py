@@ -1,7 +1,10 @@
+import os
+
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
 
+from address import resource_path
 from ifcApp.crep.graphics.graphic_for_sensors import GraphicsWindow
 
 
@@ -37,12 +40,14 @@ class CreateGraphicScene(QWidget):
         self.database = database
         scene = QGraphicsScene()
         scene.setSceneRect(-10, -12, self.width() - 41, self.height())
-        self.pixmap = QPixmap("resources/image/sensors/arrow1.png")
+        self.pixmap = QPixmap(resource_path("resources/image/sensors/arrow1.png"))
         self.arrow = scene.addPixmap(self.pixmap)
         self.arrow.setTransformOriginPoint(20, 9)
         self.arrow.setRotation(-3)
         self.graphicsView = ClickedGraphics(self.database)
-        self.graphicsView.setStyleSheet("background-image:url(resources/image/sensors/sensor_marco.png);\n"
+        stroka =resource_path("resources\\image\\sensors\\sensor_marco.png")
+        # stroka = resource_path("resources/image/sensors/sensor_marco.png")
+        self.graphicsView.setStyleSheet("background-image:url("+stroka+");\n"
                                         "background-repeat:no-repeat;\n"
                                         "border-radius: 1px;"
                                         "background-position: center;")

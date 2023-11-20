@@ -1,15 +1,18 @@
+import os
+
 from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtGui import QDoubleValidator, QIntValidator
 from PyQt6.QtWidgets import QTableWidgetItem
 
+from address import resource_path
 from ifcApp.crep.all_sensors_crep import AllSensorsCrep
 from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
 from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 from ifcApp.ifc.globalParam.global_param import GlobalParam
 
-UI_crep = "resources/view/ifc/crep/ifc_crep.ui"
+UI_crep = "resources\\view\\ifc\\crep\\ifc_crep.ui"
 
 
 class CrepViewModel(QtWidgets.QMainWindow):
@@ -25,7 +28,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.num = num
         self.database = database
         self.all_sensors_crep = AllSensorsCrep(self.database)
-        uic.loadUi(UI_crep, self)
+        uic.loadUi(resource_path(UI_crep), self)
         self.global_param = self.database.get_global_params()
         self.data_sensors_section = DataSensorsSection()
 

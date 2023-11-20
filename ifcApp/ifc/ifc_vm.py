@@ -1,3 +1,4 @@
+import os
 import threading
 import time
 
@@ -5,6 +6,7 @@ from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QThread
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 
+from address import resource_path
 from ifcApp.countShield.count_shield_vm import CountShieldVM
 from ifcApp.crep.crep_vm import CrepViewModel
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsMainWindow
@@ -19,7 +21,7 @@ from ifcApp.ifc.modbus.modbus_connect_vm import ModbusConnectViewModel
 from ifcApp.ifc.users.users_in_ifc_vm import UserInIfc
 from ifcApp.settingsSensors.settings_sensors_vm import SettingsSensors
 
-UI_ifc = "resources/view/ifc/ifc version1.ui"
+UI_ifc = "resources\\view\\ifc\\ifc version1.ui"
 
 
 class IfcViewModel(QtWidgets.QMainWindow):
@@ -40,8 +42,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.count_shield = CountShieldVM(self.database)
         self.notification_errors = NotificationErrors()
         self.AsyncTcpReciver = AsyncThread()
-
-        uic.loadUi(UI_ifc, self)
+        print(resource_path(UI_ifc))
+        uic.loadUi(resource_path(UI_ifc), self)
 
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
@@ -222,9 +224,9 @@ class IfcViewModel(QtWidgets.QMainWindow):
         traversing_directories()
         threads = threading.enumerate()
         print("Active threads:", threads)
-        self.close()
         self.load_auth.load_ui_auth()
         self.load_auth.show()
+        self.close()
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()

@@ -1,13 +1,15 @@
+import os
+
 from PyQt6 import QtWidgets, QtCore, uic
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QSplashScreen
 
+from address import resource_path
 from authorization.button_username import ButtonForUserName
 from ifcApp.ifc.ifc_vm import IfcViewModel
 from serviceApp.service.service_vm import ServiceViewModel
 
-UI_authorization = "resources/view/authorization_view.ui"
-UI_main = "resources/view/service/service_view.ui"
+UI_authorization = "resources\\view\\authorization_view.ui"
 
 
 class Authorization(QtWidgets.QMainWindow):
@@ -19,7 +21,7 @@ class Authorization(QtWidgets.QMainWindow):
     def load_ui_auth(self):
         print("suka")
         self.size_of_user_button = (100, 60)
-        uic.loadUi(UI_authorization, self)
+        uic.loadUi(os.path.join(resource_path(UI_authorization)), self)
         self.log_in_button.clicked.connect(self.login)
         self.view_user_from_database()
 
@@ -52,7 +54,7 @@ class Authorization(QtWidgets.QMainWindow):
         self.service.show()
 
     def open_admin_ui(self):
-        splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
+        splash = QSplashScreen(QPixmap(resource_path("resources/image/logotip-niva-pochti-bez-fona.png")))
         splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         splash.show()
         self.admin_ui = IfcViewModel(self, self.database)
@@ -62,7 +64,7 @@ class Authorization(QtWidgets.QMainWindow):
         self.close()
 
     def open_miner_ui(self):
-        splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
+        splash = QSplashScreen(QPixmap(resource_path("resources/image/logotip-niva-pochti-bez-fona.png")))
         splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         splash.show()
         self.miner_ui = IfcViewModel(self, self.database)

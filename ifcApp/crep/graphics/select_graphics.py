@@ -1,3 +1,5 @@
+import os
+
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow
 from matplotlib import pyplot as plt
@@ -5,8 +7,9 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
+from address import resource_path
 
-UI_selected_graphic = "resources/view/ifc/crep/graphics_view/selected graphic.ui"
+UI_selected_graphic = "resources\\view\\ifc\\crep\\graphics_view\\selected graphic.ui"
 
 
 class SelectedGraphic(QMainWindow):
@@ -15,7 +18,7 @@ class SelectedGraphic(QMainWindow):
         self.num_sensors = num_sensors
         self.model = model
         super().__init__()
-        uic.loadUi(UI_selected_graphic, self)
+        uic.loadUi(resource_path(UI_selected_graphic), self)
         self.figure = plt.figure(figsize=(16, 9), dpi=100)
         self.canvas = FigureCanvas(self.figure)
         self.toolbar = NavigationToolbar(self.canvas, self)

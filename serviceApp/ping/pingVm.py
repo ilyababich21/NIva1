@@ -1,8 +1,9 @@
 import subprocess
 from PyQt6 import QtWidgets, uic
 
+from address import resource_path
 
-UI_ping = "resources/view/service/ping_requst_view.ui"
+UI_ping = "resources\\view\\service\\ping_requst_view.ui"
 
 
 class Ping(QtWidgets.QMainWindow):
@@ -10,7 +11,7 @@ class Ping(QtWidgets.QMainWindow):
 
         super().__init__()
         self.database=database
-        uic.loadUi(UI_ping, self)
+        uic.loadUi(resource_path(UI_ping), self)
         self.ip_lineEdit.setText(self.database.query_modbus().ip_address)
         self.check_pushButton.clicked.connect(self.ping_test)
 

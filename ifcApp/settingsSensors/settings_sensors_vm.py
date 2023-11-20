@@ -1,8 +1,10 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QColorDialog
+
+from address import resource_path
 from ifcApp.settingsSensors.settings_sensorsWidget import SettingsSensorsWidget
 
-UI_settings_sensors = "resources/view/sensors/settings_sensors.ui"
+UI_settings_sensors = "resources\\view\\sensors\\settings_sensors.ui"
 
 
 class SettingsSensors(QtWidgets.QMainWindow):
@@ -12,7 +14,7 @@ class SettingsSensors(QtWidgets.QMainWindow):
         self.user_id = user_id
         self.check_color_in_database()
         query_global_param = database.get_setting_sensors(user_id)
-        uic.loadUi(UI_settings_sensors, self)
+        uic.loadUi(resource_path(UI_settings_sensors), self)
         self.setGeometry(500, 100, 600, 600)
         for elem, value in enumerate(query_global_param):
             self.widget = SettingsSensorsWidget(value.sensor.name)

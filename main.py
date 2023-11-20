@@ -1,22 +1,28 @@
+import os
 import sys
 import time
+from multiprocessing import freeze_support
+from pathlib import Path
 
 import sqlalchemy
-from PyQt6 import QtCore
+from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QApplication, QSplashScreen
 from sqlalchemy import create_engine
 
+from address import resource_path
 from authorization.authorization_vm import Authorization
 from database import NivaStorage
 from ifcApp.ifc.ifc_vm import IfcViewModel
-
 
 def main():
     app = QApplication(sys.argv)
     window = IfcViewModel()
     window.showMaximized()
     app.exec()
+
+
+
 
 
 def main2():
@@ -27,10 +33,12 @@ def main2():
     # log = logging.getLogger()
     # log.setLevel(logging.DEBUG)
     # CheckDB()
-    database = NivaStorage()
     app = QApplication(sys.argv)
+    database = NivaStorage()
+    freeze_support()
+
     start=time.time()
-    splash = QSplashScreen(QPixmap("resources/image/logotip-niva-pochti-bez-fona.png"))
+    splash = QSplashScreen(QPixmap(resource_path("resources\\image\\logotip-niva-pochti-bez-fona.png")))
     splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
     splash.show()
     while time.time() - start < 1:
@@ -39,6 +47,7 @@ def main2():
     window = Authorization(database)
     splash.finish(window)
     window.show()
+
     app.exec()
 
 
@@ -62,6 +71,7 @@ def main2():
 #
 #             session.add(number)
 #             session.commit()
+
 
 
 if __name__ == '__main__':

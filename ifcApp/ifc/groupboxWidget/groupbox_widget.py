@@ -1,5 +1,9 @@
+import os
+
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QGroupBox, QLabel, QHBoxLayout, QGridLayout
+
+from address import resource_path
 
 
 class GroupBoxWidget(QGroupBox):
@@ -10,7 +14,7 @@ class GroupBoxWidget(QGroupBox):
                  "articulated_cantilever_pressure.png", "articulated_cantilever3.png",
                  "cantilever.png", "articulated_cantilever_way.png", "slidebar_pos.png",
                  "cantilever_state.png", "shield_height_1.png"]
-    icon_paths = [f"resources/image/img tools/{i}" for i in list_icon]
+    icon_paths = [resource_path(f"resources\\image\\img tools\\{i}") for i in list_icon]
     list_name_for_groupbox = ["ЦП", "Зазор цлиндра передвижки", "Давление в стойке левая",
                               "Давление в стойке правая", "Щит УГЗ", "Щит Угз Угол",
                               "Щит УГЗ ход", "Щит угз давление",

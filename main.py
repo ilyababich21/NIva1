@@ -8,7 +8,6 @@ import sqlalchemy
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QApplication, QSplashScreen
-from sqlalchemy import create_engine
 
 from address import resource_path
 from authorization.authorization_vm import Authorization
@@ -20,9 +19,6 @@ def main():
     window = IfcViewModel()
     window.showMaximized()
     app.exec()
-
-
-
 
 
 def main2():

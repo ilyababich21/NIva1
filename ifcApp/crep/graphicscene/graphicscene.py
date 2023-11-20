@@ -61,7 +61,7 @@ class CreateGraphicScene(QWidget):
             angel = int(angel)
             if angel == 0:
                 angel = 1
-        if max_value==0:
-            max_value=1
+        if max_value == 0:
+            max_value = 1
         self.coeff_angle = max_value / angel
         self.arrow.setRotation(240 / self.coeff_angle)

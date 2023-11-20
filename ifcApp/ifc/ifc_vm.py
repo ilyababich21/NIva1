@@ -125,9 +125,11 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def create_button_layout_list(self, layout_list, elem):
         query_global_param = self.database.get_setting_sensors(self.load_auth.id_user)
-
         for index, row in enumerate(self.database.get_global_params()):
-            self.btn = ButtonForSectionWidget(elem + 1,[query_global_param[index].color_normal,query_global_param[index].color_reduced,query_global_param[index].color_increased])
+            list_color_in_button = [query_global_param[index].color_normal,
+                                    query_global_param[index].color_reduced,
+                                    query_global_param[index].color_increased]
+            self.btn = ButtonForSectionWidget(elem + 1,list_color_in_button)
             self.btn.value = int(row.max_value)
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
                 lambda checked, lt=index, b=self.btn, g=self.list_all_crep[-1],

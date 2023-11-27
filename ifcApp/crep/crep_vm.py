@@ -33,15 +33,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         self.global_param = self.database.get_global_params()
         self.data_sensors_section = DataSensorsSection()
 
-        self.list_sensors_lineEdit = (self.CP_lineEdit, self.sensors5_lineEdit, self.sensors1_lineEdit,
-                                      self.sensors2_lineEdit,
-                                      self.sensors3_lineEdit,
-                                      self.sensors4_lineEdit, self.pozition_lineEdit,
-                                      self.prod_lineEdit, self.poper_lineEdit,
-                                      self.end_section_lineEdit,
-                                      self.poper_hieght_lineEdit,
-                                      self.section_one_lineEdit, self.section_two_lineEdit,
-                                      self.section_three_lineEdit, self.poz_shifting_lineEdit)
+        self.list_sensors_lineEdit = []
 
         self.list_of_sensors_layouts = (self.CP_layout, self.gridLayout5, self.gridLayout1, self.gridLayout2,
                                         self.gridLayout3,
@@ -52,34 +44,20 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                         self.poz_shifting_layout)
 
         for elem in range(11):
-            speed = CreateGraphicScene(self.database, self)
-            label = LabelWidget()
-            self.list_of_sensors_layouts[elem].addWidget(speed.graphicsView)
-            self.list_sensors_lineEdit[elem].setValidator(QIntValidator())
+            speed = CreateGraphicScene(self.global_param[elem].max_value,self.database, self)
             speed.graphicsView.crep_id = self.num
             speed.graphicsView.id_dat = elem + 1
-            self.list_of_sensors_layouts[elem].addWidget(self.list_sensors_lineEdit[elem])
-            self.list_of_sensors_layouts[elem].addWidget(label)
-            label.setText(f"{self.global_param[elem].name}")
-            self.list_sensors_lineEdit[elem].textChanged.connect(
-                lambda ch, object_class=speed,
-                       lineedit=self.list_sensors_lineEdit[elem],
-                       max_value=self.global_param[elem].max_value:
-                object_class.value_change(lineedit, max_value))
+            speed.label.setText(f"{self.global_param[elem].name}")
+            self.list_of_sensors_layouts[elem].addWidget(speed)
+            self.list_sensors_lineEdit.append(speed.lineedit)
 
         for bar in range(4):
-            section1_progressBar = ClickedProgressbar(self.database)
-            label = LabelWidget()
+            section1_progressBar = ClickedProgressbar(self.global_param[bar + 11].max_value,self.database)
+            self.list_sensors_lineEdit.append(section1_progressBar.lineedit)
             section1_progressBar.id_dat = bar + 11
             section1_progressBar.crep_id = self.num
-            section1_progressBar.setMaximum(self.global_param[bar + 11].max_value)
             self.list_of_sensors_layouts[bar + 11].addWidget(section1_progressBar)
-            self.list_of_sensors_layouts[bar + 11].addWidget(self.list_sensors_lineEdit[bar + 11])
-            self.list_of_sensors_layouts[bar + 11].addWidget(label)
-            label.setText(f"{self.global_param[bar + 11].name}")
-            self.list_sensors_lineEdit[bar + 11].textChanged.connect(
-                lambda ch, s=section1_progressBar, l=self.list_sensors_lineEdit[bar + 11]: s.diff_value_progress_bar(l))
-
+            section1_progressBar.label.setText(f"{self.global_param[bar + 11].name}")
         self.num_crep.setText(str(num))
         self.control_pushbutton.clicked.connect(lambda: self.data_sensors_section.show())
         self.all_sensors_pushButton.clicked.connect(lambda: self.all_sensors_crep.show())

@@ -1,8 +1,8 @@
 import os
 
 from PyQt6.QtCore import pyqtSignal
-from PyQt6.QtGui import QPixmap
-from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView
+from PyQt6.QtGui import QPixmap, QIntValidator
+from PyQt6.QtWidgets import QWidget, QGraphicsScene, QGraphicsView, QVBoxLayout, QLineEdit, QLabel
 
 from address import resource_path
 from ifcApp.crep.graphics.graphic_for_sensors import GraphicsWindow
@@ -35,9 +35,11 @@ class ClickedGraphics(QGraphicsView):
 
 
 class CreateGraphicScene(QWidget):
-    def __init__(self, database, parent=None):
+    def __init__(self, max_value, database, parent=None):
         super().__init__(parent)
+        self.max_value = max_value
         self.database = database
+        layout = QVBoxLayout(self)
         scene = QGraphicsScene()
         scene.setSceneRect(-10, -12, self.width() - 41, self.height())
         self.pixmap = QPixmap(resource_path("resources/image/sensors/arrow1.png"))
@@ -45,16 +47,25 @@ class CreateGraphicScene(QWidget):
         self.arrow.setTransformOriginPoint(20, 9)
         self.arrow.setRotation(-3)
         self.graphicsView = ClickedGraphics(self.database)
-        stroka =resource_path("resources\\image\\sensors\\sensor_marco.png")
-        # stroka = resource_path("resources/image/sensors/sensor_marco.png")
-        self.graphicsView.setStyleSheet("background-image:url("+stroka+");\n"
-                                        "background-repeat:no-repeat;\n"
-                                        "border-radius: 1px;"
+        # stroka = resource_path('resources/image/sensors/sensor_marco.png')
+        self.graphicsView.setStyleSheet(f"background-image: url('resources/image/sensors/sensor_marco.png');\n"
+                                        "background-repeat: no-repeat;\n"
+                                        "border-radius: 1px;\n"
                                         "background-position: center;")
+        self.lineedit = QLineEdit()
+        self.lineedit.setFixedSize(57, 15)
+        self.lineedit.setValidator(QIntValidator())
+        self.lineedit.textChanged.connect(lambda: self.value_change(self.max_value))
+        self.lineedit.setStyleSheet("margin-left:3px")
+        self.label = QLabel()
         self.graphicsView.setScene(scene)
+        layout.addWidget(self.graphicsView)
+        layout.addWidget(self.lineedit)
+        layout.addWidget(self.label)
+        layout.setSpacing(0)
 
-    def value_change(self, lineEdit, max_value):
-        angel = lineEdit.text()
+    def value_change(self,max_value):
+        angel = self.lineedit.text()
         if angel == '' or angel == ' ' or angel == "-":
             angel = 1
         else:

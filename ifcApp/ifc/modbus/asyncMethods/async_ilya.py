@@ -86,6 +86,8 @@ class AsyncThread(Thread):
                 # запись нескольких строк
                 writer.writerows(self.state_info)
 
+        time.sleep(1)
+
     def EntryValueForCSV(self, elem):
 
         for register in range(len(self.result_trap[elem])):

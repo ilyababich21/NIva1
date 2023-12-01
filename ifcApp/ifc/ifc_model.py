@@ -15,10 +15,11 @@ CSV_History = 'CSV_History'
 def traversing_directories():
     niva_storage = NivaStorage()
     database_engine = niva_storage.engine
-    for folder in range(1, len(os.listdir(resource_path(CSV_History))) + 1):
-        crep_dir = resource_path(CSV_History + "\\" + str(folder))
+    addr_csv = resource_path(CSV_History)
+    for folder in range(1, len(os.listdir(addr_csv)) + 1):
+        crep_dir = addr_csv + "\\" + str(folder)
         print(crep_dir)
-        for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=5000):
+        for chunk in pd.read_csv(crep_dir + "\\" + str(len(os.listdir(crep_dir))) + ".csv", chunksize=10000):
             chunk.to_sql("sensors", database_engine, if_exists="append", index=False)
 
 
@@ -69,7 +70,7 @@ class IfcModel(threading.Thread):
         print("Active threads:", threads)
         pTime=time.time()
         while self.running:
-            if time.time()-pTime>30:
+            if time.time()-pTime>60:
                 print('IDI NAHUI')
                 proc = Process(target=DBWriterIter, daemon=True)
                 proc.start()

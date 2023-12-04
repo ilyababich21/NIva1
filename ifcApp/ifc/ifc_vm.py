@@ -25,7 +25,7 @@ UI_ifc = "resources\\view\\ifc\\ifc version1.ui"
 
 
 class IfcViewModel(QtWidgets.QMainWindow):
-    def __init__(self,load,database):
+    def __init__(self, load, database):
         super().__init__()
         self.database = database
         self.load_auth = load
@@ -129,7 +129,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
             list_color_in_button = [query_global_param[index].color_normal,
                                     query_global_param[index].color_reduced,
                                     query_global_param[index].color_increased]
-            self.btn = ButtonForSectionWidget(elem + 1,list_color_in_button)
+            self.btn = ButtonForSectionWidget(elem + 1, list_color_in_button)
             self.btn.value = int(row.max_value)
             self.list_all_crep[-1].list_sensors_lineEdit[index].textChanged.connect(
                 lambda checked, lt=index, b=self.btn, g=self.list_all_crep[-1],
@@ -151,24 +151,31 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.working_with_button_crep(elem)
 
     def working_with_button_crep(self, elem):
+        print(len(self.list_all_crep))
+        # кнопка Вправо на 1
         self.list_all_crep[-1].right_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[elem if elem == len(self.list_all_crep) - 1 else elem + 1]))
+            lambda: self.open_next_crep(self.list_all_crep[0 if elem == len(self.list_all_crep) - 1 else elem + 1]))
+        # кнопка ВЛЕВО на 1
         self.list_all_crep[-1].left_pushButton.clicked.connect(
-            lambda: self.open_next_crep(
-                self.list_all_crep[len(self.list_all_crep) - 2 if elem == len(self.list_all_crep) - 1 else elem - 1]))
+            lambda: self.open_next_crep(self.list_all_crep[elem - 1]))
+        # Кнопка ВПРАВО на 10
         self.list_all_crep[-1].right_x10_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[elem if elem == len(self.list_all_crep) - 1 else elem + 10]))
+            lambda: self.open_next_crep(self.list_all_crep[-1 if elem >= len(self.list_all_crep) - 11 else elem + 10]))
+        # Кнопка ВЛЕВО на 10
         self.list_all_crep[-1].left_x10_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[elem if elem == len(self.list_all_crep) - 1 else elem - 10]))
+            lambda: self.open_next_crep(self.list_all_crep[0 if elem <= 10 else elem - 10]))
+        # КНОПКА ВНАЧАЛО
         self.list_all_crep[-1].start_pushButton.clicked.connect(
             lambda: self.open_next_crep(self.list_all_crep[0]))
+        # КНОПКА ВКОНЕЦ
         self.list_all_crep[-1].finish_pushButton.clicked.connect(
             lambda: self.open_next_crep(self.list_all_crep[-1]))
 
-    def open_next_crep(self, elem):
+    def open_next_crep(self, crepWin):
+        #  Я поменял название потому что elem вызывает путаницу в коде, сначала это номер крепи потом сама крепь
         for i in range(len(self.list_all_crep)):
             self.list_all_crep[i].close()
-        self.show_window_crep(elem)
+        self.show_window_crep(crepWin)
 
     def remaster_creps(self):
         self.count_shield.get_and_save_number_from_lineedit()
@@ -185,7 +192,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def show_settings_sensors(self):
         user_id = self.load_auth.id_user
-        self.settings_sensors = SettingsSensors(user_id,self.database)
+        self.settings_sensors = SettingsSensors(user_id, self.database)
         if self.change_setting_action.isChecked():
             self.settings_sensors.show()
             self.change_setting_action.setChecked(False)

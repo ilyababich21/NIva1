@@ -2,7 +2,7 @@ import os
 import threading
 import time
 
-from PyQt6 import uic, QtWidgets, QtGui
+from PyQt6 import uic, QtWidgets, QtGui,QtCore
 from PyQt6.QtCore import QTimer, QDateTime, QThread
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 
@@ -34,7 +34,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         print("Load ifc")
-        self.data_sensors = DataSensorsMainWindow()
+        self.data_sensors = DataSensorsMainWindow(self.database)
         self.global_param = GlobalParam(self.database)
         self.user_ifc = UserInIfc(self.database)
         self.model = IfcModel()
@@ -111,8 +111,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         count_shield=self.database.get_count_shield()
         for elem in range(count_shield):
             self.list_all_crep.append(CrepViewModel(elem + 1, self.database,pizda))
+            self.list_all_crep[-1].my_signal.connect(self.write_main_sensors)
             self.setting_async_receiver()
             self.create_button_layout_list(layout_list, elem,pizda,query_global_param,count_shield)
+
+    @QtCore.pyqtSlot(list,int)
+    def write_main_sensors(self,lst,num):
+        for i,elem in enumerate(lst):
+            self.data_sensors.tableWidget.setItem(i, num-1, QTableWidgetItem(str(elem)))
+
+
 
     def cleaner_layouts(self, layout_list):
         self.list_all_crep.clear()

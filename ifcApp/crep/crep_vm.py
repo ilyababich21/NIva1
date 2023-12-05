@@ -23,7 +23,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
         "value": [],
         "crep_id": [],
     }
-
+    my_signal = QtCore.pyqtSignal(list, int)
     def __init__(self, num, database, pizda):
         super().__init__()
         self.num = num
@@ -68,6 +68,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
     @QtCore.pyqtSlot(list)
     def setText_lineEdit_sensors(self, lst):
+        self.my_signal.emit(lst,self.num)
         for elem in range(len(lst)):
             # self.all_sensors_crep.label1.setText(str(lst[0]))
             # self.all_sensors_crep.list_progressBar[0].setValue(lst[0])

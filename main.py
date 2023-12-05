@@ -7,7 +7,7 @@ from pathlib import Path
 import sqlalchemy
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtGui import QPixmap
-from PyQt6.QtWidgets import QApplication, QSplashScreen
+from PyQt6.QtWidgets import QApplication, QSplashScreen, QMessageBox
 
 from address import resource_path
 from authorization.authorization_vm import Authorization
@@ -30,20 +30,23 @@ def main2():
     # log.setLevel(logging.DEBUG)
     # CheckDB()
     app = QApplication(sys.argv)
-    database = NivaStorage()
-    freeze_support()
-
-    start=time.time()
-    splash = QSplashScreen(QPixmap(resource_path("resources\\image\\logotip-niva-pochti-bez-fona.png")))
-    splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
-    splash.show()
-    while time.time() - start < 1:
-        time.sleep(0.001)
-        app.processEvents()
-    window = Authorization(database)
-    splash.finish(window)
-    window.show()
-
+    try:
+        database = NivaStorage()
+        freeze_support()
+        start=time.time()
+        splash = QSplashScreen(QPixmap(resource_path("resources\\image\\logotip-niva-pochti-bez-fona.png")))
+        splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
+        splash.show()
+        while time.time() - start < 1:
+            time.sleep(0.001)
+            app.processEvents()
+        window = Authorization(database)
+        splash.finish(window)
+        window.show()
+    except Exception as e:
+        print(e)
+        window = QMessageBox(text=str(e))
+        window.show()
     app.exec()
 
 

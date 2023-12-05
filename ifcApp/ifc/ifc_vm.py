@@ -2,6 +2,8 @@ import os
 import threading
 import time
 
+from PyQt6 import uic, QtWidgets, QtGui,QtCore
+from PyQt6.QtCore import QTimer, QDateTime, QThread
 from PyQt6 import uic, QtWidgets, QtGui
 from PyQt6.QtCore import QTimer, QDateTime, QSettings
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
@@ -34,7 +36,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.show_time)
         self.timer.start(1000)
         print("Load ifc")
-        self.data_sensors = DataSensorsMainWindow()
+        self.data_sensors = DataSensorsMainWindow(self.database)
         self.global_param = GlobalParam(self.database)
         self.user_ifc = UserInIfc(self.database)
         self.model = IfcModel()
@@ -48,7 +50,6 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.list_groupbox = []
         self.layout_list_in_groupbox = []
         self.list_all_crep = []
-
         self.create_groupbox(self.layout_groupbox)
         self.show_button()
         self.AsyncTcpReciver.start()
@@ -116,10 +117,21 @@ class IfcViewModel(QtWidgets.QMainWindow):
 
     def make_buttons(self, layout_list):
         self.cleaner_layouts(layout_list)
-        for elem in range(self.database.get_count_shield()):
-            self.list_all_crep.append(CrepViewModel(elem + 1, self.database))
+        pizda = self.database.get_global_params()
+        query_global_param = self.database.get_setting_sensors(self.load_auth.id_user)
+        count_shield=self.database.get_count_shield()
+        for elem in range(count_shield):
+            self.list_all_crep.append(CrepViewModel(elem + 1, self.database,pizda))
+            self.list_all_crep[-1].my_signal.connect(self.write_main_sensors)
             self.setting_async_receiver()
-            self.create_button_layout_list(layout_list, elem)
+            self.create_button_layout_list(layout_list, elem,pizda,query_global_param,count_shield)
+
+    @QtCore.pyqtSlot(list,int)
+    def write_main_sensors(self,lst,num):
+        for i,elem in enumerate(lst):
+            self.data_sensors.tableWidget.setItem(i, num-1, QTableWidgetItem(str(elem)))
+
+
 
     def cleaner_layouts(self, layout_list):
         self.list_all_crep.clear()
@@ -132,9 +144,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
         py_signal.result.connect(self.list_all_crep[-1].setText_lineEdit_sensors)
         self.AsyncTcpReciver.all_signal.append(py_signal)
 
-    def create_button_layout_list(self, layout_list, elem):
-        query_global_param = self.database.get_setting_sensors(self.load_auth.id_user)
-        for index, row in enumerate(self.database.get_global_params()):
+    def create_button_layout_list(self, layout_list, elem,pizda,query_global_param,count_shield):
+        for index, row in enumerate(pizda):
             list_color_in_button = [query_global_param[index].color_normal,
                                     query_global_param[index].color_reduced,
                                     query_global_param[index].color_increased]
@@ -153,7 +164,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 self.btn.setStyleSheet(" background-color: #e9e9e9;")
             else:
                 self.btn.setStyleSheet("background-color: #a0a0a0;")
-            self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * self.database.get_count_shield())))
+            self.btn.setMaximumWidth(int(self.btn.width() / (0.35 * count_shield)))
             self.btn.setToolTip(f"Крепь № {elem + 1}, Датчик {self.groupbox.list_name_for_groupbox[index]}")
             self.btn.clicked.connect(lambda current_crep=self.list_all_crep[-1]: self.show_window_crep(current_crep))
             layout_list[index].addWidget(self.btn)
@@ -238,6 +249,7 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.model.running = False
         self.AsyncTcpReciver.join()
         self.model.join()
+
         traversing_directories()
         threads = threading.enumerate()
         print("Active threads:", threads)

@@ -10,7 +10,7 @@ from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
 from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
 
-UI_crep = "resources\\view\\ifc\\crep\\ifc_crep.ui"
+UI_crep = resource_path("resources\\view\\ifc\\crep\\ifc_crep.ui")
 
 
 class CrepViewModel(QtWidgets.QMainWindow):
@@ -20,14 +20,14 @@ class CrepViewModel(QtWidgets.QMainWindow):
         "value": [],
         "crep_id": [],
     }
-
-    def __init__(self, num, database):
+    my_signal = QtCore.pyqtSignal(list, int)
+    def __init__(self, num, database, pizda):
         super().__init__()
         self.num = num
         self.database = database
-        self.all_sensors_crep = AllSensorsCrep(self.database)
-        uic.loadUi(resource_path(UI_crep), self)
-        self.global_param = self.database.get_global_params()
+        # self.all_sensors_crep = AllSensorsCrep(self.database)
+        uic.loadUi(UI_crep, self)
+        self.global_param = pizda
         self.data_sensors_section = DataSensorsSection()
 
         self.list_sensors_lineEdit = []
@@ -58,7 +58,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
         self.num_crep.setText(str(num))
         self.control_pushbutton.clicked.connect(lambda: self.data_sensors_section.show())
-        self.all_sensors_pushButton.clicked.connect(lambda: self.all_sensors_crep.show())
+        # self.all_sensors_pushButton.clicked.connect(lambda: self.all_sensors_crep.show())
 
     @staticmethod
     def show_sensor_data(lineEdit):
@@ -66,6 +66,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
     @QtCore.pyqtSlot(list)
     def setText_lineEdit_sensors(self, lst):
+        self.my_signal.emit(lst,self.num)
         for elem in range(len(lst)):
             # self.all_sensors_crep.label1.setText(str(lst[0]))
             # self.all_sensors_crep.list_progressBar[0].setValue(lst[0])

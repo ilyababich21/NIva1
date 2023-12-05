@@ -2,16 +2,13 @@ import os
 
 from PyQt6 import QtCore
 from PyQt6 import uic, QtWidgets
-from PyQt6.QtGui import QDoubleValidator, QIntValidator
 from PyQt6.QtWidgets import QTableWidgetItem
 
 from address import resource_path
 from ifcApp.crep.all_sensors_crep import AllSensorsCrep
 from ifcApp.crep.graphicscene.graphicscene import CreateGraphicScene
-from ifcApp.crep.labelWidget import LabelWidget
 from ifcApp.crep.progressbar.progressbar import ClickedProgressbar
 from ifcApp.dataSensors.data_sensors_vm import DataSensorsSection
-from ifcApp.ifc.globalParam.global_param import GlobalParam
 
 UI_crep = "resources\\view\\ifc\\crep\\ifc_crep.ui"
 
@@ -44,7 +41,7 @@ class CrepViewModel(QtWidgets.QMainWindow):
                                         self.poz_shifting_layout)
 
         for elem in range(11):
-            speed = CreateGraphicScene(self.global_param[elem].max_value,self.database, self)
+            speed = CreateGraphicScene(self.global_param[elem].max_value, self.database, self)
             speed.graphicsView.crep_id = self.num
             speed.graphicsView.id_dat = elem + 1
             speed.label.setText(f"{self.global_param[elem].name}")
@@ -52,12 +49,13 @@ class CrepViewModel(QtWidgets.QMainWindow):
             self.list_sensors_lineEdit.append(speed.lineedit)
 
         for bar in range(4):
-            section1_progressBar = ClickedProgressbar(self.global_param[bar + 11].max_value,self.database)
+            section1_progressBar = ClickedProgressbar(self.global_param[bar + 11].max_value, self.database)
             self.list_sensors_lineEdit.append(section1_progressBar.lineedit)
             section1_progressBar.id_dat = bar + 11
             section1_progressBar.crep_id = self.num
             self.list_of_sensors_layouts[bar + 11].addWidget(section1_progressBar)
             section1_progressBar.label.setText(f"{self.global_param[bar + 11].name}")
+
         self.num_crep.setText(str(num))
         self.control_pushbutton.clicked.connect(lambda: self.data_sensors_section.show())
         self.all_sensors_pushButton.clicked.connect(lambda: self.all_sensors_crep.show())

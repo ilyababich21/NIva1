@@ -14,6 +14,7 @@ from authorization.authorization_vm import Authorization
 from database import NivaStorage
 from ifcApp.ifc.ifc_vm import IfcViewModel
 
+
 def main():
     app = QApplication(sys.argv)
     window = IfcViewModel()
@@ -33,7 +34,7 @@ def main2():
     database = NivaStorage()
     freeze_support()
 
-    start=time.time()
+    start = time.time()
     splash = QSplashScreen(QPixmap(resource_path("resources\\image\\logotip-niva-pochti-bez-fona.png")))
     splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
     splash.show()
@@ -67,7 +68,6 @@ def main2():
 #
 #             session.add(number)
 #             session.commit()
-
 
 
 if __name__ == '__main__':

@@ -19,9 +19,8 @@ class Authorization(QtWidgets.QMainWindow):
         self.load_ui_auth()
 
     def load_ui_auth(self):
-        print("suka")
         self.size_of_user_button = (100, 60)
-        uic.loadUi(os.path.join(resource_path(UI_authorization)), self)
+        uic.loadUi((resource_path(UI_authorization)), self)
         self.log_in_button.clicked.connect(self.login)
         self.view_user_from_database()
 

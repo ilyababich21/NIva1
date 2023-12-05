@@ -71,7 +71,7 @@ class IfcModel(threading.Thread):
         pTime=time.time()
         while self.running:
             if time.time()-pTime>60:
-                print('IDI NAHUI')
+                print('IDI ')
                 proc = Process(target=DBWriterIter, daemon=True)
                 proc.start()
                 threads = threading.enumerate()

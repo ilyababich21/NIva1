@@ -3,7 +3,7 @@ import threading
 import time
 
 from PyQt6 import uic, QtWidgets, QtGui
-from PyQt6.QtCore import QTimer, QDateTime, QThread
+from PyQt6.QtCore import QTimer, QDateTime, QSettings
 from PyQt6.QtWidgets import QApplication, QTableWidgetItem
 
 from address import resource_path
@@ -52,16 +52,25 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.create_groupbox(self.layout_groupbox)
         self.show_button()
         self.AsyncTcpReciver.start()
-        self.list_action_show = [self.v_action, self.zaz_action, self.pressure_stand1_action,
-                                 self.pressure_stand2_action, self.shield_UGZ_action,
-                                 self.shield_UGZ_angle_action, self.shield_UGZ_shifting_action,
-                                 self.shield_UGZ_pressure_action, self.shield_UGZ_3rasp_abbr_action,
-                                 self.top_drawer_action, self.top_drawer_shifting_action,
-                                 self.visor_action, self.state_overlap_action,
-                                 self.height_section_action1, self.height_section_action2]
-        for action in self.list_action_show:
-            action.triggered.connect(self.checked_action_for_sensors)
-
+        self.list_action_show = {"v_action": self.v_action,
+                                 "zaz_action": self.zaz_action,
+                                 "pressure_stand1_action": self.pressure_stand1_action,
+                                 "pressure_stand2_action": self.pressure_stand2_action,
+                                 "shield_UGZ_action": self.shield_UGZ_action,
+                                 "shield_UGZ_angle_action": self.shield_UGZ_angle_action,
+                                 "shield_UGZ_shifting_action": self.shield_UGZ_shifting_action,
+                                 "shield_UGZ_pressure_action": self.shield_UGZ_pressure_action,
+                                 "shield_UGZ_3rasp_abbr_action": self.shield_UGZ_3rasp_abbr_action,
+                                 "top_drawer_action": self.top_drawer_action,
+                                 "top_drawer_shifting_action": self.top_drawer_shifting_action,
+                                 "visor_action": self.visor_action,
+                                 "state_overlap_action": self.state_overlap_action,
+                                 "height_section_action1": self.height_section_action1,
+                                 "height_section_action2": self.height_section_action2}
+        for setting, object in self.list_action_show.items():
+            object.triggered.connect(self.checked_action_for_sensors)
+        self.loadSettings(self.load_auth.id_user)
+        self.checked_action_for_sensors()
         self.show_name_action.triggered.connect(self.show_name_sensors)
         self.change_setting_action.triggered.connect(self.show_settings_sensors)
         self.data_sensors_pushButton.clicked.connect(lambda: self.data_sensors.show())
@@ -151,19 +160,22 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.working_with_button_crep(elem)
 
     def working_with_button_crep(self, elem):
-        print(len(self.list_all_crep))
+        # print(len(self.list_all_crep))
         # кнопка Вправо на 1
         self.list_all_crep[-1].right_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[0 if elem == len(self.list_all_crep) - 1 else elem + 1]))
+            lambda: self.open_next_crep
+            (self.list_all_crep[0 if elem == len(self.list_all_crep) - 1 else elem + 1]))
         # кнопка ВЛЕВО на 1
         self.list_all_crep[-1].left_pushButton.clicked.connect(
             lambda: self.open_next_crep(self.list_all_crep[elem - 1]))
         # Кнопка ВПРАВО на 10
         self.list_all_crep[-1].right_x10_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[-1 if elem >= len(self.list_all_crep) - 11 else elem + 10]))
+            lambda: self.open_next_crep(
+                self.list_all_crep[-1 if elem >= len(self.list_all_crep) - 11 else elem + 10]))
         # Кнопка ВЛЕВО на 10
         self.list_all_crep[-1].left_x10_pushButton.clicked.connect(
-            lambda: self.open_next_crep(self.list_all_crep[0 if elem <= 10 else elem - 10]))
+            lambda: self.open_next_crep(
+                self.list_all_crep[0 if elem <= 10 else elem - 10]))
         # КНОПКА ВНАЧАЛО
         self.list_all_crep[-1].start_pushButton.clicked.connect(
             lambda: self.open_next_crep(self.list_all_crep[0]))
@@ -209,8 +221,8 @@ class IfcViewModel(QtWidgets.QMainWindow):
                 row.name_label.close()
 
     def checked_action_for_sensors(self):
-        for action, _ in enumerate(self.list_action_show):
-            if self.list_action_show[action].isChecked():
+        for action, object in enumerate(self.list_action_show.values()):
+            if object.isChecked():
                 self.global_param.list_groupbox[action].show()
             else:
                 self.global_param.list_groupbox[action].close()
@@ -226,13 +238,13 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.model.running = False
         self.AsyncTcpReciver.join()
         self.model.join()
-
         traversing_directories()
         threads = threading.enumerate()
         print("Active threads:", threads)
         self.load_auth.load_ui_auth()
         self.load_auth.show()
         self.close()
+        self.saveSettings()
 
     def update_global_param(self):
         self.global_param.save_on_clicked_information()
@@ -242,3 +254,16 @@ class IfcViewModel(QtWidgets.QMainWindow):
         self.menu_pushButton.setEnabled(False)
         for action in self.list_action_show:
             action.setEnabled(False)
+
+    def saveSettings(self):
+        print(self.settings.fileName())
+        for name, action in self.list_action_show.items():
+            self.settings.setValue(name, action.isChecked())
+
+    def loadSettings(self, username):
+        if username:
+            settings_path = f"settingsForUsers/settings_{username}.ini"
+            self.settings = QSettings(settings_path, QSettings.Format.IniFormat)
+            for name, action in self.list_action_show.items():
+                state = self.settings.value(name, defaultValue=False, type=bool)
+                action.setChecked(state)

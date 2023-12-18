@@ -12,6 +12,7 @@ from address import resource_path
 
 class WorkerSignals(QObject):
     result = pyqtSignal(list)
+    # result = pyqtSignal(list,int)
 
 
 class AsyncThread(Thread):
@@ -77,6 +78,7 @@ class AsyncThread(Thread):
         for elem in range(len(self.all_signal)):
             self.state_info = []
             self.all_signal[elem].result.emit(self.result_trap[elem])
+            # self.all_signal[elem].result.emit(self.result_trap[elem],elem)
             self.EntryValueForCSV(elem)
 
             folder = resource_path("CSV_History\\" + str(elem + 1))
@@ -86,7 +88,7 @@ class AsyncThread(Thread):
                 # запись нескольких строк
                 writer.writerows(self.state_info)
 
-        time.sleep(1)
+        # time.sleep()
 
     def EntryValueForCSV(self, elem):
 

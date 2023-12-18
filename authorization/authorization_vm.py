@@ -7,6 +7,7 @@ from PyQt6.QtWidgets import QSplashScreen
 from address import resource_path
 from authorization.button_username import ButtonForUserName
 from ifcApp.ifc.ifc_vm import IfcViewModel
+from ifcApp.ifc.ifc_vm_v2 import IfcViewModel2
 from serviceApp.service.service_vm import ServiceViewModel
 
 UI_authorization = "resources\\view\\authorization_view.ui"
@@ -53,12 +54,12 @@ class Authorization(QtWidgets.QMainWindow):
         self.service.show()
 
     def open_admin_ui(self):
-        splash = QSplashScreen(QPixmap(resource_path("resources/image/logotip-niva-pochti-bez-fona.png")))
-        splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
-        splash.show()
-        self.admin_ui = IfcViewModel(self, self.database)
+        # splash = QSplashScreen(QPixmap(resource_path("resources/image/logotip-niva-pochti-bez-fona.png")))
+        # splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
+        # splash.show()
+        self.admin_ui = IfcViewModel2(self, self.database)
         self.admin_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
-        splash.finish(self.admin_ui)
+        # splash.finish(self.admin_ui)
         self.admin_ui.showMaximized()
         self.close()
 
@@ -66,7 +67,7 @@ class Authorization(QtWidgets.QMainWindow):
         splash = QSplashScreen(QPixmap(resource_path("resources/image/logotip-niva-pochti-bez-fona.png")))
         splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         splash.show()
-        self.miner_ui = IfcViewModel(self, self.database)
+        self.miner_ui = IfcViewModel2(self, self.database)
         self.miner_ui.setWindowTitle("Niva-M" + f"  {self.login_lineEdit.text()}")
         self.miner_ui.role_for_miner()
         splash.finish(self.miner_ui)

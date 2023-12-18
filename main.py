@@ -30,19 +30,21 @@ def main2():
     # log = logging.getLogger()
     # log.setLevel(logging.DEBUG)
     # CheckDB()
+    st = time.time()
     app = QApplication(sys.argv)
     try:
         database = NivaStorage()
         freeze_support()
         start=time.time()
-        splash = QSplashScreen(QPixmap(resource_path("resources\\image\\logotip-niva-pochti-bez-fona.png")))
-        splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
-        splash.show()
-        while time.time() - start < 1:
-            time.sleep(0.001)
-            app.processEvents()
+        # splash = QSplashScreen(QPixmap(resource_path("resources\\image\\logotip-niva-pochti-bez-fona.png")))
+        # splash.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
+        # splash.show()
+        # while time.time() - start < 1:
+        #     time.sleep(0.001)
+        #     app.processEvents()
         window = Authorization(database)
-        splash.finish(window)
+        # splash.finish(window)
+        print(time.time()-st)
         window.show()
     except Exception as e:
         print(e)

@@ -1,6 +1,6 @@
 import os
 
-from PyQt6 import QtCore
+from PyQt6 import QtCore, QtGui
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QTableWidgetItem
 
@@ -15,19 +15,21 @@ UI_crep = resource_path("resources\\view\\ifc\\crep\\ifc_crep.ui")
 
 class CrepViewModel(QtWidgets.QMainWindow):
     num = 1
-    data = {
-        "id_dat": [],
-        "value": [],
-        "crep_id": [],
-    }
+    # data = {
+    #     "id_dat": [],
+    #     "value": [],
+    #     "crep_id": [],
+    # }
     my_signal = QtCore.pyqtSignal(list, int)
-    def __init__(self, num, database, pizda):
+    stop_signal = QtCore.pyqtSignal( int)
+    def __init__(self, num, database):
         super().__init__()
+        # self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
         self.num = num
         self.database = database
         # self.all_sensors_crep = AllSensorsCrep(self.database)
         uic.loadUi(UI_crep, self)
-        self.global_param = pizda
+        self.global_param = self.database.get_global_params()
         self.data_sensors_section = DataSensorsSection()
 
         self.list_sensors_lineEdit = []
@@ -58,17 +60,24 @@ class CrepViewModel(QtWidgets.QMainWindow):
 
         self.num_crep.setText(str(num))
         self.control_pushbutton.clicked.connect(lambda: self.data_sensors_section.show())
+
+        self.show()
         # self.all_sensors_pushButton.clicked.connect(lambda: self.all_sensors_crep.show())
 
     @staticmethod
     def show_sensor_data(lineEdit):
         return lineEdit.text()
 
-    @QtCore.pyqtSlot(list)
+    # @QtCore.pyqtSlot(list)
     def setText_lineEdit_sensors(self, lst):
-        self.my_signal.emit(lst,self.num)
+        # self.my_signal.emit(lst,self.num)
         for elem in range(len(lst)):
             # self.all_sensors_crep.label1.setText(str(lst[0]))
             # self.all_sensors_crep.list_progressBar[0].setValue(lst[0])
             self.data_sensors_section.tableWidget.setItem(elem, 0, QTableWidgetItem(str(lst[elem])))
             self.list_sensors_lineEdit[elem].setText(str(lst[elem]))
+
+
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        self.close()
+        self.stop_signal.emit(self.num)

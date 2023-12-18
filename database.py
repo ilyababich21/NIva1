@@ -149,7 +149,7 @@ class NivaStorage:
                                                             min_value=1,
                                                             max_value=2) for param in self.get_global_params()])
         self.session.commit()
-
+        self.check_color_in_database()
 
     # РАБОТА С USERS
     def users_list(self):
@@ -169,10 +169,16 @@ class NivaStorage:
                         role_id=role_id)])
         self.session.commit()
 
-    def check_color_in_database(self, user_id):
+    # def check_color_in_database(self, user_id):
+    #
+    #     if not self.get_setting_sensors(user_id):
+    #         self.add_settings_sensors_of_user(user_id)
+    def check_color_in_database(self):
+        for user in self.users_in_ifc():
+            if not self.get_setting_sensors(user.id):
+                self.add_settings_sensors_of_user(user.id)
 
-        if not self.get_setting_sensors(user_id):
-            self.add_settings_sensors_of_user(user_id)
+
 
     def add_settings_sensors_of_user(self, user_id):
         self.session.add_all([self.SettingsSensorsTable(user_id=user_id, sensor_id=id,
@@ -259,3 +265,4 @@ class NivaStorage:
 
 if __name__ =="__main__":
     test_db = NivaStorage()
+    test_db.check_color_in_database()
